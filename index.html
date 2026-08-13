@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeleMakker — tilbud skrevet mens du kører videre</title>
+<meta name="description" content="TeleMakker laver udkast til tilbud ud fra dine egne kundeopkald. Du taler med kunden som altid — udkastet ligger klar, når du er færdig.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+<meta property="og:title" content="TeleMakker — tilbud skrevet mens du kører videre">
+<meta property="og:description" content="Udkast til tilbud ud fra dine egne kundeopkald. Til danske håndværkere.">
+<meta property="og:locale" content="da_DK">
+<style>
+  :root{
+    --tekst:#23201b; --daempet:#5f5a52; --papir:#f6f4ef; --hvid:#fff;
+    --accent:#1f5f4b; --accent-lys:#e6f1ec; --kant:#ded8ce; --gul:#d9a441;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--papir);color:var(--tekst);
+    font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .baand{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* Top */
+  header{border-bottom:1px solid var(--kant);background:var(--hvid);position:sticky;top:0;z-index:10}
+  header .baand{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:16px}
+  .logo{font-size:21px;font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--tekst)}
+  .logo span{color:var(--accent)}
+  nav{display:flex;align-items:center;gap:22px}
+  nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
+  nav a:hover{color:var(--tekst)}
+  .knap{display:inline-block;background:var(--accent);color:#fff!important;padding:9px 18px;
+    border-radius:8px;text-decoration:none;font-weight:600;font-size:15.5px;border:1px solid var(--accent)}
+  .knap:hover{background:#18503f}
+  .knap.hul{background:transparent;color:var(--accent)!important}
+  .knap.hul:hover{background:var(--accent-lys)}
+  @media(max-width:640px){nav a.skjul-lille{display:none}}
+
+  /* Forside */
+  .hero{padding:76px 0 64px;text-align:center}
+  .hero h1{font-size:clamp(32px,5.5vw,52px);line-height:1.12;margin:0 0 20px;letter-spacing:-.025em}
+  .hero p.stor{font-size:clamp(18px,2.4vw,21px);color:var(--daempet);max-width:620px;margin:0 auto 32px}
+  .hero .knapper{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+  /* Flow */
+  .flow{background:var(--hvid);border-top:1px solid var(--kant);border-bottom:1px solid var(--kant);padding:60px 0}
+  .flow h2{text-align:center;font-size:28px;margin:0 0 8px;letter-spacing:-.02em}
+  .flow .under{text-align:center;color:var(--daempet);margin:0 0 40px}
+  .trin{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:22px}
+  .trin .t{position:relative;padding-left:48px}
+  .trin .t .nr{position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;
+    background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px}
+  .trin .t h3{margin:4px 0 6px;font-size:17px}
+  .trin .t p{margin:0;color:var(--daempet);font-size:15.5px}
+
+  /* Sektioner */
+  section.blok{padding:64px 0}
+  section.blok h2{font-size:28px;margin:0 0 10px;letter-spacing:-.02em}
+  section.blok > .baand > p.ind{color:var(--daempet);max-width:640px;margin:0 0 34px}
+
+  .kort-raekke{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .kort{background:var(--hvid);border:1px solid var(--kant);border-radius:12px;padding:26px}
+  .kort h3{margin:0 0 8px;font-size:18px}
+  .kort p{margin:0;color:var(--daempet);font-size:15.5px}
+
+  /* Løfter */
+  .loefter{background:var(--accent);color:#fff;padding:60px 0}
+  .loefter h2{font-size:28px;margin:0 0 28px;letter-spacing:-.02em}
+  .loefter ul{list-style:none;padding:0;margin:0;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px 32px}
+  .loefter li{padding-left:30px;position:relative;font-size:16px;color:#dfeee7}
+  .loefter li::before{content:"✓";position:absolute;left:0;color:#8fd3b6;font-weight:700}
+  .loefter li strong{color:#fff}
+
+  /* Kontakt */
+  .kontakt{text-align:center;padding:70px 0}
+  .kontakt h2{font-size:28px;margin:0 0 12px}
+  .kontakt p{color:var(--daempet);max-width:560px;margin:0 auto 26px}
+  .kontakt a.mail{font-size:19px;font-weight:600;color:var(--accent);text-decoration:none}
+  .kontakt a.mail:hover{text-decoration:underline}
+
+  footer{border-top:1px solid var(--kant);padding:30px 0;color:var(--daempet);font-size:14.5px}
+  footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--daempet)}
+
+  .maerkat{display:inline-block;background:var(--accent-lys);color:var(--accent);
+    border:1px solid #a9cbbd;border-radius:999px;padding:4px 14px;font-size:13.5px;
+    font-weight:600;margin-bottom:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="baand">
+    <a href="/" class="logo">Tele<span>Makker</span></a>
+    <nav>
+      <a href="#saadan" class="skjul-lille">Sådan virker det</a>
+      <a href="#hvorfor" class="skjul-lille">Hvorfor</a>
+      <a href="#kontakt" class="skjul-lille">Kontakt</a>
+      <a href="https://app.telemakker.dk" class="knap hul">Log ind</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero baand">
+  <div class="maerkat">Til danske håndværkervirksomheder</div>
+  <h1>Tilbuddene skriver sig selv,<br>mens du kører videre</h1>
+  <p class="stor">
+    Du taler med kunden i telefonen, som du altid har gjort. Når samtalen er slut,
+    ligger der et udkast til et tilbud klar — med opgaven, materialerne og de forbehold,
+    der skal stå. Du retter til og sender.
+  </p>
+  <div class="knapper">
+    <a href="#kontakt" class="knap">Book en demo</a>
+    <a href="#saadan" class="knap hul">Se hvordan det virker</a>
+  </div>
+</div>
+
+<div class="flow" id="saadan">
+  <div class="baand">
+    <h2>Fire trin — og du laver kun det sidste</h2>
+    <p class="under">Ingen ny telefon. Intet nyt nummer. Ingen robot, der taler med dine kunder.</p>
+    <div class="trin">
+      <div class="t"><div class="nr">1</div>
+        <h3>Kunden ringer</h3>
+        <p>Til dit eget nummer — det, der står på bilen. Kunden giver samtykke til optagelse med et tastetryk.</p></div>
+      <div class="t"><div class="nr">2</div>
+        <h3>I taler sammen</h3>
+        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p></div>
+      <div class="t"><div class="nr">3</div>
+        <h3>Udkastet laves</h3>
+        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et tilbudsudkast.</p></div>
+      <div class="t"><div class="nr">4</div>
+        <h3>Du retter og sender</h3>
+        <p>Du læser det igennem, retter det der skal rettes, og sender. Intet går ud uden dit klik.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="blok" id="hvorfor">
+  <div class="baand">
+    <h2>Bygget til dem, der skriver tilbud om aftenen</h2>
+    <p class="ind">
+      Du sælger og udfører selv. Tilbuddene bliver skrevet efter fyraften, i køkkenet,
+      når hovedet er tomt og detaljerne fra formiddagens opkald er væk. Det er dér, TeleMakker
+      hjælper — ikke ved at gøre arbejdet for dig, men ved at give dig noget at rette i
+      frem for et blankt ark.
+    </p>
+    <div class="kort-raekke">
+      <div class="kort"><h3>Ingenting gættes</h3>
+        <p>Blev en pris ikke nævnt i samtalen, står feltet tomt. Manglende oplysninger vises tydeligt, så du kan indhente dem — de bliver aldrig fyldt ud med et kvalificeret gæt.</p></div>
+      <div class="kort"><h3>Dine egne priser</h3>
+        <p>Materialepriserne kommer fra din egen liste, ikke fra et gennemsnit. De vises som vejledende — aldrig som noget, du har lovet kunden.</p></div>
+      <div class="kort"><h3>Sproget i din branche</h3>
+        <p>Udkastet er opbygget som et dansk håndværkertilbud, med de forbehold der hører til. Ikke et mødereferat.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="loefter">
+  <div class="baand">
+    <h2>Det vi lover</h2>
+    <ul>
+      <li><strong>Du beholder dit nummer.</strong> Det står på bilen og visitkortet. Det skifter du ikke.</li>
+      <li><strong>Kunden siger ja først.</strong> Uden samtykke optages der ikke — men opkaldet går stadig igennem.</li>
+      <li><strong>Ingen robot taler med kunden.</strong> Kun samtykkebeskeden er automatisk.</li>
+      <li><strong>Du godkender altid.</strong> Systemet sender aldrig noget til en kunde af sig selv.</li>
+      <li><strong>Data bliver i EU.</strong> Behandles efter dansk og europæisk lovgivning.</li>
+      <li><strong>Kun kundeopkald.</strong> Aldrig private samtaler eller opkald til leverandører.</li>
+    </ul>
+  </div>
+</div>
+
+<section class="kontakt" id="kontakt">
+  <div class="baand">
+    <h2>Vil du se det virke?</h2>
+    <p>
+      Vi er ved at sætte de første håndværkervirksomheder op. Er du tagdækker, elektriker,
+      VVS'er eller murer med et par mand i firmaet, så skriv — så viser vi det på en af dine
+      egne samtaler.
+    </p>
+    <a href="mailto:kontakt@telemakker.dk" class="mail">kontakt@telemakker.dk</a>
+  </div>
+</section>
+
+<footer>
+  <div class="baand">
+    <div>TeleMakker — Danmark</div>
+    <div><a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a> · <a href="https://app.telemakker.dk">Log ind</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
