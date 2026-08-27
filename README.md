@@ -1,10 +1,10 @@
-# telemakker.dk — den offentlige hjemmeside
+# telemakker.dk, den offentlige hjemmeside
 
 Ren HTML, ingen byggeproces. Ligger på GitHub Pages med gratis HTTPS.
 
-- `index.html` — hele siden (tekst, design og alt indhold)
-- `CNAME` — fortæller GitHub Pages at domænet er www.telemakker.dk
-- `.nojekyll` — slår GitHubs automatiske sidebygning fra
+- `index.html`, hele siden (tekst, design og alt indhold)
+- `CNAME`, fortæller GitHub Pages at domænet er www.telemakker.dk
+- `.nojekyll`, slår GitHubs automatiske sidebygning fra
 
 Selve platformen med login ligger et andet sted (app.telemakker.dk)
 og har sit eget, private projekt.
