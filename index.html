@@ -268,7 +268,12 @@ form input{
   border:1px solid var(--kant);border-radius:var(--runding);
   background:var(--hvid);color:var(--blaek);
 }
-form input::placeholder{color:var(--daempet);opacity:.85}
+/* INGEN PLADSHOLDERE I FORMULAREN. Der stod eksempler i felterne,
+   "Rasmus Nielsen", "20 41 55 88", og de blev laest som UDFYLDTE felter.
+   Kasper laeste dem saadan, og saa goer en besoegende det ogsaa, og en
+   besoegende, der tror feltet er udfyldt, skriver ingenting.
+   Etiketten over feltet siger allerede, hvad der skal staa. */
+form input::placeholder{color:var(--daempet);opacity:.7}
 form .hjaelp{font-size:14px;color:var(--daempet);margin-top:7px}
 .eller{margin-top:24px;font-size:15.5px;color:var(--daempet)}
 .eller a{color:var(--groen);font-weight:600}
@@ -509,18 +514,16 @@ footer a:hover{color:var(--blaek)}
     <form action="mailto:kontakt@telemakker.dk" method="post" enctype="text/plain">
       <div>
         <label for="navn">Dit navn</label>
-        <input type="text" id="navn" name="navn" required autocomplete="name"
-               placeholder="Rasmus Nielsen">
+        <input type="text" id="navn" name="navn" required autocomplete="name">
       </div>
       <div>
         <label for="telefon">Telefonnummer</label>
         <input type="tel" id="telefon" name="telefon" required autocomplete="tel"
-               inputmode="tel" placeholder="20 41 55 88">
+               inputmode="tel">
       </div>
       <div>
         <label for="firma">Firma</label>
-        <input type="text" id="firma" name="firma" autocomplete="organization"
-               placeholder="Tømrerfirmaet RN">
+        <input type="text" id="firma" name="firma" autocomplete="organization">
         <p class="hjaelp">Vi ringer i almindelig arbejdstid. Ingen nyhedsbreve.</p>
       </div>
       <div><button type="submit" class="knap">Ring til mig</button></div>
