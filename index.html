@@ -3,193 +3,566 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TeleMakker: tilbud skrevet mens du kører videre</title>
-<meta name="description" content="TeleMakker laver udkast til tilbud ud fra dine egne kundeopkald. Du taler med kunden som altid. Udkastet ligger klar, når du er færdig.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
-<meta property="og:title" content="TeleMakker: tilbud skrevet mens du kører videre">
+<title>TeleMakker: tilbuddet er skrevet, når du lægger på</title>
+<meta name="description" content="Du taler med kunden som altid. Bagefter ligger der et udkast til et tilbud med opgaven, materialerne og forbeholdene. Du retter og sender.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231f5f4b'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Archivo,sans-serif' font-weight='700' fill='white'>T</text></svg>">
+<meta property="og:title" content="TeleMakker: tilbuddet er skrevet, når du lægger på">
 <meta property="og:description" content="Udkast til tilbud ud fra dine egne kundeopkald. Til danske håndværkere.">
 <meta property="og:locale" content="da_DK">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+/* ------------------------------------------------------------------
+   TELEMAKKER.DK
+
+   Mærket er platformens: den dybe grønne og det varme papir. De er
+   BEHOLDT. Det, der er lavet om, er alt det andet.
+
+   Den gamle side havde nul billeder. Det var hovedgrunden til, at den
+   virkede kedelig; en ren tekstside er ikke enkelhed, den er ufærdig.
+   Billederne her er RIGTIGE skærmbilleder af den kørende platform,
+   ikke stockfotos og ikke opdigtede skærme tegnet i kode.
+
+   Ingen byggeproces. Én fil, som du selv kan rette i og sende op med
+   GitHub Desktop, præcis som før.
+   ------------------------------------------------------------------ */
+
+:root{
+  --blaek:#22201c; --daempet:#5f5a52; --papir:#f5f2ec; --hvid:#fff;
+  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#e7f0ec;
+  --kant:#ddd7cc; --sand:#ece7dc;
+  --runding:10px; --baand:1120px;
+}
+
+/* Mørk tilstand. Den grønne lysnes, ellers forsvinder den i bunden, og
+   papiret bliver til en varm kul frem for sort. */
+@media (prefers-color-scheme: dark){
   :root{
-    --tekst:#23201b; --daempet:#5f5a52; --papir:#f6f4ef; --hvid:#fff;
-    --accent:#1f5f4b; --accent-lys:#e6f1ec; --kant:#ded8ce; --gul:#d9a441;
+    --blaek:#ece8e0; --daempet:#a9a29a; --papir:#191815; --hvid:#221f1c;
+    --groen:#5fb497; --groen-moerk:#4a9c81; --groen-lys:#20302b;
+    --kant:#38342e; --sand:#211f1b;
   }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--papir);color:var(--tekst);
-    font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased}
-  .baand{max-width:1080px;margin:0 auto;padding:0 24px}
+}
 
-  /* Top */
-  header{border-bottom:1px solid var(--kant);background:var(--hvid);position:sticky;top:0;z-index:10}
-  header .baand{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:16px}
-  .logo{font-size:21px;font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--tekst)}
-  .logo span{color:var(--accent)}
-  nav{display:flex;align-items:center;gap:22px}
-  nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
-  nav a:hover{color:var(--tekst)}
-  .knap{display:inline-block;background:var(--accent);color:#fff!important;padding:9px 18px;
-    border-radius:8px;text-decoration:none;font-weight:600;font-size:15.5px;border:1px solid var(--accent)}
-  .knap:hover{background:#18503f}
-  .knap.hul{background:transparent;color:var(--accent)!important}
-  .knap.hul:hover{background:var(--accent-lys)}
-  @media(max-width:640px){nav a.skjul-lille{display:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 
-  /* Forside */
-  .hero{padding:76px 0 64px;text-align:center}
-  .hero h1{font-size:clamp(32px,5.5vw,52px);line-height:1.12;margin:0 0 20px;letter-spacing:-.025em}
-  .hero p.stor{font-size:clamp(18px,2.4vw,21px);color:var(--daempet);max-width:620px;margin:0 auto 32px}
-  .hero .knapper{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+body{
+  margin:0; background:var(--papir); color:var(--blaek);
+  font:400 17px/1.65 Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+h1,h2,h3{letter-spacing:-.025em;line-height:1.1;margin:0}
+h1{font-size:clamp(34px,4.6vw,58px);font-weight:700}
+h2{font-size:clamp(27px,3.2vw,40px);font-weight:700}
+h3{font-size:19px;font-weight:600;line-height:1.3}
+p{margin:0}
+a{color:inherit}
 
-  /* Flow */
-  .flow{background:var(--hvid);border-top:1px solid var(--kant);border-bottom:1px solid var(--kant);padding:60px 0}
-  .flow h2{text-align:center;font-size:28px;margin:0 0 8px;letter-spacing:-.02em}
-  .flow .under{text-align:center;color:var(--daempet);margin:0 0 40px}
-  .trin{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:22px}
-  .trin .t{position:relative;padding-left:48px}
-  .trin .t .nr{position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;
-    background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:15px}
-  .trin .t h3{margin:4px 0 6px;font-size:17px}
-  .trin .t p{margin:0;color:var(--daempet);font-size:15.5px}
+.baand{max-width:var(--baand);margin:0 auto;padding:0 24px}
+.brod{color:var(--daempet);max-width:62ch}
 
-  /* Sektioner */
-  section.blok{padding:64px 0}
-  section.blok h2{font-size:28px;margin:0 0 10px;letter-spacing:-.02em}
-  section.blok > .baand > p.ind{color:var(--daempet);max-width:640px;margin:0 0 34px}
+/* ---------- Knapper. Én rundingsskala på hele siden. ---------- */
+.knap{
+  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  background:var(--groen);color:#fff;border:1px solid var(--groen);
+  padding:13px 22px;border-radius:var(--runding);
+  font:600 16px/1 Archivo,sans-serif;text-decoration:none;cursor:pointer;
+  transition:background .18s cubic-bezier(.16,1,.3,1),transform .12s;
+}
+.knap:hover{background:var(--groen-moerk);border-color:var(--groen-moerk)}
+.knap:active{transform:translateY(1px)}
+.knap.hul{background:transparent;color:var(--groen);border-color:var(--kant)}
+.knap.hul:hover{background:var(--groen-lys);border-color:var(--groen)}
+.knap:focus-visible,a:focus-visible,input:focus-visible{
+  outline:2px solid var(--groen);outline-offset:3px}
 
-  .kort-raekke{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-  .kort{background:var(--hvid);border:1px solid var(--kant);border-radius:12px;padding:26px}
-  .kort h3{margin:0 0 8px;font-size:18px}
-  .kort p{margin:0;color:var(--daempet);font-size:15.5px}
+/* ---------- Toppen. Én linje, under 80 px. ---------- */
+header{
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb,var(--papir) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--kant);
+}
+header .baand{display:flex;align-items:center;justify-content:space-between;
+  gap:20px;height:70px}
+.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em}
+.logo b{color:var(--groen);font-weight:700}
+header nav{display:flex;align-items:center;gap:24px}
+header nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
+header nav a:hover{color:var(--blaek)}
+header nav .knap{color:#fff}
+@media(max-width:880px){ header nav a:not(.knap){display:none} }
 
-  /* Løfter */
-  .loefter{background:var(--accent);color:#fff;padding:60px 0}
-  .loefter h2{font-size:28px;margin:0 0 28px;letter-spacing:-.02em}
-  .loefter ul{list-style:none;padding:0;margin:0;display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px 32px}
-  .loefter li{padding-left:30px;position:relative;font-size:16px;color:#dfeee7}
-  .loefter li::before{content:"✓";position:absolute;left:0;color:#8fd3b6;font-weight:700}
-  .loefter li strong{color:#fff}
+/* ---------- 1. Hero: asymmetrisk, ikke centreret ----------
+   Teksten til venstre, det rigtige skærmbillede til højre, hvor det
+   løber ud over kanten. Et centreret hero er alle andres. */
+.hero{padding:clamp(44px,6vw,76px) 0 clamp(56px,8vw,96px);overflow:hidden}
+.hero .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(32px,5vw,60px);align-items:center}
+.hero h1{margin-bottom:22px}
+.hero .brod{font-size:clamp(18px,1.5vw,20.5px);margin-bottom:30px}
+.hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
+.skaerm{
+  border:1px solid var(--kant);border-radius:14px;overflow:hidden;background:var(--hvid);
+  box-shadow:0 24px 60px -20px rgba(34,32,28,.28), 0 2px 6px rgba(34,32,28,.06);
+}
+/* BESKÅRET MED VILJE. Billedet er et helt tilbud fra top til bund og
+   dermed meget højt. Vises det i fuld højde, bliver teksten for lille
+   til at kunne læses, og så beviser billedet ingenting. Her vises
+   toppen: overskriften, opgaven og de første linjer med timer og
+   priser. Resten fortsætter under kanten, som et skærmbillede gør. */
+.hero .skaerm{margin-right:clamp(-150px,-8vw,0px);aspect-ratio:4/3.15}
+.hero .skaerm img{height:100%;width:100%;object-fit:cover;object-position:left top}
+@media(max-width:900px){
+  .hero .baand{grid-template-columns:1fr}
+  .hero .skaerm{margin-right:0}
+}
 
-  /* Kontakt */
-  .kontakt{text-align:center;padding:70px 0}
-  .kontakt h2{font-size:28px;margin:0 0 12px}
-  .kontakt p{color:var(--daempet);max-width:560px;margin:0 auto 26px}
-  .kontakt a.mail{font-size:19px;font-weight:600;color:var(--accent);text-decoration:none}
-  .kontakt a.mail:hover{text-decoration:underline}
+/* ---------- 2. Regnestykket: grønt bånd ---------- */
+.regne{background:var(--groen);color:#fff;padding:clamp(52px,7vw,84px) 0}
+.regne h2{color:#fff;margin-bottom:14px}
+.regne .brod{color:rgba(255,255,255,.82);max-width:56ch}
+.regne-split{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);
+  gap:clamp(28px,5vw,60px);align-items:center;margin-top:38px}
+@media(max-width:820px){ .regne-split{grid-template-columns:1fr} }
 
-  footer{border-top:1px solid var(--kant);padding:30px 0;color:var(--daempet);font-size:14.5px}
-  footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  footer a{color:var(--daempet)}
+.felter{display:grid;gap:20px}
+.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.80);margin-bottom:8px}
+.felt .raek{display:flex;align-items:center;gap:14px}
+.felt input[type=range]{flex:1;accent-color:#fff;height:26px;min-width:0}
+.felt .tal{
+  min-width:86px;text-align:right;font:700 20px/1 Archivo,sans-serif;
+  font-variant-numeric:tabular-nums;color:#fff;
+}
+.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
 
-  .maerkat{display:inline-block;background:var(--accent-lys);color:var(--accent);
-    border:1px solid #a9cbbd;border-radius:999px;padding:4px 14px;font-size:13.5px;
-    font-weight:600;margin-bottom:22px}
+.resultat{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.20);
+  border-radius:14px;padding:clamp(26px,4vw,38px);
+}
+.resultat .stort{
+  display:block;font:700 clamp(50px,7.5vw,88px)/1 Archivo,sans-serif;
+  font-variant-numeric:tabular-nums;letter-spacing:-.04em;
+}
+.resultat .enhed{font-size:.36em;font-weight:600;letter-spacing:-.01em;margin-left:10px}
+.resultat .under{color:rgba(255,255,255,.84);margin-top:14px;font-size:16.5px;max-width:44ch}
+.resultat .noegle{
+  display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;
+  padding-top:20px;border-top:1px solid rgba(255,255,255,.20);
+  font-size:15px;color:rgba(255,255,255,.82);
+}
+.resultat .noegle b{color:#fff;font-variant-numeric:tabular-nums}
+.forbehold-note{margin-top:24px;font-size:14.5px;color:rgba(255,255,255,.66);max-width:62ch}
+
+/* ---------- 3. Sådan virker det: en skinne, ikke tre ens kort ---------- */
+.saadan{padding:clamp(56px,8vw,96px) 0}
+.skinne{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr)}
+.trin{position:relative;padding-right:24px}
+.trin::before{content:"";position:absolute;left:0;top:11px;right:0;height:2px;background:var(--kant)}
+.trin:last-child::before{right:calc(100% - 24px)}
+.prik{
+  position:relative;width:24px;height:24px;border-radius:50%;
+  background:var(--groen);border:5px solid var(--papir);box-shadow:0 0 0 2px var(--groen);
+  margin-bottom:20px;
+}
+.trin h3{margin-bottom:8px}
+.trin p{font-size:15.5px;color:var(--daempet);padding-right:14px}
+@media(max-width:860px){
+  .skinne{grid-template-columns:1fr;gap:28px}
+  .trin{padding:0 0 0 42px}
+  .trin::before{left:11px;top:0;bottom:-28px;right:auto;width:2px;height:auto}
+  .trin:last-child::before{display:none}
+  .prik{position:absolute;left:0;top:2px;margin:0}
+}
+
+/* ---------- 4. Det vi ikke gør: to spalter, hårfine linjer ---------- */
+.ikke{background:var(--sand);padding:clamp(56px,8vw,96px) 0}
+.ikke-liste{margin-top:36px;display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(32px,5vw,60px)}
+.ikke-liste div{padding:22px 0;border-bottom:1px solid var(--kant)}
+.ikke-liste strong{display:block;font-size:17.5px;font-weight:600;margin-bottom:5px}
+.ikke-liste span{color:var(--daempet);font-size:15.5px}
+@media(max-width:760px){ .ikke-liste{grid-template-columns:1fr} }
+
+/* ---------- 5. Hvad du beholder: bento, fire celler ---------- */
+.beholder{padding:clamp(56px,8vw,96px) 0}
+.bento{margin-top:40px;display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.celle{border:1px solid var(--kant);border-radius:14px;padding:26px;background:var(--hvid)}
+.celle h3{margin-bottom:9px}
+.celle p{color:var(--daempet);font-size:15.5px}
+.celle.bred{grid-column:span 3;padding:0;overflow:hidden}
+.celle.bred .tekst{padding:clamp(26px,4vw,40px) clamp(26px,4vw,40px) 0}
+.celle.bred .tekst p{max-width:70ch}
+/* Sagslisten er bred og lav. Den staar derfor i fuld bredde under
+   teksten frem for i en spalte ved siden af, hvor den skulle beskaeres
+   for at passe. Et billede, der er skaaret forkert, beviser ingenting. */
+.celle.bred figure{margin:clamp(22px,3vw,32px) 0 0;padding:0 clamp(26px,4vw,40px);
+  overflow:hidden}
+.celle.bred img{width:100%;height:auto;border:1px solid var(--kant);
+  border-radius:10px 10px 0 0;border-bottom:0;display:block}
+@media(max-width:900px){
+  .bento{grid-template-columns:1fr}
+  .celle.bred{grid-column:span 1}
+}
+
+/* ---------- 6. Kontakt ---------- */
+.kontakt{background:var(--sand);padding:clamp(56px,8vw,96px) 0}
+.kontakt .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
+  gap:clamp(32px,5vw,60px);align-items:start}
+@media(max-width:820px){ .kontakt .baand{grid-template-columns:1fr} }
+form{display:grid;gap:16px;margin-top:6px}
+form label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
+form input{
+  width:100%;font:400 16.5px/1.4 Archivo,sans-serif;padding:13px 14px;
+  border:1px solid var(--kant);border-radius:var(--runding);
+  background:var(--hvid);color:var(--blaek);
+}
+form input::placeholder{color:var(--daempet);opacity:.85}
+form .hjaelp{font-size:14px;color:var(--daempet);margin-top:7px}
+.eller{margin-top:24px;font-size:15.5px;color:var(--daempet)}
+.eller a{color:var(--groen);font-weight:600}
+
+footer{border-top:1px solid var(--kant);padding:30px 0;font-size:15px;color:var(--daempet)}
+footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--daempet);text-decoration:none}
+footer a:hover{color:var(--blaek)}
+
+/* INGEN IND-GLIDNING PAA SEKTIONERNE.
+   Den var her, og den er fjernet igen. En sektion, der toner ind, naar
+   man ruller, siger ingenting om indholdet, og den kostede noget: sat
+   forkert op var teksten skjult, indtil JavaScript viste den. Den
+   eneste animation paa siden er tallet i regnestykket, og den er der,
+   fordi forskellen, der vokser, ER budskabet. */
 </style>
 </head>
 <body>
 
 <header>
   <div class="baand">
-    <a href="/" class="logo">Tele<span>Makker</span></a>
+    <a class="logo" href="#top">Tele<b>Makker</b></a>
     <nav>
-      <a href="#saadan" class="skjul-lille">Sådan virker det</a>
-      <a href="#hvorfor" class="skjul-lille">Hvorfor</a>
-      <a href="#kontakt" class="skjul-lille">Kontakt</a>
-      <a href="https://app.telemakker.dk" class="knap hul">Log ind</a>
+      <a href="#saadan">Sådan virker det</a>
+      <a href="#regnestykket">Regnestykket</a>
+      <a href="#hvorfor">Hvad du beholder</a>
+      <a href="https://app.telemakker.dk">Log ind</a>
+      <a href="#kontakt" class="knap">Bliv ringet op</a>
     </nav>
   </div>
 </header>
 
-<div class="hero baand">
-  <div class="maerkat">Til danske håndværkervirksomheder</div>
-  <h1>Tilbuddene skriver sig selv,<br>mens du kører videre</h1>
-  <p class="stor">
-    Du taler med kunden i telefonen, som du altid har gjort. Når samtalen er slut,
-    ligger der et udkast til et tilbud klar, med opgaven, materialerne og de forbehold,
-    der skal stå. Du retter til og sender.
-  </p>
-  <div class="knapper">
-    <a href="#kontakt" class="knap">Book en demo</a>
-    <a href="#saadan" class="knap hul">Se hvordan det virker</a>
-  </div>
-</div>
-
-<div class="flow" id="saadan">
+<!-- 1. HERO -->
+<section class="hero" id="top">
   <div class="baand">
-    <h2>Fire trin, og du laver kun det sidste</h2>
-    <p class="under">Ingen ny telefon. Intet nyt nummer. Ingen robot, der taler med dine kunder.</p>
-    <div class="trin">
-      <div class="t"><div class="nr">1</div>
-        <h3>Kunden ringer</h3>
-        <p>Til dit eget nummer, det der står på bilen. Kunden giver samtykke til optagelse med et tastetryk.</p></div>
-      <div class="t"><div class="nr">2</div>
-        <h3>I taler sammen</h3>
-        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p></div>
-      <div class="t"><div class="nr">3</div>
-        <h3>Udkastet laves</h3>
-        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et tilbudsudkast.</p></div>
-      <div class="t"><div class="nr">4</div>
-        <h3>Du retter og sender</h3>
-        <p>Du læser det igennem, retter det der skal rettes, og sender. Intet går ud uden dit klik.</p></div>
+    <div>
+      <h1>Tilbuddet er skrevet,<br>når du lægger på</h1>
+      <p class="brod">Du taler med kunden som altid. Bagefter ligger der et udkast med
+        opgaven, materialerne og forbeholdene. Du retter og sender.</p>
+      <div class="knapper">
+        <a href="#kontakt" class="knap">Bliv ringet op</a>
+        <a href="#saadan" class="knap hul">Sådan virker det</a>
+      </div>
     </div>
-  </div>
-</div>
-
-<section class="blok" id="hvorfor">
-  <div class="baand">
-    <h2>Bygget til dem, der skriver tilbud om aftenen</h2>
-    <p class="ind">
-      Du sælger og udfører selv. Tilbuddene bliver skrevet efter fyraften, i køkkenet,
-      når hovedet er tomt og detaljerne fra formiddagens opkald er væk. Det er dér, TeleMakker
-      hjælper, ikke ved at gøre arbejdet for dig, men ved at give dig noget at rette i
-      frem for et blankt ark.
-    </p>
-    <div class="kort-raekke">
-      <div class="kort"><h3>Ingenting gættes</h3>
-        <p>Blev en pris ikke nævnt i samtalen, står feltet tomt. Manglende oplysninger vises tydeligt, så du kan indhente dem. De bliver aldrig fyldt ud med et kvalificeret gæt.</p></div>
-      <div class="kort"><h3>Dine egne priser</h3>
-        <p>Materialepriserne kommer fra din egen liste, ikke fra et gennemsnit. De vises som vejledende, aldrig som noget du har lovet kunden.</p></div>
-      <div class="kort"><h3>Sproget i din branche</h3>
-        <p>Udkastet er opbygget som et dansk håndværkertilbud, med de forbehold der hører til. Ikke et mødereferat.</p></div>
+    <div class="skaerm">
+      <img src="billeder/tilbudsudkast.png" width="728" height="1750" fetchpriority="high"
+           alt="Et tilbudsudkast i TeleMakker. Opgaven står til venstre, og linjerne med timer, materialer og priser står til højre.">
     </div>
   </div>
 </section>
 
-<div class="loefter">
+<!-- 2. REGNESTYKKET -->
+<section class="regne" id="regnestykket">
   <div class="baand">
-    <h2>Det vi lover</h2>
-    <ul>
-      <li><strong>Du beholder dit nummer.</strong> Det står på bilen og visitkortet. Det skifter du ikke.</li>
-      <li><strong>Kunden siger ja først.</strong> Uden samtykke optages der ikke, men opkaldet går stadig igennem.</li>
-      <li><strong>Ingen robot taler med kunden.</strong> Kun samtykkebeskeden er automatisk.</li>
-      <li><strong>Du godkender altid.</strong> Systemet sender aldrig noget til en kunde af sig selv.</li>
-      <li><strong>Data bliver i EU.</strong> Behandles efter dansk og europæisk lovgivning.</li>
-      <li><strong>Kun kundeopkald.</strong> Aldrig private samtaler eller opkald til leverandører.</li>
-    </ul>
-  </div>
-</div>
+    <h2>Hvor mange timer bruger du på tilbud?</h2>
+    <p class="brod">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
 
+    <div class="regne-split">
+      <div class="felter">
+        <div class="felt">
+          <label for="antal">Tilbud om ugen</label>
+          <div class="raek">
+            <input type="range" id="antal" min="1" max="20" step="1" value="4">
+            <span class="tal" id="antal-vis">4</span>
+          </div>
+        </div>
+        <div class="felt">
+          <label for="foer">Minutter pr. tilbud i dag</label>
+          <div class="raek">
+            <input type="range" id="foer" min="10" max="120" step="5" value="35">
+            <span class="tal" id="foer-vis">35<small>min</small></span>
+          </div>
+        </div>
+        <div class="felt">
+          <label for="efter">Minutter, når du retter et udkast</label>
+          <div class="raek">
+            <input type="range" id="efter" min="2" max="60" step="1" value="10">
+            <span class="tal" id="efter-vis">10<small>min</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="resultat">
+        <span class="stort"><span id="timer">0</span><span class="enhed">timer om året</span></span>
+        <p class="under">Så meget er der forskel på at skrive fra bunden og at rette
+          i et udkast, med dine egne tal.</p>
+        <div class="noegle">
+          <span><b id="dage">0</b> arbejdsdage</span>
+          <span><b id="uge">0</b> minutter om ugen</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="forbehold-note">Tallene er dine, ikke vores. Og det passer ikke til hver
+      eneste opgave: nogle tilbud er så små eller så særlige, at du skriver dem
+      hurtigere selv.</p>
+  </div>
+</section>
+
+<!-- 3. SÅDAN VIRKER DET -->
+<section class="saadan" id="saadan">
+  <div class="baand">
+    <h2>Fire trin, og du laver kun det sidste</h2>
+    <p class="brod" style="margin-top:14px">Ingen ny telefon. Intet nyt nummer. Ingen
+      robot, der taler med dine kunder.</p>
+
+    <div class="skinne">
+      <div class="trin">
+        <div class="prik"></div>
+        <h3>Kunden ringer</h3>
+        <p>Til dit eget nummer, det der står på bilen. Hun giver samtykke til optagelse
+          med et tastetryk.</p>
+      </div>
+      <div class="trin">
+        <div class="prik"></div>
+        <h3>I taler sammen</h3>
+        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p>
+      </div>
+      <div class="trin">
+        <div class="prik"></div>
+        <h3>Udkastet laves</h3>
+        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et
+          tilbudsudkast.</p>
+      </div>
+      <div class="trin">
+        <div class="prik"></div>
+        <h3>Du retter og sender</h3>
+        <p>Du læser igennem, retter det der skal rettes, og sender. Intet går ud uden
+          dit klik.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. DET VI IKKE GØR -->
+<section class="ikke">
+  <div class="baand">
+    <h2>Det vi ikke gør</h2>
+    <p class="brod" style="margin-top:14px">Det er nemmere at love noget end at holde
+      sig fra det. Her er, hvad systemet ikke har lov til.</p>
+
+    <div class="ikke-liste">
+      <div>
+        <strong>Vi taler ikke med din kunde</strong>
+        <span>Kun beskeden om samtykke er automatisk. Resten er dig.</span>
+      </div>
+      <div>
+        <strong>Vi gætter ikke en pris</strong>
+        <span>Blev en pris ikke nævnt i samtalen, står feltet tomt. Det bliver aldrig
+          udfyldt med et kvalificeret gæt.</span>
+      </div>
+      <div>
+        <strong>Vi optager ikke uden et ja</strong>
+        <span>Siger kunden nej, gemmes der ingen tekst. Opkaldet går stadig igennem.</span>
+      </div>
+      <div>
+        <strong>Vi sender ikke noget selv</strong>
+        <span>Der går aldrig noget til en kunde, uden at du har trykket på knappen.</span>
+      </div>
+      <div>
+        <strong>Vi giver dig ikke et nyt nummer</strong>
+        <span>Det, der står på bilen og visitkortet, bliver. Du skifter ingenting.</span>
+      </div>
+      <div>
+        <strong>Vi lover ikke, det passer til hver opgave</strong>
+        <span>Nogle opgaver er for særlige til et udkast. Så skriver du det selv, som du
+          plejer. Det er stadig dit tilbud.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. HVAD DU BEHOLDER -->
+<section class="beholder" id="hvorfor">
+  <div class="baand">
+    <h2>Det er stadig dit tilbud</h2>
+    <p class="brod" style="margin-top:14px">Du sælger og udfører selv. Tilbuddene bliver
+      skrevet efter fyraften, i køkkenet, når hovedet er tomt og detaljerne fra
+      formiddagens opkald er væk. Det er dér, det hjælper.</p>
+
+    <div class="bento">
+      <div class="celle">
+        <h3>Dine egne priser</h3>
+        <p>Materialepriserne kommer fra din egen liste fra grossisten, ikke fra et
+          gennemsnit. De vises som vejledende, aldrig som noget du har lovet kunden.</p>
+      </div>
+      <div class="celle">
+        <h3>Dit sprog</h3>
+        <p>Udkastet er bygget som et dansk håndværkertilbud med de forbehold, der hører
+          til. Ikke et mødereferat.</p>
+      </div>
+      <div class="celle">
+        <h3>Dit regnskab</h3>
+        <p>Er opgaven lavet, kan tilbuddet lægges over i e-conomic eller Dinero som en
+          fakturakladde. Den bogføres aldrig af os.</p>
+      </div>
+
+      <div class="celle bred">
+        <div class="tekst">
+          <h3>Og du kan se, hvor hver sag står</h3>
+          <p style="margin-top:10px">Sendt, accepteret, i gang, afsluttet. Du sætter selv
+            status, når kunden svarer, og noten om hvad hun sagde bliver stående i sagen.</p>
+        </div>
+        <figure>
+          <img src="billeder/sagsliste.png" width="1119" height="322" loading="lazy"
+               alt="Sagslisten i TeleMakker med status på hvert tilbud og knapper til det næste skridt.">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. KONTAKT -->
 <section class="kontakt" id="kontakt">
   <div class="baand">
-    <h2>Vil du se det virke?</h2>
-    <p>
-      Vi er ved at sætte de første håndværkervirksomheder op. Er du tagdækker, elektriker,
-      VVS'er eller murer med et par mand i firmaet, så skriv. Så viser vi det på en af dine
-      egne samtaler.
-    </p>
-    <a href="mailto:kontakt@telemakker.dk" class="mail">kontakt@telemakker.dk</a>
+    <div>
+      <h2>Vi ringer til dig</h2>
+      <p class="brod" style="margin-top:14px">Vi er ved at sætte de første
+        håndværkervirksomheder op. Er du tømrer, tagdækker, elektriker, VVS'er eller murer
+        med et par mand i firmaet, så skriv dit nummer. Så ringer vi og viser det på en af
+        dine egne samtaler.</p>
+      <p class="eller">Vil du hellere skrive?
+        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a></p>
+    </div>
+
+    <form action="mailto:kontakt@telemakker.dk" method="post" enctype="text/plain">
+      <div>
+        <label for="navn">Dit navn</label>
+        <input type="text" id="navn" name="navn" required autocomplete="name"
+               placeholder="Rasmus Nielsen">
+      </div>
+      <div>
+        <label for="telefon">Telefonnummer</label>
+        <input type="tel" id="telefon" name="telefon" required autocomplete="tel"
+               inputmode="tel" placeholder="20 41 55 88">
+      </div>
+      <div>
+        <label for="firma">Firma</label>
+        <input type="text" id="firma" name="firma" autocomplete="organization"
+               placeholder="Tømrerfirmaet RN">
+        <p class="hjaelp">Vi ringer i almindelig arbejdstid. Ingen nyhedsbreve.</p>
+      </div>
+      <div><button type="submit" class="knap">Ring til mig</button></div>
+    </form>
   </div>
 </section>
 
 <footer>
   <div class="baand">
-    <div>TeleMakker, Danmark</div>
-    <div><a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a> · <a href="https://app.telemakker.dk">Log ind</a></div>
+    <div>TeleMakker ApS, CVR 46720253</div>
+    <div>
+      <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a> ·
+      <a href="https://app.telemakker.dk">Log ind</a>
+    </div>
   </div>
 </footer>
 
+<script>
+/* ------------------------------------------------------------------
+   REGNESTYKKET
+
+   Tallet TÆLLER OP, fordi det er hele pointen: man skal se forskellen
+   vokse, mens man skruer på sine egne tal. Animationen er ikke pynt,
+   den ER budskabet.
+
+   Der er ikke fundet noget på. Alle tre tal sættes af den, der læser
+   siden. Vi ganger dem sammen og siger det højt.
+   ------------------------------------------------------------------ */
+(function () {
+  var rolig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var antal = document.getElementById("antal");
+  var foer = document.getElementById("foer");
+  var efter = document.getElementById("efter");
+
+  var visTimer = document.getElementById("timer");
+  var visDage = document.getElementById("dage");
+  var visUge = document.getElementById("uge");
+
+  function dansk(t) { return t.toLocaleString("da-DK"); }
+
+  // Tæller fra det, der står nu, op til det nye tal. Kort nok til at
+  // føles som et svar, ikke som en ventetid.
+  function taelOp(el, til, ms) {
+    var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
+    if (rolig || fra === til) { el.textContent = dansk(til); return; }
+    if (el._loeb) cancelAnimationFrame(el._loeb);
+    var start = performance.now();
+    (function trin(nu) {
+      var p = Math.min(1, (nu - start) / ms);
+      var b = 1 - Math.pow(1 - p, 3);          // roligt ud, ingen fjeder
+      el.textContent = dansk(Math.round(fra + (til - fra) * b));
+      if (p < 1) el._loeb = requestAnimationFrame(trin);
+    })(start);
+  }
+
+  function regn(medAnimation) {
+    var a = Number(antal.value);
+    var f = Number(foer.value);
+    var e = Number(efter.value);
+
+    document.getElementById("antal-vis").textContent = a;
+    document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
+    document.getElementById("efter-vis").innerHTML = e + "<small>min</small>";
+
+    // Skruer han rettetiden højere op end den tid, det tager i dag, er
+    // forskellen nul og ikke negativ. Et minustal ville være noget vrøvl.
+    var sparetPrUge = Math.max(0, a * (f - e));
+    var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
+    var dage = Math.round(timer / 7.4);              // en arbejdsdag
+
+    if (medAnimation) {
+      taelOp(visTimer, timer, 700);
+      taelOp(visDage, dage, 700);
+      taelOp(visUge, sparetPrUge, 700);
+    } else {
+      visTimer.textContent = dansk(timer);
+      visDage.textContent = dansk(dage);
+      visUge.textContent = dansk(sparetPrUge);
+    }
+  }
+
+  [antal, foer, efter].forEach(function (felt) {
+    felt.addEventListener("input", function () { regn(true); });
+  });
+
+  // Tallet står på nul og løber op, når båndet kommer til syne. Ruller
+  // man aldrig derned, er der ingen grund til at regne.
+  regn(false);
+  visTimer.textContent = "0"; visDage.textContent = "0"; visUge.textContent = "0";
+
+  // IntersectionObserver og ikke en lytter på scroll: en scroll-lytter
+  // kører på hvert eneste billede, også når der ikke er noget at gøre.
+  if ("IntersectionObserver" in window) {
+    var kig = new IntersectionObserver(function (poster) {
+      poster.forEach(function (p) { if (p.isIntersecting) { regn(true); kig.disconnect(); } });
+    }, { threshold: .35 });
+    kig.observe(document.getElementById("regnestykket"));
+  } else {
+    regn(false);
+  }
+})();
+</script>
 </body>
 </html>
