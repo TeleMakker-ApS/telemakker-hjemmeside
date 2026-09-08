@@ -508,12 +508,24 @@ footer a:hover{color:var(--blaek)}
     var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
     if (rolig || fra === til) { el.textContent = dansk(til); return; }
     if (el._loeb) cancelAnimationFrame(el._loeb);
+    if (el._net) clearTimeout(el._net);
+
+    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen,
+    // holder browseren op med at kalde requestAnimationFrame, og tallet
+    // ville stå fast et sted midtvejs. Et forkert tal er værre end
+    // ingen animation, så her skrives den rigtige værdi uanset hvad.
+    el._net = setTimeout(function () {
+      if (el._loeb) cancelAnimationFrame(el._loeb);
+      el.textContent = dansk(til);
+    }, ms + 120);
+
     var start = performance.now();
     (function trin(nu) {
       var p = Math.min(1, (nu - start) / ms);
       var b = 1 - Math.pow(1 - p, 3);          // roligt ud, ingen fjeder
       el.textContent = dansk(Math.round(fra + (til - fra) * b));
       if (p < 1) el._loeb = requestAnimationFrame(trin);
+      else { el._loeb = null; clearTimeout(el._net); }
     })(start);
   }
 
