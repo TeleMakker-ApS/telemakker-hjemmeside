@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TeleMakker: tilbuddet er skrevet, når du lægger på</title>
-<meta name="description" content="Du taler med kunden som altid. Bagefter ligger der et udkast til et tilbud med opgaven, materialerne og forbeholdene. Du retter og sender.">
+<title>TeleMakker: du taler med kunden, tilbuddet skriver sig selv</title>
+<meta name="description" content="Du taler med kunden som altid. Bagefter ligger der et udkast til et tilbud med opgaven, materialerne og forbeholdene. Du retter og sender. Regn selv ud, hvad det sparer dig.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231f5f4b'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Archivo,sans-serif' font-weight='700' fill='white'>T</text></svg>">
-<meta property="og:title" content="TeleMakker: tilbuddet er skrevet, når du lægger på">
+<meta property="og:title" content="TeleMakker: du taler med kunden, tilbuddet skriver sig selv">
 <meta property="og:description" content="Udkast til tilbud ud fra dine egne kundeopkald. Til danske håndværkere.">
 <meta property="og:locale" content="da_DK">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,16 +17,22 @@
 /* ------------------------------------------------------------------
    TELEMAKKER.DK
 
-   Mærket er platformens: den dybe grønne og det varme papir. De er
-   BEHOLDT. Det, der er lavet om, er alt det andet.
+   Mærket er platformens: den dybe grønne og det varme papir.
 
-   Den gamle side havde nul billeder. Det var hovedgrunden til, at den
-   virkede kedelig; en ren tekstside er ikke enkelhed, den er ufærdig.
-   Billederne her er RIGTIGE skærmbilleder af den kørende platform,
-   ikke stockfotos og ikke opdigtede skærme tegnet i kode.
+   HVORFOR TOPPEN SER UD SOM DEN GØR.
+   Første udgave havde et skærmbillede af tilbudsskærmen som det første,
+   man mødte. Kasper: "Det er et forfærdeligt billede, og giver ingen
+   call to action." Han havde ret. En formular fuld af felter siger
+   ingenting til en, der ikke kender produktet, og et hero, hvor der
+   intet er at gøre, er spildt plads på den vigtigste del af siden.
 
-   Ingen byggeproces. Én fil, som du selv kan rette i og sende op med
-   GitHub Desktop, præcis som før.
+   Nu er REGNESTYKKET det første. Man kan tage fat i en skyder inden for
+   to sekunder, og tallet, der løber op, er hans egne penge. Det er en
+   bedre åbning end et billede, og det er hans egen idé.
+
+   Skærmbilledet er flyttet ned, hvor der står, hvad man kigger på, og
+   det viser nu ORDREN med linjer, timer og en total. Den kan enhver
+   forstå, også en der aldrig har set platformen.
    ------------------------------------------------------------------ */
 
 :root{
@@ -36,12 +42,10 @@
   --runding:10px; --baand:1120px;
 }
 
-/* Mørk tilstand. Den grønne lysnes, ellers forsvinder den i bunden, og
-   papiret bliver til en varm kul frem for sort. */
 @media (prefers-color-scheme: dark){
   :root{
     --blaek:#ece8e0; --daempet:#a9a29a; --papir:#191815; --hvid:#221f1c;
-    --groen:#5fb497; --groen-moerk:#4a9c81; --groen-lys:#20302b;
+    --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#20302b;
     --kant:#38342e; --sand:#211f1b;
   }
 }
@@ -56,8 +60,8 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
-h1,h2,h3{letter-spacing:-.025em;line-height:1.1;margin:0}
-h1{font-size:clamp(34px,4.6vw,58px);font-weight:700}
+h1,h2,h3{letter-spacing:-.025em;line-height:1.08;margin:0}
+h1{font-size:clamp(32px,3.4vw,45px);font-weight:700}
 h2{font-size:clamp(27px,3.2vw,40px);font-weight:700}
 h3{font-size:19px;font-weight:600;line-height:1.3}
 p{margin:0}
@@ -70,93 +74,64 @@ a{color:inherit}
 .knap{
   display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
   background:var(--groen);color:#fff;border:1px solid var(--groen);
-  padding:13px 22px;border-radius:var(--runding);
-  font:600 16px/1 Archivo,sans-serif;text-decoration:none;cursor:pointer;
+  padding:14px 24px;border-radius:var(--runding);
+  font:600 16.5px/1 Archivo,sans-serif;text-decoration:none;cursor:pointer;
   transition:background .18s cubic-bezier(.16,1,.3,1),transform .12s;
 }
 .knap:hover{background:var(--groen-moerk);border-color:var(--groen-moerk)}
 .knap:active{transform:translateY(1px)}
 .knap.hul{background:transparent;color:var(--groen);border-color:var(--kant)}
 .knap.hul:hover{background:var(--groen-lys);border-color:var(--groen)}
+/* Paa den groenne bund. Hvid flade, groen tekst: hoej kontrast begge veje. */
+.knap.lys{background:#fff;color:#1f5f4b;border-color:#fff}
+.knap.lys:hover{background:#e7f0ec;border-color:#e7f0ec}
+.knap.klar{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.knap.klar:hover{background:rgba(255,255,255,.12);border-color:#fff}
 .knap:focus-visible,a:focus-visible,input:focus-visible{
-  outline:2px solid var(--groen);outline-offset:3px}
+  outline:2px solid currentColor;outline-offset:3px}
 
 /* ---------- Toppen. Én linje, under 80 px. ---------- */
 header{
-  position:sticky;top:0;z-index:20;
-  background:color-mix(in srgb,var(--papir) 88%,transparent);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--kant);
+  position:sticky;top:0;z-index:20;background:var(--groen);
+  border-bottom:1px solid rgba(255,255,255,.14);
 }
 header .baand{display:flex;align-items:center;justify-content:space-between;
   gap:20px;height:70px}
-.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em}
-.logo b{color:var(--groen);font-weight:700}
+.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em;color:#fff}
+.logo b{color:#8fd0b6;font-weight:700}
 header nav{display:flex;align-items:center;gap:24px}
-header nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
-header nav a:hover{color:var(--blaek)}
-header nav .knap{color:#fff}
-@media(max-width:880px){ header nav a:not(.knap){display:none} }
+header nav a{color:rgba(255,255,255,.80);text-decoration:none;font-size:15.5px;font-weight:500}
+header nav a:hover{color:#fff}
+@media(max-width:900px){ header nav a:not(.knap){display:none} }
 
-/* ---------- 1. Hero: asymmetrisk, ikke centreret ----------
-   Teksten til venstre, det rigtige skærmbillede til højre, hvor det
-   løber ud over kanten. Et centreret hero er alle andres. */
-/* PAA EN BRED SKAERM FLOED HEROEN I MIDTEN.
-   Teksten og billedet lå som en lille ø med tomt papir hele vejen rundt,
-   og skærmbilledet stoppede langt fra kanten, så det lignede en kasse,
-   der svævede, frem for en skærm der fortsætter ud af siden.
-
-   Nu holder venstre spalte sig på linje med resten af siden, mens højre
-   spalte løber helt ud til kanten. Det er derfor båndet her ikke har
-   nogen max-bredde: den er lagt over i venstre polstring i stedet. */
-.hero{padding:clamp(44px,6vw,76px) 0 clamp(56px,8vw,96px);overflow:hidden}
-.hero .baand{
-  max-width:none;padding-right:0;
-  padding-left:max(24px, calc((100vw - var(--baand)) / 2 + 24px));
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
-  gap:clamp(32px,5vw,64px);align-items:center;
-}
-.hero .tekstspalte{max-width:640px}
-.hero h1{margin-bottom:22px}
-.hero .brod{font-size:clamp(18px,1.5vw,20.5px);margin-bottom:30px}
+/* ==================================================================
+   1. HEROEN: regnestykket er det foerste, man moeder
+   ================================================================== */
+.hero{background:var(--groen);color:#fff;padding:clamp(40px,5vw,64px) 0 clamp(52px,7vw,84px)}
+.hero .baand{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+  gap:clamp(32px,5vw,64px);align-items:center}
+.hero h1{color:#fff;margin-bottom:20px}
+.hero .under-h1{color:rgba(255,255,255,.86);font-size:clamp(17.5px,1.4vw,20px);
+  max-width:46ch;margin-bottom:30px}
 .hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
-.skaerm{
-  border:1px solid var(--kant);border-radius:14px;overflow:hidden;background:var(--hvid);
-  box-shadow:0 24px 60px -20px rgba(34,32,28,.28), 0 2px 6px rgba(34,32,28,.06);
-}
-/* BESKÅRET MED VILJE. Billedet er et helt tilbud fra top til bund og
-   dermed meget højt. Vises det i fuld højde, bliver teksten for lille
-   til at kunne læses, og så beviser billedet ingenting. Her vises
-   toppen: overskriften, opgaven og de første linjer med timer og
-   priser. Resten fortsætter under kanten, som et skærmbillede gør. */
-.hero .skaerm{
-  aspect-ratio:4/3.05;
-  /* Løber ud over højre kant. Kun venstre hjørner er runde, for et
-     skærmbillede, der fortsætter ud af siden, har ingen højre kant. */
-  border-right:0;border-radius:14px 0 0 14px;
-}
-.hero .skaerm img{height:100%;width:100%;object-fit:cover;object-position:left top}
-@media(max-width:900px){
-  .hero .baand{grid-template-columns:1fr;padding-left:24px;padding-right:24px}
-  .hero .skaerm{border-right:1px solid var(--kant);border-radius:14px}
-  .hero .tekstspalte{max-width:none}
-}
+.hero .lille-note{margin-top:22px;font-size:15px;color:rgba(255,255,255,.62)}
+@media(max-width:900px){ .hero .baand{grid-template-columns:1fr} }
 
-/* ---------- 2. Regnestykket: grønt bånd ---------- */
-.regne{background:var(--groen);color:#fff;padding:clamp(52px,7vw,84px) 0}
-.regne h2{color:#fff;margin-bottom:14px}
-.regne .brod{color:rgba(255,255,255,.82);max-width:56ch}
-.regne-split{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);
-  gap:clamp(28px,5vw,60px);align-items:center;margin-top:38px}
-@media(max-width:820px){ .regne-split{grid-template-columns:1fr} }
+/* Selve regnemaskinen */
+.regnekort{
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
+  border-radius:16px;padding:clamp(22px,3vw,32px);
+}
+.regnekort h2{font-size:21px;color:#fff;margin-bottom:5px}
+.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:22px}
 
-.felter{display:grid;gap:20px}
-.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.80);margin-bottom:8px}
+.felter{display:grid;gap:18px}
+.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
 .felt .raek{display:flex;align-items:center;gap:14px}
 .felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;
   appearance:none;background:transparent;cursor:pointer}
-/* SKYDERNE ER SAT SELV. Browserens egen udgave tegnede en moerk bane paa
-   den groenne bund, som lignede en fejl. Én ensfarvet bane og en hvid
-   knap er tydeligere end en halvt udfyldt bane, man ikke kan styre. */
+/* Skyderne er sat selv. Browserens egen udgave tegnede en moerk bane paa
+   den groenne bund, som lignede en fejl. */
 .felt input[type=range]::-webkit-slider-runnable-track{
   height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
 .felt input[type=range]::-webkit-slider-thumb{
@@ -170,52 +145,40 @@ header nav .knap{color:#fff}
   width:22px;height:22px;border-radius:50%;background:#fff;border:0;
   box-shadow:0 1px 4px rgba(0,0,0,.28)}
 .felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.felt .tal{
-  min-width:86px;text-align:right;font:700 20px/1 Archivo,sans-serif;
-  font-variant-numeric:tabular-nums;color:#fff;
-}
+.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;
+  font-variant-numeric:tabular-nums;color:#fff}
 .felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
 
-.resultat{
-  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.20);
-  border-radius:14px;padding:clamp(26px,4vw,38px);
-}
-.resultat .stort{
-  display:block;font:700 clamp(50px,7.5vw,88px)/1 Archivo,sans-serif;
-  font-variant-numeric:tabular-nums;letter-spacing:-.04em;
-}
-.resultat .enhed{font-size:.36em;font-weight:600;letter-spacing:-.01em;margin-left:10px}
-.resultat .under{color:rgba(255,255,255,.84);margin-top:14px;font-size:16.5px;max-width:44ch}
-.resultat .noegle{
-  display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;
-  padding-top:20px;border-top:1px solid rgba(255,255,255,.20);
-  font-size:15px;color:rgba(255,255,255,.82);
-}
-.resultat .noegle b{color:#fff;font-variant-numeric:tabular-nums}
-.antagelse{margin-top:30px;font-size:16px;color:rgba(255,255,255,.90);max-width:64ch;
-  line-height:2}
+.svar{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
+.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;
+  font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
+.svar .under{color:rgba(255,255,255,.84);margin-top:11px;font-size:15.5px}
+.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;
+  font-size:14.5px;color:rgba(255,255,255,.78)}
+.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
+
+.antagelse{margin-top:20px;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
 .antagelse input{
-  width:66px;font:700 16px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;
-  text-align:center;padding:6px 4px;margin:0 3px;
-  background:rgba(255,255,255,.12);color:#fff;
-  border:1px solid rgba(255,255,255,.34);border-radius:8px;
+  width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;
+  text-align:center;padding:5px 3px;margin:0 3px;
+  background:rgba(255,255,255,.14);color:#fff;
+  border:1px solid rgba(255,255,255,.34);border-radius:7px;
 }
 .antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.antagelse #antagelse-hjaelp{color:rgba(255,255,255,.62);margin-left:4px}
 .skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-.forbehold-note{margin-top:14px;font-size:14.5px;color:rgba(255,255,255,.66);max-width:62ch}
 
-/* ---------- 3. Sådan virker det: en skinne, ikke tre ens kort ---------- */
-.saadan{padding:clamp(56px,8vw,96px) 0}
+/* ==================================================================
+   2. Saadan virker det: en skinne, ikke tre ens kort
+   ================================================================== */
+.saadan{padding:clamp(56px,8vw,92px) 0}
 .skinne{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr)}
 .trin{position:relative;padding-right:24px}
 .trin::before{content:"";position:absolute;left:0;top:11px;right:0;height:2px;background:var(--kant)}
 .trin:last-child::before{right:calc(100% - 24px)}
-.prik{
-  position:relative;width:24px;height:24px;border-radius:50%;
+.prik{position:relative;width:24px;height:24px;border-radius:50%;
   background:var(--groen);border:5px solid var(--papir);box-shadow:0 0 0 2px var(--groen);
-  margin-bottom:20px;
-}
+  margin-bottom:20px}
 .trin h3{margin-bottom:8px}
 .trin p{font-size:15.5px;color:var(--daempet);padding-right:14px}
 @media(max-width:860px){
@@ -226,8 +189,33 @@ header nav .knap{color:#fff}
   .prik{position:absolute;left:0;top:2px;margin:0}
 }
 
-/* ---------- 4. Det vi ikke gør: to spalter, hårfine linjer ---------- */
-.ikke{background:var(--sand);padding:clamp(56px,8vw,96px) 0}
+/* ==================================================================
+   3. Saadan ser et udkast ud: tekst til venstre, ordren til hoejre
+   ================================================================== */
+.udkast{background:var(--sand);padding:clamp(56px,8vw,92px) 0;overflow:hidden}
+/* Teksten flugter med billedets top. Midterstillet laa den som en
+   oe midt i en tom spalte, fordi billedet er tre gange saa hoejt. */
+.udkast .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
+  gap:clamp(32px,5vw,64px);align-items:start}
+.udkast ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:14px}
+.udkast li{padding-left:26px;position:relative;color:var(--daempet);font-size:16px}
+.udkast li b{color:var(--blaek);font-weight:600}
+.udkast li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;
+  border-radius:50%;background:var(--groen)}
+.ordreskaerm{
+  border:1px solid var(--kant);border-radius:14px;overflow:hidden;background:var(--hvid);
+  box-shadow:0 24px 60px -22px rgba(34,32,28,.30);
+}
+.ordreskaerm img{width:100%;height:auto}
+@media(max-width:900px){
+  .udkast .baand{grid-template-columns:1fr}
+  .ordreskaerm{max-width:520px}
+}
+
+/* ==================================================================
+   4. Det vi ikke goer: to spalter, haarfine linjer
+   ================================================================== */
+.ikke{padding:clamp(56px,8vw,92px) 0}
 .ikke-liste{margin-top:36px;display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(32px,5vw,60px)}
 .ikke-liste div{padding:22px 0;border-bottom:1px solid var(--kant)}
@@ -235,8 +223,10 @@ header nav .knap{color:#fff}
 .ikke-liste span{color:var(--daempet);font-size:15.5px}
 @media(max-width:760px){ .ikke-liste{grid-template-columns:1fr} }
 
-/* ---------- 5. Hvad du beholder: bento, fire celler ---------- */
-.beholder{padding:clamp(56px,8vw,96px) 0}
+/* ==================================================================
+   5. Stadig dit tilbud: bento
+   ================================================================== */
+.beholder{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
 .bento{margin-top:40px;display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
 .celle{border:1px solid var(--kant);border-radius:14px;padding:26px;background:var(--hvid)}
 .celle h3{margin-bottom:9px}
@@ -244,20 +234,18 @@ header nav .knap{color:#fff}
 .celle.bred{grid-column:span 3;padding:0;overflow:hidden}
 .celle.bred .tekst{padding:clamp(26px,4vw,40px) clamp(26px,4vw,40px) 0}
 .celle.bred .tekst p{max-width:70ch}
-/* Sagslisten er bred og lav. Den staar derfor i fuld bredde under
-   teksten frem for i en spalte ved siden af, hvor den skulle beskaeres
-   for at passe. Et billede, der er skaaret forkert, beviser ingenting. */
-.celle.bred figure{margin:clamp(22px,3vw,32px) 0 0;padding:0 clamp(26px,4vw,40px);
-  overflow:hidden}
+.celle.bred figure{margin:clamp(22px,3vw,32px) 0 0;padding:0 clamp(26px,4vw,40px);overflow:hidden}
 .celle.bred img{width:100%;height:auto;border:1px solid var(--kant);
-  border-radius:10px 10px 0 0;border-bottom:0;display:block}
+  border-radius:10px 10px 0 0;border-bottom:0}
 @media(max-width:900px){
   .bento{grid-template-columns:1fr}
   .celle.bred{grid-column:span 1}
 }
 
-/* ---------- 6. Kontakt ---------- */
-.kontakt{background:var(--sand);padding:clamp(56px,8vw,96px) 0}
+/* ==================================================================
+   6. Kontakt
+   ================================================================== */
+.kontakt{padding:clamp(56px,8vw,92px) 0}
 .kontakt .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
   gap:clamp(32px,5vw,60px);align-items:start}
 @media(max-width:820px){ .kontakt .baand{grid-template-columns:1fr} }
@@ -268,12 +256,6 @@ form input{
   border:1px solid var(--kant);border-radius:var(--runding);
   background:var(--hvid);color:var(--blaek);
 }
-/* INGEN PLADSHOLDERE I FORMULAREN. Der stod eksempler i felterne,
-   "Rasmus Nielsen", "20 41 55 88", og de blev laest som UDFYLDTE felter.
-   Kasper laeste dem saadan, og saa goer en besoegende det ogsaa, og en
-   besoegende, der tror feltet er udfyldt, skriver ingenting.
-   Etiketten over feltet siger allerede, hvad der skal staa. */
-form input::placeholder{color:var(--daempet);opacity:.7}
 form .hjaelp{font-size:14px;color:var(--daempet);margin-top:7px}
 .eller{margin-top:24px;font-size:15.5px;color:var(--daempet)}
 .eller a{color:var(--groen);font-weight:600}
@@ -282,13 +264,6 @@ footer{border-top:1px solid var(--kant);padding:30px 0;font-size:15px;color:var(
 footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:var(--daempet);text-decoration:none}
 footer a:hover{color:var(--blaek)}
-
-/* INGEN IND-GLIDNING PAA SEKTIONERNE.
-   Den var her, og den er fjernet igen. En sektion, der toner ind, naar
-   man ruller, siger ingenting om indholdet, og den kostede noget: sat
-   forkert op var teksten skjult, indtil JavaScript viste den. Den
-   eneste animation paa siden er tallet i regnestykket, og den er der,
-   fordi forskellen, der vokser, ER budskabet. */
 </style>
 </head>
 <body>
@@ -298,40 +273,32 @@ footer a:hover{color:var(--blaek)}
     <a class="logo" href="#top">Tele<b>Makker</b></a>
     <nav>
       <a href="#saadan">Sådan virker det</a>
-      <a href="#regnestykket">Se din besparelse</a>
+      <a href="#udkast">Se et udkast</a>
       <a href="#hvorfor">Stadig dit tilbud</a>
       <a href="https://app.telemakker.dk">Log ind</a>
-      <a href="#kontakt" class="knap">Bliv ringet op</a>
+      <a href="#kontakt" class="knap lys">Bliv ringet op</a>
     </nav>
   </div>
 </header>
 
-<!-- 1. HERO -->
+<!-- 1. HEROEN MED REGNESTYKKET -->
 <section class="hero" id="top">
   <div class="baand">
-    <div class="tekstspalte">
-      <h1>Tilbuddet er skrevet,<br>når du lægger på</h1>
-      <p class="brod">Du taler med kunden som altid. Bagefter ligger der et udkast med
-        opgaven, materialerne og forbeholdene. Du retter og sender.</p>
+    <div>
+      <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
+      <p class="under-h1">Når samtalen er slut, ligger der et udkast med opgaven,
+        materialerne og forbeholdene. Du retter og sender.</p>
       <div class="knapper">
-        <a href="#kontakt" class="knap">Bliv ringet op</a>
-        <a href="#saadan" class="knap hul">Sådan virker det</a>
+        <a href="#kontakt" class="knap lys">Bliv ringet op</a>
+        <a href="#saadan" class="knap klar">Sådan virker det</a>
       </div>
+      <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
     </div>
-    <div class="skaerm">
-      <img src="billeder/tilbudsudkast.png" width="728" height="1750" fetchpriority="high"
-           alt="Et tilbudsudkast i TeleMakker. Opgaven står til venstre, og linjerne med timer, materialer og priser står til højre.">
-    </div>
-  </div>
-</section>
 
-<!-- 2. REGNESTYKKET -->
-<section class="regne" id="regnestykket">
-  <div class="baand">
-    <h2>Hvor meget sparer du?</h2>
-    <p class="brod">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
+    <div class="regnekort">
+      <h2>Hvor meget sparer du?</h2>
+      <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
 
-    <div class="regne-split">
       <div class="felter">
         <div class="felt">
           <label for="antal">Tilbud om ugen</label>
@@ -356,36 +323,29 @@ footer a:hover{color:var(--blaek)}
         </div>
       </div>
 
-      <div class="resultat">
+      <div class="svar">
         <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
         <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
         <div class="noegle">
-          <span><b id="timer">0</b> timer sparet</span>
+          <span><b id="timer">0</b> timer</span>
           <span><b id="dage">0</b> arbejdsdage</span>
           <span><b id="uge">0</b> minutter om ugen</span>
         </div>
       </div>
+
+      <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket. Uden et bud
+           paa, hvor lang tid det tager at RETTE et udkast, kan en
+           besparelse ikke regnes. At spoerge den besoegende om det er
+           ikke rimeligt; han har jo ikke proevet det endnu. -->
+      <p class="antagelse">Vi regner med, at det tager
+        <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
+        <input type="number" id="efter" min="2" max="60" step="1" value="10" inputmode="numeric">
+        minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
     </div>
-
-    <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket.
-         Uden et bud paa, hvor lang tid det tager at RETTE et udkast, kan
-         en besparelse ikke regnes. At spoerge den besoegende om det er
-         ikke rimeligt; han har jo ikke proevet det endnu. Saa siger vi
-         vores eget bud hoejt og lader ham rette det. -->
-    <p class="antagelse">Vi regner med, at det tager
-      <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
-      <input type="number" id="efter" min="2" max="60" step="1" value="10"
-             inputmode="numeric" aria-describedby="antagelse-hjaelp">
-      minutter at rette et udkast frem for at skrive det fra bunden.
-      <span id="antagelse-hjaelp">Ret det, hvis du er uenig.</span></p>
-
-    <p class="forbehold-note">Tallene er dine, ikke vores. Og det passer ikke til hver
-      eneste opgave: nogle tilbud er så små eller så særlige, at du skriver dem
-      hurtigere selv.</p>
   </div>
 </section>
 
-<!-- 3. SÅDAN VIRKER DET -->
+<!-- 2. SÅDAN VIRKER DET -->
 <section class="saadan" id="saadan">
   <div class="baand">
     <h2>Fire trin, og du laver kun det sidste</h2>
@@ -416,6 +376,27 @@ footer a:hover{color:var(--blaek)}
         <p>Du læser igennem, retter det der skal rettes, og sender. Intet går ud uden
           dit klik.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SÅDAN SER ET UDKAST UD -->
+<section class="udkast" id="udkast">
+  <div class="baand">
+    <div>
+      <h2>Sådan ser et udkast ud</h2>
+      <p class="brod" style="margin-top:14px">Et rigtigt tilbud fra platformen, bygget
+        ud fra en samtale om et terrassedæk. Du retter i felterne, og totalen følger med.</p>
+      <ul>
+        <li><b>Arbejdet står som linjer med timer.</b> Din egen timepris ganges på.</li>
+        <li><b>Materialerne kommer fra din prisliste.</b> Ikke fra et gennemsnit.</li>
+        <li><b>Avancen lægges på til sidst.</b> På materialer, på arbejde eller på begge dele.</li>
+        <li><b>Moms og total regnes ud.</b> Klar til at sende eller lægge i regnskabet.</li>
+      </ul>
+    </div>
+    <div class="ordreskaerm">
+      <img src="billeder/tilbudsudkast.png" width="556" height="1156" loading="lazy"
+           alt="Ordren i et tilbudsudkast: tre arbejdslinjer med timer, to materialelinjer med antal og stykpris, og nederst arbejdsløn, avance, moms og en total på 43.790,60 kr.">
     </div>
   </div>
 </section>
@@ -458,7 +439,7 @@ footer a:hover{color:var(--blaek)}
   </div>
 </section>
 
-<!-- 5. HVAD DU BEHOLDER -->
+<!-- 5. STADIG DIT TILBUD -->
 <section class="beholder" id="hvorfor">
   <div class="baand">
     <h2>Det er stadig dit tilbud</h2>
@@ -518,8 +499,7 @@ footer a:hover{color:var(--blaek)}
       </div>
       <div>
         <label for="telefon">Telefonnummer</label>
-        <input type="tel" id="telefon" name="telefon" required autocomplete="tel"
-               inputmode="tel">
+        <input type="tel" id="telefon" name="telefon" required autocomplete="tel" inputmode="tel">
       </div>
       <div>
         <label for="firma">Firma</label>
@@ -549,8 +529,11 @@ footer a:hover{color:var(--blaek)}
    vokse, mens man skruer på sine egne tal. Animationen er ikke pynt,
    den ER budskabet.
 
-   Der er ikke fundet noget på. Alle tre tal sættes af den, der læser
+   Der er ikke fundet noget på. Alle fire tal sættes af den, der læser
    siden. Vi ganger dem sammen og siger det højt.
+
+   Regnestykket ligger nu ØVERST, saa der ventes ikke paa, at nogen
+   ruller ned til det: det taeller op med det samme.
    ------------------------------------------------------------------ */
 (function () {
   var rolig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -566,18 +549,15 @@ footer a:hover{color:var(--blaek)}
 
   function dansk(t) { return t.toLocaleString("da-DK"); }
 
-  // Tæller fra det, der står nu, op til det nye tal. Kort nok til at
-  // føles som et svar, ikke som en ventetid.
   function taelOp(el, til, ms) {
     var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
     if (rolig || fra === til) { el.textContent = dansk(til); return; }
     if (el._loeb) cancelAnimationFrame(el._loeb);
     if (el._net) clearTimeout(el._net);
 
-    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen,
-    // holder browseren op med at kalde requestAnimationFrame, og tallet
-    // ville stå fast et sted midtvejs. Et forkert tal er værre end
-    // ingen animation, så her skrives den rigtige værdi uanset hvad.
+    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen, holder
+    // browseren op med at kalde requestAnimationFrame, og tallet ville stå
+    // fast et sted midtvejs. Et forkert tal er værre end ingen animation.
     el._net = setTimeout(function () {
       if (el._loeb) cancelAnimationFrame(el._loeb);
       el.textContent = dansk(til);
@@ -586,7 +566,7 @@ footer a:hover{color:var(--blaek)}
     var start = performance.now();
     (function trin(nu) {
       var p = Math.min(1, (nu - start) / ms);
-      var b = 1 - Math.pow(1 - p, 3);          // roligt ud, ingen fjeder
+      var b = 1 - Math.pow(1 - p, 3);
       el.textContent = dansk(Math.round(fra + (til - fra) * b));
       if (p < 1) el._loeb = requestAnimationFrame(trin);
       else { el._loeb = null; clearTimeout(el._net); }
@@ -598,8 +578,8 @@ footer a:hover{color:var(--blaek)}
     var f = Number(foer.value);
     var pris = Number(timepris.value);
 
-    // Feltet kan stå tomt, mens han taster. Så holder vi fast i det
-    // sidste gyldige tal frem for at vise "NaN kr. om året".
+    // Feltet kan stå tomt, mens han taster. Så holder vi fast i vores eget
+    // bud frem for at vise "NaN kr. om året".
     var e = Number(efter.value);
     if (!isFinite(e) || efter.value === "") e = 10;
     e = Math.min(Math.max(e, 1), f);
@@ -608,8 +588,8 @@ footer a:hover{color:var(--blaek)}
     document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
     document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
 
-    // Skruer han rettetiden højere op end den tid, det tager i dag, er
-    // forskellen nul og ikke negativ. Et minustal ville være noget vrøvl.
+    // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
+    // og ikke negativ. Et minustal ville være noget vrøvl.
     var sparetPrUge = Math.max(0, a * (f - e));
     var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
     var dage = Math.round(timer / 7.4);              // en arbejdsdag
@@ -632,22 +612,11 @@ footer a:hover{color:var(--blaek)}
     felt.addEventListener("input", function () { regn(true); });
   });
 
-  // Tallet står på nul og løber op, når båndet kommer til syne. Ruller
-  // man aldrig derned, er der ingen grund til at regne.
+  // Regnestykket staar oeverst, saa det taeller op med det samme.
   regn(false);
   visKroner.textContent = "0"; visTimer.textContent = "0";
   visDage.textContent = "0"; visUge.textContent = "0";
-
-  // IntersectionObserver og ikke en lytter på scroll: en scroll-lytter
-  // kører på hvert eneste billede, også når der ikke er noget at gøre.
-  if ("IntersectionObserver" in window) {
-    var kig = new IntersectionObserver(function (poster) {
-      poster.forEach(function (p) { if (p.isIntersecting) { regn(true); kig.disconnect(); } });
-    }, { threshold: .35 });
-    kig.observe(document.getElementById("regnestykket"));
-  } else {
-    regn(false);
-  }
+  setTimeout(function () { regn(true); }, 320);
 })();
 </script>
 </body>
