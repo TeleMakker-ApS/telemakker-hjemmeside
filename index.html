@@ -70,6 +70,14 @@ a{color:inherit}
 .baand{max-width:var(--baand);margin:0 auto;padding:0 24px}
 .brod{color:var(--daempet);max-width:62ch}
 
+/* ÉN KORTSTIL PAA HELE SIDEN. Haarfin kant, samme runding, samme
+   bloede skygge. Skygger er farvet efter bunden og ikke sorte; en sort
+   skygge paa varmt papir ser beskidt ud. */
+.kort{
+  background:var(--hvid);border:1px solid var(--kant);border-radius:16px;
+  box-shadow:0 1px 2px rgba(34,32,28,.04), 0 18px 40px -26px rgba(34,32,28,.28);
+}
+
 /* ---------- Knapper. Én rundingsskala på hele siden. ---------- */
 .knap{
   display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
@@ -91,55 +99,58 @@ a{color:inherit}
   outline:2px solid currentColor;outline-offset:3px}
 
 /* ---------- Toppen. Én linje, under 80 px. ---------- */
-/* BJAELKEN SKAL KUNNE SES SOM EN BJAELKE.
-   Den havde samme groenne som heroen og forsvandt ind i den. Nu er den
-   den moerke groenne, saa der er en kant mellem menuen og indholdet,
-   ogsaa naar man ruller og den bliver haengende. */
+/* Bjaelken er papir som resten af toppen. Den skilles fra indholdet af
+   en haarfin streg, ikke af en farve. */
 header{
-  position:sticky;top:0;z-index:20;background:var(--groen-moerk);
-  border-bottom:1px solid rgba(255,255,255,.10);
+  position:sticky;top:0;z-index:20;
+  background:color-mix(in srgb, var(--papir) 86%, transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--kant);
 }
 header .baand{display:flex;align-items:center;justify-content:space-between;
   gap:20px;height:70px}
-.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em;color:#fff}
-.logo b{color:#8fd0b6;font-weight:700}
+.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em;
+  color:var(--blaek)}
+.logo b{color:var(--groen);font-weight:700}
 header nav{display:flex;align-items:center;gap:24px}
-header nav a{color:rgba(255,255,255,.80);text-decoration:none;font-size:15.5px;font-weight:500}
-header nav a:hover{color:#fff}
+header nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
+header nav a:hover{color:var(--blaek)}
+header nav .knap{color:#fff}
 @media(max-width:900px){ header nav a:not(.knap){display:none} }
 
 /* ==================================================================
    1. HEROEN: regnestykket er det foerste, man moeder
    ================================================================== */
-.hero{background:var(--groen);color:#fff;padding:clamp(40px,5vw,64px) 0 clamp(52px,7vw,84px)}
-.hero .baand{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);
+.hero{padding:clamp(52px,7vw,88px) 0 clamp(56px,7vw,92px)}
+.hero .baand{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
   gap:clamp(32px,5vw,64px);align-items:center}
-.hero h1{color:#fff;margin-bottom:20px}
-.hero .under-h1{color:rgba(255,255,255,.86);font-size:clamp(17.5px,1.4vw,20px);
+.hero h1{margin-bottom:22px}
+.hero .under-h1{color:var(--daempet);font-size:clamp(17.5px,1.4vw,20.5px);
   max-width:46ch;margin-bottom:30px}
 .hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
-.hero .lille-note{margin-top:22px;font-size:15px;color:rgba(255,255,255,.62)}
+.hero .lille-note{margin-top:22px;font-size:15px;color:var(--daempet)}
 @media(max-width:900px){ .hero .baand{grid-template-columns:1fr} }
 
-/* DE FIRE TRIN i heroen. En lodret skinne med nummererede prikker:
-   raekkefoelgen er hele pointen, og et nummer siger den tydeligere end
-   fire kasser ved siden af hinanden. */
-.flow{list-style:none;margin:0;padding:0;counter-reset:trin;display:grid;gap:22px}
-.flow li{position:relative;padding-left:52px;counter-increment:trin}
+/* DE FIRE TRIN i heroen, i et hvidt kort. En lodret skinne med
+   nummererede prikker: raekkefoelgen er hele pointen, og et nummer
+   siger den tydeligere end fire kasser ved siden af hinanden.
+   Numrene er groenne, og det er den eneste farve i kortet. */
+.flow{list-style:none;margin:0;padding:clamp(26px,3.4vw,36px);
+  counter-reset:trin;display:grid;gap:24px}
+.flow li{position:relative;padding-left:54px;counter-increment:trin}
 .flow li::before{
-  content:counter(trin);position:absolute;left:0;top:-2px;
+  content:counter(trin);position:absolute;left:0;top:-1px;
   width:32px;height:32px;border-radius:50%;
-  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.34);
-  color:#fff;font:700 15px/32px Archivo,sans-serif;text-align:center;
+  background:var(--groen);color:#fff;
+  font:700 15px/32px Archivo,sans-serif;text-align:center;
 }
 /* Stregen mellem prikkerne. Den sidste har ingen efterfoelger. */
 .flow li::after{
-  content:"";position:absolute;left:15.5px;top:36px;bottom:-22px;
-  width:1px;background:rgba(255,255,255,.24);
+  content:"";position:absolute;left:15.5px;top:38px;bottom:-24px;
+  width:1px;background:var(--kant);
 }
 .flow li:last-child::after{display:none}
-.flow h3{color:#fff;margin-bottom:5px;font-size:17.5px}
-.flow p{color:rgba(255,255,255,.76);font-size:15px;line-height:1.55}
+.flow h3{margin-bottom:5px;font-size:17.5px}
+.flow p{color:var(--daempet);font-size:15px;line-height:1.55}
 
 /* Selve regnemaskinen */
 .regnekort{
@@ -197,15 +208,18 @@ header nav a:hover{color:#fff}
    det er, foer et tal om besparelse betyder noget. Kortet er groent paa
    det varme papir, saa det stadig er det, oejet lander paa.
    ================================================================== */
-.regne{padding:clamp(56px,8vw,92px) 0}
+.regne{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
 .regne .regnekort{
   /* Kortet stod foer inde i heroen og arvede den hvide tekst derfra.
      Nu ligger det paa papir, saa farven skal saettes her. Uden den blev
      det store tal moerkt paa den groenne bund. */
   color:#fff;
   background:var(--groen);border-color:rgba(255,255,255,.18);
-  box-shadow:0 30px 70px -30px rgba(34,32,28,.45);
-  max-width:840px;margin:0 auto;padding:clamp(26px,4vw,40px);
+  border-radius:20px;
+  /* Den kraftigste skygge paa siden, med vilje. Det er det eneste
+     groenne felt, og det skal loefte sig fra papiret. */
+  box-shadow:0 2px 6px rgba(23,73,58,.16), 0 34px 70px -28px rgba(23,73,58,.46);
+  max-width:880px;margin:0 auto;padding:clamp(28px,4vw,44px);
 }
 .regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
 /* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
@@ -221,7 +235,7 @@ header nav a:hover{color:#fff}
 /* ==================================================================
    3. Saadan ser et udkast ud: tekst til venstre, ordren til hoejre
    ================================================================== */
-.udkast{background:var(--sand);padding:clamp(56px,8vw,92px) 0;overflow:hidden}
+.udkast{padding:clamp(56px,8vw,92px) 0;overflow:hidden}
 /* Teksten flugter med billedets top. Midterstillet laa den som en
    oe midt i en tom spalte, fordi billedet er hoejere end den. */
 .udkast-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
@@ -233,7 +247,7 @@ header nav a:hover{color:#fff}
    rigtige; det afhaenger af, hvad han har koblet paa. */
 .veje{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
   margin-top:clamp(36px,5vw,56px)}
-.vej{background:var(--hvid);border:1px solid var(--kant);border-radius:14px;padding:28px}
+.vej{padding:28px}
 .vej h3{margin-bottom:10px}
 .vej p{color:var(--daempet);font-size:15.5px}
 .vej p + p{margin-top:10px}
@@ -262,7 +276,7 @@ header nav a:hover{color:#fff}
 /* ==================================================================
    4. Det vi ikke goer: to spalter, haarfine linjer
    ================================================================== */
-.ikke{padding:clamp(56px,8vw,92px) 0}
+.ikke{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
 .ikke-liste{margin-top:36px;display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(32px,5vw,60px)}
 .ikke-liste div{padding:22px 0;border-bottom:1px solid var(--kant)}
@@ -273,9 +287,9 @@ header nav a:hover{color:#fff}
 /* ==================================================================
    5. Stadig dit tilbud: bento
    ================================================================== */
-.beholder{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
+.beholder{padding:clamp(56px,8vw,92px) 0}
 .bento{margin-top:40px;display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
-.celle{border:1px solid var(--kant);border-radius:14px;padding:26px;background:var(--hvid)}
+.celle{padding:26px}
 .celle h3{margin-bottom:9px}
 .celle p{color:var(--daempet);font-size:15.5px}
 .celle.bred{grid-column:span 3;padding:0;overflow:hidden}
@@ -292,11 +306,14 @@ header nav a:hover{color:#fff}
 /* ==================================================================
    6. Kontakt
    ================================================================== */
-.kontakt{padding:clamp(56px,8vw,92px) 0}
+.kontakt{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
 .kontakt .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
   gap:clamp(32px,5vw,60px);align-items:start}
 @media(max-width:820px){ .kontakt .baand{grid-template-columns:1fr} }
-form{display:grid;gap:16px;margin-top:6px}
+/* Formularen staar i et kort som alt andet indhold paa siden. Uden det
+   svaevede felterne paa sandet, og afsnittet lignede noget, der ikke var
+   gjort faerdigt. */
+form{display:grid;gap:16px;margin:0;padding:clamp(26px,3.4vw,34px)}
 form label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
 form input{
   width:100%;font:400 16.5px/1.4 Archivo,sans-serif;padding:13px 14px;
@@ -323,7 +340,7 @@ footer a:hover{color:var(--blaek)}
       <a href="#udkast">Se et tilbud</a>
       <a href="#hvorfor">Stadig dit tilbud</a>
       <a href="https://app.telemakker.dk">Log ind</a>
-      <a href="#kontakt" class="knap lys">Bliv ringet op</a>
+      <a href="#kontakt" class="knap">Bliv ringet op</a>
     </nav>
   </div>
 </header>
@@ -336,8 +353,8 @@ footer a:hover{color:var(--blaek)}
       <p class="under-h1">Når samtalen er slut, ligger der et udkast med opgaven,
         materialerne og forbeholdene. Du retter og sender.</p>
       <div class="knapper">
-        <a href="#kontakt" class="knap lys">Bliv ringet op</a>
-        <a href="#regnestykket" class="knap klar">Hvad sparer jeg?</a>
+        <a href="#kontakt" class="knap">Bliv ringet op</a>
+        <a href="#regnestykket" class="knap hul">Hvad sparer jeg?</a>
       </div>
       <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
     </div>
@@ -345,7 +362,7 @@ footer a:hover{color:var(--blaek)}
     <!-- DE FIRE TRIN STAAR OEVERST, fordi man skal forstaa HVAD det er,
          foer et tal om besparelse betyder noget. Lodret her, hvor
          spalten er smal; vandret ville de blive til fire smalle striber. -->
-    <ol class="flow" id="saadan">
+    <ol class="flow kort" id="saadan">
       <li>
         <h3>Kunden ringer</h3>
         <p>Til dit eget nummer, det der står på bilen. Hun giver samtykke til optagelse
@@ -447,7 +464,7 @@ footer a:hover{color:var(--blaek)}
    </div>
 
     <div class="veje">
-      <div class="vej">
+      <div class="vej kort">
         <h3>Send det til kunden</h3>
         <p>Har du koblet din egen Outlook eller Gmail på, sendes tilbuddet gennem den.
           Så kommer det fra din egen adresse, det ligger i din mappe med sendt post,
@@ -455,7 +472,7 @@ footer a:hover{color:var(--blaek)}
         <p>Vil du hellere selv, henter du PDF'en og sender den, som du plejer.
           Intet går ud, uden at du har trykket på knappen.</p>
       </div>
-      <div class="vej">
+      <div class="vej kort">
         <h3>Eller læg det i regnskabet</h3>
         <p>Når arbejdet er lavet, kan tilbuddet lægges over i e-conomic eller Dinero
           som en fakturakladde. Linjerne følger med, og kunden oprettes i regnskabet,
@@ -514,23 +531,23 @@ footer a:hover{color:var(--blaek)}
       formiddagens opkald er væk. Det er dér, det hjælper.</p>
 
     <div class="bento">
-      <div class="celle">
+      <div class="celle kort">
         <h3>Dine egne priser</h3>
         <p>Materialepriserne kommer fra din egen liste fra grossisten, ikke fra et
           gennemsnit. De vises som vejledende, aldrig som noget du har lovet kunden.</p>
       </div>
-      <div class="celle">
+      <div class="celle kort">
         <h3>Dit sprog</h3>
         <p>Udkastet er bygget som et dansk håndværkertilbud med de forbehold, der hører
           til. Ikke et mødereferat.</p>
       </div>
-      <div class="celle">
+      <div class="celle kort">
         <h3>Dit logo</h3>
         <p>Tilbuddet får dit eget logo og firmanavn i farvebåndet øverst. Kunden ser
           dit firma på dokumentet, ikke vores.</p>
       </div>
 
-      <div class="celle bred">
+      <div class="celle bred kort">
         <div class="tekst">
           <h3>Og du kan se, hvor hver sag står</h3>
           <p style="margin-top:10px">Sendt, accepteret, i gang, afsluttet. Du sætter selv
@@ -558,7 +575,7 @@ footer a:hover{color:var(--blaek)}
         <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a></p>
     </div>
 
-    <form action="mailto:kontakt@telemakker.dk" method="post" enctype="text/plain">
+    <form class="kort" action="mailto:kontakt@telemakker.dk" method="post" enctype="text/plain">
       <div>
         <label for="navn">Dit navn</label>
         <input type="text" id="navn" name="navn" required autocomplete="name">
