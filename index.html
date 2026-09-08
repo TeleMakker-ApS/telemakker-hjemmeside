@@ -43,6 +43,7 @@
      lader den groenne vaere den eneste farve paa siden. */
   --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
   --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#eaf1ee;
+  --mynte:#8fd0b6;
   --kant:#e3e3df; --sand:#f1f2f0;
   --runding:10px; --baand:1120px;
 }
@@ -104,58 +105,74 @@ a{color:inherit}
   outline:2px solid currentColor;outline-offset:3px}
 
 /* ---------- Toppen. Én linje, under 80 px. ---------- */
-/* Bjaelken er papir som resten af toppen. Den skilles fra indholdet af
-   en haarfin streg, ikke af en farve. */
+/* BJAELKEN HAR SAMME GROENNE SOM BEREGNEREN, ikke en naesten-ens.
+   Begge er var(--groen), saa de to groenne flader paa siden er den
+   samme farve. Ingen gennemsigtighed: bag bjaelken ruller baade papir,
+   sand og det groenne baand forbi, og en halvgennemsigtig bjaelke ville
+   skifte farve undervejs. */
 header{
-  position:sticky;top:0;z-index:20;
-  background:color-mix(in srgb, var(--papir) 86%, transparent);
-  backdrop-filter:blur(12px);border-bottom:1px solid var(--kant);
+  position:sticky;top:0;z-index:20;background:var(--groen);
+  border-bottom:1px solid rgba(255,255,255,.12);
 }
 header .baand{display:flex;align-items:center;justify-content:space-between;
   gap:20px;height:70px}
 .logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em;
-  color:var(--blaek)}
-.logo b{color:var(--groen);font-weight:700}
+  color:#fff}
+.logo b{color:var(--mynte);font-weight:700}
 header nav{display:flex;align-items:center;gap:24px}
-header nav a{color:var(--daempet);text-decoration:none;font-size:15.5px;font-weight:500}
-header nav a:hover{color:var(--blaek)}
-header nav .knap{color:#fff}
+header nav a{color:rgba(255,255,255,.82);text-decoration:none;font-size:15.5px;
+  font-weight:500}
+header nav a:hover{color:#fff}
 @media(max-width:900px){ header nav a:not(.knap){display:none} }
 
 /* ==================================================================
    1. HEROEN: regnestykket er det foerste, man moeder
    ================================================================== */
 .hero{padding:clamp(52px,7vw,88px) 0 clamp(56px,7vw,92px)}
-.hero .baand{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
-  gap:clamp(32px,5vw,64px);align-items:center}
+/* TO ETAGER, ikke to spalter: overskriften oeverst, de fire trin under
+   i fuld bredde. I to spalter stod trinnene i en smal soejle, og paa en
+   bred skaerm var der luft tilovers ved siden af dem. */
 .hero h1{margin-bottom:22px}
 .hero .under-h1{color:var(--daempet);font-size:clamp(17.5px,1.4vw,20.5px);
-  max-width:46ch;margin-bottom:30px}
+  max-width:52ch;margin-bottom:30px}
 .hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
 .hero .lille-note{margin-top:22px;font-size:15px;color:var(--daempet)}
-@media(max-width:900px){ .hero .baand{grid-template-columns:1fr} }
 
-/* DE FIRE TRIN i heroen, i et hvidt kort. En lodret skinne med
-   nummererede prikker: raekkefoelgen er hele pointen, og et nummer
-   siger den tydeligere end fire kasser ved siden af hinanden.
+/* DE FIRE TRIN, i et hvidt kort i fuld bredde. En vandret skinne med
+   nummererede prikker: raekkefoelgen er hele pointen, og vandret
+   laeses den i den retning, man laeser i forvejen.
    Numrene er groenne, og det er den eneste farve i kortet. */
-.flow{list-style:none;margin:0;padding:clamp(26px,3.4vw,36px);
-  counter-reset:trin;display:grid;gap:24px}
-.flow li{position:relative;padding-left:54px;counter-increment:trin}
+.flow{list-style:none;margin:clamp(38px,4.6vw,56px) 0 0;
+  padding:clamp(28px,3.4vw,40px) clamp(26px,3.2vw,38px);
+  counter-reset:trin;display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(22px,3vw,40px)}
+.flow li{position:relative;padding-top:46px;counter-increment:trin}
 .flow li::before{
-  content:counter(trin);position:absolute;left:0;top:-1px;
+  content:counter(trin);position:absolute;left:0;top:0;
   width:32px;height:32px;border-radius:50%;
   background:var(--groen);color:#fff;
   font:700 15px/32px Archivo,sans-serif;text-align:center;
 }
-/* Stregen mellem prikkerne. Den sidste har ingen efterfoelger. */
+/* Stregen mellem prikkerne. Den loeber fra prikkens hoejre kant og hen
+   til den naeste, altsaa ogsaa hen over mellemrummet mellem spalterne.
+   Den sidste har ingen efterfoelger. */
 .flow li::after{
-  content:"";position:absolute;left:15.5px;top:38px;bottom:-24px;
-  width:1px;background:var(--kant);
+  content:"";position:absolute;left:44px;top:15.5px;
+  right:calc(-1 * clamp(22px,3vw,40px));height:1px;background:var(--kant);
 }
 .flow li:last-child::after{display:none}
-.flow h3{margin-bottom:5px;font-size:17.5px}
+.flow h3{margin-bottom:6px;font-size:17.5px}
 .flow p{color:var(--daempet);font-size:15px;line-height:1.55}
+
+/* Under 860px bliver fire spalter til fire striber paa to ord. Saa gaar
+   skinnen lodret igen, som den var. */
+@media(max-width:860px){
+  .flow{grid-template-columns:1fr;gap:24px}
+  .flow li{padding:0 0 0 54px}
+  .flow li::before{top:-1px}
+  .flow li::after{left:15.5px;top:38px;bottom:-24px;right:auto;
+    width:1px;height:auto}
+}
 
 /* Selve regnemaskinen */
 .regnekort{
@@ -241,11 +258,9 @@ header nav .knap{color:#fff}
    3. Saadan ser et udkast ud: tekst til venstre, ordren til hoejre
    ================================================================== */
 .udkast{padding:clamp(56px,8vw,92px) 0}
-/* OVERSKRIFT OG PUNKTER, to spalter tekst. Punkterne staar ved siden
-   af indledningen og ikke under den, saa hele afsnittets paastand kan
-   laeses i et blik, foer man kigger paa papiret. */
-.udkast-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(28px,4.5vw,56px);align-items:start}
+/* Indledningen staar alene i en smal maalestok. Den skal laeses, ikke
+   skimmes ved siden af noget andet. */
+.udkast-top{max-width:56ch}
 
 
 /* DE TO VEJE, tilbuddet kan gaa. De staar nederst, fordi de kommer
@@ -258,11 +273,16 @@ header nav .knap{color:#fff}
 .vej h3{margin-bottom:9px}
 .vej p{color:var(--daempet);font-size:15.5px}
 .vej p + p{margin-top:9px}
-.udkast ul{margin:0;padding:0;list-style:none;display:grid;gap:14px}
-.udkast li{padding-left:26px;position:relative;color:var(--daempet);font-size:16px}
-.udkast li b{color:var(--blaek);font-weight:600}
-.udkast li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;
-  border-radius:50%;background:var(--groen)}
+/* DE FIRE PUNKTER STAAR UNDER ARKENE, som en billedtekst i fire
+   spalter. De beskriver, hvad man ser paa papiret, og ovenover var de
+   en paastand, man ikke kunne tjekke endnu. Haarfin streg over, ingen
+   kasse: de hoerer til billedet og skal ikke konkurrere med det. */
+.udkast ul{margin:clamp(30px,3.6vw,44px) 0 0;padding:clamp(26px,3vw,34px) 0 0;
+  list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(20px,2.6vw,34px);border-top:1px solid var(--kant)}
+.udkast li{color:var(--daempet);font-size:15px;line-height:1.55}
+.udkast li b{display:block;color:var(--blaek);font-weight:600;font-size:16px;
+  margin-bottom:5px}
 /* ARKENE, ikke et skærmbillede.
    De to tidligere forsøg var udklip af redigeringsskærmen, altså en
    formular fuld af felter. Kasper: "meget hæsligt og taget ud af
@@ -284,9 +304,14 @@ header nav .knap{color:#fff}
   box-shadow:0 2px 4px rgba(34,32,28,.10), 0 30px 70px -26px rgba(34,32,28,.42);
 }
 @media(max-width:900px){
-  .udkast-top{grid-template-columns:1fr;gap:24px}
   .tilbudsside{grid-template-columns:1fr;max-width:520px}
   .veje{grid-template-columns:1fr}
+}
+@media(max-width:860px){
+  .udkast ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .udkast ul{grid-template-columns:1fr;gap:18px}
 }
 
 /* ==================================================================
@@ -304,20 +329,18 @@ header nav .knap{color:#fff}
    5. Stadig dit tilbud: bento
    ================================================================== */
 .beholder{padding:clamp(56px,8vw,92px) 0}
-.bento{margin-top:40px;display:grid;gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.bento{margin-top:clamp(30px,3.6vw,44px);display:grid;gap:18px}
 .celle{padding:26px}
 .celle h3{margin-bottom:9px}
 .celle p{color:var(--daempet);font-size:15.5px}
-.celle.bred{grid-column:span 3;padding:0;overflow:hidden}
-.celle.bred .tekst{padding:clamp(26px,4vw,40px) clamp(26px,4vw,40px) 0}
-.celle.bred .tekst p{max-width:70ch}
-.celle.bred figure{margin:clamp(22px,3vw,32px) 0 0;padding:0 clamp(26px,4vw,40px);overflow:hidden}
-.celle.bred img{width:100%;height:auto;border:1px solid var(--kant);
-  border-radius:10px 10px 0 0;border-bottom:0}
-@media(max-width:900px){
-  .bento{grid-template-columns:1fr}
-  .celle.bred{grid-column:span 1}
-}
+.celle.bred{padding:0;overflow:hidden}
+/* Sagslisten er et billede uden en overskrift over sig. Teksten staar i
+   afsnittets egen indledning; en overskrift mere ville sige det samme
+   to gange. Luft hele vejen rundt, saa den ligger som et udklip. */
+.celle.bred figure{margin:0;padding:clamp(26px,3.4vw,38px);overflow:hidden}
+/* Ingen ramme paa billedet. Kortet er allerede en ramme, og to
+   rammer uden om det samme ligner en fejl. */
+.celle.bred img{display:block;width:100%;height:auto}
 
 /* ==================================================================
    6. Kontakt
@@ -356,7 +379,7 @@ footer a:hover{color:var(--blaek)}
       <a href="#udkast">Se et tilbud</a>
       <a href="#hvorfor">Stadig dit tilbud</a>
       <a href="https://app.telemakker.dk">Log ind</a>
-      <a href="#kontakt" class="knap">Bliv ringet op</a>
+      <a href="#kontakt" class="knap lys">Bliv ringet op</a>
     </nav>
   </div>
 </header>
@@ -364,20 +387,18 @@ footer a:hover{color:var(--blaek)}
 <!-- 1. HEROEN MED REGNESTYKKET -->
 <section class="hero" id="top">
   <div class="baand">
-    <div>
-      <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
-      <p class="under-h1">Når samtalen er slut, ligger der et udkast med opgaven,
-        materialerne og forbeholdene. Du retter og sender.</p>
-      <div class="knapper">
-        <a href="#kontakt" class="knap">Bliv ringet op</a>
-        <a href="#regnestykket" class="knap hul">Hvad sparer jeg?</a>
-      </div>
-      <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
+    <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
+    <p class="under-h1">Når samtalen er slut, ligger der et udkast med opgaven,
+      materialerne og forbeholdene. Du retter og sender.</p>
+    <div class="knapper">
+      <a href="#kontakt" class="knap">Bliv ringet op</a>
+      <a href="#regnestykket" class="knap hul">Hvad sparer jeg?</a>
     </div>
+    <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
 
     <!-- DE FIRE TRIN STAAR OEVERST, fordi man skal forstaa HVAD det er,
-         foer et tal om besparelse betyder noget. Lodret her, hvor
-         spalten er smal; vandret ville de blive til fire smalle striber. -->
+         foer et tal om besparelse betyder noget. Vandret og i fuld
+         bredde, saa raekkefoelgen laeses den vej, man laeser i forvejen. -->
     <ol class="flow kort" id="saadan">
       <li>
         <h3>Kunden ringer</h3>
@@ -395,8 +416,8 @@ footer a:hover{color:var(--blaek)}
       </li>
       <li>
         <h3>Du retter og sender</h3>
-        <p>Du læser igennem, retter det der skal rettes, og sender. Intet går ud uden
-          dit klik.</p>
+        <p>Du læser igennem og retter. Så sender du det til kunden, eller lægger det
+          i dit regnskabssystem. Intet går ud uden dit klik.</p>
       </li>
     </ol>
   </div>
@@ -461,18 +482,10 @@ footer a:hover{color:var(--blaek)}
 <section class="udkast" id="udkast">
   <div class="baand">
     <div class="udkast-top">
-      <div>
-        <h2>Det, kunden får</h2>
-        <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
-          firmanavn, dit CVR og dine egne priser. Her er begge sider af et rigtigt et,
-          bygget ud fra en samtale om et terrassedæk.</p>
-      </div>
-      <ul>
-        <li><b>Arbejdet står som linjer med timer.</b> Din egen timepris ganges på.</li>
-        <li><b>Materialerne kommer fra din prisliste.</b> Ikke fra et gennemsnit.</li>
-        <li><b>Forbeholdene står med.</b> Dem du selv har skrevet, og dem fra samtalen.</li>
-        <li><b>Moms og samlet pris regnes ud.</b> Tilbuddet er færdigt, ikke halvt.</li>
-      </ul>
+      <h2>Det, kunden får</h2>
+      <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
+        firmanavn, dit CVR og dine egne priser. Her er begge sider af et rigtigt et,
+        bygget ud fra en samtale om et terrassedæk.</p>
     </div>
 
     <figure class="tilbudsside">
@@ -481,6 +494,17 @@ footer a:hover{color:var(--blaek)}
       <img src="billeder/tilbud-2.png" width="1190" height="1683" loading="lazy"
            alt="Side 2 af tilbuddet. Arbejdsløn, materialer, moms og en samlet pris inklusive moms på 40.158,88 kr., og derefter tidsplan, særlige ønsker og fire forbehold. Alle oplysninger er opdigtede.">
     </figure>
+
+    <ul>
+      <li><b>Dit logo og dit firmanavn</b> De står i båndet øverst sammen med dit CVR.
+        Kunden ser dit firma på dokumentet, ikke vores.</li>
+      <li><b>Dine egne priser</b> Materialerne kommer fra din egen liste fra grossisten,
+        og din timepris ganges på timerne. Ikke et gennemsnit.</li>
+      <li><b>Dit sprog</b> Et dansk håndværkertilbud med tidsplan og de forbehold, der
+        hører til. Ikke et mødereferat.</li>
+      <li><b>Færdigt, ikke halvt</b> Linjer, moms og samlet pris er regnet ud. Du skal
+        læse igennem, ikke bygge det op.</li>
+    </ul>
 
     <div class="veje">
       <div class="vej kort">
@@ -545,33 +569,13 @@ footer a:hover{color:var(--blaek)}
 <section class="beholder" id="hvorfor">
   <div class="baand">
     <h2>Det er stadig dit tilbud</h2>
-    <p class="brod" style="margin-top:14px">Du sælger og udfører selv. Tilbuddene bliver
-      skrevet efter fyraften, i køkkenet, når hovedet er tomt og detaljerne fra
-      formiddagens opkald er væk. Det er dér, det hjælper.</p>
+    <p class="brod" style="margin-top:14px">Du sælger og udfører selv, og du bestemmer,
+      hvor hver sag står. Sendt, accepteret, i gang, afsluttet. Du sætter selv status,
+      når kunden svarer, og noten om hvad hun sagde bliver stående i sagen, så du har
+      den, hvis I bliver uenige senere.</p>
 
     <div class="bento">
-      <div class="celle kort">
-        <h3>Dine egne priser</h3>
-        <p>Materialepriserne kommer fra din egen liste fra grossisten, ikke fra et
-          gennemsnit. De vises som vejledende, aldrig som noget du har lovet kunden.</p>
-      </div>
-      <div class="celle kort">
-        <h3>Dit sprog</h3>
-        <p>Udkastet er bygget som et dansk håndværkertilbud med de forbehold, der hører
-          til. Ikke et mødereferat.</p>
-      </div>
-      <div class="celle kort">
-        <h3>Dit logo</h3>
-        <p>Tilbuddet får dit eget logo og firmanavn i farvebåndet øverst. Kunden ser
-          dit firma på dokumentet, ikke vores.</p>
-      </div>
-
       <div class="celle bred kort">
-        <div class="tekst">
-          <h3>Og du kan se, hvor hver sag står</h3>
-          <p style="margin-top:10px">Sendt, accepteret, i gang, afsluttet. Du sætter selv
-            status, når kunden svarer, og noten om hvad hun sagde bliver stående i sagen.</p>
-        </div>
         <figure>
           <img src="billeder/sagsliste.png" width="1110" height="311" loading="lazy"
                alt="Sagslisten med fem opdigtede sager: status på hvert tilbud fra klar til at sende til arbejde afsluttet, og en knap til det næste skridt.">
