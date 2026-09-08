@@ -36,9 +36,14 @@
    ------------------------------------------------------------------ */
 
 :root{
-  --blaek:#22201c; --daempet:#5f5a52; --papir:#f5f2ec; --hvid:#fff;
-  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#e7f0ec;
-  --kant:#ddd7cc; --sand:#ece7dc;
+  /* BUNDEN ER NAESTEN HVID, ikke varm beige.
+     Den var #f5f2ec, altsaa et gulligt papir, og den sloges med den
+     dybe groenne: to varme-kolde farver, der trak i hver sin retning,
+     og paa en stor skaerm saa den gullig og traet ud. Neutrale toner
+     lader den groenne vaere den eneste farve paa siden. */
+  --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
+  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#eaf1ee;
+  --kant:#e3e3df; --sand:#f1f2f0;
   --runding:10px; --baand:1120px;
 }
 
@@ -208,18 +213,18 @@ header nav .knap{color:#fff}
    det er, foer et tal om besparelse betyder noget. Kortet er groent paa
    det varme papir, saa det stadig er det, oejet lander paa.
    ================================================================== */
-.regne{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
+/* HELE BAANDET ER GROENT, ikke kun kortet.
+   Kortet laa foer som en groen oe paa sandet, og paa en bred skaerm var
+   der meget tomt omkring det. Nu er afsnittet selv groent, og kortet
+   loefter sig i det som en lysere flade. Det er stadig det ENESTE
+   groenne paa siden; resten er papir, sand og hvide kort. */
+.regne{background:var(--groen);color:#fff;padding:clamp(60px,8vw,96px) 0}
 .regne .regnekort{
-  /* Kortet stod foer inde i heroen og arvede den hvide tekst derfra.
-     Nu ligger det paa papir, saa farven skal saettes her. Uden den blev
-     det store tal moerkt paa den groenne bund. */
   color:#fff;
-  background:var(--groen);border-color:rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);
   border-radius:20px;
-  /* Den kraftigste skygge paa siden, med vilje. Det er det eneste
-     groenne felt, og det skal loefte sig fra papiret. */
-  box-shadow:0 2px 6px rgba(23,73,58,.16), 0 34px 70px -28px rgba(23,73,58,.46);
-  max-width:880px;margin:0 auto;padding:clamp(28px,4vw,44px);
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);
+  max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);
 }
 .regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
 /* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
@@ -235,42 +240,53 @@ header nav .knap{color:#fff}
 /* ==================================================================
    3. Saadan ser et udkast ud: tekst til venstre, ordren til hoejre
    ================================================================== */
-.udkast{padding:clamp(56px,8vw,92px) 0;overflow:hidden}
-/* Teksten flugter med billedets top. Midterstillet laa den som en
-   oe midt i en tom spalte, fordi billedet er hoejere end den. */
-.udkast-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
-  gap:clamp(32px,5vw,64px);align-items:start}
+.udkast{padding:clamp(56px,8vw,92px) 0}
+/* OVERSKRIFT OG PUNKTER, to spalter tekst. Punkterne staar ved siden
+   af indledningen og ikke under den, saa hele afsnittets paastand kan
+   laeses i et blik, foer man kigger paa papiret. */
+.udkast-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(28px,4.5vw,56px);align-items:start}
 
-/* DE TO VEJE, tilbuddet kan gaa. De staar under dokumentet og ikke ved
-   siden af, fordi de kommer EFTER det: foerst er tilbuddet faerdigt, saa
-   skal det et sted hen. To lige store felter, for ingen af dem er den
-   rigtige; det afhaenger af, hvad han har koblet paa. */
-.veje{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
-  margin-top:clamp(36px,5vw,56px)}
-.vej{padding:28px}
-.vej h3{margin-bottom:10px}
+
+/* DE TO VEJE, tilbuddet kan gaa. De staar nederst, fordi de kommer
+   sidst: foerst er tilbuddet faerdigt, saa skal det et sted hen. Ingen
+   af de to er den rigtige; det afhaenger af, hvad han har koblet paa,
+   saa de er lige store. */
+.veje{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(18px,2.2vw,26px);margin-top:clamp(28px,3.6vw,40px)}
+.vej{padding:26px 28px}
+.vej h3{margin-bottom:9px}
 .vej p{color:var(--daempet);font-size:15.5px}
-.vej p + p{margin-top:10px}
-@media(max-width:760px){ .veje{grid-template-columns:1fr} }
-.udkast ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:14px}
+.vej p + p{margin-top:9px}
+.udkast ul{margin:0;padding:0;list-style:none;display:grid;gap:14px}
 .udkast li{padding-left:26px;position:relative;color:var(--daempet);font-size:16px}
 .udkast li b{color:var(--blaek);font-weight:600}
 .udkast li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;
   border-radius:50%;background:var(--groen)}
-/* ET ARK PAPIR, ikke et skærmbillede.
+/* ARKENE, ikke et skærmbillede.
    De to tidligere forsøg var udklip af redigeringsskærmen, altså en
    formular fuld af felter. Kasper: "meget hæsligt og taget ud af
    kontekst". Han har ret: en formular siger ingenting til en, der ikke
-   kender platformen. Det her er PDF'en, KUNDEN modtager, og den er et
-   dokument med firmanavn, opgave, linjer og en samlet pris. */
-.tilbudsside{
-  margin:0;border-radius:6px;overflow:hidden;background:#fff;
+   kender platformen. Det her er PDF'en, KUNDEN modtager.
+
+   Og den er to sider. Tidligere blev linjer og forbehold skaaret vaek,
+   til det kunne vaere paa et ark, saa billedet passede i en spalte. Det
+   var at pynte paa produktet for layoutets skyld.
+
+   Nu ligger de to ark ved siden af hinanden i fuld bredde. Hvert ark
+   bliver 570px bredt mod 480px i spalten, saa linjerne paa tilbuddet
+   faktisk kan laeses, og hvert ark har sin egen skygge, saa man kan se,
+   at det ER to sider. */
+.tilbudsside{margin:clamp(34px,4.4vw,52px) 0 0;display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.4vw,30px)}
+.tilbudsside img{
+  display:block;width:100%;height:auto;border-radius:6px;background:#fff;
   box-shadow:0 2px 4px rgba(34,32,28,.10), 0 30px 70px -26px rgba(34,32,28,.42);
 }
-.tilbudsside img{width:100%;height:auto}
 @media(max-width:900px){
-  .udkast-split{grid-template-columns:1fr}
-  .tilbudsside{max-width:520px}
+  .udkast-top{grid-template-columns:1fr;gap:24px}
+  .tilbudsside{grid-template-columns:1fr;max-width:520px}
+  .veje{grid-template-columns:1fr}
 }
 
 /* ==================================================================
@@ -444,12 +460,13 @@ footer a:hover{color:var(--blaek)}
 <!-- 3. SÅDAN SER ET UDKAST UD -->
 <section class="udkast" id="udkast">
   <div class="baand">
-   <div class="udkast-split">
-    <div>
-      <h2>Det, kunden får</h2>
-      <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
-        firmanavn, dit CVR og dine egne priser. Her er et rigtigt et, bygget ud fra en
-        samtale om et terrassedæk.</p>
+    <div class="udkast-top">
+      <div>
+        <h2>Det, kunden får</h2>
+        <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
+          firmanavn, dit CVR og dine egne priser. Her er begge sider af et rigtigt et,
+          bygget ud fra en samtale om et terrassedæk.</p>
+      </div>
       <ul>
         <li><b>Arbejdet står som linjer med timer.</b> Din egen timepris ganges på.</li>
         <li><b>Materialerne kommer fra din prisliste.</b> Ikke fra et gennemsnit.</li>
@@ -457,11 +474,13 @@ footer a:hover{color:var(--blaek)}
         <li><b>Moms og samlet pris regnes ud.</b> Tilbuddet er færdigt, ikke halvt.</li>
       </ul>
     </div>
+
     <figure class="tilbudsside">
-      <img src="billeder/tilbud.png" width="1191" height="1684" loading="lazy"
-           alt="Første side af tilbuddet, som kunden modtager. Håndværker ApS i toppen, derefter kundens navn og adresse, opgaven beskrevet, arbejdet og materialerne som linjer med timer og enhedspriser, og nederst en samlet pris inklusive moms på 43.790,60 kr. Alle oplysninger er opdigtede.">
+      <img src="billeder/tilbud-1.png" width="1190" height="1683" loading="lazy"
+           alt="Side 1 af tilbuddet, som kunden modtager. Håndværker ApS og CVR i toppen, derefter kundens navn og adresse, arbejdsstedet, opgaven beskrevet, og så arbejdet og materialerne som linjer med timer, antal og enhedspriser. Alle oplysninger er opdigtede.">
+      <img src="billeder/tilbud-2.png" width="1190" height="1683" loading="lazy"
+           alt="Side 2 af tilbuddet. Arbejdsløn, materialer, moms og en samlet pris inklusive moms på 40.158,88 kr., og derefter tidsplan, særlige ønsker og fire forbehold. Alle oplysninger er opdigtede.">
     </figure>
-   </div>
 
     <div class="veje">
       <div class="vej kort">
