@@ -91,9 +91,13 @@ a{color:inherit}
   outline:2px solid currentColor;outline-offset:3px}
 
 /* ---------- Toppen. Én linje, under 80 px. ---------- */
+/* BJAELKEN SKAL KUNNE SES SOM EN BJAELKE.
+   Den havde samme groenne som heroen og forsvandt ind i den. Nu er den
+   den moerke groenne, saa der er en kant mellem menuen og indholdet,
+   ogsaa naar man ruller og den bliver haengende. */
 header{
-  position:sticky;top:0;z-index:20;background:var(--groen);
-  border-bottom:1px solid rgba(255,255,255,.14);
+  position:sticky;top:0;z-index:20;background:var(--groen-moerk);
+  border-bottom:1px solid rgba(255,255,255,.10);
 }
 header .baand{display:flex;align-items:center;justify-content:space-between;
   gap:20px;height:70px}
@@ -202,14 +206,20 @@ header nav a:hover{color:#fff}
 .udkast li b{color:var(--blaek);font-weight:600}
 .udkast li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;
   border-radius:50%;background:var(--groen)}
-.ordreskaerm{
-  border:1px solid var(--kant);border-radius:14px;overflow:hidden;background:var(--hvid);
-  box-shadow:0 24px 60px -22px rgba(34,32,28,.30);
+/* ET ARK PAPIR, ikke et skærmbillede.
+   De to tidligere forsøg var udklip af redigeringsskærmen, altså en
+   formular fuld af felter. Kasper: "meget hæsligt og taget ud af
+   kontekst". Han har ret: en formular siger ingenting til en, der ikke
+   kender platformen. Det her er PDF'en, KUNDEN modtager, og den er et
+   dokument med firmanavn, opgave, linjer og en samlet pris. */
+.tilbudsside{
+  margin:0;border-radius:6px;overflow:hidden;background:#fff;
+  box-shadow:0 2px 4px rgba(34,32,28,.10), 0 30px 70px -26px rgba(34,32,28,.42);
 }
-.ordreskaerm img{width:100%;height:auto}
+.tilbudsside img{width:100%;height:auto}
 @media(max-width:900px){
   .udkast .baand{grid-template-columns:1fr}
-  .ordreskaerm{max-width:520px}
+  .tilbudsside{max-width:520px}
 }
 
 /* ==================================================================
@@ -273,7 +283,7 @@ footer a:hover{color:var(--blaek)}
     <a class="logo" href="#top">Tele<b>Makker</b></a>
     <nav>
       <a href="#saadan">Sådan virker det</a>
-      <a href="#udkast">Se et udkast</a>
+      <a href="#udkast">Se et tilbud</a>
       <a href="#hvorfor">Stadig dit tilbud</a>
       <a href="https://app.telemakker.dk">Log ind</a>
       <a href="#kontakt" class="knap lys">Bliv ringet op</a>
@@ -384,20 +394,22 @@ footer a:hover{color:var(--blaek)}
 <section class="udkast" id="udkast">
   <div class="baand">
     <div>
-      <h2>Sådan ser et udkast ud</h2>
-      <p class="brod" style="margin-top:14px">Et rigtigt tilbud fra platformen, bygget
-        ud fra en samtale om et terrassedæk. Du retter i felterne, og totalen følger med.</p>
+      <h2>Det, kunden får</h2>
+      <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
+        firmanavn, dit CVR og dine egne priser. Her er et rigtigt et, bygget ud fra en
+        samtale om et terrassedæk.</p>
       <ul>
         <li><b>Arbejdet står som linjer med timer.</b> Din egen timepris ganges på.</li>
         <li><b>Materialerne kommer fra din prisliste.</b> Ikke fra et gennemsnit.</li>
-        <li><b>Avancen lægges på til sidst.</b> På materialer, på arbejde eller på begge dele.</li>
-        <li><b>Moms og total regnes ud.</b> Klar til at sende eller lægge i regnskabet.</li>
+        <li><b>Forbeholdene står med.</b> Dem du selv har skrevet, og dem fra samtalen.</li>
+        <li><b>Moms og samlet pris regnes ud.</b> Klar til at sende, eller til at lægge
+          i regnskabet som en fakturakladde.</li>
       </ul>
     </div>
-    <div class="ordreskaerm">
-      <img src="billeder/tilbudsudkast.png" width="556" height="1156" loading="lazy"
-           alt="Ordren i et tilbudsudkast: tre arbejdslinjer med timer, to materialelinjer med antal og stykpris, og nederst arbejdsløn, avance, moms og en total på 43.790,60 kr.">
-    </div>
+    <figure class="tilbudsside">
+      <img src="billeder/tilbud.png" width="1190" height="1684" loading="lazy"
+           alt="Første side af tilbuddet som kunden modtager: Tømrerfirmaet RN i toppen, kundens navn og adresse, opgaven beskrevet, arbejdet og materialerne som linjer, og nederst en samlet pris inklusive moms på 43.790,60 kr.">
+    </figure>
   </div>
 </section>
 
