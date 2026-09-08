@@ -9,6 +9,16 @@
 <meta property="og:title" content="TeleMakker: du taler med kunden, tilbuddet skriver sig selv">
 <meta property="og:description" content="Udkast til tilbud ud fra dine egne kundeopkald. Til danske håndværkere.">
 <meta property="og:locale" content="da_DK">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.telemakker.dk/">
+<meta property="og:image" content="https://www.telemakker.dk/billeder/deling.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TeleMakker: du taler med kunden, tilbuddet skriver sig selv.">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Siden svarer paa baade telemakker.dk og www.telemakker.dk. Uden den
+     her ser en soegemaskine to udgaver af det samme. -->
+<link rel="canonical" href="https://www.telemakker.dk/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -360,6 +370,27 @@ form input{
   background:var(--hvid);color:var(--blaek);
 }
 form .hjaelp{font-size:14px;color:var(--daempet);margin-top:7px}
+/* hidden SKAL VINDE OVER form{display:grid}.
+   Attributten hidden er bare display:none i browserens eget stilark, og
+   enhver regel her i filen slaar den. Uden den her blev formularen
+   staaende efter indsendelsen, saa man kunne sende den samme henvendelse
+   igen og igen uden at opdage det. */
+[hidden]{display:none !important}
+form input:focus-visible{outline:2px solid var(--groen);outline-offset:2px;
+  border-color:var(--groen)}
+
+/* LOKKEFELTET. Det skal vaere usynligt for oejet OG for skaermlaeseren,
+   men stadig staa i formularen, saa en robot udfylder det. Derfor
+   position:absolute og ikke display:none: nogle robotter springer det,
+   der er sat til none, over. */
+.lokkefelt{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Svaret efter indsendelsen. Det staar hvor formularen stod, saa man
+   ikke skal lede efter det. */
+.kvittering{padding:clamp(26px,3.4vw,34px)}
+.kvittering h3{margin:0 0 10px;font-size:20px}
+.kvittering p{color:var(--daempet);font-size:15.5px}
+form .fejl{color:#8c2f22;font-size:15px;margin:0}
 .eller{margin-top:24px;font-size:15.5px;color:var(--daempet)}
 .eller a{color:var(--groen);font-weight:600}
 
@@ -598,22 +629,43 @@ footer a:hover{color:var(--blaek)}
         <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a></p>
     </div>
 
-    <form class="kort" action="mailto:kontakt@telemakker.dk" method="post" enctype="text/plain">
+    <!-- action og method staar der stadig, saa den ikke er helt doed,
+         hvis JavaScript fejler. Den rigtige vej er fetch nedenfor. -->
+    <form class="kort" id="kontaktform" action="https://app.telemakker.dk/api/kontakt"
+          method="post">
       <div>
         <label for="navn">Dit navn</label>
-        <input type="text" id="navn" name="navn" required autocomplete="name">
+        <input type="text" id="navn" name="navn" required autocomplete="name" maxlength="120">
       </div>
       <div>
         <label for="telefon">Telefonnummer</label>
-        <input type="tel" id="telefon" name="telefon" required autocomplete="tel" inputmode="tel">
+        <input type="tel" id="telefon" name="telefon" required autocomplete="tel"
+               inputmode="tel" maxlength="40">
       </div>
       <div>
         <label for="firma">Firma</label>
-        <input type="text" id="firma" name="firma" autocomplete="organization">
+        <input type="text" id="firma" name="firma" autocomplete="organization" maxlength="160">
         <p class="hjaelp">Vi ringer i almindelig arbejdstid. Ingen nyhedsbreve.</p>
       </div>
-      <div><button type="submit" class="knap">Ring til mig</button></div>
+
+      <!-- Lokkefeltet. Skjult for oejet, tomt hos ethvert menneske. -->
+      <div class="lokkefelt" aria-hidden="true">
+        <label for="hjemmeside">Lad dette felt staa tomt</label>
+        <input type="text" id="hjemmeside" name="hjemmeside" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div>
+        <button type="submit" class="knap" id="kontaktknap">Ring til mig</button>
+      </div>
+      <p class="fejl" id="kontaktfejl" hidden></p>
     </form>
+
+    <div class="kort kvittering" id="kontaktkvittering" hidden>
+      <h3>Tak. Vi har fået dit nummer.</h3>
+      <p>Vi ringer i almindelig arbejdstid. Passer det dårligt, så skriv til
+        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>,
+        så aftaler vi et tidspunkt.</p>
+    </div>
   </div>
 </section>
 
@@ -725,5 +777,60 @@ footer a:hover{color:var(--blaek)}
   setTimeout(function () { regn(true); }, 320);
 })();
 </script>
+<script>
+/* Formularen "Ring til mig".
+
+   Den sendte foer med mailto:, se kommentaren i historikken. Nu gaar
+   den til platformen, som gemmer den i databasen FOER der forsoeges en
+   mail. Se lib/db.js i Telemakker-repoet for hvorfor den raekkefoelge.
+
+   Tre ting, den skal kunne, og som mailto: ikke kunne:
+     sige at det gik godt
+     sige at det gik galt, og hvad man saa goer
+     ikke sende det samme to gange, fordi der ikke skete noget synligt */
+(function () {
+  var form = document.getElementById("kontaktform");
+  if (!form) return;
+  var knap = document.getElementById("kontaktknap");
+  var fejl = document.getElementById("kontaktfejl");
+  var kvittering = document.getElementById("kontaktkvittering");
+
+  form.addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+    fejl.hidden = true;
+    knap.disabled = true;
+    var oprindelig = knap.textContent;
+    knap.textContent = "Sender …";
+
+    var data = new FormData(form);
+    try {
+      var svar = await fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          navn: data.get("navn") || "",
+          telefon: data.get("telefon") || "",
+          firma: data.get("firma") || "",
+          hjemmeside: data.get("hjemmeside") || "",
+        }),
+      });
+      var krop = await svar.json().catch(function () { return {}; });
+      if (!svar.ok) throw new Error(krop.fejl || "Det gik ikke igennem.");
+      form.hidden = true;
+      kvittering.hidden = false;
+      kvittering.scrollIntoView({ block: "center", behavior: "smooth" });
+    } catch (f) {
+      /* MAILADRESSEN STAAR I FEJLEN. Er platformen nede, skal manden
+         ikke efterlades uden en vej videre. */
+      fejl.textContent = (f && f.message ? f.message : "Det gik ikke igennem.") +
+        " Du kan ogsaa skrive til kontakt@telemakker.dk.";
+      fejl.hidden = false;
+      knap.disabled = false;
+      knap.textContent = oprindelig;
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

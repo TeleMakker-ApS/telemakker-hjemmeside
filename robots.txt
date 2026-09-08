@@ -1,0 +1,6 @@
+# Alt paa telemakker.dk maa gerne indekseres. Der er ingen lukkede
+# omraader her; platformen ligger paa app.telemakker.dk og har sin egen.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.telemakker.dk/sitemap.xml
