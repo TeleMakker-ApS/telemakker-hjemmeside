@@ -100,9 +100,22 @@ header nav .knap{color:#fff}
 /* ---------- 1. Hero: asymmetrisk, ikke centreret ----------
    Teksten til venstre, det rigtige skærmbillede til højre, hvor det
    løber ud over kanten. Et centreret hero er alle andres. */
+/* PAA EN BRED SKAERM FLOED HEROEN I MIDTEN.
+   Teksten og billedet lå som en lille ø med tomt papir hele vejen rundt,
+   og skærmbilledet stoppede langt fra kanten, så det lignede en kasse,
+   der svævede, frem for en skærm der fortsætter ud af siden.
+
+   Nu holder venstre spalte sig på linje med resten af siden, mens højre
+   spalte løber helt ud til kanten. Det er derfor båndet her ikke har
+   nogen max-bredde: den er lagt over i venstre polstring i stedet. */
 .hero{padding:clamp(44px,6vw,76px) 0 clamp(56px,8vw,96px);overflow:hidden}
-.hero .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
-  gap:clamp(32px,5vw,60px);align-items:center}
+.hero .baand{
+  max-width:none;padding-right:0;
+  padding-left:max(24px, calc((100vw - var(--baand)) / 2 + 24px));
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(32px,5vw,64px);align-items:center;
+}
+.hero .tekstspalte{max-width:640px}
 .hero h1{margin-bottom:22px}
 .hero .brod{font-size:clamp(18px,1.5vw,20.5px);margin-bottom:30px}
 .hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
@@ -115,11 +128,17 @@ header nav .knap{color:#fff}
    til at kunne læses, og så beviser billedet ingenting. Her vises
    toppen: overskriften, opgaven og de første linjer med timer og
    priser. Resten fortsætter under kanten, som et skærmbillede gør. */
-.hero .skaerm{margin-right:clamp(-150px,-8vw,0px);aspect-ratio:4/3.15}
+.hero .skaerm{
+  aspect-ratio:4/3.05;
+  /* Løber ud over højre kant. Kun venstre hjørner er runde, for et
+     skærmbillede, der fortsætter ud af siden, har ingen højre kant. */
+  border-right:0;border-radius:14px 0 0 14px;
+}
 .hero .skaerm img{height:100%;width:100%;object-fit:cover;object-position:left top}
 @media(max-width:900px){
-  .hero .baand{grid-template-columns:1fr}
-  .hero .skaerm{margin-right:0}
+  .hero .baand{grid-template-columns:1fr;padding-left:24px;padding-right:24px}
+  .hero .skaerm{border-right:1px solid var(--kant);border-radius:14px}
+  .hero .tekstspalte{max-width:none}
 }
 
 /* ---------- 2. Regnestykket: grønt bånd ---------- */
@@ -133,7 +152,24 @@ header nav .knap{color:#fff}
 .felter{display:grid;gap:20px}
 .felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.80);margin-bottom:8px}
 .felt .raek{display:flex;align-items:center;gap:14px}
-.felt input[type=range]{flex:1;accent-color:#fff;height:26px;min-width:0}
+.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;
+  appearance:none;background:transparent;cursor:pointer}
+/* SKYDERNE ER SAT SELV. Browserens egen udgave tegnede en moerk bane paa
+   den groenne bund, som lignede en fejl. Én ensfarvet bane og en hvid
+   knap er tydeligere end en halvt udfyldt bane, man ikke kan styre. */
+.felt input[type=range]::-webkit-slider-runnable-track{
+  height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;
+  background:#fff;border:0;margin-top:-8px;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
+.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
+.felt input[type=range]::-moz-range-track{
+  height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-moz-range-thumb{
+  width:22px;height:22px;border-radius:50%;background:#fff;border:0;
+  box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
 .felt .tal{
   min-width:86px;text-align:right;font:700 20px/1 Archivo,sans-serif;
   font-variant-numeric:tabular-nums;color:#fff;
@@ -156,7 +192,18 @@ header nav .knap{color:#fff}
   font-size:15px;color:rgba(255,255,255,.82);
 }
 .resultat .noegle b{color:#fff;font-variant-numeric:tabular-nums}
-.forbehold-note{margin-top:24px;font-size:14.5px;color:rgba(255,255,255,.66);max-width:62ch}
+.antagelse{margin-top:30px;font-size:16px;color:rgba(255,255,255,.90);max-width:64ch;
+  line-height:2}
+.antagelse input{
+  width:66px;font:700 16px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;
+  text-align:center;padding:6px 4px;margin:0 3px;
+  background:rgba(255,255,255,.12);color:#fff;
+  border:1px solid rgba(255,255,255,.34);border-radius:8px;
+}
+.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.antagelse #antagelse-hjaelp{color:rgba(255,255,255,.62);margin-left:4px}
+.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.forbehold-note{margin-top:14px;font-size:14.5px;color:rgba(255,255,255,.66);max-width:62ch}
 
 /* ---------- 3. Sådan virker det: en skinne, ikke tre ens kort ---------- */
 .saadan{padding:clamp(56px,8vw,96px) 0}
@@ -257,7 +304,7 @@ footer a:hover{color:var(--blaek)}
 <!-- 1. HERO -->
 <section class="hero" id="top">
   <div class="baand">
-    <div>
+    <div class="tekstspalte">
       <h1>Tilbuddet er skrevet,<br>når du lægger på</h1>
       <p class="brod">Du taler med kunden som altid. Bagefter ligger der et udkast med
         opgaven, materialerne og forbeholdene. Du retter og sender.</p>
@@ -276,7 +323,7 @@ footer a:hover{color:var(--blaek)}
 <!-- 2. REGNESTYKKET -->
 <section class="regne" id="regnestykket">
   <div class="baand">
-    <h2>Hvor mange timer bruger du på tilbud?</h2>
+    <h2>Hvor meget sparer du?</h2>
     <p class="brod">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
 
     <div class="regne-split">
@@ -296,24 +343,36 @@ footer a:hover{color:var(--blaek)}
           </div>
         </div>
         <div class="felt">
-          <label for="efter">Minutter, når du retter et udkast</label>
+          <label for="timepris">Din timepris</label>
           <div class="raek">
-            <input type="range" id="efter" min="2" max="60" step="1" value="10">
-            <span class="tal" id="efter-vis">10<small>min</small></span>
+            <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
+            <span class="tal" id="timepris-vis">465<small>kr.</small></span>
           </div>
         </div>
       </div>
 
       <div class="resultat">
-        <span class="stort"><span id="timer">0</span><span class="enhed">timer om året</span></span>
-        <p class="under">Så meget er der forskel på at skrive fra bunden og at rette
-          i et udkast, med dine egne tal.</p>
+        <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
+        <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
         <div class="noegle">
+          <span><b id="timer">0</b> timer sparet</span>
           <span><b id="dage">0</b> arbejdsdage</span>
           <span><b id="uge">0</b> minutter om ugen</span>
         </div>
       </div>
     </div>
+
+    <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket.
+         Uden et bud paa, hvor lang tid det tager at RETTE et udkast, kan
+         en besparelse ikke regnes. At spoerge den besoegende om det er
+         ikke rimeligt; han har jo ikke proevet det endnu. Saa siger vi
+         vores eget bud hoejt og lader ham rette det. -->
+    <p class="antagelse">Vi regner med, at det tager
+      <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
+      <input type="number" id="efter" min="2" max="60" step="1" value="10"
+             inputmode="numeric" aria-describedby="antagelse-hjaelp">
+      minutter at rette et udkast frem for at skrive det fra bunden.
+      <span id="antagelse-hjaelp">Ret det, hvis du er uenig.</span></p>
 
     <p class="forbehold-note">Tallene er dine, ikke vores. Og det passer ikke til hver
       eneste opgave: nogle tilbud er så små eller så særlige, at du skriver dem
@@ -495,7 +554,9 @@ footer a:hover{color:var(--blaek)}
   var antal = document.getElementById("antal");
   var foer = document.getElementById("foer");
   var efter = document.getElementById("efter");
+  var timepris = document.getElementById("timepris");
 
+  var visKroner = document.getElementById("kroner");
   var visTimer = document.getElementById("timer");
   var visDage = document.getElementById("dage");
   var visUge = document.getElementById("uge");
@@ -532,37 +593,47 @@ footer a:hover{color:var(--blaek)}
   function regn(medAnimation) {
     var a = Number(antal.value);
     var f = Number(foer.value);
+    var pris = Number(timepris.value);
+
+    // Feltet kan stå tomt, mens han taster. Så holder vi fast i det
+    // sidste gyldige tal frem for at vise "NaN kr. om året".
     var e = Number(efter.value);
+    if (!isFinite(e) || efter.value === "") e = 10;
+    e = Math.min(Math.max(e, 1), f);
 
     document.getElementById("antal-vis").textContent = a;
     document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
-    document.getElementById("efter-vis").innerHTML = e + "<small>min</small>";
+    document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
 
     // Skruer han rettetiden højere op end den tid, det tager i dag, er
     // forskellen nul og ikke negativ. Et minustal ville være noget vrøvl.
     var sparetPrUge = Math.max(0, a * (f - e));
     var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
     var dage = Math.round(timer / 7.4);              // en arbejdsdag
+    var kroner = Math.round(timer * pris);
 
     if (medAnimation) {
+      taelOp(visKroner, kroner, 900);
       taelOp(visTimer, timer, 700);
       taelOp(visDage, dage, 700);
       taelOp(visUge, sparetPrUge, 700);
     } else {
+      visKroner.textContent = dansk(kroner);
       visTimer.textContent = dansk(timer);
       visDage.textContent = dansk(dage);
       visUge.textContent = dansk(sparetPrUge);
     }
   }
 
-  [antal, foer, efter].forEach(function (felt) {
+  [antal, foer, efter, timepris].forEach(function (felt) {
     felt.addEventListener("input", function () { regn(true); });
   });
 
   // Tallet står på nul og løber op, når båndet kommer til syne. Ruller
   // man aldrig derned, er der ingen grund til at regne.
   regn(false);
-  visTimer.textContent = "0"; visDage.textContent = "0"; visUge.textContent = "0";
+  visKroner.textContent = "0"; visTimer.textContent = "0";
+  visDage.textContent = "0"; visUge.textContent = "0";
 
   // IntersectionObserver og ikke en lytter på scroll: en scroll-lytter
   // kører på hvert eneste billede, også når der ikke er noget at gøre.
