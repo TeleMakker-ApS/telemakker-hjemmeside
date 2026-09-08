@@ -1,0 +1,17 @@
+# TeleMakker ApS, CVR 46720253
+#
+# Har du fundet et sikkerhedshul i telemakker.dk eller i platformen paa
+# app.telemakker.dk, saa skriv til adressen herunder. Vi svarer paa dansk
+# og engelsk. Du behoever ikke skrive paent, bare skriv hvad du fandt og
+# hvordan du fandt det.
+#
+# Vi beder dig om at lade vaere med at hente, aendre eller slette data,
+# der ikke er dine egne, og at give os besked foerst i stedet for at
+# skrive om det offentligt. Til gengaeld gaar vi ikke rettens vej mod
+# nogen, der melder et hul i god tro.
+
+Contact: mailto:kontakt@telemakker.dk
+Expires: 2027-09-01T00:00:00.000Z
+Preferred-Languages: da, en
+Canonical: https://www.telemakker.dk/.well-known/security.txt
+Canonical: https://telemakker.dk/.well-known/security.txt
