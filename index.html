@@ -198,9 +198,21 @@ header nav a:hover{color:#fff}
    ================================================================== */
 .udkast{background:var(--sand);padding:clamp(56px,8vw,92px) 0;overflow:hidden}
 /* Teksten flugter med billedets top. Midterstillet laa den som en
-   oe midt i en tom spalte, fordi billedet er tre gange saa hoejt. */
-.udkast .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
+   oe midt i en tom spalte, fordi billedet er hoejere end den. */
+.udkast-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
   gap:clamp(32px,5vw,64px);align-items:start}
+
+/* DE TO VEJE, tilbuddet kan gaa. De staar under dokumentet og ikke ved
+   siden af, fordi de kommer EFTER det: foerst er tilbuddet faerdigt, saa
+   skal det et sted hen. To lige store felter, for ingen af dem er den
+   rigtige; det afhaenger af, hvad han har koblet paa. */
+.veje{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+  margin-top:clamp(36px,5vw,56px)}
+.vej{background:var(--hvid);border:1px solid var(--kant);border-radius:14px;padding:28px}
+.vej h3{margin-bottom:10px}
+.vej p{color:var(--daempet);font-size:15.5px}
+.vej p + p{margin-top:10px}
+@media(max-width:760px){ .veje{grid-template-columns:1fr} }
 .udkast ul{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:14px}
 .udkast li{padding-left:26px;position:relative;color:var(--daempet);font-size:16px}
 .udkast li b{color:var(--blaek);font-weight:600}
@@ -218,7 +230,7 @@ header nav a:hover{color:#fff}
 }
 .tilbudsside img{width:100%;height:auto}
 @media(max-width:900px){
-  .udkast .baand{grid-template-columns:1fr}
+  .udkast-split{grid-template-columns:1fr}
   .tilbudsside{max-width:520px}
 }
 
@@ -393,6 +405,7 @@ footer a:hover{color:var(--blaek)}
 <!-- 3. SÅDAN SER ET UDKAST UD -->
 <section class="udkast" id="udkast">
   <div class="baand">
+   <div class="udkast-split">
     <div>
       <h2>Det, kunden får</h2>
       <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
@@ -402,14 +415,33 @@ footer a:hover{color:var(--blaek)}
         <li><b>Arbejdet står som linjer med timer.</b> Din egen timepris ganges på.</li>
         <li><b>Materialerne kommer fra din prisliste.</b> Ikke fra et gennemsnit.</li>
         <li><b>Forbeholdene står med.</b> Dem du selv har skrevet, og dem fra samtalen.</li>
-        <li><b>Moms og samlet pris regnes ud.</b> Klar til at sende, eller til at lægge
-          i regnskabet som en fakturakladde.</li>
+        <li><b>Moms og samlet pris regnes ud.</b> Tilbuddet er færdigt, ikke halvt.</li>
       </ul>
     </div>
     <figure class="tilbudsside">
       <img src="billeder/tilbud.png" width="1191" height="1684" loading="lazy"
            alt="Første side af tilbuddet, som kunden modtager. Håndværker ApS i toppen, derefter kundens navn og adresse, opgaven beskrevet, arbejdet og materialerne som linjer med timer og enhedspriser, og nederst en samlet pris inklusive moms på 43.790,60 kr. Alle oplysninger er opdigtede.">
     </figure>
+   </div>
+
+    <div class="veje">
+      <div class="vej">
+        <h3>Send det til kunden</h3>
+        <p>Har du koblet din egen Outlook eller Gmail på, sendes tilbuddet gennem den.
+          Så kommer det fra din egen adresse, det ligger i din mappe med sendt post,
+          og kundens svar lander direkte hos dig.</p>
+        <p>Vil du hellere selv, henter du PDF'en og sender den, som du plejer.
+          Intet går ud, uden at du har trykket på knappen.</p>
+      </div>
+      <div class="vej">
+        <h3>Eller læg det i regnskabet</h3>
+        <p>Når arbejdet er lavet, kan tilbuddet lægges over i e-conomic eller Dinero
+          som en fakturakladde. Linjerne følger med, og kunden oprettes i regnskabet,
+          hvis hun ikke findes der i forvejen.</p>
+        <p>Kladden bogføres aldrig af os og sendes aldrig til kunden af os. Den ligger
+          klar, og du godkender den selv i dit eget system.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -471,9 +503,9 @@ footer a:hover{color:var(--blaek)}
           til. Ikke et mødereferat.</p>
       </div>
       <div class="celle">
-        <h3>Dit regnskab</h3>
-        <p>Er opgaven lavet, kan tilbuddet lægges over i e-conomic eller Dinero som en
-          fakturakladde. Den bogføres aldrig af os.</p>
+        <h3>Dit logo</h3>
+        <p>Tilbuddet får dit eget logo og firmanavn i farvebåndet øverst. Kunden ser
+          dit firma på dokumentet, ikke vores.</p>
       </div>
 
       <div class="celle bred">
