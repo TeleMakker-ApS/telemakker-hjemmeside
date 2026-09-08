@@ -121,6 +121,26 @@ header nav a:hover{color:#fff}
 .hero .lille-note{margin-top:22px;font-size:15px;color:rgba(255,255,255,.62)}
 @media(max-width:900px){ .hero .baand{grid-template-columns:1fr} }
 
+/* DE FIRE TRIN i heroen. En lodret skinne med nummererede prikker:
+   raekkefoelgen er hele pointen, og et nummer siger den tydeligere end
+   fire kasser ved siden af hinanden. */
+.flow{list-style:none;margin:0;padding:0;counter-reset:trin;display:grid;gap:22px}
+.flow li{position:relative;padding-left:52px;counter-increment:trin}
+.flow li::before{
+  content:counter(trin);position:absolute;left:0;top:-2px;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.34);
+  color:#fff;font:700 15px/32px Archivo,sans-serif;text-align:center;
+}
+/* Stregen mellem prikkerne. Den sidste har ingen efterfoelger. */
+.flow li::after{
+  content:"";position:absolute;left:15.5px;top:36px;bottom:-22px;
+  width:1px;background:rgba(255,255,255,.24);
+}
+.flow li:last-child::after{display:none}
+.flow h3{color:#fff;margin-bottom:5px;font-size:17.5px}
+.flow p{color:rgba(255,255,255,.76);font-size:15px;line-height:1.55}
+
 /* Selve regnemaskinen */
 .regnekort{
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
@@ -173,24 +193,29 @@ header nav a:hover{color:#fff}
 .skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 
 /* ==================================================================
-   2. Saadan virker det: en skinne, ikke tre ens kort
+   2. Regnestykket. Det staar nu UNDER flowet, fordi man skal vide hvad
+   det er, foer et tal om besparelse betyder noget. Kortet er groent paa
+   det varme papir, saa det stadig er det, oejet lander paa.
    ================================================================== */
-.saadan{padding:clamp(56px,8vw,92px) 0}
-.skinne{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr)}
-.trin{position:relative;padding-right:24px}
-.trin::before{content:"";position:absolute;left:0;top:11px;right:0;height:2px;background:var(--kant)}
-.trin:last-child::before{right:calc(100% - 24px)}
-.prik{position:relative;width:24px;height:24px;border-radius:50%;
-  background:var(--groen);border:5px solid var(--papir);box-shadow:0 0 0 2px var(--groen);
-  margin-bottom:20px}
-.trin h3{margin-bottom:8px}
-.trin p{font-size:15.5px;color:var(--daempet);padding-right:14px}
-@media(max-width:860px){
-  .skinne{grid-template-columns:1fr;gap:28px}
-  .trin{padding:0 0 0 42px}
-  .trin::before{left:11px;top:0;bottom:-28px;right:auto;width:2px;height:auto}
-  .trin:last-child::before{display:none}
-  .prik{position:absolute;left:0;top:2px;margin:0}
+.regne{padding:clamp(56px,8vw,92px) 0}
+.regne .regnekort{
+  /* Kortet stod foer inde i heroen og arvede den hvide tekst derfra.
+     Nu ligger det paa papir, saa farven skal saettes her. Uden den blev
+     det store tal moerkt paa den groenne bund. */
+  color:#fff;
+  background:var(--groen);border-color:rgba(255,255,255,.18);
+  box-shadow:0 30px 70px -30px rgba(34,32,28,.45);
+  max-width:840px;margin:0 auto;padding:clamp(26px,4vw,40px);
+}
+.regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
+/* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
+   lang stribe paa en bred skaerm. */
+.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
+.regne .svar{margin-top:0;padding-top:0;border-top:0}
+@media(max-width:760px){
+  .regne .indhold{grid-template-columns:1fr;gap:24px}
+  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 }
 
 /* ==================================================================
@@ -294,7 +319,7 @@ footer a:hover{color:var(--blaek)}
   <div class="baand">
     <a class="logo" href="#top">Tele<b>Makker</b></a>
     <nav>
-      <a href="#saadan">Sådan virker det</a>
+      <a href="#regnestykket">Se din besparelse</a>
       <a href="#udkast">Se et tilbud</a>
       <a href="#hvorfor">Stadig dit tilbud</a>
       <a href="https://app.telemakker.dk">Log ind</a>
@@ -312,46 +337,78 @@ footer a:hover{color:var(--blaek)}
         materialerne og forbeholdene. Du retter og sender.</p>
       <div class="knapper">
         <a href="#kontakt" class="knap lys">Bliv ringet op</a>
-        <a href="#saadan" class="knap klar">Sådan virker det</a>
+        <a href="#regnestykket" class="knap klar">Hvad sparer jeg?</a>
       </div>
       <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
     </div>
 
+    <!-- DE FIRE TRIN STAAR OEVERST, fordi man skal forstaa HVAD det er,
+         foer et tal om besparelse betyder noget. Lodret her, hvor
+         spalten er smal; vandret ville de blive til fire smalle striber. -->
+    <ol class="flow" id="saadan">
+      <li>
+        <h3>Kunden ringer</h3>
+        <p>Til dit eget nummer, det der står på bilen. Hun giver samtykke til optagelse
+          med et tastetryk.</p>
+      </li>
+      <li>
+        <h3>I taler sammen</h3>
+        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p>
+      </li>
+      <li>
+        <h3>Udkastet laves</h3>
+        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et
+          tilbudsudkast.</p>
+      </li>
+      <li>
+        <h3>Du retter og sender</h3>
+        <p>Du læser igennem, retter det der skal rettes, og sender. Intet går ud uden
+          dit klik.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 2. SÅDAN VIRKER DET -->
+<section class="regne" id="regnestykket">
+  <div class="baand">
     <div class="regnekort">
       <h2>Hvor meget sparer du?</h2>
       <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
 
-      <div class="felter">
-        <div class="felt">
-          <label for="antal">Tilbud om ugen</label>
-          <div class="raek">
-            <input type="range" id="antal" min="1" max="20" step="1" value="4">
-            <span class="tal" id="antal-vis">4</span>
+      <div class="indhold">
+        <div class="felter">
+          <div class="felt">
+            <label for="antal">Tilbud om ugen</label>
+            <div class="raek">
+              <input type="range" id="antal" min="1" max="20" step="1" value="4">
+              <span class="tal" id="antal-vis">4</span>
+            </div>
+          </div>
+          <div class="felt">
+            <label for="foer">Minutter pr. tilbud i dag</label>
+            <div class="raek">
+              <input type="range" id="foer" min="10" max="120" step="5" value="35">
+              <span class="tal" id="foer-vis">35<small>min</small></span>
+            </div>
+          </div>
+          <div class="felt">
+            <label for="timepris">Din timepris</label>
+            <div class="raek">
+              <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
+              <span class="tal" id="timepris-vis">465<small>kr.</small></span>
+            </div>
           </div>
         </div>
-        <div class="felt">
-          <label for="foer">Minutter pr. tilbud i dag</label>
-          <div class="raek">
-            <input type="range" id="foer" min="10" max="120" step="5" value="35">
-            <span class="tal" id="foer-vis">35<small>min</small></span>
-          </div>
-        </div>
-        <div class="felt">
-          <label for="timepris">Din timepris</label>
-          <div class="raek">
-            <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
-            <span class="tal" id="timepris-vis">465<small>kr.</small></span>
-          </div>
-        </div>
-      </div>
 
-      <div class="svar">
-        <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
-        <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
-        <div class="noegle">
-          <span><b id="timer">0</b> timer</span>
-          <span><b id="dage">0</b> arbejdsdage</span>
-          <span><b id="uge">0</b> minutter om ugen</span>
+        <div class="svar">
+          <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
+          <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
+          <div class="noegle">
+            <span><b id="timer">0</b> timer</span>
+            <span><b id="dage">0</b> arbejdsdage</span>
+            <span><b id="uge">0</b> minutter om ugen</span>
+          </div>
         </div>
       </div>
 
@@ -363,41 +420,6 @@ footer a:hover{color:var(--blaek)}
         <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
         <input type="number" id="efter" min="2" max="60" step="1" value="10" inputmode="numeric">
         minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 2. SÅDAN VIRKER DET -->
-<section class="saadan" id="saadan">
-  <div class="baand">
-    <h2>Fire trin, og du laver kun det sidste</h2>
-    <p class="brod" style="margin-top:14px">Ingen ny telefon. Intet nyt nummer. Ingen
-      robot, der taler med dine kunder.</p>
-
-    <div class="skinne">
-      <div class="trin">
-        <div class="prik"></div>
-        <h3>Kunden ringer</h3>
-        <p>Til dit eget nummer, det der står på bilen. Hun giver samtykke til optagelse
-          med et tastetryk.</p>
-      </div>
-      <div class="trin">
-        <div class="prik"></div>
-        <h3>I taler sammen</h3>
-        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p>
-      </div>
-      <div class="trin">
-        <div class="prik"></div>
-        <h3>Udkastet laves</h3>
-        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et
-          tilbudsudkast.</p>
-      </div>
-      <div class="trin">
-        <div class="prik"></div>
-        <h3>Du retter og sender</h3>
-        <p>Du læser igennem, retter det der skal rettes, og sender. Intet går ud uden
-          dit klik.</p>
-      </div>
     </div>
   </div>
 </section>
