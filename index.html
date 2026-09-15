@@ -235,6 +235,367 @@ header nav a:hover{color:#fff}
 .antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 
+
+/* ------------------------------------------------------------------
+   HEROEN PAA SIDEN.
+
+     GROENT HELT UD TIL KANTEN. Baggrunden flytter fra .opkaldsanim op
+     paa selve afsnittet. Ellers staar den som en groen kasse med hvide
+     marginer paa hver side, og toppen skal fylde skaermen.
+
+     OVERSKRIFTEN. Prototypen brugte h3, siden bruger h1, og sidens egen
+     h1-regel er stoerre. Uden det her braekker den i tre linjer.
+
+     TEKSTFARVEN. .under-h1 og .lille-note er graa paa papir. Paa den
+     groenne bund forsvinder de.
+
+     KNAPPERNE. Den groenne knap forsvinder paa groen bund. Her er den
+     hvide den primaere.
+   ------------------------------------------------------------------ */
+.hero{background:
+    radial-gradient(900px 440px at 72% 16%, #2a7a60 0%, transparent 62%),
+    linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
+  color:#fff;padding:clamp(40px,5vw,64px) 0;overflow:hidden}
+.hero .opkaldsanim{background:none;padding:0;border-radius:0;
+  min-height:0;overflow:visible;
+  /* Bredere venstre spalte end i prototypen. "Tilbuddet skriver sig
+     selv." fylder omkring 440 px ved 34 px skrift, og i en spalte paa
+     400 braekker den i tre linjer. Scenen har stadig rigeligt: 568 px,
+     hvor den skal bruge cirka 510. */
+  grid-template-columns:minmax(280px,470px) 1fr}
+.hero .opkaldsanim::before{inset:-40%}
+.opkaldsanim h1{font-size:clamp(27px,2.8vw,34px);line-height:1.16;
+  margin:16px 0 14px;text-wrap:balance;color:#fff}
+.hero .under-h1{color:rgba(255,255,255,.85);font-size:16.5px;
+  margin:0 0 24px;max-width:none}
+.hero .lille-note{color:rgba(255,255,255,.62);font-size:14.5px;margin-top:18px}
+.hero .knap.lys{background:#fff;color:var(--groen);border-color:#fff}
+.hero .knap.lys:hover{background:var(--mynte);border-color:var(--mynte)}
+.hero .knap.hul.lys{background:transparent;color:#fff;
+  border-color:rgba(255,255,255,.45)}
+.hero .knap.hul.lys:hover{background:rgba(255,255,255,.12);border-color:#fff}
+@media(max-width:860px){ .opkaldsanim h1{font-size:26px} }
+/* ==================================================================
+   OPKALDSANIMATIONEN I TOPPEN
+   Bygget og afproevet i Telemakker/dokumenter/prototyper. Laegges ind
+   her af vaerktoej/indsaet-hero.mjs. RET IKKE HER: ret i generatoren
+   og koer vaerktoejet igen, ellers driver de to fra hinanden.
+   Alt er scopet under .opkaldsanim, og alle keyframes hedder tm-noget,
+   fordi siden i forvejen har klasserne .vej, .veje og .eller.
+   ================================================================== */
+/* =========================================================
+   FORSLAG 1: OPKALDET, DER BLIVER TIL ET TILBUD
+
+   FEM KAPITLER PAA EN 34-SEKUNDERS RUNDE. Alt koerer paa den samme
+   varighed, og hver del har sine egne procenter i runden. Saa kan
+   delene ikke skride fra hinanden, og der er ingen JavaScript.
+
+     0 til 13 %   kunden ringer
+    13 til 38 %   samtalen skrives ud
+    38 til 57 %   udkastet bygges AF samtalen
+    57 til 76 %   billederne kommer ind via sms
+    76 til 100 %  tilbuddet er klar og kan sendes to veje
+
+   Kasper 15. september: "Fra samtalen til tilbud maa du gerne
+   synliggoere mere at tilbuddet bliver dannet paa baggrund af samtalen.
+   Til sidst kan det ogsaa vaere du skal skrive at det kan sendes til
+   kunden eller integreres i regnskabsprogram. Maaske ogsaa tilfoeje at
+   haandvaerkeren beder om et billede og kunden modtager en sms."
+   ========================================================= */
+.opkaldsanim{position:relative;background:
+    radial-gradient(900px 440px at 78% 16%, #2a7a60 0%, transparent 62%),
+    linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
+  color:#fff;padding:52px 46px;overflow:hidden;min-height:540px;
+  display:grid;grid-template-columns:minmax(250px,400px) 1fr;
+  gap:34px;align-items:center}
+.opkaldsanim::before{content:"";position:absolute;inset:-30%;
+  background:radial-gradient(420px 420px at 50% 50%, rgba(143,208,182,.20), transparent 60%);
+  animation:tm-drift 26s ease-in-out infinite}
+@keyframes tm-drift{0.0%,100.0%{transform:translate(-12%,-6%)}47.1%{transform:translate(14%,8%)}}
+.opkaldsanim .ord{position:relative;z-index:2}
+.opkaldsanim h3{font-size:31px;line-height:1.17;margin:16px 0 14px;font-weight:700;
+  text-wrap:balance}
+.opkaldsanim .under{opacity:.85;margin:0;font-size:16px}
+.opkaldsanim .mrk{display:inline-block;background:rgba(143,208,182,.16);
+  border:1px solid rgba(143,208,182,.35);color:var(--mynte);
+  border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+
+.opkaldsanim .scene{position:relative;height:480px;z-index:2}
+
+/* ---------- Kapitel 1: telefonen ringer ---------- */
+.opkaldsanim .tlf{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
+  width:96px;height:96px;border-radius:50%;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
+  display:grid;place-items:center;animation:tm-tlfInd 36s ease-in-out infinite}
+@keyframes tm-tlfInd{
+  0.0%{opacity:0;transform:scale(.82)}
+  1.9%{opacity:1;transform:scale(1) rotate(0)}
+  3.3%{transform:rotate(-8deg)}
+  4.7%{transform:rotate(8deg)}
+  6.1%{transform:rotate(-6deg)}
+  7.5%{transform:rotate(0)}
+  10.4%{opacity:1;transform:scale(1)}
+  12.2%,100.0%{opacity:0;transform:translateY(-60px) scale(.6)}}
+.opkaldsanim .tlf svg{width:42px;height:42px}
+.opkaldsanim .ringbolge{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
+  width:96px;height:96px;border-radius:50%;border:2px solid var(--mynte);
+  opacity:0;animation:tm-boelge 36s linear infinite}
+.opkaldsanim .ringbolge.b2{animation-delay:.7s}
+.opkaldsanim .ringbolge.b3{animation-delay:1.4s}
+@keyframes tm-boelge{
+  0.0%{opacity:0;transform:scale(1)}
+  1.4%{opacity:.75}
+  7.5%{opacity:0;transform:scale(3)}
+  100.0%{opacity:0;transform:scale(3)}}
+
+/* ---------- Kapitel 2 og 3: opkaldet og udskriften ----------
+   IKKE EN CHAT. Bobler til venstre og hoejre er beskedsprog. Det her er
+   et opkald, der bliver skrevet ud, mens det staar paa.
+   I kapitel 3 bliver udskriften STAAENDE, men daempet og trykket sammen
+   til venstre, mens tilbuddet vokser frem ved siden af. Det er hele
+   pointen: man skal SE, at det ene bliver til det andet. */
+.opkaldsanim .opkaldsbar{position:absolute;left:0;right:0;top:0;display:flex;
+  align-items:center;gap:11px;padding:10px 14px;border-radius:12px;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);
+  font-size:13px;font-weight:600;opacity:0;
+  animation:tm-barInd 36s ease-in-out infinite}
+@keyframes tm-barInd{
+  0.0%,10.4%{opacity:0;transform:translateY(-8px)}
+  13.2%,33.9%{opacity:1;transform:none}
+  36.7%,100.0%{opacity:0;transform:translateY(-8px)}}
+.opkaldsanim .opkaldsbar .roer{width:16px;height:16px;flex:0 0 auto}
+.opkaldsanim .opkaldsbar .hvem2{opacity:.8;font-weight:500}
+.opkaldsanim .lyd{display:flex;align-items:center;gap:3px;height:17px;margin-left:auto}
+.opkaldsanim .lyd i{display:block;width:3px;height:100%;border-radius:2px;
+  background:var(--mynte);transform:scaleY(.3);transform-origin:center;
+  animation:tm-hop 1.1s ease-in-out infinite}
+.opkaldsanim .lyd i:nth-child(2){animation-delay:.18s}
+.opkaldsanim .lyd i:nth-child(3){animation-delay:.36s}
+.opkaldsanim .lyd i:nth-child(4){animation-delay:.10s}
+.opkaldsanim .lyd i:nth-child(5){animation-delay:.28s}
+@keyframes tm-hop{0.0%,100.0%{transform:scaleY(.28)}47.1%{transform:scaleY(1)}}
+.opkaldsanim .taeller2{font-variant-numeric:tabular-nums;opacity:.85;font-weight:600}
+.opkaldsanim .taeller2::after{content:"0:04";animation:tm-tid 36s steps(1) infinite}
+@keyframes tm-tid{
+  0.0%,13.2%{content:"0:04"}  17.0%{content:"0:11"}  20.7%{content:"0:18"}
+  24.5%{content:"0:25"}     28.3%{content:"0:32"}  32.0%{content:"0:39"}
+  33.9%,100.0%{content:"0:43"}}
+
+.opkaldsanim .udskrift{position:absolute;left:0;top:58px;bottom:118px;
+  display:flex;flex-direction:column;gap:11px;
+  width:100%;animation:tm-udskriftInd 36s ease-in-out infinite}
+@keyframes tm-udskriftInd{
+  0.0%,34.8%{width:100%;opacity:1}
+  38.6%,51.8%{width:42%;opacity:.45}
+  54.9%,100.0%{width:42%;opacity:0}}
+.opkaldsanim .replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(143,208,182,.28);
+  font-size:14px;line-height:1.48;opacity:0}
+.opkaldsanim .replik .navn{display:block;font-size:11px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;color:var(--mynte);
+  margin-bottom:2px}
+.opkaldsanim .u1{animation:tm-u1 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite}
+.opkaldsanim .u2{animation:tm-u2 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite .9s}
+.opkaldsanim .u3{animation:tm-u3 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 2.1s}
+.opkaldsanim .u4{animation:tm-u4 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 3.6s}
+.opkaldsanim .u5{animation:tm-u5 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 4.8s}
+@keyframes tm-rail{
+  0.0%,11.3%{border-left-color:rgba(143,208,182,.28)}
+  13.2%{border-left-color:#8fd0b6}
+  17.9%,100.0%{border-left-color:rgba(143,208,182,.28)}}
+@keyframes tm-u1{0.0%,11.3%{opacity:0;transform:translateY(8px)}14.1%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u2{0.0%,15.1%{opacity:0;transform:translateY(8px)}17.9%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u3{0.0%,19.8%{opacity:0;transform:translateY(8px)}22.6%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u4{0.0%,25.4%{opacity:0;transform:translateY(8px)}28.3%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u5{0.0%,30.1%{opacity:0;transform:translateY(8px)}33.0%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+
+/* PRIKKERNE, DER FLYVER FRA SAMTALEN OVER I TILBUDDET.
+   Det var praecis det, Kasper savnede: man kunne ikke SE, at tilbuddet
+   blev dannet paa baggrund af samtalen. Nu rejser tre prikker fra
+   udskriften over i kortet, lige foer hver linje dukker op. */
+.opkaldsanim .spor{position:absolute;left:38%;width:9px;height:9px;border-radius:50%;
+  background:var(--mynte);opacity:0;box-shadow:0 0 12px rgba(143,208,182,.9)}
+.opkaldsanim .sp1{top:130px;animation:tm-spor 36s ease-in-out infinite}
+.opkaldsanim .sp2{top:196px;animation:tm-spor 36s ease-in-out infinite .9s}
+.opkaldsanim .sp3{top:262px;animation:tm-spor 36s ease-in-out infinite 1.8s}
+@keyframes tm-spor{
+  0.0%,37.7%{opacity:0;transform:translate(0,0) scale(.6)}
+  39.6%{opacity:1;transform:translate(0,0) scale(1)}
+  43.8%{opacity:1;transform:translate(115px,-30px) scale(1)}
+  45.2%,100.0%{opacity:0;transform:translate(125px,-36px) scale(.5)}}
+
+/* ---------- Tilbudskortet ----------
+   Det bliver staaende fra kapitel 3 til slut. Tingene bliver LAGT I det
+   undervejs i stedet for at kortet skiftes ud. Saa foelger man med i, at
+   det er det samme tilbud hele vejen. */
+.opkaldsanim .papir{position:absolute;right:0;top:50%;width:268px;margin-top:-145px;
+  background:#fff;color:var(--blaek);border-radius:13px;
+  box-shadow:0 26px 60px rgba(0,0,0,.36);opacity:0;
+  animation:tm-papirInd 36s cubic-bezier(.22,.9,.3,1) infinite}
+@keyframes tm-papirInd{
+  0.0%,35.8%{opacity:0;transform:translateY(26px) scale(.93)}
+  39.6%{opacity:1;transform:none}
+  53.7%{opacity:1;transform:none}
+  59.8%,76.8%{opacity:1;transform:translateX(-18px) scale(.97)}
+  82.1%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0;transform:translateY(-16px) scale(.97)}}
+/* Ekstra luft i hoejre side: fluebenet stemples ind over hjoernet og
+   daekkede det sidste af firmanavnet. */
+.opkaldsanim .papir .top{background:var(--groen);color:#fff;padding:10px 36px 10px 14px;
+  border-radius:13px 13px 0 0;display:flex;justify-content:space-between;
+  align-items:center;font-size:11.5px;gap:10px}
+.opkaldsanim .papir .top b{font-size:13px}
+.opkaldsanim .papir .krop{padding:10px 14px 13px}
+.opkaldsanim .pl{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;
+  padding:6px 0;border-bottom:1px solid #eee;opacity:0;
+  animation:tm-plInd 36s ease-out infinite}
+.opkaldsanim .pl i{font-style:normal;color:var(--daempet);font-variant-numeric:tabular-nums}
+.opkaldsanim .pl:nth-of-type(1){animation-delay:.4s}
+.opkaldsanim .pl:nth-of-type(2){animation-delay:1.3s}
+.opkaldsanim .pl:nth-of-type(3){animation-delay:2.2s}
+@keyframes tm-plInd{
+  0.0%,40.5%{opacity:0;transform:translateX(-10px)}
+  43.3%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+/* Billederne docker paa kortet. De kommer fra kundens sms. */
+.opkaldsanim .fotoraekke{display:flex;gap:6px;padding:9px 0 2px;opacity:0;
+  animation:tm-fotoInd 36s ease-out infinite}
+.opkaldsanim .fotoraekke span{flex:1;height:36px;border-radius:6px;
+  background:linear-gradient(135deg,#cfd8d3,#aebcb4);
+  display:grid;place-items:center;font-size:9px;color:#54615a;font-weight:700}
+@keyframes tm-fotoInd{
+  0.0%,77.5%{opacity:0;transform:scale(.94)}
+  79.8%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+.opkaldsanim .psum{display:flex;justify-content:space-between;align-items:center;
+  padding-top:10px;font-weight:700;font-size:14px;opacity:0;
+  animation:tm-sumInd 36s ease-out infinite}
+.opkaldsanim .psum i{font-style:normal;font-variant-numeric:tabular-nums}
+@keyframes tm-sumInd{
+  0.0%,81.2%{opacity:0;transform:translateY(6px)}
+  84.0%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+.opkaldsanim .flueben{position:absolute;right:-15px;top:-15px;width:42px;height:42px;
+  border-radius:50%;background:var(--mynte);display:grid;place-items:center;
+  opacity:0;box-shadow:0 8px 22px rgba(0,0,0,.3);
+  animation:tm-stempel 36s cubic-bezier(.2,1.5,.4,1) infinite}
+@keyframes tm-stempel{
+  0.0%,87.8%{opacity:0;transform:scale(.4) rotate(-25deg)}
+  90.6%,96.2%{opacity:1;transform:scale(1) rotate(0)}
+  99.1%,100.0%{opacity:0}}
+
+/* ---------- Kapitel 4: billedet via sms ---------- */
+.opkaldsanim .sms{position:absolute;left:0;top:70px;width:42%;opacity:0;
+  animation:tm-smsInd 36s ease-in-out infinite}
+@keyframes tm-smsInd{
+  0.0%,54.9%{opacity:0;transform:translateY(12px)}
+  59.8%,76.8%{opacity:1;transform:none}
+  80.2%,100.0%{opacity:0;transform:translateY(-10px)}}
+.opkaldsanim .sms .telefonramme{background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px}
+.opkaldsanim .sms .hoved{display:flex;align-items:center;gap:7px;font-size:11px;
+  font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  color:var(--mynte);margin-bottom:9px}
+.opkaldsanim .sms .hoved svg{width:14px;height:14px}
+.opkaldsanim .sms .besked{background:rgba(255,255,255,.15);border-radius:12px 12px 12px 3px;
+  padding:9px 11px;font-size:12.5px;line-height:1.45;margin:0 0 8px}
+.opkaldsanim .sms .link{background:var(--mynte);color:#123a2e;border-radius:9px;
+  padding:7px 11px;font-size:12px;font-weight:700;text-align:center}
+.opkaldsanim .sms .fotos{display:flex;gap:6px;margin-top:9px}
+.opkaldsanim .sms .fotos span{flex:1;height:42px;border-radius:7px;
+  background:linear-gradient(135deg,#cfd8d3,#aebcb4);opacity:0;
+  display:grid;place-items:center;font-size:9px;font-weight:700;
+  letter-spacing:.6px;color:#54615a;
+  animation:tm-fotoOp 36s ease-out infinite}
+.opkaldsanim .sms .fotos span:nth-child(2){animation-delay:.4s}
+/* De forsvinder, NAAR de sendes videre, ikke naar panelet gaar ud. Det
+   er det, der goer overfoerslen til en overfoersel og ikke to ting, der
+   tilfaeldigvis sker efter hinanden. */
+@keyframes tm-fotoOp{
+  0.0%,63.4%{opacity:0;transform:translateY(8px) scale(.9)}
+  67.1%,73.2%{opacity:1;transform:none}
+  76.2%,100.0%{opacity:0;transform:scale(.94)}}
+
+/* BILLEDERNE, DER REJSER OVER I TILBUDDET.
+   Kasper 15. september: "saa bliver de sendt over i tilbuddet, saa man
+   ser det som en overfoersel."
+   To felter, der letter fra sms'en og lander i kortet. De flyver som en
+   samlet bunke, fordi to felter, der flyver hver for sig, ligner rod.
+   Der animeres paa left og ikke paa transform, saa den lander det
+   rigtige sted, uanset hvor bred skaermen er. */
+.opkaldsanim .fotoflyv{position:absolute;display:flex;gap:6px;width:41%;top:214px;
+  left:4%;opacity:0;z-index:6;
+  animation:tm-flyv 36s cubic-bezier(.45,0,.25,1) infinite}
+.opkaldsanim .fotoflyv span{flex:1;height:40px;border-radius:7px;
+  background:linear-gradient(135deg,#dfe6e2,#b9c6be);
+  display:grid;place-items:center;font-size:9px;font-weight:700;
+  letter-spacing:.6px;color:#54615a;
+  box-shadow:0 10px 24px rgba(0,0,0,.34)}
+@keyframes tm-flyv{
+  0.0%,70.1%{opacity:0;left:4%;top:214px;width:41%}
+  72.0%{opacity:1;left:4%;top:214px;width:41%}
+  77.5%{opacity:1;left:54%;top:232px;width:38%}
+  79.3%,100.0%{opacity:0;left:54%;top:232px;width:38%}}
+
+/* ---------- Kapitel 5: de to veje ud ----------
+   Kasper: "Kan du lave boksen send til kunden og send til
+   regnskabsprogram anderledes, det ser lidt aandssvagt ud fordi de er
+   smaa og ikke er synkron de andre."
+
+   To ting var galt. De sad NEDERST, mens alt andet i venstre side sidder
+   oeverst, saa oejet skulle flytte sig uden grund. Og de var to smaa
+   halvgennemsigtige kasser ved siden af et stort hvidt kort, saa de
+   lignede en fodnote til det, der faktisk er pointen.
+
+   Nu har de SAMME ramme og samme plads som sms-panelet i kapitel 4, og
+   de to valg fylder, som de skal. */
+.opkaldsanim .veje{position:absolute;left:0;top:70px;width:42%;opacity:0;
+  animation:tm-vejeInd 36s ease-in-out infinite}
+@keyframes tm-vejeInd{
+  0.0%,80.2%{opacity:0;transform:translateY(12px)}
+  84.0%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0;transform:translateY(-10px)}}
+.opkaldsanim .veje .ramme2{background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:14px}
+.opkaldsanim .veje .hoved{display:flex;align-items:center;gap:7px;font-size:11px;
+  font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  color:var(--mynte);margin-bottom:11px}
+.opkaldsanim .veje .hoved svg{width:14px;height:14px}
+.opkaldsanim .vej{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;
+  border-radius:12px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);font-size:14px;font-weight:700;
+  opacity:0;animation:tm-vejInd 36s cubic-bezier(.2,1.3,.4,1) infinite}
+.opkaldsanim .vej.v2{animation-delay:.5s}
+.opkaldsanim .vej svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
+.opkaldsanim .vej small{display:block;font-size:11.5px;font-weight:500;opacity:.78;
+  margin-top:3px;line-height:1.45;hyphens:none}
+/* "eller" imellem. Uden det ligner de to trin, man skal igennem, og det
+   er de ikke: man vaelger det ene ELLER det andet. */
+.opkaldsanim .eller{display:flex;align-items:center;gap:9px;margin:9px 0;
+  font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--mynte);opacity:0;
+  animation:tm-vejInd 36s ease-out infinite;animation-delay:.25s}
+.opkaldsanim .eller::before,.opkaldsanim .eller::after{content:"";flex:1;height:1px;
+  background:rgba(143,208,182,.3)}
+@keyframes tm-vejInd{
+  0.0%,82.1%{opacity:0;transform:translateY(10px)}
+  85.9%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+
+/* ---------- Kapitelnavnene ---------- */
+.opkaldsanim .kap{position:absolute;left:0;bottom:0;font-size:13px;font-weight:600;
+  color:var(--mynte);opacity:0}
+.opkaldsanim .k1{animation:tm-kap1 36s ease-in-out infinite}
+.opkaldsanim .k2{animation:tm-kap2 36s ease-in-out infinite}
+.opkaldsanim .k3{animation:tm-kap3 36s ease-in-out infinite}
+.opkaldsanim .k4{animation:tm-kap4 36s ease-in-out infinite}
+.opkaldsanim .k5{animation:tm-kap5 36s ease-in-out infinite}
+@keyframes tm-kap1{0.0%{opacity:0}1.9%,10.4%{opacity:1}12.2%,100.0%{opacity:0}}
+@keyframes tm-kap2{0.0%,12.2%{opacity:0}15.1%,33.0%{opacity:1}34.8%,100.0%{opacity:0}}
+@keyframes tm-kap3{0.0%,35.8%{opacity:0}38.6%,50.9%{opacity:1}52.7%,100.0%{opacity:0}}
+@keyframes tm-kap4{0.0%,54.9%{opacity:0}58.6%,76.8%{opacity:1}79.3%,100.0%{opacity:0}}
+@keyframes tm-kap5{0.0%,80.2%{opacity:0}83.0%,96.2%{opacity:1}98.1%,100.0%{opacity:0}}
+
+
 /* ==================================================================
    2. Regnestykket. Det staar nu UNDER flowet, fordi man skal vide hvad
    det er, foer et tal om besparelse betyder noget. Kortet er groent paa
@@ -256,12 +617,50 @@ header nav a:hover{color:#fff}
 .regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
 /* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
    lang stribe paa en bred skaerm. */
-.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
+.regne .indhold{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
+  gap:clamp(24px,4vw,40px);align-items:stretch;margin-top:26px}
 .regne .svar{margin-top:0;padding-top:0;border-top:0}
+
+/* SKYDERNE FAAR DERES EGEN FLADE.
+   Foer laa de loest paa kortet ved siden af svaret, og de to halvdele
+   lignede den samme slags indhold. Den ene er noget, man SKRUER paa,
+   den anden er et resultat. Nu er der en flade og en kant imellem, saa
+   forskellen kan ses uden at laese. */
+.regne .felter{background:rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;padding:clamp(18px,2.4vw,24px);gap:20px;align-content:start}
+.overskrift-lille{display:block;font-size:11.5px;font-weight:700;
+  letter-spacing:.9px;text-transform:uppercase;color:var(--mynte);
+  margin-bottom:16px}
+/* Vaerdien staar OVER skyderen og ikke ved siden af. Saa faar tallet
+   plads til at vaere stort, og de tre skydere bliver lige lange. */
+.regne .felt label{display:flex;justify-content:space-between;align-items:baseline;
+  gap:10px;font-size:14px;color:rgba(255,255,255,.72);margin-bottom:9px}
+.regne .felt .tal{min-width:0;text-align:right;font-size:21px}
+
+/* UGEN, FOER OG EFTER.
+   Det er den her, der goer afsnittet levende. Et tal i kroner er
+   abstrakt; to bjaelker ved siden af hinanden kan ses paa et oejeblik.
+   Bjaelken for "i dag" er altid fuld, og den anden maales op mod den,
+   saa forskellen ER forholdet mellem dem. */
+.uge{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.20)}
+.uge-rk{display:grid;grid-template-columns:112px 1fr auto;align-items:center;
+  gap:12px;margin-top:11px;font-size:14px}
+.uge-rk span:first-child{color:rgba(255,255,255,.72)}
+.bane{height:16px;border-radius:8px;background:rgba(0,0,0,.20);overflow:hidden}
+.bane b{display:block;height:100%;border-radius:8px;
+  transition:width .55s cubic-bezier(.16,1,.3,1)}
+.bane.foer b{background:rgba(255,255,255,.34)}
+.bane.efter b{background:var(--mynte)}
+.uge-rk .vaerdi{font-weight:700;font-variant-numeric:tabular-nums;
+  min-width:66px;text-align:right}
+.uge .sparet{margin-top:15px;font-size:14.5px;color:rgba(255,255,255,.82)}
+.uge .sparet b{color:var(--mynte)}
+@media (prefers-reduced-motion:reduce){ .bane b{transition:none} }
+
 @media(max-width:760px){
-  .regne .indhold{grid-template-columns:1fr;gap:24px}
-  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
+  .regne .indhold{grid-template-columns:1fr;gap:22px}
+  .regne .svar{margin-top:0}
+  .uge-rk{grid-template-columns:100px 1fr auto;gap:9px;font-size:13px}
 }
 
 /* ==================================================================
@@ -416,41 +815,115 @@ footer a:hover{color:var(--blaek)}
 </header>
 
 <!-- 1. HEROEN MED REGNESTYKKET -->
+<!-- 1. HEROEN: OPKALDET, DER BLIVER TIL ET TILBUD
+     Animationen erstatter den nummererede liste med fire trin. Den
+     fortaeller det samme og mere, og den goer det uden at man skal
+     laese. Listen stod her foer; se index.html.foer-hero, hvis den
+     skal tilbage. -->
 <section class="hero" id="top">
   <div class="baand">
-    <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
-    <p class="under-h1">Når samtalen er slut, ligger der et udkast med opgaven,
-      materialerne og forbeholdene. Du retter og sender.</p>
-    <div class="knapper">
-      <a href="#kontakt" class="knap">Bliv ringet op</a>
-      <a href="#regnestykket" class="knap hul">Hvad sparer jeg?</a>
-    </div>
-    <p class="lille-note">Du beholder dit eget nummer. Ingen robot taler med dine kunder.</p>
+    <div class="opkaldsanim">
+      <div class="ord">
+        <span class="mrk">Du beholder dit eget nummer</span>
+        <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
+        <p class="under-h1">Når samtalen er slut, ligger der et udkast med
+          opgaven, materialerne og forbeholdene. Du retter og sender.</p>
+        <div class="knapper">
+          <a href="#kontakt" class="knap lys">Bliv ringet op</a>
+          <a href="#regnestykket" class="knap hul lys">Hvad sparer jeg?</a>
+        </div>
+        <p class="lille-note">Ingen robot taler med dine kunder.</p>
+      </div>
+      <div class="scene">
+      <div class="ringbolge"></div><div class="ringbolge b2"></div><div class="ringbolge b3"></div>
+      <div class="tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.7">
+        <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></div>
 
-    <!-- DE FIRE TRIN STAAR OEVERST, fordi man skal forstaa HVAD det er,
-         foer et tal om besparelse betyder noget. Vandret og i fuld
-         bredde, saa raekkefoelgen laeses den vej, man laeser i forvejen. -->
-    <ol class="flow kort" id="saadan">
-      <li>
-        <h3>Kunden ringer</h3>
-        <p>Til dit eget nummer, det der står på bilen. Hun giver samtykke til optagelse
-          med et tastetryk.</p>
-      </li>
-      <li>
-        <h3>I taler sammen</h3>
-        <p>Helt som altid. Du fører hele samtalen selv. Ingen AI blander sig undervejs.</p>
-      </li>
-      <li>
-        <h3>Udkastet laves</h3>
-        <p>Samtalen skrives ud, og opgaven, materialerne og tidspunktet samles i et
-          tilbudsudkast.</p>
-      </li>
-      <li>
-        <h3>Du retter og sender</h3>
-        <p>Du læser igennem og retter. Så sender du det til kunden, eller lægger det
-          i dit regnskabssystem. Intet går ud uden dit klik.</p>
-      </li>
-    </ol>
+      <div class="opkaldsbar">
+        <svg class="roer" viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
+          <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg>
+        Opkald i gang <span class="hvem2">&middot; Morten Jensen</span>
+        <span class="lyd"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="taeller2"></span>
+      </div>
+
+      <div class="udskrift">
+        <p class="replik u1"><span class="navn">Anders</span>
+          Hej, du taler med Anders fra Håndværker ApS.</p>
+        <p class="replik u2"><span class="navn">Morten</span>
+          Hej Anders. Jeg vil gerne have lavet et nyt badeværelse.</p>
+        <p class="replik u3"><span class="navn">Morten</span>
+          Cirka ti kvadratmeter. Bruseniche, nyt toilet og håndvask,
+          og fliser på gulv og vægge.</p>
+        <p class="replik u4"><span class="navn">Anders</span>
+          Det kan vi sagtens. Hvornår skal det stå færdigt?</p>
+        <p class="replik u5"><span class="navn">Morten</span>
+          Gerne inden jul.</p>
+      </div>
+
+      <div class="fotoflyv"><span>FOTO</span><span>FOTO</span></div>
+
+      <div class="spor sp1"></div>
+      <div class="spor sp2"></div>
+      <div class="spor sp3"></div>
+
+      <div class="sms">
+        <div class="telefonramme">
+          <div class="hoved">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
+              <rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+            Sms til Morten
+          </div>
+          <p class="besked">Hej Morten. Kan du sende et par billeder af
+            badeværelset, så jeg kan se forholdene?</p>
+          <div class="link">Læg billeder på sagen</div>
+          <div class="fotos"><span>FOTO</span><span>FOTO</span></div>
+        </div>
+      </div>
+
+      <div class="veje">
+        <div class="ramme2">
+          <div class="hoved">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+            Tilbuddet er klar
+          </div>
+          <div class="vej">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>Send til kunden
+              <small>Fra din egen mail, med PDF</small></span>
+          </div>
+          <div class="eller">eller</div>
+          <div class="vej v2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
+              <path d="M4 6h16M4 11h16M4 16h7"/><path d="M14 17l2.5 2.5L21 15"/></svg>
+            <span>Direkte i regnskabet
+              <small>Som kladde i e‑conomic eller Dinero</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="papir">
+        <div class="flueben"><svg viewBox="0 0 24 24" fill="none" stroke="#123a2e" stroke-width="2.6"
+          stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4 12l5 5L20 6"/></svg></div>
+        <div class="top"><b>Tilbud til Morten</b><span>Håndværker ApS</span></div>
+        <div class="krop">
+          <div class="pl"><span>Bruseniche, toilet og håndvask</span><i>8.925,00</i></div>
+          <div class="pl"><span>Fliser, gulv og vægge</span><i>15.750,00</i></div>
+          <div class="pl"><span>Materialer</span><i>13.916,00</i></div>
+          <div class="fotoraekke"><span>FOTO</span><span>FOTO</span></div>
+          <div class="psum"><span>I alt inkl. moms</span><i>48.238,75 kr.</i></div>
+        </div>
+      </div>
+
+      <div class="kap k1">Kunden ringer til dit eget nummer</div>
+      <div class="kap k2">Samtalen skrives ud, mens I taler</div>
+      <div class="kap k3">Udkastet bygges af det, der blev sagt</div>
+      <div class="kap k4">Du beder om et billede. Kunden lægger det selv på sagen</div>
+      <div class="kap k5">Tilbuddet er klar, og kan sendes to veje</div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -463,36 +936,47 @@ footer a:hover{color:var(--blaek)}
 
       <div class="indhold">
         <div class="felter">
+          <span class="overskrift-lille">Sæt dine egne tal</span>
           <div class="felt">
-            <label for="antal">Tilbud om ugen</label>
-            <div class="raek">
-              <input type="range" id="antal" min="1" max="20" step="1" value="4">
-              <span class="tal" id="antal-vis">4</span>
-            </div>
+            <label for="antal">Tilbud om ugen <span class="tal" id="antal-vis">4</span></label>
+            <input type="range" id="antal" min="1" max="20" step="1" value="4">
           </div>
           <div class="felt">
-            <label for="foer">Minutter pr. tilbud i dag</label>
-            <div class="raek">
-              <input type="range" id="foer" min="10" max="120" step="5" value="35">
-              <span class="tal" id="foer-vis">35<small>min</small></span>
-            </div>
+            <label for="foer">Minutter pr. tilbud i dag
+              <span class="tal" id="foer-vis">35<small>min</small></span></label>
+            <input type="range" id="foer" min="10" max="120" step="5" value="35">
           </div>
           <div class="felt">
-            <label for="timepris">Din timepris</label>
-            <div class="raek">
-              <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
-              <span class="tal" id="timepris-vis">465<small>kr.</small></span>
-            </div>
+            <label for="timepris">Din timepris
+              <span class="tal" id="timepris-vis">465<small>kr.</small></span></label>
+            <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
           </div>
         </div>
 
         <div class="svar">
           <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
           <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
-          <div class="noegle">
-            <span><b id="timer">0</b> timer</span>
-            <span><b id="dage">0</b> arbejdsdage</span>
-            <span><b id="uge">0</b> minutter om ugen</span>
+
+          <!-- TO BJAELKER I STEDET FOR TRE TAL.
+               Kroner om aaret er abstrakt. Ugen kan man se for sig, og
+               to bjaelker ved siden af hinanden siger forskellen paa et
+               oejeblik. Tallene bliver staaende nedenunder, saa den, der
+               vil regne efter, stadig kan. -->
+          <div class="uge">
+            <span class="overskrift-lille">Din uge på tilbud</span>
+            <div class="uge-rk">
+              <span>I dag</span>
+              <span class="bane foer"><b id="bane-foer" style="width:100%"></b></span>
+              <span class="vaerdi" id="tid-foer">0</span>
+            </div>
+            <div class="uge-rk">
+              <span>Med TeleMakker</span>
+              <span class="bane efter"><b id="bane-efter" style="width:0"></b></span>
+              <span class="vaerdi" id="tid-efter">0</span>
+            </div>
+            <p class="sparet">Du får <b id="uge">0</b> minutter tilbage om ugen.
+              Det bliver <b id="timer">0</b> timer om året, eller
+              <b id="dage">0</b> hele arbejdsdage.</p>
           </div>
         </div>
       </div>
@@ -707,6 +1191,16 @@ footer a:hover{color:var(--blaek)}
 
   function dansk(t) { return t.toLocaleString("da-DK"); }
 
+  // Minutter som noget, en haandvaerker siger: "2 t 20 min", ikke "140".
+  // Hundrede og fyrre minutter er et tal, man skal regne paa; to timer og
+  // tyve er noget, man kan se for sig.
+  function somTid(min) {
+    min = Math.round(min);
+    if (min < 60) return min + " min";
+    var t = Math.floor(min / 60), m = min % 60;
+    return m ? t + " t " + m + " min" : t + " t";
+  }
+
   function taelOp(el, til, ms) {
     var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
     if (rolig || fra === til) { el.textContent = dansk(til); return; }
@@ -745,6 +1239,16 @@ footer a:hover{color:var(--blaek)}
     document.getElementById("antal-vis").textContent = a;
     document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
     document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
+
+    // DE TO BJAELKER. "I dag" er altid fuld, og den anden maales op mod
+    // den. Saa ER bjaelkernes forhold forskellen, uden at nogen skal
+    // laese to tal og traekke dem fra hinanden i hovedet.
+    var ugeFoer = a * f;
+    var ugeEfter = a * e;
+    document.getElementById("bane-efter").style.width =
+      (ugeFoer ? Math.round(ugeEfter / ugeFoer * 100) : 0) + "%";
+    document.getElementById("tid-foer").textContent = somTid(ugeFoer);
+    document.getElementById("tid-efter").textContent = somTid(ugeEfter);
 
     // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
     // og ikke negativ. Et minustal ville være noget vrøvl.
