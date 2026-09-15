@@ -262,7 +262,12 @@ header nav a:hover{color:#fff}
      selv." fylder omkring 440 px ved 34 px skrift, og i en spalte paa
      400 braekker den i tre linjer. Scenen har stadig rigeligt: 568 px,
      hvor den skal bruge cirka 510. */
-  grid-template-columns:minmax(280px,470px) 1fr}
+  /* Scenen har et GULV paa 520 px. Foer stod der "1fr", og saa tog
+     tekstspalten sine 470 px, mens scenen fik resten. Paa en skaerm
+     omkring 1000 px faldt scenen til 428 px, og "de to veje" blev
+     presset til 150 px, saa "Send til kunden" braekkede over to
+     linjer. Nu giver teksten sig foerst. */
+  grid-template-columns:minmax(280px,470px) minmax(520px,1fr)}
 .hero .opkaldsanim::before{inset:-40%}
 .opkaldsanim h1{font-size:clamp(27px,2.8vw,34px);line-height:1.16;
   margin:16px 0 14px;text-wrap:balance;color:#fff}
@@ -275,6 +280,45 @@ header nav a:hover{color:#fff}
   border-color:rgba(255,255,255,.45)}
 .hero .knap.hul.lys:hover{background:rgba(255,255,255,.12);border-color:#fff}
 @media(max-width:860px){ .opkaldsanim h1{font-size:26px} }
+
+/* ---------- Naar skaermen bliver smal ----------
+   Scenen er bygget med absolut placerede dele i et fast rum paa
+   568 x 480. Den kan ikke ombryde. Enten faar den sin plads, eller ogsaa
+   skaleres HELE rummet ned i et stykke, saa alle dele beholder deres
+   indbyrdes stoerrelse. Reglerne staar her og ikke i generatoren, fordi
+   .hero .opkaldsanim vejer tungere end .opkaldsanim alene.             */
+@media(max-width:900px){
+  /* minmax(0,1fr) og ikke 1fr: nedenfor faar scenen en fast bredde paa
+     520 px, og et almindeligt 1fr-spor VOKSER med sit indhold. Saa blev
+     hele spalten 520 px bred paa en telefon, og broedteksten blev
+     skaaret af i hoejre side. Med et gulv paa 0 flyder scenen ud over
+     sporet uden at traekke det med sig. */
+  .hero .opkaldsanim{grid-template-columns:minmax(0,1fr);gap:26px}
+  .hero .opkaldsanim .oa-scene{width:520px;max-width:100%;margin:0 auto}
+}
+@media(max-width:600px){
+  /* Scenen kan ikke ombryde, saa hele rummet skaleres i et stykke.
+     Spalten er skaermen minus 48 px, og trinnene nedenfor er valgt, saa
+     520 x faktor altid kan vaere der:
+       .80 giver 416 og holder ned til 464 px skaerm
+       .66 giver 343 og holder ned til 391 px
+       .54 giver 281 og holder ned til 329 px
+     Bunden hentes tilbage, fordi en skaleret kasse stadig fylder sin
+     fulde hoejde i layoutet: 480 x (1 - faktor). */
+  .hero .opkaldsanim .oa-scene{width:520px;max-width:none;margin:0;
+    transform-origin:top left;
+    transform:scale(.80);margin-bottom:-96px}
+}
+@media(max-width:470px){
+  .hero .opkaldsanim .oa-scene{transform:scale(.66);margin-bottom:-163px}
+}
+@media(max-width:395px){
+  .hero .opkaldsanim .oa-scene{transform:scale(.54);margin-bottom:-221px}
+}
+@media(max-width:340px){
+  /* .46 giver 239 og holder ned til 287 px skaerm. */
+  .hero .opkaldsanim .oa-scene{transform:scale(.46);margin-bottom:-259px}
+}
 /* ==================================================================
    OPKALDSANIMATIONEN I TOPPEN
    Bygget og afproevet i Telemakker/dokumenter/prototyper. Laegges ind
@@ -306,24 +350,24 @@ header nav a:hover{color:#fff}
     radial-gradient(900px 440px at 78% 16%, #2a7a60 0%, transparent 62%),
     linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
   color:#fff;padding:52px 46px;overflow:hidden;min-height:540px;
-  display:grid;grid-template-columns:minmax(250px,400px) 1fr;
+  display:grid;grid-template-columns:minmax(250px,400px) minmax(520px,1fr);
   gap:34px;align-items:center}
 .opkaldsanim::before{content:"";position:absolute;inset:-30%;
   background:radial-gradient(420px 420px at 50% 50%, rgba(143,208,182,.20), transparent 60%);
   animation:tm-drift 26s ease-in-out infinite}
 @keyframes tm-drift{0.0%,100.0%{transform:translate(-12%,-6%)}47.1%{transform:translate(14%,8%)}}
-.opkaldsanim .ord{position:relative;z-index:2}
+.opkaldsanim .oa-ord{position:relative;z-index:2}
 .opkaldsanim h3{font-size:31px;line-height:1.17;margin:16px 0 14px;font-weight:700;
   text-wrap:balance}
-.opkaldsanim .under{opacity:.85;margin:0;font-size:16px}
-.opkaldsanim .mrk{display:inline-block;background:rgba(143,208,182,.16);
+.opkaldsanim .oa-under{opacity:.85;margin:0;font-size:16px}
+.opkaldsanim .oa-mrk{display:inline-block;background:rgba(143,208,182,.16);
   border:1px solid rgba(143,208,182,.35);color:var(--mynte);
   border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
 
-.opkaldsanim .scene{position:relative;height:480px;z-index:2}
+.opkaldsanim .oa-scene{position:relative;height:480px;z-index:2}
 
 /* ---------- Kapitel 1: telefonen ringer ---------- */
-.opkaldsanim .tlf{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
+.opkaldsanim .oa-tlf{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
   width:96px;height:96px;border-radius:50%;
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
   display:grid;place-items:center;animation:tm-tlfInd 36s ease-in-out infinite}
@@ -336,12 +380,12 @@ header nav a:hover{color:#fff}
   7.5%{transform:rotate(0)}
   10.4%{opacity:1;transform:scale(1)}
   12.2%,100.0%{opacity:0;transform:translateY(-60px) scale(.6)}}
-.opkaldsanim .tlf svg{width:42px;height:42px}
-.opkaldsanim .ringbolge{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
+.opkaldsanim .oa-tlf svg{width:42px;height:42px}
+.opkaldsanim .oa-ringbolge{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
   width:96px;height:96px;border-radius:50%;border:2px solid var(--mynte);
   opacity:0;animation:tm-boelge 36s linear infinite}
-.opkaldsanim .ringbolge.b2{animation-delay:.7s}
-.opkaldsanim .ringbolge.b3{animation-delay:1.4s}
+.opkaldsanim .oa-ringbolge.oa-b2{animation-delay:.7s}
+.opkaldsanim .oa-ringbolge.oa-b3{animation-delay:1.4s}
 @keyframes tm-boelge{
   0.0%{opacity:0;transform:scale(1)}
   1.4%{opacity:.75}
@@ -354,7 +398,7 @@ header nav a:hover{color:#fff}
    I kapitel 3 bliver udskriften STAAENDE, men daempet og trykket sammen
    til venstre, mens tilbuddet vokser frem ved siden af. Det er hele
    pointen: man skal SE, at det ene bliver til det andet. */
-.opkaldsanim .opkaldsbar{position:absolute;left:0;right:0;top:0;display:flex;
+.opkaldsanim .oa-opkaldsbar{position:absolute;left:0;right:0;top:0;display:flex;
   align-items:center;gap:11px;padding:10px 14px;border-radius:12px;
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);
   font-size:13px;font-weight:600;opacity:0;
@@ -363,41 +407,41 @@ header nav a:hover{color:#fff}
   0.0%,10.4%{opacity:0;transform:translateY(-8px)}
   13.2%,33.9%{opacity:1;transform:none}
   36.7%,100.0%{opacity:0;transform:translateY(-8px)}}
-.opkaldsanim .opkaldsbar .roer{width:16px;height:16px;flex:0 0 auto}
-.opkaldsanim .opkaldsbar .hvem2{opacity:.8;font-weight:500}
-.opkaldsanim .lyd{display:flex;align-items:center;gap:3px;height:17px;margin-left:auto}
-.opkaldsanim .lyd i{display:block;width:3px;height:100%;border-radius:2px;
+.opkaldsanim .oa-opkaldsbar .oa-roer{width:16px;height:16px;flex:0 0 auto}
+.opkaldsanim .oa-opkaldsbar .oa-hvem2{opacity:.8;font-weight:500}
+.opkaldsanim .oa-lyd{display:flex;align-items:center;gap:3px;height:17px;margin-left:auto}
+.opkaldsanim .oa-lyd i{display:block;width:3px;height:100%;border-radius:2px;
   background:var(--mynte);transform:scaleY(.3);transform-origin:center;
   animation:tm-hop 1.1s ease-in-out infinite}
-.opkaldsanim .lyd i:nth-child(2){animation-delay:.18s}
-.opkaldsanim .lyd i:nth-child(3){animation-delay:.36s}
-.opkaldsanim .lyd i:nth-child(4){animation-delay:.10s}
-.opkaldsanim .lyd i:nth-child(5){animation-delay:.28s}
+.opkaldsanim .oa-lyd i:nth-child(2){animation-delay:.18s}
+.opkaldsanim .oa-lyd i:nth-child(3){animation-delay:.36s}
+.opkaldsanim .oa-lyd i:nth-child(4){animation-delay:.10s}
+.opkaldsanim .oa-lyd i:nth-child(5){animation-delay:.28s}
 @keyframes tm-hop{0.0%,100.0%{transform:scaleY(.28)}47.1%{transform:scaleY(1)}}
-.opkaldsanim .taeller2{font-variant-numeric:tabular-nums;opacity:.85;font-weight:600}
-.opkaldsanim .taeller2::after{content:"0:04";animation:tm-tid 36s steps(1) infinite}
+.opkaldsanim .oa-taeller2{font-variant-numeric:tabular-nums;opacity:.85;font-weight:600}
+.opkaldsanim .oa-taeller2::after{content:"0:04";animation:tm-tid 36s steps(1) infinite}
 @keyframes tm-tid{
   0.0%,13.2%{content:"0:04"}  17.0%{content:"0:11"}  20.7%{content:"0:18"}
   24.5%{content:"0:25"}     28.3%{content:"0:32"}  32.0%{content:"0:39"}
   33.9%,100.0%{content:"0:43"}}
 
-.opkaldsanim .udskrift{position:absolute;left:0;top:58px;bottom:118px;
+.opkaldsanim .oa-udskrift{position:absolute;left:0;top:58px;bottom:118px;
   display:flex;flex-direction:column;gap:11px;
   width:100%;animation:tm-udskriftInd 36s ease-in-out infinite}
 @keyframes tm-udskriftInd{
   0.0%,34.8%{width:100%;opacity:1}
   38.6%,51.8%{width:42%;opacity:.45}
   54.9%,100.0%{width:42%;opacity:0}}
-.opkaldsanim .replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(143,208,182,.28);
+.opkaldsanim .oa-replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(143,208,182,.28);
   font-size:14px;line-height:1.48;opacity:0}
-.opkaldsanim .replik .navn{display:block;font-size:11px;font-weight:700;
+.opkaldsanim .oa-replik .oa-navn{display:block;font-size:11px;font-weight:700;
   letter-spacing:.5px;text-transform:uppercase;color:var(--mynte);
   margin-bottom:2px}
-.opkaldsanim .u1{animation:tm-u1 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite}
-.opkaldsanim .u2{animation:tm-u2 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite .9s}
-.opkaldsanim .u3{animation:tm-u3 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 2.1s}
-.opkaldsanim .u4{animation:tm-u4 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 3.6s}
-.opkaldsanim .u5{animation:tm-u5 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 4.8s}
+.opkaldsanim .oa-u1{animation:tm-u1 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite}
+.opkaldsanim .oa-u2{animation:tm-u2 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite .9s}
+.opkaldsanim .oa-u3{animation:tm-u3 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 2.1s}
+.opkaldsanim .oa-u4{animation:tm-u4 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 3.6s}
+.opkaldsanim .oa-u5{animation:tm-u5 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 4.8s}
 @keyframes tm-rail{
   0.0%,11.3%{border-left-color:rgba(143,208,182,.28)}
   13.2%{border-left-color:#8fd0b6}
@@ -412,11 +456,11 @@ header nav a:hover{color:#fff}
    Det var praecis det, Kasper savnede: man kunne ikke SE, at tilbuddet
    blev dannet paa baggrund af samtalen. Nu rejser tre prikker fra
    udskriften over i kortet, lige foer hver linje dukker op. */
-.opkaldsanim .spor{position:absolute;left:38%;width:9px;height:9px;border-radius:50%;
+.opkaldsanim .oa-spor{position:absolute;left:38%;width:9px;height:9px;border-radius:50%;
   background:var(--mynte);opacity:0;box-shadow:0 0 12px rgba(143,208,182,.9)}
-.opkaldsanim .sp1{top:130px;animation:tm-spor 36s ease-in-out infinite}
-.opkaldsanim .sp2{top:196px;animation:tm-spor 36s ease-in-out infinite .9s}
-.opkaldsanim .sp3{top:262px;animation:tm-spor 36s ease-in-out infinite 1.8s}
+.opkaldsanim .oa-sp1{top:130px;animation:tm-spor 36s ease-in-out infinite}
+.opkaldsanim .oa-sp2{top:196px;animation:tm-spor 36s ease-in-out infinite .9s}
+.opkaldsanim .oa-sp3{top:262px;animation:tm-spor 36s ease-in-out infinite 1.8s}
 @keyframes tm-spor{
   0.0%,37.7%{opacity:0;transform:translate(0,0) scale(.6)}
   39.6%{opacity:1;transform:translate(0,0) scale(1)}
@@ -427,7 +471,7 @@ header nav a:hover{color:#fff}
    Det bliver staaende fra kapitel 3 til slut. Tingene bliver LAGT I det
    undervejs i stedet for at kortet skiftes ud. Saa foelger man med i, at
    det er det samme tilbud hele vejen. */
-.opkaldsanim .papir{position:absolute;right:0;top:50%;width:268px;margin-top:-145px;
+.opkaldsanim .oa-papir{position:absolute;right:0;top:50%;width:268px;margin-top:-145px;
   background:#fff;color:var(--blaek);border-radius:13px;
   box-shadow:0 26px 60px rgba(0,0,0,.36);opacity:0;
   animation:tm-papirInd 36s cubic-bezier(.22,.9,.3,1) infinite}
@@ -440,41 +484,41 @@ header nav a:hover{color:#fff}
   99.1%,100.0%{opacity:0;transform:translateY(-16px) scale(.97)}}
 /* Ekstra luft i hoejre side: fluebenet stemples ind over hjoernet og
    daekkede det sidste af firmanavnet. */
-.opkaldsanim .papir .top{background:var(--groen);color:#fff;padding:10px 36px 10px 14px;
+.opkaldsanim .oa-papir .oa-top{background:var(--groen);color:#fff;padding:10px 36px 10px 14px;
   border-radius:13px 13px 0 0;display:flex;justify-content:space-between;
   align-items:center;font-size:11.5px;gap:10px}
-.opkaldsanim .papir .top b{font-size:13px}
-.opkaldsanim .papir .krop{padding:10px 14px 13px}
-.opkaldsanim .pl{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;
+.opkaldsanim .oa-papir .oa-top b{font-size:13px}
+.opkaldsanim .oa-papir .oa-krop{padding:10px 14px 13px}
+.opkaldsanim .oa-pl{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;
   padding:6px 0;border-bottom:1px solid #eee;opacity:0;
   animation:tm-plInd 36s ease-out infinite}
-.opkaldsanim .pl i{font-style:normal;color:var(--daempet);font-variant-numeric:tabular-nums}
-.opkaldsanim .pl:nth-of-type(1){animation-delay:.4s}
-.opkaldsanim .pl:nth-of-type(2){animation-delay:1.3s}
-.opkaldsanim .pl:nth-of-type(3){animation-delay:2.2s}
+.opkaldsanim .oa-pl i{font-style:normal;color:var(--daempet);font-variant-numeric:tabular-nums}
+.opkaldsanim .oa-pl:nth-of-type(1){animation-delay:.4s}
+.opkaldsanim .oa-pl:nth-of-type(2){animation-delay:1.3s}
+.opkaldsanim .oa-pl:nth-of-type(3){animation-delay:2.2s}
 @keyframes tm-plInd{
   0.0%,40.5%{opacity:0;transform:translateX(-10px)}
   43.3%,96.2%{opacity:1;transform:none}
   99.1%,100.0%{opacity:0}}
 /* Billederne docker paa kortet. De kommer fra kundens sms. */
-.opkaldsanim .fotoraekke{display:flex;gap:6px;padding:9px 0 2px;opacity:0;
+.opkaldsanim .oa-fotoraekke{display:flex;gap:6px;padding:9px 0 2px;opacity:0;
   animation:tm-fotoInd 36s ease-out infinite}
-.opkaldsanim .fotoraekke span{flex:1;height:36px;border-radius:6px;
+.opkaldsanim .oa-fotoraekke span{flex:1;height:36px;border-radius:6px;
   background:linear-gradient(135deg,#cfd8d3,#aebcb4);
   display:grid;place-items:center;font-size:9px;color:#54615a;font-weight:700}
 @keyframes tm-fotoInd{
   0.0%,77.5%{opacity:0;transform:scale(.94)}
   79.8%,96.2%{opacity:1;transform:none}
   99.1%,100.0%{opacity:0}}
-.opkaldsanim .psum{display:flex;justify-content:space-between;align-items:center;
+.opkaldsanim .oa-psum{display:flex;justify-content:space-between;align-items:center;
   padding-top:10px;font-weight:700;font-size:14px;opacity:0;
   animation:tm-sumInd 36s ease-out infinite}
-.opkaldsanim .psum i{font-style:normal;font-variant-numeric:tabular-nums}
+.opkaldsanim .oa-psum i{font-style:normal;font-variant-numeric:tabular-nums}
 @keyframes tm-sumInd{
   0.0%,81.2%{opacity:0;transform:translateY(6px)}
   84.0%,96.2%{opacity:1;transform:none}
   99.1%,100.0%{opacity:0}}
-.opkaldsanim .flueben{position:absolute;right:-15px;top:-15px;width:42px;height:42px;
+.opkaldsanim .oa-flueben{position:absolute;right:-15px;top:-15px;width:42px;height:42px;
   border-radius:50%;background:var(--mynte);display:grid;place-items:center;
   opacity:0;box-shadow:0 8px 22px rgba(0,0,0,.3);
   animation:tm-stempel 36s cubic-bezier(.2,1.5,.4,1) infinite}
@@ -484,29 +528,29 @@ header nav a:hover{color:#fff}
   99.1%,100.0%{opacity:0}}
 
 /* ---------- Kapitel 4: billedet via sms ---------- */
-.opkaldsanim .sms{position:absolute;left:0;top:70px;width:42%;opacity:0;
+.opkaldsanim .oa-sms{position:absolute;left:0;top:70px;width:42%;opacity:0;
   animation:tm-smsInd 36s ease-in-out infinite}
 @keyframes tm-smsInd{
   0.0%,54.9%{opacity:0;transform:translateY(12px)}
   59.8%,76.8%{opacity:1;transform:none}
   80.2%,100.0%{opacity:0;transform:translateY(-10px)}}
-.opkaldsanim .sms .telefonramme{background:rgba(255,255,255,.10);
+.opkaldsanim .oa-sms .oa-telefonramme{background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px}
-.opkaldsanim .sms .hoved{display:flex;align-items:center;gap:7px;font-size:11px;
+.opkaldsanim .oa-sms .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
   font-weight:700;letter-spacing:.4px;text-transform:uppercase;
   color:var(--mynte);margin-bottom:9px}
-.opkaldsanim .sms .hoved svg{width:14px;height:14px}
-.opkaldsanim .sms .besked{background:rgba(255,255,255,.15);border-radius:12px 12px 12px 3px;
+.opkaldsanim .oa-sms .oa-hoved svg{width:14px;height:14px}
+.opkaldsanim .oa-sms .oa-besked{background:rgba(255,255,255,.15);border-radius:12px 12px 12px 3px;
   padding:9px 11px;font-size:12.5px;line-height:1.45;margin:0 0 8px}
-.opkaldsanim .sms .link{background:var(--mynte);color:#123a2e;border-radius:9px;
+.opkaldsanim .oa-sms .oa-link{background:var(--mynte);color:#123a2e;border-radius:9px;
   padding:7px 11px;font-size:12px;font-weight:700;text-align:center}
-.opkaldsanim .sms .fotos{display:flex;gap:6px;margin-top:9px}
-.opkaldsanim .sms .fotos span{flex:1;height:42px;border-radius:7px;
+.opkaldsanim .oa-sms .oa-fotos{display:flex;gap:6px;margin-top:9px}
+.opkaldsanim .oa-sms .oa-fotos span{flex:1;height:42px;border-radius:7px;
   background:linear-gradient(135deg,#cfd8d3,#aebcb4);opacity:0;
   display:grid;place-items:center;font-size:9px;font-weight:700;
   letter-spacing:.6px;color:#54615a;
   animation:tm-fotoOp 36s ease-out infinite}
-.opkaldsanim .sms .fotos span:nth-child(2){animation-delay:.4s}
+.opkaldsanim .oa-sms .oa-fotos span:nth-child(2){animation-delay:.4s}
 /* De forsvinder, NAAR de sendes videre, ikke naar panelet gaar ud. Det
    er det, der goer overfoerslen til en overfoersel og ikke to ting, der
    tilfaeldigvis sker efter hinanden. */
@@ -522,10 +566,10 @@ header nav a:hover{color:#fff}
    samlet bunke, fordi to felter, der flyver hver for sig, ligner rod.
    Der animeres paa left og ikke paa transform, saa den lander det
    rigtige sted, uanset hvor bred skaermen er. */
-.opkaldsanim .fotoflyv{position:absolute;display:flex;gap:6px;width:41%;top:214px;
+.opkaldsanim .oa-fotoflyv{position:absolute;display:flex;gap:6px;width:41%;top:214px;
   left:4%;opacity:0;z-index:6;
   animation:tm-flyv 36s cubic-bezier(.45,0,.25,1) infinite}
-.opkaldsanim .fotoflyv span{flex:1;height:40px;border-radius:7px;
+.opkaldsanim .oa-fotoflyv span{flex:1;height:40px;border-radius:7px;
   background:linear-gradient(135deg,#dfe6e2,#b9c6be);
   display:grid;place-items:center;font-size:9px;font-weight:700;
   letter-spacing:.6px;color:#54615a;
@@ -548,33 +592,33 @@ header nav a:hover{color:#fff}
 
    Nu har de SAMME ramme og samme plads som sms-panelet i kapitel 4, og
    de to valg fylder, som de skal. */
-.opkaldsanim .veje{position:absolute;left:0;top:70px;width:42%;opacity:0;
+.opkaldsanim .oa-veje{position:absolute;left:0;top:70px;width:42%;opacity:0;
   animation:tm-vejeInd 36s ease-in-out infinite}
 @keyframes tm-vejeInd{
   0.0%,80.2%{opacity:0;transform:translateY(12px)}
   84.0%,96.2%{opacity:1;transform:none}
   99.1%,100.0%{opacity:0;transform:translateY(-10px)}}
-.opkaldsanim .veje .ramme2{background:rgba(255,255,255,.10);
+.opkaldsanim .oa-veje .oa-ramme2{background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:14px}
-.opkaldsanim .veje .hoved{display:flex;align-items:center;gap:7px;font-size:11px;
+.opkaldsanim .oa-veje .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
   font-weight:700;letter-spacing:.4px;text-transform:uppercase;
   color:var(--mynte);margin-bottom:11px}
-.opkaldsanim .veje .hoved svg{width:14px;height:14px}
-.opkaldsanim .vej{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;
+.opkaldsanim .oa-veje .oa-hoved svg{width:14px;height:14px}
+.opkaldsanim .oa-vej{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;
   border-radius:12px;background:rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.18);font-size:14px;font-weight:700;
   opacity:0;animation:tm-vejInd 36s cubic-bezier(.2,1.3,.4,1) infinite}
-.opkaldsanim .vej.v2{animation-delay:.5s}
-.opkaldsanim .vej svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
-.opkaldsanim .vej small{display:block;font-size:11.5px;font-weight:500;opacity:.78;
+.opkaldsanim .oa-vej.oa-v2{animation-delay:.5s}
+.opkaldsanim .oa-vej svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
+.opkaldsanim .oa-vej small{display:block;font-size:11.5px;font-weight:500;opacity:.78;
   margin-top:3px;line-height:1.45;hyphens:none}
 /* "eller" imellem. Uden det ligner de to trin, man skal igennem, og det
    er de ikke: man vaelger det ene ELLER det andet. */
-.opkaldsanim .eller{display:flex;align-items:center;gap:9px;margin:9px 0;
+.opkaldsanim .oa-eller{display:flex;align-items:center;gap:9px;margin:9px 0;
   font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
   color:var(--mynte);opacity:0;
   animation:tm-vejInd 36s ease-out infinite;animation-delay:.25s}
-.opkaldsanim .eller::before,.opkaldsanim .eller::after{content:"";flex:1;height:1px;
+.opkaldsanim .oa-eller::before,.opkaldsanim .oa-eller::after{content:"";flex:1;height:1px;
   background:rgba(143,208,182,.3)}
 @keyframes tm-vejInd{
   0.0%,82.1%{opacity:0;transform:translateY(10px)}
@@ -582,18 +626,42 @@ header nav a:hover{color:#fff}
   99.1%,100.0%{opacity:0}}
 
 /* ---------- Kapitelnavnene ---------- */
-.opkaldsanim .kap{position:absolute;left:0;bottom:0;font-size:13px;font-weight:600;
+.opkaldsanim .oa-kap{position:absolute;left:0;bottom:0;font-size:13px;font-weight:600;
   color:var(--mynte);opacity:0}
-.opkaldsanim .k1{animation:tm-kap1 36s ease-in-out infinite}
-.opkaldsanim .k2{animation:tm-kap2 36s ease-in-out infinite}
-.opkaldsanim .k3{animation:tm-kap3 36s ease-in-out infinite}
-.opkaldsanim .k4{animation:tm-kap4 36s ease-in-out infinite}
-.opkaldsanim .k5{animation:tm-kap5 36s ease-in-out infinite}
+.opkaldsanim .oa-k1{animation:tm-kap1 36s ease-in-out infinite}
+.opkaldsanim .oa-k2{animation:tm-kap2 36s ease-in-out infinite}
+.opkaldsanim .oa-k3{animation:tm-kap3 36s ease-in-out infinite}
+.opkaldsanim .oa-k4{animation:tm-kap4 36s ease-in-out infinite}
+.opkaldsanim .oa-k5{animation:tm-kap5 36s ease-in-out infinite}
 @keyframes tm-kap1{0.0%{opacity:0}1.9%,10.4%{opacity:1}12.2%,100.0%{opacity:0}}
 @keyframes tm-kap2{0.0%,12.2%{opacity:0}15.1%,33.0%{opacity:1}34.8%,100.0%{opacity:0}}
 @keyframes tm-kap3{0.0%,35.8%{opacity:0}38.6%,50.9%{opacity:1}52.7%,100.0%{opacity:0}}
 @keyframes tm-kap4{0.0%,54.9%{opacity:0}58.6%,76.8%{opacity:1}79.3%,100.0%{opacity:0}}
 @keyframes tm-kap5{0.0%,80.2%{opacity:0}83.0%,96.2%{opacity:1}98.1%,100.0%{opacity:0}}
+
+/* ---------- Naar skaermen bliver smal ----------
+   Der var slet ingen regler for smalle skaermer. Scenen er bygget med
+   absolut placerede dele i et fast rum paa 568 x 480, saa den kan ikke
+   ombryde. Den skal i stedet HAVE sin plads, og naar den ikke kan faa
+   den, skaleres hele rummet ned i et stykke. Saa beholder alle dele
+   deres indbyrdes stoerrelse, og intet bliver klemt.               */
+@media(max-width:900px){
+  /* Under to spalter: teksten oeverst, scenen under, midt i. */
+  .h1{grid-template-columns:1fr;gap:26px;padding:44px 24px;min-height:0}
+  .oa-scene{width:520px;max-width:100%;margin:0 auto}
+}
+@media(max-width:600px){
+  /* 520 px kan ikke vaere der laengere. Hele rummet skaleres ned, og
+     den plads, skaleringen frigiver, tages tilbage med margin.
+     480 x (1 - 0.62) = 182. */
+  .h1{padding:36px 16px}
+  .oa-scene{width:520px;max-width:none;margin:0;
+    transform:scale(.62);transform-origin:top left;margin-bottom:-182px}
+}
+@media(max-width:420px){
+  .oa-scene{transform:scale(.52);margin-bottom:-230px}
+}
+
 
 
 /* ==================================================================
@@ -785,8 +853,8 @@ footer a:hover{color:var(--blaek)}
 <section class="hero" id="top">
   <div class="baand">
     <div class="opkaldsanim">
-      <div class="ord">
-        <span class="mrk">Du beholder dit eget nummer</span>
+      <div class="oa-ord">
+        <span class="oa-mrk">Du beholder dit eget nummer</span>
         <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
         <p class="under-h1">Når samtalen er slut, ligger der et udkast med
           opgaven, materialerne og forbeholdene. Du retter og sender.</p>
@@ -796,68 +864,68 @@ footer a:hover{color:var(--blaek)}
         </div>
         <p class="lille-note">Ingen robot taler med dine kunder.</p>
       </div>
-      <div class="scene">
-      <div class="ringbolge"></div><div class="ringbolge b2"></div><div class="ringbolge b3"></div>
-      <div class="tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.7">
+      <div class="oa-scene">
+      <div class="oa-ringbolge"></div><div class="oa-ringbolge oa-b2"></div><div class="oa-ringbolge oa-b3"></div>
+      <div class="oa-tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.7">
         <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></div>
 
-      <div class="opkaldsbar">
-        <svg class="roer" viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
+      <div class="oa-opkaldsbar">
+        <svg class="oa-roer" viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
           <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg>
-        Opkald i gang <span class="hvem2">&middot; Morten Jensen</span>
-        <span class="lyd"><i></i><i></i><i></i><i></i><i></i></span>
-        <span class="taeller2"></span>
+        Opkald i gang <span class="oa-hvem2">&middot; Morten Jensen</span>
+        <span class="oa-lyd"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="oa-taeller2"></span>
       </div>
 
-      <div class="udskrift">
-        <p class="replik u1"><span class="navn">Anders</span>
+      <div class="oa-udskrift">
+        <p class="oa-replik oa-u1"><span class="oa-navn">Anders</span>
           Hej, du taler med Anders fra Håndværker ApS.</p>
-        <p class="replik u2"><span class="navn">Morten</span>
+        <p class="oa-replik oa-u2"><span class="oa-navn">Morten</span>
           Hej Anders. Jeg vil gerne have lavet et nyt badeværelse.</p>
-        <p class="replik u3"><span class="navn">Morten</span>
+        <p class="oa-replik oa-u3"><span class="oa-navn">Morten</span>
           Cirka ti kvadratmeter. Bruseniche, nyt toilet og håndvask,
           og fliser på gulv og vægge.</p>
-        <p class="replik u4"><span class="navn">Anders</span>
+        <p class="oa-replik oa-u4"><span class="oa-navn">Anders</span>
           Det kan vi sagtens. Hvornår skal det stå færdigt?</p>
-        <p class="replik u5"><span class="navn">Morten</span>
+        <p class="oa-replik oa-u5"><span class="oa-navn">Morten</span>
           Gerne inden jul.</p>
       </div>
 
-      <div class="fotoflyv"><span>FOTO</span><span>FOTO</span></div>
+      <div class="oa-fotoflyv"><span>FOTO</span><span>FOTO</span></div>
 
-      <div class="spor sp1"></div>
-      <div class="spor sp2"></div>
-      <div class="spor sp3"></div>
+      <div class="oa-spor oa-sp1"></div>
+      <div class="oa-spor oa-sp2"></div>
+      <div class="oa-spor oa-sp3"></div>
 
-      <div class="sms">
-        <div class="telefonramme">
-          <div class="hoved">
+      <div class="oa-sms">
+        <div class="oa-telefonramme">
+          <div class="oa-hoved">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
               <rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
             Sms til Morten
           </div>
-          <p class="besked">Hej Morten. Kan du sende et par billeder af
+          <p class="oa-besked">Hej Morten. Kan du sende et par billeder af
             badeværelset, så jeg kan se forholdene?</p>
-          <div class="link">Læg billeder på sagen</div>
-          <div class="fotos"><span>FOTO</span><span>FOTO</span></div>
+          <div class="oa-link">Læg billeder på sagen</div>
+          <div class="oa-fotos"><span>FOTO</span><span>FOTO</span></div>
         </div>
       </div>
 
-      <div class="veje">
-        <div class="ramme2">
-          <div class="hoved">
+      <div class="oa-veje">
+        <div class="oa-ramme2">
+          <div class="oa-hoved">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2.4"
               stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
             Tilbuddet er klar
           </div>
-          <div class="vej">
+          <div class="oa-vej">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
               <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>Send til kunden
               <small>Fra din egen mail, med PDF</small></span>
           </div>
-          <div class="eller">eller</div>
-          <div class="vej v2">
+          <div class="oa-eller">eller</div>
+          <div class="oa-vej oa-v2">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
               <path d="M4 6h16M4 11h16M4 16h7"/><path d="M14 17l2.5 2.5L21 15"/></svg>
             <span>Direkte i regnskabet
@@ -866,24 +934,24 @@ footer a:hover{color:var(--blaek)}
         </div>
       </div>
 
-      <div class="papir">
-        <div class="flueben"><svg viewBox="0 0 24 24" fill="none" stroke="#123a2e" stroke-width="2.6"
+      <div class="oa-papir">
+        <div class="oa-flueben"><svg viewBox="0 0 24 24" fill="none" stroke="#123a2e" stroke-width="2.6"
           stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4 12l5 5L20 6"/></svg></div>
-        <div class="top"><b>Tilbud til Morten</b><span>Håndværker ApS</span></div>
-        <div class="krop">
-          <div class="pl"><span>Bruseniche, toilet og håndvask</span><i>8.925,00</i></div>
-          <div class="pl"><span>Fliser, gulv og vægge</span><i>15.750,00</i></div>
-          <div class="pl"><span>Materialer</span><i>13.916,00</i></div>
-          <div class="fotoraekke"><span>FOTO</span><span>FOTO</span></div>
-          <div class="psum"><span>I alt inkl. moms</span><i>48.238,75 kr.</i></div>
+        <div class="oa-top"><b>Tilbud til Morten</b><span>Håndværker ApS</span></div>
+        <div class="oa-krop">
+          <div class="oa-pl"><span>Bruseniche, toilet og håndvask</span><i>8.925,00</i></div>
+          <div class="oa-pl"><span>Fliser, gulv og vægge</span><i>15.750,00</i></div>
+          <div class="oa-pl"><span>Materialer</span><i>13.916,00</i></div>
+          <div class="oa-fotoraekke"><span>FOTO</span><span>FOTO</span></div>
+          <div class="oa-psum"><span>I alt inkl. moms</span><i>48.238,75 kr.</i></div>
         </div>
       </div>
 
-      <div class="kap k1">Kunden ringer til dit eget nummer</div>
-      <div class="kap k2">Samtalen skrives ud, mens I taler</div>
-      <div class="kap k3">Udkastet bygges af det, der blev sagt</div>
-      <div class="kap k4">Du beder om et billede. Kunden lægger det selv på sagen</div>
-      <div class="kap k5">Tilbuddet er klar, og kan sendes to veje</div>
+      <div class="oa-kap oa-k1">Kunden ringer til dit eget nummer</div>
+      <div class="oa-kap oa-k2">Samtalen skrives ud, mens I taler</div>
+      <div class="oa-kap oa-k3">Udkastet bygges af det, der blev sagt</div>
+      <div class="oa-kap oa-k4">Du beder om et billede. Kunden lægger det selv på sagen</div>
+      <div class="oa-kap oa-k5">Tilbuddet er klar, og kan sendes to veje</div>
     </div>
     </div>
   </div>
