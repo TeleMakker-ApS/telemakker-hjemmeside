@@ -617,50 +617,12 @@ header nav a:hover{color:#fff}
 .regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
 /* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
    lang stribe paa en bred skaerm. */
-.regne .indhold{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-  gap:clamp(24px,4vw,40px);align-items:stretch;margin-top:26px}
+.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
 .regne .svar{margin-top:0;padding-top:0;border-top:0}
-
-/* SKYDERNE FAAR DERES EGEN FLADE.
-   Foer laa de loest paa kortet ved siden af svaret, og de to halvdele
-   lignede den samme slags indhold. Den ene er noget, man SKRUER paa,
-   den anden er et resultat. Nu er der en flade og en kant imellem, saa
-   forskellen kan ses uden at laese. */
-.regne .felter{background:rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.10);
-  border-radius:14px;padding:clamp(18px,2.4vw,24px);gap:20px;align-content:start}
-.overskrift-lille{display:block;font-size:11.5px;font-weight:700;
-  letter-spacing:.9px;text-transform:uppercase;color:var(--mynte);
-  margin-bottom:16px}
-/* Vaerdien staar OVER skyderen og ikke ved siden af. Saa faar tallet
-   plads til at vaere stort, og de tre skydere bliver lige lange. */
-.regne .felt label{display:flex;justify-content:space-between;align-items:baseline;
-  gap:10px;font-size:14px;color:rgba(255,255,255,.72);margin-bottom:9px}
-.regne .felt .tal{min-width:0;text-align:right;font-size:21px}
-
-/* UGEN, FOER OG EFTER.
-   Det er den her, der goer afsnittet levende. Et tal i kroner er
-   abstrakt; to bjaelker ved siden af hinanden kan ses paa et oejeblik.
-   Bjaelken for "i dag" er altid fuld, og den anden maales op mod den,
-   saa forskellen ER forholdet mellem dem. */
-.uge{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.20)}
-.uge-rk{display:grid;grid-template-columns:112px 1fr auto;align-items:center;
-  gap:12px;margin-top:11px;font-size:14px}
-.uge-rk span:first-child{color:rgba(255,255,255,.72)}
-.bane{height:16px;border-radius:8px;background:rgba(0,0,0,.20);overflow:hidden}
-.bane b{display:block;height:100%;border-radius:8px;
-  transition:width .55s cubic-bezier(.16,1,.3,1)}
-.bane.foer b{background:rgba(255,255,255,.34)}
-.bane.efter b{background:var(--mynte)}
-.uge-rk .vaerdi{font-weight:700;font-variant-numeric:tabular-nums;
-  min-width:66px;text-align:right}
-.uge .sparet{margin-top:15px;font-size:14.5px;color:rgba(255,255,255,.82)}
-.uge .sparet b{color:var(--mynte)}
-@media (prefers-reduced-motion:reduce){ .bane b{transition:none} }
-
 @media(max-width:760px){
-  .regne .indhold{grid-template-columns:1fr;gap:22px}
-  .regne .svar{margin-top:0}
-  .uge-rk{grid-template-columns:100px 1fr auto;gap:9px;font-size:13px}
+  .regne .indhold{grid-template-columns:1fr;gap:24px}
+  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
 }
 
 /* ==================================================================
@@ -936,47 +898,36 @@ footer a:hover{color:var(--blaek)}
 
       <div class="indhold">
         <div class="felter">
-          <span class="overskrift-lille">Sæt dine egne tal</span>
           <div class="felt">
-            <label for="antal">Tilbud om ugen <span class="tal" id="antal-vis">4</span></label>
-            <input type="range" id="antal" min="1" max="20" step="1" value="4">
+            <label for="antal">Tilbud om ugen</label>
+            <div class="raek">
+              <input type="range" id="antal" min="1" max="20" step="1" value="4">
+              <span class="tal" id="antal-vis">4</span>
+            </div>
           </div>
           <div class="felt">
-            <label for="foer">Minutter pr. tilbud i dag
-              <span class="tal" id="foer-vis">35<small>min</small></span></label>
-            <input type="range" id="foer" min="10" max="120" step="5" value="35">
+            <label for="foer">Minutter pr. tilbud i dag</label>
+            <div class="raek">
+              <input type="range" id="foer" min="10" max="120" step="5" value="35">
+              <span class="tal" id="foer-vis">35<small>min</small></span>
+            </div>
           </div>
           <div class="felt">
-            <label for="timepris">Din timepris
-              <span class="tal" id="timepris-vis">465<small>kr.</small></span></label>
-            <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
+            <label for="timepris">Din timepris</label>
+            <div class="raek">
+              <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
+              <span class="tal" id="timepris-vis">465<small>kr.</small></span>
+            </div>
           </div>
         </div>
 
         <div class="svar">
           <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
           <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
-
-          <!-- TO BJAELKER I STEDET FOR TRE TAL.
-               Kroner om aaret er abstrakt. Ugen kan man se for sig, og
-               to bjaelker ved siden af hinanden siger forskellen paa et
-               oejeblik. Tallene bliver staaende nedenunder, saa den, der
-               vil regne efter, stadig kan. -->
-          <div class="uge">
-            <span class="overskrift-lille">Din uge på tilbud</span>
-            <div class="uge-rk">
-              <span>I dag</span>
-              <span class="bane foer"><b id="bane-foer" style="width:100%"></b></span>
-              <span class="vaerdi" id="tid-foer">0</span>
-            </div>
-            <div class="uge-rk">
-              <span>Med TeleMakker</span>
-              <span class="bane efter"><b id="bane-efter" style="width:0"></b></span>
-              <span class="vaerdi" id="tid-efter">0</span>
-            </div>
-            <p class="sparet">Du får <b id="uge">0</b> minutter tilbage om ugen.
-              Det bliver <b id="timer">0</b> timer om året, eller
-              <b id="dage">0</b> hele arbejdsdage.</p>
+          <div class="noegle">
+            <span><b id="timer">0</b> timer</span>
+            <span><b id="dage">0</b> arbejdsdage</span>
+            <span><b id="uge">0</b> minutter om ugen</span>
           </div>
         </div>
       </div>
@@ -1191,16 +1142,6 @@ footer a:hover{color:var(--blaek)}
 
   function dansk(t) { return t.toLocaleString("da-DK"); }
 
-  // Minutter som noget, en haandvaerker siger: "2 t 20 min", ikke "140".
-  // Hundrede og fyrre minutter er et tal, man skal regne paa; to timer og
-  // tyve er noget, man kan se for sig.
-  function somTid(min) {
-    min = Math.round(min);
-    if (min < 60) return min + " min";
-    var t = Math.floor(min / 60), m = min % 60;
-    return m ? t + " t " + m + " min" : t + " t";
-  }
-
   function taelOp(el, til, ms) {
     var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
     if (rolig || fra === til) { el.textContent = dansk(til); return; }
@@ -1239,16 +1180,6 @@ footer a:hover{color:var(--blaek)}
     document.getElementById("antal-vis").textContent = a;
     document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
     document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
-
-    // DE TO BJAELKER. "I dag" er altid fuld, og den anden maales op mod
-    // den. Saa ER bjaelkernes forhold forskellen, uden at nogen skal
-    // laese to tal og traekke dem fra hinanden i hovedet.
-    var ugeFoer = a * f;
-    var ugeEfter = a * e;
-    document.getElementById("bane-efter").style.width =
-      (ugeFoer ? Math.round(ugeEfter / ugeFoer * 100) : 0) + "%";
-    document.getElementById("tid-foer").textContent = somTid(ugeFoer);
-    document.getElementById("tid-efter").textContent = somTid(ugeEfter);
 
     // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
     // og ikke negativ. Et minustal ville være noget vrøvl.
