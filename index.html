@@ -255,7 +255,22 @@ header nav a:hover{color:#fff}
 .hero{background:
     radial-gradient(900px 440px at 72% 16%, #2a7a60 0%, transparent 62%),
     linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
-  color:#fff;padding:clamp(40px,5vw,64px) 0;overflow:hidden}
+  color:#fff;padding:clamp(44px,5vw,72px) 0;overflow:hidden;
+  /* TOPPEN FYLDER SKAERMEN.
+     Foer sluttede den ved 608 px paa en 900 px skaerm, og regnestykket
+     begyndte ved 679. Begge stod i samme skaermbillede, og saa
+     konkurrerer de om oejet. Nu moedes man af een ting. */
+  min-height:100vh;display:flex;align-items:center}
+/* BAANDET ER BREDERE I TOPPEN, OG KUN I TOPPEN.
+   Sidens baand er 1120 px, som bliver 1072 ved 1440. Der er ikke plads
+   til baade en overskrift paa 72 px og en animation paa 568. Foerste
+   forsoeg skrumpede animationen til 72 %, og saa blev tilbudskortet
+   179 px bredt med en sum i 10 px skrift. Ulaeseligt.
+   Resten af siden skal stadig laeses i en smal maalestok. */
+.hero > .baand{width:100%}
+@media(min-width:1250px){
+  .hero > .baand{max-width:min(1300px, calc(100vw - 96px))}
+}
 .hero .opkaldsanim{background:none;padding:0;border-radius:0;
   min-height:0;overflow:visible;
   /* Bredere venstre spalte end i prototypen. "Tilbuddet skriver sig
@@ -268,18 +283,60 @@ header nav a:hover{color:#fff}
      presset til 150 px, saa "Send til kunden" braekkede over to
      linjer. Nu giver teksten sig foerst. */
   grid-template-columns:minmax(280px,470px) minmax(520px,1fr)}
+/* OVER 1250 PX FAAR ANIMATIONEN SINE 568, OG TEKSTEN RESTEN.
+   Under 1250 stables der. Sidens egen regel stablede foer ved 900, men
+   mellem 900 og 1250 blev tekstspalten 258 px bred ved siden af
+   animationen, og saa er der ingenting vundet. To tilstande, ikke tre:
+   enten er der plads til begge, eller teksten staar over. */
+@media(min-width:1250px){
+  .hero .opkaldsanim{grid-template-columns:minmax(0,1fr) 568px;
+    gap:clamp(30px,3vw,48px)}
+  .hero .opkaldsanim .oa-scene{transform:none;margin-right:0}
+}
+@media(max-width:1249px){
+  .hero .opkaldsanim{grid-template-columns:minmax(0,1fr);gap:clamp(26px,3vw,40px)}
+  .hero .opkaldsanim .oa-scene{width:520px;max-width:100%;margin:0 auto;transform:none}
+  .hero{min-height:0}
+}
 .hero .opkaldsanim::before{inset:-40%}
-.opkaldsanim h1{font-size:clamp(27px,2.8vw,34px);line-height:1.16;
-  margin:16px 0 14px;text-wrap:balance;color:#fff}
-.hero .under-h1{color:rgba(255,255,255,.85);font-size:16.5px;
-  margin:0 0 24px;max-width:none}
-.hero .lille-note{color:rgba(255,255,255,.62);font-size:14.5px;margin-top:18px}
+/* OVERSKRIFTEN FYLDER.
+   Den var 34 px ved siden af en animation paa 480, altsaa fjorten gange
+   mindre, og saa laeses den som en billedtekst til animationen i stedet
+   for det, siden handler om.
+
+   BRUDDENE ER BESTEMT, IKKE OVERLADT TIL BROWSEREN. Ved 72 px kan
+   "Du taler med kunden." ikke staa paa een linje i den spalte, der er.
+   Overlades det til browseren, braekker den, hvor der tilfaeldigvis er
+   plads, og saa ligner overskriften fire smaastykker. Fire valgte
+   linjer laeses som noget, nogen har bestemt.
+
+   Under 1250 slaas bruddene fra: der er ikke plads til at bestemme
+   noget, og saa skal teksten flyde. */
+.opkaldsanim h1{font-size:clamp(32px,5.1vw,72px);line-height:1.04;
+  letter-spacing:-0.035em;margin:28px 0 30px;text-wrap:balance;color:#fff}
+@media(min-width:1250px){
+  .opkaldsanim h1 .l{display:block}
+  /* Luft mellem de to saetninger, men en tredjedel af en linje. Et <br>
+     gav en HEL tom linje paa 75 px, og saa faldt overskriften i to
+     stykker, der ikke hang sammen. */
+  .opkaldsanim h1 .e{margin-top:.34em}
+}
+/* LUFTEN LIGGER MELLEM DELENE, IKKE RUNDT OM DEM.
+   Maerkatet, overskriften, teksten og knapperne stod klemt sammen i en
+   lille blok midt i et stort tomt felt. 16,5 px undertekst under en
+   overskrift paa 72 ser ud som en fodnote. */
+.hero .under-h1{color:rgba(255,255,255,.85);font-size:clamp(17px,1.6vw,22px);
+  line-height:1.5;margin:0 0 38px;max-width:44ch}
+.opkaldsanim .oa-mrk{font-size:clamp(13px,1.15vw,16px);padding:9px 20px}
+.hero .knapper{gap:14px}
+.hero .knapper .knap{font-size:clamp(15px,1.3vw,18px);padding:17px 32px}
+.hero .lille-note{color:rgba(255,255,255,.62);font-size:clamp(14px,1.1vw,16px);
+  margin-top:30px}
 .hero .knap.lys{background:#fff;color:var(--groen);border-color:#fff}
 .hero .knap.lys:hover{background:var(--mynte);border-color:var(--mynte)}
 .hero .knap.hul.lys{background:transparent;color:#fff;
   border-color:rgba(255,255,255,.45)}
 .hero .knap.hul.lys:hover{background:rgba(255,255,255,.12);border-color:#fff}
-@media(max-width:860px){ .opkaldsanim h1{font-size:26px} }
 
 /* ---------- Naar skaermen bliver smal ----------
    Scenen er bygget med absolut placerede dele i et fast rum paa
@@ -855,7 +912,7 @@ footer a:hover{color:var(--blaek)}
     <div class="opkaldsanim">
       <div class="oa-ord">
         <span class="oa-mrk">Du beholder dit eget nummer</span>
-        <h1>Du taler med kunden.<br>Tilbuddet skriver sig selv.</h1>
+        <h1><span class="l">Du taler</span> <span class="l">med kunden.</span><span class="l e">Tilbuddet skriver</span> <span class="l">sig selv.</span></h1>
         <p class="under-h1">Når samtalen er slut, ligger der et udkast med
           opgaven, materialerne og forbeholdene. Du retter og sender.</p>
         <div class="knapper">
