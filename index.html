@@ -19,9 +19,24 @@
 <!-- Siden svarer paa baade telemakker.dk og www.telemakker.dk. Uden den
      her ser en soegemaskine to udgaver af det samme. -->
 <link rel="canonical" href="https://www.telemakker.dk/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- SKRIFTEN LIGGER HOS OS SELV, IKKE HOS GOOGLE.
+     Før hentede siden Archivo fra fonts.googleapis.com. Det er ikke en
+     cookie, men det sender den besøgendes IP-adresse til Google, hver
+     gang nogen åbner forsiden, og vi får ikke ét eneste tal ud af det.
+     Advokaterne spurgte 29. september til cookies. Siden sætter ingen,
+     og det her var det eneste, der overhovedet forlod den. Nu forlader
+     der ingenting.
+     Archivo er en VARIABEL skrift, så ÉN fil på 35 kB dækker alle vægte
+     fra 100 til 900. Det er også hurtigere end Googles tre opslag. -->
+<style>
+@font-face{
+  font-family:Archivo;
+  src:url(skrift/archivo.woff2) format('woff2');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+</style>
 
 <style>
 /* ------------------------------------------------------------------
