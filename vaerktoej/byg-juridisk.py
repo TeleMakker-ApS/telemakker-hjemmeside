@@ -4,14 +4,14 @@
 BYGGER DE TRE JURIDISKE SIDER UD FRA ADVOKATENS WORD-FILER
 
 HVORFOR VÆRKTØJET FINDES, og hvorfor siderne ikke bare er skrevet i
-hånden: teksten er ikke vores. Den kommer fra Sofie, og den bliver
+hånden: teksten er ikke vores. Den kommer fra advokaten, og den bliver
 rettet igen. Var siderne skrevet i hånden, skulle en ny udgave klippes
 ind tre steder, og så ville hjemmesiden og aftalen skride fra hinanden,
 uden at nogen opdagede det. Det er præcis den fejl, der er alvorlig på
 en juridisk side: den ser rigtig ud.
 
-Reglen er derfor: Sofie sender en ny fil, filen lægges i
-juridisk/kilder/, og værktøjet køres. Siderne er en AFLEDNING af
+Reglen er derfor: advokaten sender en ny fil, filen lægges i mappen
+med kilderne, og værktøjet køres. Siderne er en AFLEDNING af
 kilden, aldrig en kopi, nogen har rettet i.
 
 HVORFOR PYTHON OG IKKE NODE, når resten af TeleMakker er Node: en
@@ -437,7 +437,7 @@ DBA_ANTAL = {2: 10, 3: 3, 4: 2, 5: 2, 6: 5, 7: 8, 8: 5,
 UDELADT = {
     "Google": "Skriften på hjemmesiden blev flyttet hjem til vores egen "
               "server 30. september 2026. Google har ikke længere kontakt "
-              "med en besøgende og står derfor ikke på listen. Sofie er "
+              "med en besøgende og står derfor ikke på listen. Advokaten er "
               "bedt om at rette bilaget i kilden.",
 }
 
@@ -702,8 +702,8 @@ def byg_bilag_b():
 # private repo. Det er ikke en gåde, det er den samme regel som for
 # selve dokumentet.
 #
-# Kasper besluttede 30. september 2026: *"Ja lad vær og giv vores
-# køreplan ud til andre for at kunne bryde ind. Fjern den del."*
+# Besluttet 30. september 2026: beskrivelsen skal ikke udleveres til
+# andre end den, der har brug for den.
 #
 # Det er også det almindelige. Kunden får bilaget, når han beder om
 # det, og han får det i den aftale, han skriver under på. Alle ANDRE
