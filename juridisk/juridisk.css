@@ -1,0 +1,131 @@
+/* ------------------------------------------------------------------
+   DE JURIDISKE SIDER
+
+   Samme mærke som forsiden, men sat til LÆSNING og ikke til salg.
+   Forsiden skal fange en håndværker på tolv sekunder. De her sider
+   skal kunne læses igennem af en advokat, en revisor eller en kunde,
+   der leder efter én bestemt paragraf.
+
+   HVORFOR DE HAR DERES EGEN FIL, og ikke ligger inde i sidernes
+   hoved som på forsiden: der er tre sider, de ser ens ud, og de
+   bygges af et værktøj. Havde stilen ligget inde i hver side, skulle
+   den rettes tre steder, og så ville de skride fra hinanden.
+
+   HVORFOR STIEN TIL SKRIFTEN STARTER MED SKRÅSTREG. Siderne ligger i
+   /juridisk/handelsbetingelser/ og ikke i roden. En relativ sti ville
+   pege på et sted, hvor filen ikke er, og skriften ville falde
+   tilbage til systemets egen uden en fejl. Det er den slags fejl, man
+   ikke ser, fordi siden stadig virker.
+   ------------------------------------------------------------------ */
+
+@font-face{
+  font-family:Archivo;
+  src:url(/skrift/archivo.woff2) format('woff2');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
+  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#eaf1ee;
+  --kant:#e3e3df; --sand:#f1f2f0;
+  --runding:10px; --baand:820px;
+}
+
+/* Samme to-delte mørke tilstand som forsiden. Den bare :root ovenfor
+   er den lyse; den her gælder, når maskinen står mørkt. */
+@media (prefers-color-scheme:dark){
+  :root{
+    --blaek:#ece8e0; --daempet:#a9a29a; --papir:#191815; --hvid:#221f1c;
+    --groen:#8fd0b6; --groen-moerk:#8fd0b6; --groen-lys:#20302b;
+    --kant:#38342e; --sand:#211f1b;
+  }
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--papir); color:var(--blaek);
+  font:400 17px/1.7 Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.baand{max-width:var(--baand);margin:0 auto;padding:0 20px}
+
+/* TOPPEN. Ikke en menu, bare en vej hjem. En mand, der er landet her
+   fra Google, skal kunne komme til forsiden med ét tryk. */
+.top{border-bottom:1px solid var(--kant);padding:18px 0}
+.top .baand{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.maerke{font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--blaek)}
+.top a.retur{color:var(--daempet);text-decoration:none;font-size:15px}
+.top a.retur:hover{color:var(--blaek)}
+
+main{padding:44px 0 70px}
+h1{font-size:clamp(28px,4vw,38px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin:0 0 10px}
+.dato{color:var(--daempet);font-size:15px;margin:0 0 6px}
+
+/* RAMMEN OM DET, DER IKKE ER AFTALETEKST. Her står, hvad siden er,
+   og hvad den ikke er. Den skal kunne skelnes fra aftalen med øjet
+   alene, så ingen læser vores forklaring som en bestemmelse. */
+.note{
+  background:var(--groen-lys);border:1px solid var(--kant);
+  border-radius:var(--runding);padding:16px 18px;margin:26px 0 8px;
+  font-size:15.5px;line-height:1.6;
+}
+.note strong{color:var(--blaek)}
+.note p+p{margin-top:10px}
+
+h2{
+  font-size:21px;font-weight:700;letter-spacing:-.015em;line-height:1.25;
+  margin:40px 0 4px;padding-top:18px;border-top:1px solid var(--kant);
+}
+h3{font-size:17px;font-weight:600;line-height:1.4;margin:26px 0 2px}
+p{margin:14px 0}
+a{color:var(--groen)}
+
+/* NUMMERET BESTEMMELSE. Nummeret står i marginen, så teksten flugter
+   hele vejen ned, og man kan løbe numrene igennem med øjet, når man
+   leder efter en krydshenvisning som "Bestemmelse 9.2". */
+.punkt{display:grid;grid-template-columns:58px minmax(0,1fr);gap:0 6px;margin:13px 0}
+.punkt>.nr{color:var(--daempet);font-variant-numeric:tabular-nums;font-size:15.5px;padding-top:2px}
+.punkt>div:last-child{min-width:0}
+
+ul{margin:12px 0 12px 58px;padding-left:20px}
+li{margin:6px 0}
+
+/* BILAG B: UNDERDATABEHANDLERNE. En tabel, fordi det ER en tabel, og
+   fordi kolonnerne skal kunne sammenlignes ned ad siden. Den ruller
+   for sig selv på en telefon, så resten af siden ikke gør. */
+.tabel-rul{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--kant)}
+th{font-weight:600;background:var(--sand);white-space:nowrap}
+
+/* UNDERSKRIFTSFELTERNE. De står med vilje som tomme linjer og ikke
+   som felter man kan skrive i: siden er den gældende tekst, ikke
+   papiret man skriver under på. */
+.underskrift{background:var(--sand);border-radius:var(--runding);padding:4px 18px 18px;margin:18px 0}
+.underskrift h3{margin-top:18px}
+.felt{color:var(--daempet);font-size:15px;margin:8px 0}
+
+footer{border-top:1px solid var(--kant);padding:30px 0 40px;font-size:15px;color:var(--daempet)}
+footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--daempet);text-decoration:none}
+footer a:hover{color:var(--blaek)}
+
+/* Listen over de tre sider på /juridisk/ */
+.liste{list-style:none;margin:26px 0 0;padding:0}
+.liste li{margin:0 0 12px}
+.liste a{
+  display:block;text-decoration:none;color:var(--blaek);
+  border:1px solid var(--kant);border-radius:var(--runding);
+  padding:16px 18px;background:var(--hvid);
+}
+.liste a:hover{border-color:var(--groen)}
+.liste b{display:block;font-size:18px;margin-bottom:2px}
+.liste span{color:var(--daempet);font-size:15px}
+
+@media(max-width:620px){
+  .punkt{grid-template-columns:44px minmax(0,1fr)}
+  ul{margin-left:44px}
+  main{padding:30px 0 50px}
+}

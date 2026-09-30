@@ -899,6 +899,12 @@ footer{border-top:1px solid var(--kant);padding:30px 0;font-size:15px;color:var(
 footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:var(--daempet);text-decoration:none}
 footer a:hover{color:var(--blaek)}
+/* Grupperne i foden. En overskrift og linkene under den, saa Juridisk
+   kan skelnes fra Kontakt uden en streg imellem. Paa en telefon
+   stables de, fordi baandet i forvejen ombryder. */
+footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
+footer .fod-gruppe b{color:var(--blaek);font-weight:600}
+footer .fod-gruppe a{text-decoration:none}
 </style>
 </head>
 <body>
@@ -1244,11 +1250,23 @@ footer a:hover{color:var(--blaek)}
   </div>
 </section>
 
+<!-- FODEN. Juridisk staar som sin egen gruppe, fordi de tre dokumenter
+     skal kunne findes af en kunde, en revisor eller en advokat, der
+     leder efter ét bestemt papir. De bygges af vaerktoej/byg-juridisk.py
+     ud fra advokatens Word-filer i juridisk/kilder/; ret dem ALDRIG i
+     haanden, saa skrider siden og aftalen fra hinanden. -->
 <footer>
   <div class="baand">
     <div>TeleMakker ApS, CVR 46720253</div>
-    <div>
-      <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a> ·
+    <div class="fod-gruppe">
+      <b>Juridisk</b>
+      <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
+      <a href="/juridisk/databehandleraftale/">Databehandleraftale</a>
+      <a href="/juridisk/privatlivspolitik/">Privatlivspolitik</a>
+    </div>
+    <div class="fod-gruppe">
+      <b>Kontakt</b>
+      <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
       <a href="https://app.telemakker.dk">Log ind</a>
     </div>
   </div>
