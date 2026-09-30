@@ -421,6 +421,26 @@ FORTSAETTELSER = (
     "Dette indebærer, at databehandleren så vidt muligt skal bistå",
 )
 
+# SKAL BILAGENE STAA PAA HJEMMESIDEN?
+#
+# Nej. Besluttet 30. september 2026. Hjemmesiden viser AFTALEN, altsaa
+# bestemmelse 1 til 15, som er den tekst en kommende kunde skal kunne
+# laese, foer han skriver under. Bilagene er instruksen for den ENKELTE
+# aftale, og de foelger den kontrakt, haandvaerkeren faar ved
+# onboarding.
+#
+# Hvorfor det ogsaa er det rigtige, ud over at det er kortere: bilag A
+# og C beskriver den konkrete behandling og den konkrete instruks. De
+# siger ingenting til en, der overvejer at koebe, og bilag C er i
+# forvejen delvist holdt tilbage af en grund.
+#
+# DET ENE, DER KAN TALES FOR AT LADE STAA, ER BILAG B, listen over
+# underleverandoerer. Det er det foerste en kunde spoerger om, og en
+# offentlig liste er almindelig praksis hos de fleste, der saelger
+# software. Den er slaaet FRA her, men det er ét ord at slaa til, og
+# resten af koden staar klar.
+BILAG_PAA_SIDEN = False
+
 DBA_ANTAL = {2: 10, 3: 3, 4: 2, 5: 2, 6: 5, 7: 8, 8: 5,
              9: 3, 10: 4, 11: 1, 12: 3, 13: 1, 14: 4, 15: 2}
 
@@ -460,14 +480,32 @@ UNDERDATABEHANDLERE = [
      "Leverer tale-til-tekst: omsætter lydoptagelsen af samtalen til skrift"),
 ]
 
+BILAG_NOTE = """<h2>Bilagene</h2>
+<div class="note">
+<p><strong>Der hører tre bilag til aftalen, og de følger den kontrakt,
+du skriver under på.</strong></p>
+<p><strong>Bilag A</strong> beskriver behandlingen af personoplysninger
+for netop din aftale: formålet, hvad behandlingen består i, hvilke typer
+oplysninger den omfatter, og hvor længe.<br>
+<strong>Bilag B</strong> er listen over de underleverandører, du
+godkender ved at skrive under.<br>
+<strong>Bilag C</strong> er din instruks til os, og den beskriver
+sletning, hvor behandlingen foregår, og hvordan der føres tilsyn.</p>
+<p>Vil du se dem, før du skriver under, sender vi dem gerne. Skriv til
+<a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>.</p>
+</div>"""
+
 NOTE_DBA = """<div class="note">
 <p><strong>Det her er den aftale, vi indgår med hver kunde.</strong>
 Når en håndværker bruger TeleMakker, er det ham, der bestemmer over
 oplysningerne om hans egne kunder. Vi behandler dem for ham og kun
 efter hans instruks. Aftalen her er rammen om det.</p>
 <p>Teksten følger Datatilsynets standardkontraktbestemmelser efter
-databeskyttelsesforordningens artikel 28, stk. 3. Den udgave, der
-gælder mellem os og dig, er den, begge parter har skrevet under på.</p>
+databeskyttelsesforordningens artikel 28, stk. 3. <strong>Her står
+selve aftalen.</strong> De tre bilag, der hører til, følger den
+kontrakt, du skriver under på, og du kan se dem på forhånd, hvis du
+beder om det. Den udgave, der gælder mellem os og dig, er den, begge
+parter har skrevet under på.</p>
 </div>"""
 
 # Felterne står som tekst og ikke som felter, man kan skrive i.
@@ -542,12 +580,22 @@ def byg_databehandleraftale():
         if nummer == 15:
             krop.append(KONTAKTPERSONER)
 
-    krop.append(byg_bilag_a(a))
-    krop.append("<h2>Bilag B: underdatabehandlere</h2>")
-    krop.append("<p>Ved Bestemmelsernes ikrafttræden har den dataansvarlige "
-                "godkendt brugen af følgende underdatabehandlere:</p>")
-    krop.append(byg_bilag_b())
-    krop.append(byg_bilag_c(a))
+    if BILAG_PAA_SIDEN:
+        krop.append(byg_bilag_a(a))
+        krop.append("<h2>Bilag B: underdatabehandlere</h2>")
+        krop.append("<p>Ved Bestemmelsernes ikrafttræden har den dataansvarlige "
+                    "godkendt brugen af følgende underdatabehandlere:</p>")
+        krop.append(byg_bilag_b())
+        krop.append(byg_bilag_c(a))
+    else:
+        krop.append(BILAG_NOTE)
+        # Bilagene bygges alligevel, saa vaerktoejet stadig faar fejl, hvis
+        # kilden aendrer sig. Ellers ville en aendring i bilag B ligge
+        # uopdaget, til nogen slog dem til igen.
+        for bid in (byg_bilag_a(a), byg_bilag_b(), byg_bilag_c(a)):
+            if len(bid) < 200:
+                sys.exit("STOP: et bilag blev naesten tomt ved bygningen. "
+                         "Kilden er aendret. Se byg_bilag_a, _b og _c.")
 
     # KRYDSHENVISNINGERNE SKAL PEGE PÅ NOGET. Teksten siger "Bestemmelse
     # 9.2" og "Bilag C.8". Har værktøjet nummereret forkert, peger de på
