@@ -902,6 +902,12 @@ footer a:hover{color:var(--blaek)}
 footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
 footer .fod-gruppe b{color:var(--blaek);font-weight:600}
 footer .fod-gruppe a{text-decoration:none}
+/* ADRESSELINJEN. Staar under linkene med en streg imellem, som hos de
+   store. Den skal ligge PAA display:block og ikke arve flex'en fra
+   footer .baand; de to regler har samme vaegt, saa den her skal staa
+   efter den anden i filen. */
+footer .fod-adresse{display:block;border-top:1px solid var(--kant);
+  margin-top:22px;padding-top:18px;font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1252,9 +1258,18 @@ footer .fod-gruppe a{text-decoration:none}
      leder efter ét bestemt papir. De bygges af vaerktoej/byg-juridisk.py
      ud fra advokatens Word-filer i juridisk/kilder/; ret dem ALDRIG i
      haanden, saa skrider siden og aftalen fra hinanden. -->
+<!-- FODEN. Juridisk staar som sin egen gruppe, fordi de tre dokumenter
+     skal kunne findes af en kunde, en revisor eller en advokat, der
+     leder efter ét bestemt papir. De bygges af vaerktoej/byg-juridisk.py
+     ud fra advokatens Word-filer; ret dem ALDRIG i haanden, saa skrider
+     siden og aftalen fra hinanden.
+
+     ADRESSEN NEDERST er selskabets registrerede adresse, slaaet op i
+     CVR paa 46720253. Den staar der, fordi et firma uden adresse paa
+     hjemmesiden ser ud som om det ikke findes, og fordi en haandvaerker,
+     der skal betale for noget, gerne vil se hvem han handler med. -->
 <footer>
   <div class="baand">
-    <div>TeleMakker ApS, CVR 46720253</div>
     <div class="fod-gruppe">
       <b>Juridisk</b>
       <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
@@ -1267,6 +1282,7 @@ footer .fod-gruppe a{text-decoration:none}
       <a href="https://app.telemakker.dk">Log ind</a>
     </div>
   </div>
+  <div class="baand fod-adresse">TeleMakker ApS &middot; CVR 46720253 &middot; Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
 </footer>
 
 <script>
