@@ -149,26 +149,15 @@ gælder mellem os og dig, er den, begge parter har skrevet under på.</p>
 <p>Der behandles kun almindelige personoplysninger.</p>
 <p>Databehandleren er herefter berettiget og forpligtet til at træffe beslutninger om, hvilke tekniske og organisatoriske sikkerhedsforanstaltninger, der skal gennemføres for at etableret det nødvendige (og aftalte) sikkerhedsniveau.</p>
 <p>Databehandleren skal dog – under alle omstændigheder og som minimum – gennemføre følgende foranstaltninger, som er aftalt med den dataansvarlige:</p>
-<h3>Pseudonymisering og kryptering</h3>
-<p>Personoplysninger pseudonymiseres ikke, da håndværkere skal kunne identificere kunder ved navn og adresse. Adgangskoder lagres som hashværdier med salt og kan ikke genskabes. Al datatrafik samt sikkerhedskopier er krypterede. Databasefilen er ikke krypteret, og det undersøges aktuelt, om den underliggende disk hos hostingleverandøren er krypteret.</p>
-<h3>Fortrolighed, integritet, tilgængelighed og robusthed</h3>
-<p>Data adskilles mellem kunder, så hver virksomhed kun har adgang til egne oplysninger. Login er beskyttet med sessionsstyring og begrænsning af mislykkede loginforsøg. Systemet understøtter ikke multifaktorautentifikation. Der gennemføres automatiske tests ved alle ændringer, og centrale systemfunktioner overvåges løbende.</p>
-<h3>Genopretning ved hændelser</h3>
-<p>Der tages løbende sikkerhedskopier i flere lag med opbevaring på både server og eksterne lokationer. Fejl i backup-processen overvåges automatisk. Der findes procedurer for håndtering af nedbrud og databrud.</p>
-<h3>Regelmæssig afprøvning og evaluering</h3>
-<p>Tekniske sikkerhedsforanstaltninger testes automatisk ved systemændringer. Penetrationstest er planlagt og gennemføres.</p>
-<h3>Adgang til oplysninger via internettet</h3>
-<p>Platformen kræver som udgangspunkt login. Kunder kan i visse tilfælde tilgå sagsspecifikke sider via unikke links. Adgangen er begrænset gennem bl.a. adgangsbegrænsninger og beskyttelse mod indeksering. Serveradgang sker via nøglebaseret autentifikation.</p>
-<h3>Beskyttelse under transmission</h3>
-<p>Al kommunikation foregår via krypterede forbindelser (HTTPS/TLS), både internt og til eksterne tjenesteudbydere. Der anvendes desuden sikkerhedsindstillinger, som reducerer risikoen for uautoriseret adgang og manipulation.</p>
-<h3>Beskyttelse under opbevaring</h3>
-<p>Adgangskoder og sikkerhedskopier opbevares krypteret. Adgangsnøgler overvåges for utilsigtet eksponering. Databasefiler og lydoptagelser er ikke krypteret. Kryptering af visse integrationsoplysninger er under implementering.</p>
-<h3>Fysisk sikring af lokationer</h3>
-<p>Al databehandling sker på servere hos Hetzner. Den fysiske sikkerhed varetages af hostingleverandøren, som er certificeret efter bl.a. ISO 27001 og anvender adgangskontrol, videoovervågning og nødstrømsløsninger.</p>
-<h3>Hjemme- og fjernarbejdspladser</h3>
-<p>Medarbejdere arbejder hjemmefra på egne computere. Kundeoplysninger lagres ikke lokalt, men på driftsserveren. Der er endnu ikke etableret en formaliseret politik for hjemmearbejde og fjernadgang.</p>
-<h3>Logning og overvågning</h3>
-<p>Systemet registrerer væsentlige hændelser på sagsniveau, herunder oprettelser, ændringer og kommunikation. Der føres ikke detaljeret log over, hvilke brugere der har tilgået bestemte oplysninger, og eksisterende webserverlogs anvendes ikke som revisionsspor.</p>
+<div class="note">
+<p><strong>Beskrivelsen af de enkelte sikkerhedsforanstaltninger
+udleveres på anmodning.</strong> Den står i den databehandleraftale, du
+skriver under på, og vi sender den gerne på forhånd til en kunde, en
+revisor eller en rådgiver, der har brug for den.</p>
+<p>Den ligger ikke offentligt, fordi en detaljeret liste over et
+systems indretning også er en liste over, hvor man skal prøve. Skriv
+til <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>.</p>
+</div>
 <h3>C.3. Bistand til den dataansvarlige</h3>
 <p>Databehandleren skal så vidt muligt – inden for det nedenstående omfang og udstrækning – bistå den dataansvarlige i overensstemmelse med Bestemmelse 9.1 og 9.2 ved at gennemføre følgende tekniske og organisatoriske foranstaltninger:</p>
 <h3>Bistand i forhold til de registreredes rettigheder, bestemmelse 9.1</h3>

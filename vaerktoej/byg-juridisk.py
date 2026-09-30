@@ -411,6 +411,17 @@ DBA_ANTAL = {2: 10, 3: 3, 4: 2, 5: 2, 6: 5, 7: 8, 8: 5,
 # Værktøjet tjekker, at hvert navn også står i kilden, så en ny udgave
 # med en leverandør mere eller mindre FEJLER i stedet for at blive
 # bygget stiltiende.
+# LEVERANDØRER, DER STÅR I KILDEN MEN IKKE PÅ SIDEN, og hvorfor.
+# Et navn, der bare forsvandt, er farligt: listen ER kundens
+# godkendelse, og en leverandør, vi glemmer at nævne, er en, han ikke
+# har godkendt. Derfor skal hver udeladelse stå her med en grund.
+UDELADT = {
+    "Google": "Skriften på hjemmesiden blev flyttet hjem til vores egen "
+              "server 30. september 2026. Google har ikke længere kontakt "
+              "med en besøgende og står derfor ikke på listen. Sofie er "
+              "bedt om at rette bilaget i kilden.",
+}
+
 UNDERDATABEHANDLERE = [
     ("Anthropic", "", "548 Market Street, PMB 90375, San Francisco, CA 94104-5401, USA",
      "Leverer sprogmodellen. Overførselsgrundlaget er EU-Kommissionens "
@@ -467,6 +478,9 @@ def byg_databehandleraftale():
         if navn.split(".")[0] not in alt:
             sys.exit("STOP: underdatabehandleren %r står ikke i kilden længere. "
                      "Listen i værktøjet skal rettes, før siden bygges." % navn)
+    for navn in UDELADT:
+        if navn not in alt:
+            print("  bemærk: %s er ude af kilden nu, så UDELADT kan ryddes" % navn)
 
     krop = [NOTE_DBA,
             "<h2>Parterne</h2>",
@@ -655,6 +669,38 @@ def byg_bilag_b():
             % raekker)
 
 
+# HVOR SIKKERHEDSBESKRIVELSEN BEGYNDER, og hvorfor den ikke kommer på
+# hjemmesiden.
+#
+# Bilag C.2 opremser, hvilke sikkerhedsforanstaltninger vi har. Den
+# opremsning siger også, hvad vi IKKE har, og læst sammen er den en
+# køreplan for at bryde ind hos os: ingen totrinssikring, ingen log
+# over hvem der har set hvad, en ukrypteret databasefil, og links til
+# sagssider uden login. På en offentlig adresse, som Google indekserer.
+#
+# Kasper besluttede 30. september 2026: *"Ja lad vær og giv vores
+# køreplan ud til andre for at kunne bryde ind. Fjern den del."*
+#
+# Det er også det almindelige. Kunden får bilaget, når han beder om
+# det, og han får det i den aftale, han skriver under på. Alle ANDRE
+# får det ikke.
+#
+# Springet går fra den her linje til det næste C-underafsnit. Findes
+# linjen ikke i kilden, STOPPER værktøjet i stedet for at udgive
+# beskrivelsen ved et uheld.
+SIKKERHED_START = "Pseudonymisering og kryptering"
+
+SIKKERHED_NOTE = """<div class="note">
+<p><strong>Beskrivelsen af de enkelte sikkerhedsforanstaltninger
+udleveres på anmodning.</strong> Den står i den databehandleraftale, du
+skriver under på, og vi sender den gerne på forhånd til en kunde, en
+revisor eller en rådgiver, der har brug for den.</p>
+<p>Den ligger ikke offentligt, fordi en detaljeret liste over et
+systems indretning også er en liste over, hvor man skal prøve. Skriv
+til <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>.</p>
+</div>"""
+
+
 def er_maaleoverskrift(af):
     """De korte overskrifter i C.2, der ikke har numre: "Beskyttelse
     under transmission", "Logning og overvågning". Uden dem kan
@@ -698,9 +744,26 @@ def byg_bilag_c(a):
     i = find(a, "Bilag C Instruks vedrørende behandling af personoplysninger")
     ud = ["<h2>Bilag C: instruks vedrørende behandling af personoplysninger</h2>"]
     rest = a[i + 1:]
+    if not any(x.tekst == SIKKERHED_START for x in rest):
+        sys.exit("STOP: kunne ikke finde %r i bilag C. Uden den kan "
+                 "sikkerhedsbeskrivelsen ikke holdes ude, og den maa IKKE "
+                 "offentliggoeres. Se kommentaren ved SIKKERHED_START."
+                 % SIKKERHED_START)
     k = 0
+    springer = False
     while k < len(rest):
         af = rest[k]
+
+        # SIKKERHEDSBESKRIVELSEN SPRINGES OVER. Se SIKKERHED_START.
+        if af.tekst == SIKKERHED_START:
+            springer = True
+            ud.append(SIKKERHED_NOTE)
+        if springer:
+            if re.match(r"^C\.\d", af.tekst):
+                springer = False          # næste underafsnit, vi er ude igen
+            else:
+                k += 1
+                continue
         m = re.match(r"^(C\.\d)\.?\s+(.*)$", af.tekst)
         if m:
             ud.append("<h3>%s. %s</h3>" % (m.group(1), m.group(2)))
