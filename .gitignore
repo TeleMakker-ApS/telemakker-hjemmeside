@@ -2,3 +2,12 @@
 
 # Sikkerhedskopi fra vaerktoej/indsaet-hero.mjs
 *.foer-hero
+
+# ADVOKATENS WORD-FILER MAA ALDRIG LIGGE HER.
+# Repoet er OFFENTLIGT, fordi hjemmesiden ligger paa GitHub Pages, og
+# alt i det kan hentes af hvem som helst. Databehandleraftalens bilag C
+# beskriver vores sikkerhedshuller, og Kasper besluttede 30. september,
+# at den beskrivelse ikke skal ud. Kilderne ligger i det PRIVATE repo,
+# i Telemakker/dokumenter/juridiske-kilder/.
+juridisk/kilder/
+*.docx

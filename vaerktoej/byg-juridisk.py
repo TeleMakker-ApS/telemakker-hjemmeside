@@ -39,7 +39,26 @@ W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KILDER = os.path.join(ROD, "juridisk", "kilder")
+# KILDERNE LIGGER I DET PRIVATE REPO, OG DET ER IKKE til pynt.
+#
+# Hjemmesidens repo er OFFENTLIGT, fordi siden ligger paa GitHub Pages.
+# Alt i det kan hentes af hvem som helst, ogsaa filer der ikke er en del
+# af siden. Foerste udgave af vaerktoejet lagde advokatens Word-filer i
+# juridisk/kilder/, og saa kunne databehandleraftalen hentes paa
+# telemakker.dk/juridisk/kilder/databehandleraftale.docx. Dens bilag C
+# beskriver vores sikkerhedshuller, og det var praecis den beskrivelse,
+# der med vilje var holdt ude af HTML-siden. Den laa aabent i 40 minutter
+# den 30. september 2026.
+#
+# Derfor: kilderne bor i Telemakker-repoet, som er privat. Vaerktoejet
+# koeres fra hjemmesidens mappe og laeser en mappe op og over. Ligger de
+# to mapper ikke ved siden af hinanden, siger den det.
+KILDER = os.path.join(os.path.dirname(ROD), "Telemakker", "dokumenter",
+                      "juridiske-kilder")
+if not os.path.isdir(KILDER):
+    sys.exit("STOP: kilderne skal ligge i det PRIVATE repo, her: " + KILDER
+             + ". De to mapper skal ligge ved siden af hinanden, og kilderne"
+               " maa IKKE laegges i hjemmesidens repo: det er offentligt.")
 DATO = "30. september 2026"
 
 
