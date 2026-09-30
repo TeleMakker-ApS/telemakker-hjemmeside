@@ -44,11 +44,11 @@ ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Hjemmesidens repo er OFFENTLIGT, fordi siden ligger paa GitHub Pages.
 # Alt i det kan hentes af hvem som helst, ogsaa filer der ikke er en del
 # af siden. Foerste udgave af vaerktoejet lagde advokatens Word-filer i
-# juridisk/kilder/, og saa kunne databehandleraftalen hentes paa
-# telemakker.dk/juridisk/kilder/databehandleraftale.docx. Dens bilag C
-# beskriver vores sikkerhedshuller, og det var praecis den beskrivelse,
-# der med vilje var holdt ude af HTML-siden. Den laa aabent i 40 minutter
-# den 30. september 2026.
+# juridisk/kilder/, og saa kunne hele databehandleraftalen hentes paa
+# telemakker.dk/juridisk/kilder/databehandleraftale.docx, ogsaa de dele
+# der med vilje var holdt ude af HTML-siden. Den laa aabent i 40
+# minutter den 30. september 2026. Hele historien staar i STATUS.md i
+# det private repo.
 #
 # Derfor: kilderne bor i Telemakker-repoet, som er privat. Vaerktoejet
 # koeres fra hjemmesidens mappe og laeser en mappe op og over. Ligger de
@@ -693,9 +693,14 @@ def byg_bilag_b():
 #
 # Bilag C.2 opremser, hvilke sikkerhedsforanstaltninger vi har. Den
 # opremsning siger også, hvad vi IKKE har, og læst sammen er den en
-# køreplan for at bryde ind hos os: ingen totrinssikring, ingen log
-# over hvem der har set hvad, en ukrypteret databasefil, og links til
-# sagssider uden login. På en offentlig adresse, som Google indekserer.
+# køreplan for at bryde ind hos os. Den skal ikke ligge på en offentlig
+# adresse, som Google indekserer.
+#
+# DETALJERNE STÅR MED VILJE IKKE HER. Det her repo er offentligt, så en
+# kommentar i det er lige så udgivet som selve siden. Vil du vide,
+# hvilke huller der er tale om, står de i bilag C i kilden, i det
+# private repo. Det er ikke en gåde, det er den samme regel som for
+# selve dokumentet.
 #
 # Kasper besluttede 30. september 2026: *"Ja lad vær og giv vores
 # køreplan ud til andre for at kunne bryde ind. Fjern den del."*
