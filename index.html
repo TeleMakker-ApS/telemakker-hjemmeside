@@ -269,12 +269,23 @@ header nav a:hover{color:#fff}
 .hero{background:
     radial-gradient(900px 440px at 72% 16%, #2a7a60 0%, transparent 62%),
     linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
-  color:#fff;padding:clamp(44px,5vw,72px) 0;overflow:hidden;
-  /* TOPPEN FYLDER SKAERMEN.
+  color:#fff;padding:clamp(40px,4vw,60px) 0;overflow:hidden;
+  /* TOPPEN FYLDER SKAERMEN, MEN IKKE MERE END 820 PX.
      Foer sluttede den ved 608 px paa en 900 px skaerm, og regnestykket
      begyndte ved 679. Begge stod i samme skaermbillede, og saa
-     konkurrerer de om oejet. Nu moedes man af een ting. */
-  min-height:100vh;display:flex;align-items:center}
+     konkurrerer de om oejet. Derfor 100vh.
+
+     MEN 100vh ALENE GIK GALT PAA EN HOEJ SKAERM. Indholdet fylder
+     omkring 620 px, saa paa en 1300 px hoej skaerm blev der 680 px
+     luft, og align-items:center delte den i to: 340 px tom groen flade
+     over maerkatet og 340 under noten nederst. Det saa ud som om siden
+     ikke var faerdig med at loade.
+
+     min() loeser begge: paa en almindelig baerbar paa 700 til 800 px
+     binder loftet ikke, og toppen fylder stadig skaermen. Paa en hoej
+     skaerm stopper den ved 820, og saa er luften 100 px i hver ende i
+     stedet for 340. */
+  min-height:min(100vh, 820px);display:flex;align-items:center}
 /* BAANDET ER BREDERE I TOPPEN, OG KUN I TOPPEN.
    Sidens baand er 1120 px, som bliver 1072 ved 1440. Der er ikke plads
    til baade en overskrift paa 72 px og en animation paa 568. Foerste
