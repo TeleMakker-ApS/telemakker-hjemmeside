@@ -456,12 +456,9 @@ DBA_ANTAL = {2: 10, 3: 3, 4: 2, 5: 2, 6: 5, 7: 8, 8: 5,
 # Et navn, der bare forsvandt, er farligt: listen ER kundens
 # godkendelse, og en leverandør, vi glemmer at nævne, er en, han ikke
 # har godkendt. Derfor skal hver udeladelse stå her med en grund.
-UDELADT = {
-    "Google": "Skriften på hjemmesiden blev flyttet hjem til vores egen "
-              "server 30. september 2026. Google har ikke længere kontakt "
-              "med en besøgende og står derfor ikke på listen. Advokaten er "
-              "bedt om at rette bilaget i kilden.",
-}
+# Tom 1. oktober 2026: advokaten har fjernet Google fra kilden, saa
+# der er ikke laengere nogen forskel mellem hendes liste og vores.
+UDELADT = {}
 
 UNDERDATABEHANDLERE = [
     ("Anthropic", "", "548 Market Street, PMB 90375, San Francisco, CA 94104-5401, USA",
@@ -478,8 +475,12 @@ UNDERDATABEHANDLERE = [
     ("Dataforsyning", "37284114", "Sankt Kjelds Plads 11, 2100 København Ø, Danmark",
      "Bruges til at slå kundens adresse op, så den staves som i det "
      "officielle register"),
-    ("ElevenLabs", "EIN: 88-2721123", "169 Madison Ave #2484, New York, NY 10016, USA",
-     "Leverer tale-til-tekst: omsætter lydoptagelsen af samtalen til skrift"),
+    # Selskabet er bekraeftet i deres egne EU-vilkaar 1. oktober 2026. De
+    # oplyser intet registreringsnummer, praecis som Anthropic.
+    ("Eleven Labs, Inc.", "", "169 Madison Ave #2484, New York, NY 10016, USA",
+     "Tale til tekst: modtager lydoptagelsen og returnerer den som skrift. "
+     "Overførselsgrundlag: EU-Kommissionens standardkontraktbestemmelser og "
+     "EU-US Data Privacy Framework. Data kan behandles i USA, EU eller Singapore"),
 ]
 
 BILAG_NOTE = """<h2>Bilagene</h2>
@@ -534,7 +535,7 @@ def byg_databehandleraftale():
     a = laes("databehandleraftale.docx")
     alt = "\n".join(x.tekst for x in a)
     for navn, _, _, _ in UNDERDATABEHANDLERE:
-        if navn.split(".")[0] not in alt:
+        if navn.split(",")[0].split(".")[0] not in alt:
             sys.exit("STOP: underdatabehandleren %r står ikke i kilden længere. "
                      "Listen i værktøjet skal rettes, før siden bygges." % navn)
     for navn in UDELADT:
