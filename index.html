@@ -66,19 +66,13 @@
      og paa en stor skaerm saa den gullig og traet ud. Neutrale toner
      lader den groenne vaere den eneste farve paa siden. */
   --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
-  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#eaf1ee;
-  --mynte:#8fd0b6;
+  --groen:#24282c; --groen-moerk:#1b1e21; --groen-lys:#f2eee7;
+  --mynte:#e3c99f;
   --kant:#e3e3df; --sand:#f1f2f0;
-  --runding:10px; --baand:1120px;
+  --runding:3px; --baand:1120px;
 }
 
-@media (prefers-color-scheme: dark){
-  :root{
-    --blaek:#ece8e0; --daempet:#a9a29a; --papir:#191815; --hvid:#221f1c;
-    --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#20302b;
-    --kant:#38342e; --sand:#211f1b;
-  }
-}
+/* Moerk tilstand fjernet 2. oktober 2026: siden skal se ens ud paa alle telefoner. */
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -104,7 +98,7 @@ a{color:inherit}
    bloede skygge. Skygger er farvet efter bunden og ikke sorte; en sort
    skygge paa varmt papir ser beskidt ud. */
 .kort{
-  background:var(--hvid);border:1px solid var(--kant);border-radius:16px;
+  background:var(--hvid);border:1px solid var(--kant);border-radius:3px;
   box-shadow:0 1px 2px rgba(34,32,28,.04), 0 18px 40px -26px rgba(34,32,28,.28);
 }
 
@@ -121,8 +115,8 @@ a{color:inherit}
 .knap.hul{background:transparent;color:var(--groen);border-color:var(--kant)}
 .knap.hul:hover{background:var(--groen-lys);border-color:var(--groen)}
 /* Paa den groenne bund. Hvid flade, groen tekst: hoej kontrast begge veje. */
-.knap.lys{background:#fff;color:#1f5f4b;border-color:#fff}
-.knap.lys:hover{background:#e7f0ec;border-color:#e7f0ec}
+.knap.lys{background:#fff;color:#24282c;border-color:#fff}
+.knap.lys:hover{background:#efeae2;border-color:#efeae2}
 .knap.klar{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
 .knap.klar:hover{background:rgba(255,255,255,.12);border-color:#fff}
 .knap:focus-visible,a:focus-visible,input:focus-visible{
@@ -201,7 +195,7 @@ header nav a:hover{color:#fff}
 /* Selve regnemaskinen */
 .regnekort{
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
-  border-radius:16px;padding:clamp(22px,3vw,32px);
+  border-radius:3px;padding:clamp(22px,3vw,32px);
 }
 .regnekort h2{font-size:21px;color:#fff;margin-bottom:5px}
 .regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:22px}
@@ -244,7 +238,7 @@ header nav a:hover{color:#fff}
   width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;
   text-align:center;padding:5px 3px;margin:0 3px;
   background:rgba(255,255,255,.14);color:#fff;
-  border:1px solid rgba(255,255,255,.34);border-radius:7px;
+  border:1px solid rgba(255,255,255,.34);border-radius:3px;
 }
 .antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
@@ -267,8 +261,8 @@ header nav a:hover{color:#fff}
      hvide den primaere.
    ------------------------------------------------------------------ */
 .hero{background:
-    radial-gradient(900px 440px at 72% 16%, #2a7a60 0%, transparent 62%),
-    linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
+    radial-gradient(900px 440px at 72% 16%, #3a4046 0%, transparent 62%),
+    linear-gradient(160deg,#24282c 0%,#131517 100%);
   color:#fff;padding:clamp(40px,4vw,60px) 0;overflow:hidden;
   /* TOPPEN FYLDER SKAERMEN, MEN IKKE MERE END 820 PX.
      Foer sluttede den ved 608 px paa en 900 px skaerm, og regnestykket
@@ -428,22 +422,22 @@ header nav a:hover{color:#fff}
    kunden eller ind i regnskabsprogrammet.
    ========================================================= */
 .opkaldsanim{position:relative;background:
-    radial-gradient(900px 440px at 78% 16%, #2a7a60 0%, transparent 62%),
-    linear-gradient(160deg,#1f5f4b 0%,#123a2e 100%);
+    radial-gradient(900px 440px at 78% 16%, #3a4046 0%, transparent 62%),
+    linear-gradient(160deg,#24282c 0%,#131517 100%);
   color:#fff;padding:52px 46px;overflow:hidden;min-height:540px;
   display:grid;grid-template-columns:minmax(250px,400px) minmax(520px,1fr);
   gap:34px;align-items:center}
 .opkaldsanim::before{content:"";position:absolute;inset:-30%;
-  background:radial-gradient(420px 420px at 50% 50%, rgba(143,208,182,.20), transparent 60%);
+  background:radial-gradient(420px 420px at 50% 50%, rgba(227,201,159,.20), transparent 60%);
   animation:tm-drift 26s ease-in-out infinite}
 @keyframes tm-drift{0.0%,100.0%{transform:translate(-12%,-6%)}47.1%{transform:translate(14%,8%)}}
 .opkaldsanim .oa-ord{position:relative;z-index:2}
 .opkaldsanim h3{font-size:31px;line-height:1.17;margin:16px 0 14px;font-weight:700;
   text-wrap:balance}
 .opkaldsanim .oa-under{opacity:.85;margin:0;font-size:16px}
-.opkaldsanim .oa-mrk{display:inline-block;background:rgba(143,208,182,.16);
-  border:1px solid rgba(143,208,182,.35);color:var(--mynte);
-  border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.opkaldsanim .oa-mrk{display:inline-block;background:rgba(227,201,159,.16);
+  border:1px solid rgba(227,201,159,.35);color:var(--mynte);
+  border-radius:3px;padding:6px 14px;font-size:13px;font-weight:600}
 
 .opkaldsanim .oa-scene{position:relative;height:480px;z-index:2}
 
@@ -480,7 +474,7 @@ header nav a:hover{color:#fff}
    til venstre, mens tilbuddet vokser frem ved siden af. Det er hele
    pointen: man skal SE, at det ene bliver til det andet. */
 .opkaldsanim .oa-opkaldsbar{position:absolute;left:0;right:0;top:0;display:flex;
-  align-items:center;gap:11px;padding:10px 14px;border-radius:12px;
+  align-items:center;gap:11px;padding:10px 14px;border-radius:3px;
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);
   font-size:13px;font-weight:600;opacity:0;
   animation:tm-barInd 36s ease-in-out infinite}
@@ -513,7 +507,7 @@ header nav a:hover{color:#fff}
   0.0%,34.8%{width:100%;opacity:1}
   38.6%,51.8%{width:42%;opacity:.45}
   54.9%,100.0%{width:42%;opacity:0}}
-.opkaldsanim .oa-replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(143,208,182,.28);
+.opkaldsanim .oa-replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(227,201,159,.28);
   font-size:14px;line-height:1.48;opacity:0}
 .opkaldsanim .oa-replik .oa-navn{display:block;font-size:11px;font-weight:700;
   letter-spacing:.5px;text-transform:uppercase;color:var(--mynte);
@@ -524,9 +518,9 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-u4{animation:tm-u4 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 3.6s}
 .opkaldsanim .oa-u5{animation:tm-u5 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 4.8s}
 @keyframes tm-rail{
-  0.0%,11.3%{border-left-color:rgba(143,208,182,.28)}
-  13.2%{border-left-color:#8fd0b6}
-  17.9%,100.0%{border-left-color:rgba(143,208,182,.28)}}
+  0.0%,11.3%{border-left-color:rgba(227,201,159,.28)}
+  13.2%{border-left-color:#e3c99f}
+  17.9%,100.0%{border-left-color:rgba(227,201,159,.28)}}
 @keyframes tm-u1{0.0%,11.3%{opacity:0;transform:translateY(8px)}14.1%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
 @keyframes tm-u2{0.0%,15.1%{opacity:0;transform:translateY(8px)}17.9%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
 @keyframes tm-u3{0.0%,19.8%{opacity:0;transform:translateY(8px)}22.6%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
@@ -538,7 +532,7 @@ header nav a:hover{color:#fff}
    dannet paa baggrund af samtalen. Nu rejser tre prikker fra
    udskriften over i kortet, lige foer hver linje dukker op. */
 .opkaldsanim .oa-spor{position:absolute;left:38%;width:9px;height:9px;border-radius:50%;
-  background:var(--mynte);opacity:0;box-shadow:0 0 12px rgba(143,208,182,.9)}
+  background:var(--mynte);opacity:0;box-shadow:0 0 12px rgba(227,201,159,.9)}
 .opkaldsanim .oa-sp1{top:130px;animation:tm-spor 36s ease-in-out infinite}
 .opkaldsanim .oa-sp2{top:196px;animation:tm-spor 36s ease-in-out infinite .9s}
 .opkaldsanim .oa-sp3{top:262px;animation:tm-spor 36s ease-in-out infinite 1.8s}
@@ -553,7 +547,7 @@ header nav a:hover{color:#fff}
    undervejs i stedet for at kortet skiftes ud. Saa foelger man med i, at
    det er det samme tilbud hele vejen. */
 .opkaldsanim .oa-papir{position:absolute;right:0;top:50%;width:268px;margin-top:-145px;
-  background:#fff;color:var(--blaek);border-radius:13px;
+  background:#fff;color:var(--blaek);border-radius:3px;
   box-shadow:0 26px 60px rgba(0,0,0,.36);opacity:0;
   animation:tm-papirInd 36s cubic-bezier(.22,.9,.3,1) infinite}
 @keyframes tm-papirInd{
@@ -566,7 +560,7 @@ header nav a:hover{color:#fff}
 /* Ekstra luft i hoejre side: fluebenet stemples ind over hjoernet og
    daekkede det sidste af firmanavnet. */
 .opkaldsanim .oa-papir .oa-top{background:var(--groen);color:#fff;padding:10px 36px 10px 14px;
-  border-radius:13px 13px 0 0;display:flex;justify-content:space-between;
+  border-radius:3px 13px 0 0;display:flex;justify-content:space-between;
   align-items:center;font-size:11.5px;gap:10px}
 .opkaldsanim .oa-papir .oa-top b{font-size:13px}
 .opkaldsanim .oa-papir .oa-krop{padding:10px 14px 13px}
@@ -584,9 +578,9 @@ header nav a:hover{color:#fff}
 /* Billederne docker paa kortet. De kommer fra kundens sms. */
 .opkaldsanim .oa-fotoraekke{display:flex;gap:6px;padding:9px 0 2px;opacity:0;
   animation:tm-fotoInd 36s ease-out infinite}
-.opkaldsanim .oa-fotoraekke span{flex:1;height:36px;border-radius:6px;
-  background:linear-gradient(135deg,#cfd8d3,#aebcb4);
-  display:grid;place-items:center;font-size:9px;color:#54615a;font-weight:700}
+.opkaldsanim .oa-fotoraekke span{flex:1;height:36px;border-radius:3px;
+  background:linear-gradient(135deg,#d8d3cb,#bdb6ab);
+  display:grid;place-items:center;font-size:9px;color:#5d5a54;font-weight:700}
 @keyframes tm-fotoInd{
   0.0%,77.5%{opacity:0;transform:scale(.94)}
   79.8%,96.2%{opacity:1;transform:none}
@@ -616,20 +610,20 @@ header nav a:hover{color:#fff}
   59.8%,76.8%{opacity:1;transform:none}
   80.2%,100.0%{opacity:0;transform:translateY(-10px)}}
 .opkaldsanim .oa-sms .oa-telefonramme{background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:12px}
+  border:1px solid rgba(255,255,255,.22);border-radius:3px;padding:12px}
 .opkaldsanim .oa-sms .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
   font-weight:700;letter-spacing:.4px;text-transform:uppercase;
   color:var(--mynte);margin-bottom:9px}
 .opkaldsanim .oa-sms .oa-hoved svg{width:14px;height:14px}
-.opkaldsanim .oa-sms .oa-besked{background:rgba(255,255,255,.15);border-radius:12px 12px 12px 3px;
+.opkaldsanim .oa-sms .oa-besked{background:rgba(255,255,255,.15);border-radius:3px 12px 12px 3px;
   padding:9px 11px;font-size:12.5px;line-height:1.45;margin:0 0 8px}
-.opkaldsanim .oa-sms .oa-link{background:var(--mynte);color:#123a2e;border-radius:9px;
+.opkaldsanim .oa-sms .oa-link{background:var(--mynte);color:#131517;border-radius:3px;
   padding:7px 11px;font-size:12px;font-weight:700;text-align:center}
 .opkaldsanim .oa-sms .oa-fotos{display:flex;gap:6px;margin-top:9px}
-.opkaldsanim .oa-sms .oa-fotos span{flex:1;height:42px;border-radius:7px;
-  background:linear-gradient(135deg,#cfd8d3,#aebcb4);opacity:0;
+.opkaldsanim .oa-sms .oa-fotos span{flex:1;height:42px;border-radius:3px;
+  background:linear-gradient(135deg,#d8d3cb,#bdb6ab);opacity:0;
   display:grid;place-items:center;font-size:9px;font-weight:700;
-  letter-spacing:.6px;color:#54615a;
+  letter-spacing:.6px;color:#5d5a54;
   animation:tm-fotoOp 36s ease-out infinite}
 .opkaldsanim .oa-sms .oa-fotos span:nth-child(2){animation-delay:.4s}
 /* De forsvinder, NAAR de sendes videre, ikke naar panelet gaar ud. Det
@@ -650,10 +644,10 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-fotoflyv{position:absolute;display:flex;gap:6px;width:41%;top:214px;
   left:4%;opacity:0;z-index:6;
   animation:tm-flyv 36s cubic-bezier(.45,0,.25,1) infinite}
-.opkaldsanim .oa-fotoflyv span{flex:1;height:40px;border-radius:7px;
+.opkaldsanim .oa-fotoflyv span{flex:1;height:40px;border-radius:3px;
   background:linear-gradient(135deg,#dfe6e2,#b9c6be);
   display:grid;place-items:center;font-size:9px;font-weight:700;
-  letter-spacing:.6px;color:#54615a;
+  letter-spacing:.6px;color:#5d5a54;
   box-shadow:0 10px 24px rgba(0,0,0,.34)}
 @keyframes tm-flyv{
   0.0%,70.1%{opacity:0;left:4%;top:214px;width:41%}
@@ -679,13 +673,13 @@ header nav a:hover{color:#fff}
   84.0%,96.2%{opacity:1;transform:none}
   99.1%,100.0%{opacity:0;transform:translateY(-10px)}}
 .opkaldsanim .oa-veje .oa-ramme2{background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:14px}
+  border:1px solid rgba(255,255,255,.22);border-radius:3px;padding:14px}
 .opkaldsanim .oa-veje .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
   font-weight:700;letter-spacing:.4px;text-transform:uppercase;
   color:var(--mynte);margin-bottom:11px}
 .opkaldsanim .oa-veje .oa-hoved svg{width:14px;height:14px}
 .opkaldsanim .oa-vej{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;
-  border-radius:12px;background:rgba(255,255,255,.14);
+  border-radius:3px;background:rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.18);font-size:14px;font-weight:700;
   opacity:0;animation:tm-vejInd 36s cubic-bezier(.2,1.3,.4,1) infinite}
 .opkaldsanim .oa-vej.oa-v2{animation-delay:.5s}
@@ -699,7 +693,7 @@ header nav a:hover{color:#fff}
   color:var(--mynte);opacity:0;
   animation:tm-vejInd 36s ease-out infinite;animation-delay:.25s}
 .opkaldsanim .oa-eller::before,.opkaldsanim .oa-eller::after{content:"";flex:1;height:1px;
-  background:rgba(143,208,182,.3)}
+  background:rgba(227,201,159,.3)}
 @keyframes tm-vejInd{
   0.0%,82.1%{opacity:0;transform:translateY(10px)}
   85.9%,96.2%{opacity:1;transform:none}
@@ -758,7 +752,7 @@ header nav a:hover{color:#fff}
 .regne .regnekort{
   color:#fff;
   background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);
-  border-radius:20px;
+  border-radius:3px;
   box-shadow:0 30px 60px -34px rgba(0,0,0,.45);
   max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);
 }
@@ -819,7 +813,7 @@ header nav a:hover{color:#fff}
 .tilbudsside{margin:clamp(34px,4.4vw,52px) 0 0;display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.4vw,30px)}
 .tilbudsside img{
-  display:block;width:100%;height:auto;border-radius:6px;background:#fff;
+  display:block;width:100%;height:auto;border-radius:3px;background:#fff;
   box-shadow:0 2px 4px rgba(34,32,28,.10), 0 30px 70px -26px rgba(34,32,28,.42);
 }
 @media(max-width:900px){
@@ -919,6 +913,56 @@ footer .fod-gruppe a{text-decoration:none}
    efter den anden i filen. */
 footer .fod-adresse{display:block;border-top:1px solid var(--kant);
   margin-top:22px;padding-top:18px;font-size:14px;line-height:1.5}
+
+/* ==================================================================
+   MATERIALER I STEDET FOR SKAERME (2. oktober 2026)
+   Kasper: siden skal ligne noget, en haandvaerker kender fra sin
+   grossist og sit vaerksted, ikke en AI-virksomhed. Derfor:
+   - fotos af rundsav, mursten, trae og vaerktoej bag hver sektion
+   - antracit (vaerktoej og staal) som baerende farve, birk som accent
+   - kantede hjoerner, ingen gloed, ingen moerk tilstand
+   FOTOENE er WebP med det moerke sloer bagt ind (vaerktoej/hent-fotos.py),
+   800 px til mobil og 1600 px til computer. Kun toppen hentes med det
+   samme; resten faar klassen .foto-klar af et lille script nederst,
+   naar de naermer sig skaermen, saa de ikke goer siden langsommere.
+   ================================================================== */
+header{background:#1b1e21;box-shadow:none}
+:root{--grund:#1b1d1f;--overgang:linear-gradient(to bottom,var(--grund) 0,rgba(27,29,31,0) 140px,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%)}
+/* Hvert foto glider ud i den samme grundfarve i top og bund, saa
+   sektionerne flyder over i hinanden i stedet for at moedes i en kant. */
+.hero{background:var(--grund) center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%),url(billeder/foto-rundsav-800.webp)}
+.opkaldsanim::before,.opkaldsanim .oa-ringbolge{display:none}
+.knap{border-radius:3px}
+.regne,.udkast,.ikke,.beholder,.kontakt{background:var(--grund) center/cover no-repeat}
+.regne.foto-klar{background-image:var(--overgang),url(billeder/foto-mursten-800.webp)}
+.udkast.foto-klar{background-image:var(--overgang),url(billeder/foto-trae-800.webp)}
+.ikke.foto-klar{background-image:var(--overgang),url(billeder/foto-vaerktoej-800.webp)}
+.beholder.foto-klar{background-image:var(--overgang),url(billeder/foto-haandvaerker-800.webp)}
+.kontakt.foto-klar{background-image:var(--overgang),url(billeder/foto-planker-800.webp)}
+@media (min-width:801px){
+  .hero{background-image:linear-gradient(to bottom,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%),url(billeder/foto-rundsav-1600.webp)}
+  .regne.foto-klar{background-image:var(--overgang),url(billeder/foto-mursten-1600.webp)}
+  .udkast.foto-klar{background-image:var(--overgang),url(billeder/foto-trae-1600.webp)}
+  .ikke.foto-klar{background-image:var(--overgang),url(billeder/foto-vaerktoej-1600.webp)}
+  .beholder.foto-klar{background-image:var(--overgang),url(billeder/foto-haandvaerker-1600.webp)}
+  .kontakt.foto-klar{background-image:var(--overgang),url(billeder/foto-planker-1600.webp)}
+}
+.regnekort{background:rgba(24,26,28,.82)}
+footer{background:var(--grund)}
+/* Lys tekst paa de moerke fotoflader */
+.udkast-top h2,.udkast-top .brod,.udkast>.baand>ul li,.udkast>.baand>ul li *,
+section.ikke h2,section.ikke .brod,
+#hvorfor>.baand>h2,#hvorfor>.baand>.brod,
+#kontakt>.baand>div:first-child h2,#kontakt>.baand>div:first-child p,#kontakt>.baand>div:first-child a,
+footer .baand,footer .baand *{color:#f1ece4}
+.ikke-liste>div{background:rgba(20,22,24,.62);color:#f1ece4;border:1px solid rgba(255,255,255,.14);padding:16px 18px}
+.ikke-liste{gap:10px}
+.ikke-liste>div *{color:#f1ece4}
+/* Hvide kort med moerk tekst ovenpaa fotoene */
+.vej.kort,.celle.kort,#kontaktform,#kontaktkvittering{background:#fffdf9;color:#1c1e1c}
+section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kort h3,section .celle.kort p,
+#kontaktform label,#kontaktform p,#kontaktkvittering h3,#kontaktkvittering p{color:#1c1e1c}
+#kontaktform button,#kontaktform .knap,#kontaktform [type=submit]{background:#24282c;color:#fff;border-color:#24282c}
 </style>
 <!-- STRUKTURERET DATA til Google. Kun oplysninger, der er sande og staar
      paa siden: firmanavn, CVR (som vatID), adressen fra foden og kontakt@.
@@ -970,6 +1014,8 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
   ]
 }
 </script>
+<link rel="preload" as="image" href="billeder/foto-rundsav-800.webp" media="(max-width:800px)" fetchpriority="high">
+<link rel="preload" as="image" href="billeder/foto-rundsav-1600.webp" media="(min-width:801px)" fetchpriority="high">
 </head>
 <body>
 
@@ -1010,11 +1056,11 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
       </div>
       <div class="oa-scene">
       <div class="oa-ringbolge"></div><div class="oa-ringbolge oa-b2"></div><div class="oa-ringbolge oa-b3"></div>
-      <div class="oa-tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.7">
+      <div class="oa-tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="1.7">
         <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></div>
 
       <div class="oa-opkaldsbar">
-        <svg class="oa-roer" viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
+        <svg class="oa-roer" viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="2">
           <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg>
         Opkald i gang <span class="oa-hvem2">&middot; Morten Jensen</span>
         <span class="oa-lyd"><i></i><i></i><i></i><i></i><i></i></span>
@@ -1044,7 +1090,7 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
       <div class="oa-sms">
         <div class="oa-telefonramme">
           <div class="oa-hoved">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="2">
               <rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
             Sms til Morten
           </div>
@@ -1058,19 +1104,19 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
       <div class="oa-veje">
         <div class="oa-ramme2">
           <div class="oa-hoved">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="2.4"
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="2.4"
               stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
             Tilbuddet er klar
           </div>
           <div class="oa-vej">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="1.8">
               <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
             <span>Send til kunden
               <small>Fra din egen mail, med PDF</small></span>
           </div>
           <div class="oa-eller">eller</div>
           <div class="oa-vej oa-v2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8fd0b6" stroke-width="1.8">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="1.8">
               <path d="M4 6h16M4 11h16M4 16h7"/><path d="M14 17l2.5 2.5L21 15"/></svg>
             <span>Direkte i regnskabet
               <small>Som kladde i e‑conomic eller Dinero</small></span>
@@ -1079,7 +1125,7 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
       </div>
 
       <div class="oa-papir">
-        <div class="oa-flueben"><svg viewBox="0 0 24 24" fill="none" stroke="#123a2e" stroke-width="2.6"
+        <div class="oa-flueben"><svg viewBox="0 0 24 24" fill="none" stroke="#131517" stroke-width="2.6"
           stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4 12l5 5L20 6"/></svg></div>
         <div class="oa-top"><b>Tilbud til Morten</b><span>Håndværker ApS</span></div>
         <div class="oa-krop">
@@ -1503,5 +1549,14 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
 })();
 </script>
 
+<script>
+/* Henter sektionernes fotos foerst, naar de naermer sig skaermen. */
+(function(){
+  var s=document.querySelectorAll('.regne,.udkast,.ikke,.beholder,.kontakt');
+  if(!('IntersectionObserver' in window)){s.forEach(function(e){e.classList.add('foto-klar')});return;}
+  var io=new IntersectionObserver(function(l){l.forEach(function(x){if(x.isIntersecting){x.target.classList.add('foto-klar');io.unobserve(x.target);}})},{rootMargin:'600px 0px'});
+  s.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>
