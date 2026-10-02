@@ -920,6 +920,56 @@ footer .fod-gruppe a{text-decoration:none}
 footer .fod-adresse{display:block;border-top:1px solid var(--kant);
   margin-top:22px;padding-top:18px;font-size:14px;line-height:1.5}
 </style>
+<!-- STRUKTURERET DATA til Google. Kun oplysninger, der er sande og staar
+     paa siden: firmanavn, CVR (som vatID), adressen fra foden og kontakt@.
+     SoftwareApplication er udeladt MED VILJE: Google kraever en offentlig
+     pris og rigtige anmeldelser, og ingen af delene findes endnu. Tilfoej
+     den, naar begge er paa plads. Opfind aldrig anmeldelser. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.telemakker.dk/#organisation",
+      "name": "TeleMakker",
+      "legalName": "TeleMakker ApS",
+      "url": "https://www.telemakker.dk/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.telemakker.dk/billeder/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "email": "kontakt@telemakker.dk",
+      "vatID": "DK46720253",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Platanvej 5, 1. 67.",
+        "postalCode": "1810",
+        "addressLocality": "Frederiksberg C",
+        "addressCountry": "DK"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "kontakt@telemakker.dk",
+        "availableLanguage": "da"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.telemakker.dk/#website",
+      "url": "https://www.telemakker.dk/",
+      "name": "TeleMakker",
+      "inLanguage": "da-DK",
+      "publisher": {
+        "@id": "https://www.telemakker.dk/#organisation"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
