@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TeleMakker: du taler med kunden, tilbuddet skriver sig selv</title>
-<meta name="description" content="Du taler med kunden som altid. Bagefter ligger der et udkast til et tilbud med opgaven, materialerne og forbeholdene. Du retter og sender. Regn selv ud, hvad det sparer dig.">
+<title>Tilbudsstyring til håndværkere | TeleMakker</title>
+<meta name="description" content="Tilbudsstyring til håndværkere: Du taler med kunden, og tilbuddet ligger klar med dine priser. Send det direkte, eller læg det i din ordrestyring.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231f5f4b'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Archivo,sans-serif' font-weight='700' fill='white'>T</text></svg>">
-<meta property="og:title" content="TeleMakker: du taler med kunden, tilbuddet skriver sig selv">
+<meta property="og:title" content="Tilbudsstyring til håndværkere | TeleMakker">
 <meta property="og:description" content="Udkast til tilbud ud fra dine egne kundeopkald. Til danske håndværkere.">
 <meta property="og:locale" content="da_DK">
 <meta property="og:type" content="website">
@@ -915,50 +915,41 @@ footer .fod-adresse{display:block;border-top:1px solid var(--kant);
   margin-top:22px;padding-top:18px;font-size:14px;line-height:1.5}
 
 /* ==================================================================
-   MATERIALER I STEDET FOR SKAERME (2. oktober 2026)
+   HEADERENS FARVER HELE VEJEN NED (2. oktober 2026)
    Kasper: siden skal ligne noget, en haandvaerker kender fra sin
    grossist og sit vaerksted, ikke en AI-virksomhed. Derfor:
-   - fotos af rundsav, mursten, trae og vaerktoej bag hver sektion
-   - antracit (vaerktoej og staal) som baerende farve, birk som accent
+   - eet foto, kun i toppen: en toemrer ved rundsaven
+   - resten i headerens antracit (#1b1e21 / #24282c) med birk (#e3c99f)
+     som accent, ingen andre fotos
    - kantede hjoerner, ingen gloed, ingen moerk tilstand
-   FOTOENE er WebP med det moerke sloer bagt ind (vaerktoej/hent-fotos.py),
-   800 px til mobil og 1600 px til computer. Kun toppen hentes med det
-   samme; resten faar klassen .foto-klar af et lille script nederst,
-   naar de naermer sig skaermen, saa de ikke goer siden langsommere.
+   FOTOET er WebP med det moerke sloer bagt ind (vaerktoej/hent-fotos.py),
+   1200 px til mobil og 2400 px til computer, saa det er skarpt paa
+   skaerme med hoej oploesning. Det forhaandsindlaeses i <head>.
    ================================================================== */
 header{background:#1b1e21;box-shadow:none}
-:root{--grund:#1b1d1f;--overgang:linear-gradient(to bottom,var(--grund) 0,rgba(27,29,31,0) 140px,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%)}
-/* Hvert foto glider ud i den samme grundfarve i top og bund, saa
-   sektionerne flyder over i hinanden i stedet for at moedes i en kant. */
-.hero{background:var(--grund) center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%),url(billeder/foto-rundsav-800.webp)}
+.hero{background:#1b1e21 center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(billeder/foto-rundsav-1200.webp)}
+@media (min-width:801px){
+  .hero{background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(billeder/foto-rundsav-2400.webp)}
+}
 .opkaldsanim::before,.opkaldsanim .oa-ringbolge{display:none}
 .knap{border-radius:3px}
-.regne,.udkast,.ikke,.beholder,.kontakt{background:var(--grund) center/cover no-repeat}
-.regne.foto-klar{background-image:var(--overgang),url(billeder/foto-mursten-800.webp)}
-.udkast.foto-klar{background-image:var(--overgang),url(billeder/foto-trae-800.webp)}
-.ikke.foto-klar{background-image:var(--overgang),url(billeder/foto-vaerktoej-800.webp)}
-.beholder.foto-klar{background-image:var(--overgang),url(billeder/foto-haandvaerker-800.webp)}
-.kontakt.foto-klar{background-image:var(--overgang),url(billeder/foto-planker-800.webp)}
-@media (min-width:801px){
-  .hero{background-image:linear-gradient(to bottom,rgba(27,29,31,0) calc(100% - 140px),var(--grund) 100%),url(billeder/foto-rundsav-1600.webp)}
-  .regne.foto-klar{background-image:var(--overgang),url(billeder/foto-mursten-1600.webp)}
-  .udkast.foto-klar{background-image:var(--overgang),url(billeder/foto-trae-1600.webp)}
-  .ikke.foto-klar{background-image:var(--overgang),url(billeder/foto-vaerktoej-1600.webp)}
-  .beholder.foto-klar{background-image:var(--overgang),url(billeder/foto-haandvaerker-1600.webp)}
-  .kontakt.foto-klar{background-image:var(--overgang),url(billeder/foto-planker-1600.webp)}
-}
-.regnekort{background:rgba(24,26,28,.82)}
-footer{background:var(--grund)}
-/* Lys tekst paa de moerke fotoflader */
+/* Sektionerne skifter mellem to antracit-toner, saa de kan skelnes */
+.regne,.ikke,.kontakt{background:#1b1e21}
+.udkast,.beholder{background:#24282c}
+footer{background:#141618}
+.regnekort{background:#24282c;border-color:rgba(227,201,159,.22)}
+/* Soegeordet foerst i H1, sloganet under */
+h1 .h1-emne{display:block;font-size:.5em;letter-spacing:-.01em;color:#e3c99f;margin-bottom:.35em}
+/* Lys tekst paa de moerke flader */
 .udkast-top h2,.udkast-top .brod,.udkast>.baand>ul li,.udkast>.baand>ul li *,
 section.ikke h2,section.ikke .brod,
 #hvorfor>.baand>h2,#hvorfor>.baand>.brod,
 #kontakt>.baand>div:first-child h2,#kontakt>.baand>div:first-child p,#kontakt>.baand>div:first-child a,
 footer .baand,footer .baand *{color:#f1ece4}
-.ikke-liste>div{background:rgba(20,22,24,.62);color:#f1ece4;border:1px solid rgba(255,255,255,.14);padding:16px 18px}
+.ikke-liste>div{background:#24282c;color:#f1ece4;border:1px solid rgba(227,201,159,.18);padding:16px 18px}
 .ikke-liste{gap:10px}
 .ikke-liste>div *{color:#f1ece4}
-/* Hvide kort med moerk tekst ovenpaa fotoene */
+/* Hvide kort med moerk tekst */
 .vej.kort,.celle.kort,#kontaktform,#kontaktkvittering{background:#fffdf9;color:#1c1e1c}
 section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kort h3,section .celle.kort p,
 #kontaktform label,#kontaktform p,#kontaktkvittering h3,#kontaktkvittering p{color:#1c1e1c}
@@ -1014,8 +1005,8 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
   ]
 }
 </script>
-<link rel="preload" as="image" href="billeder/foto-rundsav-800.webp" media="(max-width:800px)" fetchpriority="high">
-<link rel="preload" as="image" href="billeder/foto-rundsav-1600.webp" media="(min-width:801px)" fetchpriority="high">
+<link rel="preload" as="image" href="billeder/foto-rundsav-1200.webp" media="(max-width:800px)" fetchpriority="high">
+<link rel="preload" as="image" href="billeder/foto-rundsav-2400.webp" media="(min-width:801px)" fetchpriority="high">
 </head>
 <body>
 
@@ -1045,7 +1036,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
     <div class="opkaldsanim">
       <div class="oa-ord">
         <span class="oa-mrk">Du beholder dit eget nummer</span>
-        <h1><span class="l">Du taler</span> <span class="l">med kunden.</span><span class="l e">Tilbuddet skriver</span> <span class="l">sig selv.</span></h1>
+        <h1><span class="h1-emne">Tilbudsstyring til håndværkere</span><span class="l">Du taler</span> <span class="l">med kunden.</span><span class="l e">Tilbuddet skriver</span> <span class="l">sig selv.</span></h1>
         <p class="under-h1">Når samtalen er slut, ligger der et udkast med
           opgaven, materialerne og forbeholdene. Du retter og sender.</p>
         <div class="knapper">
@@ -1151,7 +1142,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 <section class="regne" id="regnestykket">
   <div class="baand">
     <div class="regnekort">
-      <h2>Hvor meget sparer du?</h2>
+      <h2>Hvor mange timer bruger du som håndværker på tilbud?</h2>
       <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
 
       <div class="indhold">
@@ -1206,7 +1197,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 <section class="udkast" id="udkast">
   <div class="baand">
     <div class="udkast-top">
-      <h2>Det, kunden får</h2>
+      <h2>Tilbuddet med dine priser, dit logo og dit CVR</h2>
       <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
         firmanavn, dit CVR og dine egne priser. Her er begge sider af et rigtigt et,
         bygget ud fra en samtale om et terrassedæk.</p>
@@ -1254,7 +1245,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 <!-- 4. DET VI IKKE GØR -->
 <section class="ikke">
   <div class="baand">
-    <h2>Det vi ikke gør</h2>
+    <h2>Det gør vores tilbudsstyring ikke</h2>
     <p class="brod" style="margin-top:14px">Det er nemmere at love noget end at holde
       sig fra det. Her er, hvad systemet ikke har lov til.</p>
 
@@ -1292,7 +1283,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 <!-- 5. STADIG DIT TILBUD -->
 <section class="beholder" id="hvorfor">
   <div class="baand">
-    <h2>Det er stadig dit tilbud</h2>
+    <h2>Tilbudsstyring, der spiller sammen med din ordrestyring</h2>
     <p class="brod" style="margin-top:14px">Du sælger og udfører selv, og du bestemmer,
       hvor hver sag står. Sendt, accepteret, i gang, afsluttet. Du sætter selv status,
       når kunden svarer, og noten om hvad hun sagde bliver stående i sagen, så du har
@@ -1313,7 +1304,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 <section class="kontakt" id="kontakt">
   <div class="baand">
     <div>
-      <h2>Vi ringer til dig</h2>
+      <h2>Er du håndværker? Vi ringer til dig</h2>
       <p class="brod" style="margin-top:14px">Vi er ved at sætte de første
         håndværkervirksomheder op. Er du tømrer, tagdækker, elektriker, VVS'er eller murer
         med et par mand i firmaet, så skriv dit nummer. Så ringer vi og viser det på en af
@@ -1549,14 +1540,5 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
 })();
 </script>
 
-<script>
-/* Henter sektionernes fotos foerst, naar de naermer sig skaermen. */
-(function(){
-  var s=document.querySelectorAll('.regne,.udkast,.ikke,.beholder,.kontakt');
-  if(!('IntersectionObserver' in window)){s.forEach(function(e){e.classList.add('foto-klar')});return;}
-  var io=new IntersectionObserver(function(l){l.forEach(function(x){if(x.isIntersecting){x.target.classList.add('foto-klar');io.unobserve(x.target);}})},{rootMargin:'600px 0px'});
-  s.forEach(function(e){io.observe(e)});
-})();
-</script>
 </body>
 </html>
