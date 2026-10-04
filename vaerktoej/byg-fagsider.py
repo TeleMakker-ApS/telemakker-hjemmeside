@@ -131,7 +131,7 @@ def fagmenu(aktiv=None, rod=""):
         + f'><b>{e(f["ental"].capitalize() if f["ental"][0].islower() else f["ental"])}</b><span>{e(f["jeg"])}</span></a>'
         for f in FAG)
     return f'''<details class="fagmenu">
-      <summary>Jeg er …</summary>
+      <summary>Vælg dit fag</summary>
       <div class="fagmenu-liste">
 {punkter}
       </div>
