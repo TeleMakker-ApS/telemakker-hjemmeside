@@ -61,12 +61,15 @@ header nav a.knap{color:var(--blaek);padding:10px 18px}
 .hero{background:var(--antracit) center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-1200.webp);padding:clamp(56px,9vw,120px) 0 clamp(56px,8vw,100px)}
 @media(min-width:801px){.hero{background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-2400.webp)}}
 .hero .emne{display:block;color:var(--birk);font-size:clamp(17px,1.6vw,21px);font-weight:700;margin-bottom:12px;letter-spacing:-.01em}
-.hero h1{font-size:clamp(34px,5vw,64px);max-width:15ch;margin-bottom:22px;color:#fff}
+.hero h1{font-size:clamp(32px,4.4vw,56px);max-width:20ch;margin-bottom:22px;color:#fff}
 .hero .under{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.86);max-width:42ch;margin-bottom:30px}
 .hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
 .brod{color:var(--daempet);max-width:62ch;font-size:17.5px}
 section{padding:clamp(56px,8vw,96px) 0}
 .lys-sek{background:var(--antracit-lys)}
+.kender{padding-top:clamp(40px,6vw,72px)}
+.kender-liste{list-style:none;padding:0;margin:26px 0 22px;display:grid;gap:10px;max-width:780px}
+.kender-liste li{background:var(--antracit-lys);border-left:3px solid var(--birk);border-radius:3px;padding:16px 20px;font-size:18px;color:var(--lys)}
 .trin{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:t}
 .trin li{background:var(--antracit);border:1px solid var(--kant);border-radius:3px;padding:20px 18px;counter-increment:t}
 .trin li::before{content:counter(t);display:block;color:var(--birk);font-weight:700;font-size:28px;margin-bottom:8px}
@@ -123,16 +126,16 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
     <a class="logo" href="/">Tele<b>Makker</b></a>
     <nav>
       <details class="fagmenu">
-      <summary>Fag</summary>
+      <summary>Jeg er …</summary>
       <div class="fagmenu-liste">
-        <a href="/tilbudsstyring-til-tomrere/" aria-current="page"><b>Tømrer</b><span>Terrasse, gulv, vinduer</span></a>
-        <a href="/tilbudsstyring-til-vvs/"><b>VVS&#x27;er</b><span>Bad, varme, afløb</span></a>
-        <a href="/tilbudsstyring-til-elektrikere/"><b>Elektriker</b><span>Tavle, udtag, ladestander</span></a>
-        <a href="/tilbudsstyring-til-malere/"><b>Maler</b><span>Indvendigt, facade, træværk</span></a>
-        <a href="/tilbudsstyring-til-murere/"><b>Murer</b><span>Facade, fliser, skorsten</span></a>
-        <a href="/tilbudsstyring-til-anlaegsgartnere/"><b>Anlægsgartner</b><span>Belægning, terrasse, dræn</span></a>
-        <a href="/tilbudsstyring-til-kloakmestre/"><b>Kloakmester</b><span>Separering, dræn, rotter</span></a>
-        <a href="/tilbudsstyring-til-koeleteknikere/"><b>Køletekniker</b><span>Kølerum, varmepumpe, service</span></a>
+        <a href="/tilbudsstyring-til-tomrere/" aria-current="page"><b>Tømrer</b><span>Jeg står på stilladset, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-vvs/"><b>VVS&#x27;er</b><span>Jeg ligger under en håndvask, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-elektrikere/"><b>Elektriker</b><span>Jeg står i en eltavle, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-malere/"><b>Maler</b><span>Jeg har penslen i hånden, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-murere/"><b>Murer</b><span>Jeg har mørtel på hænderne, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-anlaegsgartnere/"><b>Anlægsgartner</b><span>Jeg sidder i minigraveren, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-kloakmestre/"><b>Kloakmester</b><span>Jeg står i en udgravning, når kunden ringer</span></a>
+        <a href="/tilbudsstyring-til-koeleteknikere/"><b>Køletekniker</b><span>Jeg er ude på service, når kunden ringer</span></a>
       </div>
     </details>
       <a href="#saadan">Sådan virker det</a>
@@ -147,8 +150,8 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
 
 <section class="hero">
   <div class="baand">
-    <h1><span class="emne">Tilbudsstyring til tømrere</span>Snak terrassen igennem. Tilbuddet ligger klar.</h1>
-    <p class="under">Kunden ringer om en terrasse, et gulv eller nye vinduer. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.</p>
+    <h1><span class="emne">Tilbudsstyring til tømrere</span>Du står på stilladset. Kunden ringer om en terrasse.</h1>
+    <p class="under">Du snakker med kunden, som du plejer. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser. Så er aftenen din igen.</p>
     <div class="knapper">
       <a class="knap lys" href="/#kontakt">Bliv ringet op</a>
       <a class="knap hul" href="#tilbud">Se et tilbud</a>
@@ -156,7 +159,19 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
   </div>
 </section>
 
-<section id="saadan">
+<section class="kender">
+  <div class="baand">
+    <h2>Kender du det?</h2>
+    <ul class="kender-liste">
+      <li>Du lover kunden et tilbud “i aften”, og så går der en uge.</li>
+      <li>Målene fra samtalen står på bagsiden af en kvittering fra trælasten.</li>
+      <li>Kunden har fået to andre tilbud, før du har sat dig ved computeren.</li>
+    </ul>
+    <p class="brod">Det er ikke håndværket, der tager tiden. Det er papirarbejdet bagefter.</p>
+  </div>
+</section>
+
+<section id="saadan" class="lys-sek">
   <div class="baand">
     <h2>Fra opkald til færdigt tilbud</h2>
     <p class="brod">Du skal ikke lære et nyt program. Du skal bare tage telefonen.</p>
@@ -169,7 +184,7 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
   </div>
 </section>
 
-<section id="tilbud" class="lys-sek">
+<section id="tilbud">
   <div class="baand">
     <h2>Et rigtigt tømrertilbud: nyt terrassedæk</h2>
     <p class="brod">Bygget ud fra én samtale om et terrassedæk i lærk på ca. 24 m². Kunden ser dit firmanavn, dit CVR og dine priser, ikke vores.</p>
@@ -193,10 +208,10 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
   </div>
 </section>
 
-<section>
+<section class="lys-sek">
   <div class="baand">
-    <h2>Typiske opkald hos en tømrer</h2>
-    <p class="brod">Det er de samtaler, hvor tilbuddet ellers bliver skrevet om aftenen.</p>
+    <h2>Det ringer dine kunder om</h2>
+    <p class="brod">Det, du alligevel spørger om i telefonen, ender i tilbuddet.</p>
     <div class="opgaver">
       <div class="opgave"><h3>Terrasse og trapper</h3><p>Mål, træsort, fundament og hvem der kører det gamle væk.</p></div>
       <div class="opgave"><h3>Gulve</h3><p>Kvadratmeter, undergulv, lister og om møblerne skal flyttes.</p></div>
@@ -208,9 +223,9 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
   </div>
 </section>
 
-<section id="spoergsmaal" class="lys-sek">
+<section id="spoergsmaal">
   <div class="baand">
-    <h2>Spørgsmål fra tømrere</h2>
+    <h2>Det vil du sikkert spørge om</h2>
     <div class="faq">
       <details><summary>Skal jeg skifte telefonnummer?</summary><p>Nej. Du beholder dit eget nummer. Kunderne ringer, som de plejer, og du tager telefonen, som du plejer.</p></details>
       <details><summary>Hvad hvis kunden ikke vil optages?</summary><p>Så bliver der ikke optaget noget, og der gemmes ingen tekst. Opkaldet går stadig igennem, og du skriver tilbuddet selv, som du plejer.</p></details>

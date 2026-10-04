@@ -29,7 +29,7 @@ DOMAENE = "https://www.telemakker.dk"
 # slug, navn (ental), navn (flertal), undertekst i menuen, overskrift,
 # indledning, linjer i tilbuddet, typiske opkald [(titel, tekst)]
 FAG = [
-    dict(slug="tomrere", ental="tømrer", flertal="tømrere", menu="Terrasse, gulv, vinduer",
+    dict(slug="tomrere", jeg='Jeg står på stilladset, når kunden ringer', sit='Du står på stilladset. Kunden ringer om en terrasse.', kender=['Du lover kunden et tilbud “i aften”, og så går der en uge.', 'Målene fra samtalen står på bagsiden af en kvittering fra trælasten.', 'Kunden har fået to andre tilbud, før du har sat dig ved computeren.'], ental="tømrer", flertal="tømrere", menu="Terrasse, gulv, vinduer",
          h1="Snak terrassen igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om en terrasse, et gulv eller nye vinduer. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Nedrivning af det gamle dæk og bortkørsel", "Fundament, stolpesko og strøer",
@@ -40,7 +40,7 @@ FAG = [
                  ("Tag og udhæng", "Sternbrædder, udhæng og hvad der skal stilladseres."),
                  ("Køkken og indretning", "Montering, tilpasning og hvad kunden selv har købt."),
                  ("Carport og skur", "Størrelse, tag, fundament og byggetilladelse.")]),
-    dict(slug="vvs", ental="VVS'er", flertal="VVS'ere", menu="Bad, varme, afløb",
+    dict(slug="vvs", jeg='Jeg ligger under en håndvask, når kunden ringer', sit='Du ligger under en håndvask. Kunden ringer om et nyt badeværelse.', kender=['Du tager telefonen med våde hænder og husker halvdelen bagefter.', 'Tilbuddet på badeværelset bliver skrevet ved køkkenbordet kl. 22.', 'Kunden ringer igen og spørger, om du har glemt hende.'], ental="VVS'er", flertal="VVS'ere", menu="Bad, varme, afløb",
          h1="Snak badeværelset igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om et nyt badeværelse, en utæt radiator eller et stoppet afløb. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Nedtagning af gammelt toilet og håndvask", "Bruseniche, toilet og håndvask",
@@ -51,7 +51,7 @@ FAG = [
                  ("Køkken", "Vandinstallation, opvaskemaskine og hvad kunden selv har købt."),
                  ("Varmepumpe", "Placering, eksisterende anlæg og hvad der skal fjernes."),
                  ("Vandvarmer og toilet", "Udskiftning, mærke og om det gamle skal køres væk.")]),
-    dict(slug="elektrikere", ental="elektriker", flertal="elektrikere", menu="Tavle, udtag, ladestander",
+    dict(slug="elektrikere", jeg='Jeg står i en eltavle, når kunden ringer', sit='Du står i en eltavle. Kunden ringer om en ladestander.', kender=['Du noterer antal udtag på en papkasse og finder den ikke igen.', 'Fem små tilbud om ugen tager længere tid end de store.', 'Kunden har bestilt hos en anden, før dit tilbud er sendt.'], ental="elektriker", flertal="elektrikere", menu="Tavle, udtag, ladestander",
          h1="Snak tavlen igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om en ny eltavle, flere stikkontakter eller en ladestander. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Udskiftning af eltavle med nye HPFI-relæer", "Nye stikkontakter og udtag",
@@ -62,7 +62,7 @@ FAG = [
                  ("Ladestander", "Afstand fra tavlen, kabelføring og hvilken lader kunden har valgt."),
                  ("Køkken", "Ovn, kogeplade, emhætte og hvad køkkenfirmaet selv laver."),
                  ("Fejlfinding", "Hvad der slår fra, hvornår, og hvad kunden selv har prøvet.")]),
-    dict(slug="malere", ental="maler", flertal="malere", menu="Indvendigt, facade, træværk",
+    dict(slug="malere", jeg='Jeg har penslen i hånden, når kunden ringer', sit='Du har penslen i hånden. Kunden ringer om en lejlighed.', kender=['Du stiller penslen fra dig, tager opkaldet og har maling på telefonen.', 'Kvadratmeterne bliver regnet ud om aftenen med en lommeregner.', 'Kunden spørger efter tilbuddet, før du har nået at skrive det.'], ental="maler", flertal="malere", menu="Indvendigt, facade, træværk",
          h1="Snak rummene igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om en lejlighed, der skal males, en facade eller vinduer, der trænger. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Afdækning og forberedelse", "Spartling og slibning af vægge og loft",
@@ -73,7 +73,7 @@ FAG = [
                  ("Spartling", "Hvor slemme væggene er, og om det er fuldspartling eller pletspartling."),
                  ("Tapet", "Fjernelse af gammelt tapet, ny væv og hvem der vælger farven."),
                  ("Gulvbehandling", "Slibning, lak eller olie og om møblerne skal flyttes.")]),
-    dict(slug="murere", ental="murer", flertal="murere", menu="Facade, fliser, skorsten",
+    dict(slug="murere", jeg='Jeg har mørtel på hænderne, når kunden ringer', sit='Du har mørtel på hænderne. Kunden ringer om facaden.', kender=['Du kan ikke skrive noget ned, så du prøver at huske det hele.', 'Tilbuddet på facaden venter til weekenden.', 'Kunden har glemt, hvad I aftalte, når tilbuddet endelig kommer.'], ental="murer", flertal="murere", menu="Facade, fliser, skorsten",
          h1="Snak facaden igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om en facade, der skal fuges, et badeværelse eller en skorsten. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Stillads og afdækning", "Udkradsning og omfugning af facade",
@@ -84,7 +84,7 @@ FAG = [
                  ("Tilbygning", "Fundament, mure, og hvad tømreren og elektrikeren laver."),
                  ("Sokkel og puds", "Længde, skader og om der skal vandskures eller pudses."),
                  ("Klinker", "Rum, type, gulvvarme og hvad der skal brydes op først.")]),
-    dict(slug="anlaegsgartnere", ental="anlægsgartner", flertal="anlægsgartnere", menu="Belægning, terrasse, dræn",
+    dict(slug="anlaegsgartnere", jeg='Jeg sidder i minigraveren, når kunden ringer', sit='Du sidder i minigraveren. Kunden ringer om en ny indkørsel.', kender=['Du slukker maskinen, tager opkaldet og starter igen uden noter.', 'Kvadratmeter og sten bliver regnet ud på en blyant i bilen.', 'Foråret er travlt, og tilbuddene hober sig op.'], ental="anlægsgartner", flertal="anlægsgartnere", menu="Belægning, terrasse, dræn",
          h1="Snak haven igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om en ny indkørsel, en terrasse eller vand, der står i græsset. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Opgravning og bortkørsel af jord", "Afretning og stabilgrus",
@@ -95,7 +95,7 @@ FAG = [
                  ("Dræn", "Hvor vandet står, længde og hvor det skal ledes hen."),
                  ("Støttemur", "Højde, materiale og hvad der skal holdes tilbage."),
                  ("Græsplæne", "Kvadratmeter, rullegræs eller såning og jordforbedring.")]),
-    dict(slug="kloakmestre", ental="kloakmester", flertal="kloakmestre", menu="Separering, dræn, rotter",
+    dict(slug="kloakmestre", jeg='Jeg står i en udgravning, når kunden ringer', sit='Du står i en udgravning. Kunden ringer om et påbud fra kommunen.', kender=['Kunden forklarer længe om rotter og brønde, og du har ingen hånd fri.', 'Tilbuddet på separatkloakeringen tager en hel aften.', 'Kunden ringer til tre kloakmestre og tager den, der svarer først.'], ental="kloakmester", flertal="kloakmestre", menu="Separering, dræn, rotter",
          h1="Snak kloakken igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om separatkloakering, rotter i kloakken eller et dræn, der ikke virker. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["TV-inspektion af eksisterende ledninger", "Opgravning og udskiftning af ledning",
@@ -106,7 +106,7 @@ FAG = [
                  ("Nedsivning", "Faskine, jordbund og afstand til huset."),
                  ("TV-inspektion", "Hvad kunden har oplevet, og hvor brønden ligger."),
                  ("Stoppet afløb", "Hvor det står til, hvor tit det sker, og hvad der er prøvet.")]),
-    dict(slug="koeleteknikere", ental="køletekniker", flertal="køleteknikere", menu="Kølerum, varmepumpe, service",
+    dict(slug="koeleteknikere", jeg='Jeg er ude på service, når kunden ringer', sit='Du er ude på service. Kunden ringer om et kølerum.', kender=['Du tager opkaldet mellem to anlæg og har ingen blok ved hånden.', 'Tilbud på varmepumper bliver skrevet om aftenen efter vagten.', 'Kunden har fået et tilbud fra en anden, før du er hjemme.'], ental="køletekniker", flertal="køleteknikere", menu="Kølerum, varmepumpe, service",
          h1="Snak anlægget igennem. Tilbuddet ligger klar.",
          intro="Kunden ringer om et kølerum, en varmepumpe eller et anlæg, der ikke køler. Du snakker med ham som altid. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser.",
          linjer=["Demontering af eksisterende anlæg", "Levering og montering af nyt anlæg",
@@ -128,10 +128,10 @@ def fagmenu(aktiv=None, rod=""):
     punkter = "\n".join(
         f'        <a href="{rod}/tilbudsstyring-til-{f["slug"]}/"'
         + (' aria-current="page"' if f["slug"] == aktiv else "")
-        + f'><b>{e(f["ental"].capitalize() if f["ental"][0].islower() else f["ental"])}</b><span>{e(f["menu"])}</span></a>'
+        + f'><b>{e(f["ental"].capitalize() if f["ental"][0].islower() else f["ental"])}</b><span>{e(f["jeg"])}</span></a>'
         for f in FAG)
     return f'''<details class="fagmenu">
-      <summary>Fag</summary>
+      <summary>Jeg er …</summary>
       <div class="fagmenu-liste">
 {punkter}
       </div>
@@ -210,12 +210,15 @@ header nav a.knap{{color:var(--blaek);padding:10px 18px}}
 .hero{{background:var(--antracit) center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-1200.webp);padding:clamp(56px,9vw,120px) 0 clamp(56px,8vw,100px)}}
 @media(min-width:801px){{.hero{{background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-2400.webp)}}}}
 .hero .emne{{display:block;color:var(--birk);font-size:clamp(17px,1.6vw,21px);font-weight:700;margin-bottom:12px;letter-spacing:-.01em}}
-.hero h1{{font-size:clamp(34px,5vw,64px);max-width:15ch;margin-bottom:22px;color:#fff}}
+.hero h1{{font-size:clamp(32px,4.4vw,56px);max-width:20ch;margin-bottom:22px;color:#fff}}
 .hero .under{{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.86);max-width:42ch;margin-bottom:30px}}
 .hero .knapper{{display:flex;gap:12px;flex-wrap:wrap}}
 .brod{{color:var(--daempet);max-width:62ch;font-size:17.5px}}
 section{{padding:clamp(56px,8vw,96px) 0}}
 .lys-sek{{background:var(--antracit-lys)}}
+.kender{{padding-top:clamp(40px,6vw,72px)}}
+.kender-liste{{list-style:none;padding:0;margin:26px 0 22px;display:grid;gap:10px;max-width:780px}}
+.kender-liste li{{background:var(--antracit-lys);border-left:3px solid var(--birk);border-radius:3px;padding:16px 20px;font-size:18px;color:var(--lys)}}
 .trin{{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:t}}
 .trin li{{background:var(--antracit);border:1px solid var(--kant);border-radius:3px;padding:20px 18px;counter-increment:t}}
 .trin li::before{{content:counter(t);display:block;color:var(--birk);font-weight:700;font-size:28px;margin-bottom:8px}}
@@ -284,8 +287,8 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
 
 <section class="hero">
   <div class="baand">
-    <h1><span class="emne">Tilbudsstyring til {flertal}</span>{h1}</h1>
-    <p class="under">{intro}</p>
+    <h1><span class="emne">Tilbudsstyring til {flertal}</span>{sit}</h1>
+    <p class="under">Du snakker med kunden, som du plejer. Når du lægger på, ligger tilbuddet klar med arbejdet, materialerne og dine egne priser. Så er aftenen din igen.</p>
     <div class="knapper">
       <a class="knap lys" href="/#kontakt">Bliv ringet op</a>
       <a class="knap hul" href="#tilbud">Se et tilbud</a>
@@ -293,7 +296,17 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
   </div>
 </section>
 
-<section id="saadan">
+<section class="kender">
+  <div class="baand">
+    <h2>Kender du det?</h2>
+    <ul class="kender-liste">
+{kender}
+    </ul>
+    <p class="brod">Det er ikke håndværket, der tager tiden. Det er papirarbejdet bagefter.</p>
+  </div>
+</section>
+
+<section id="saadan" class="lys-sek">
   <div class="baand">
     <h2>Fra opkald til færdigt tilbud</h2>
     <p class="brod">Du skal ikke lære et nyt program. Du skal bare tage telefonen.</p>
@@ -306,25 +319,25 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
   </div>
 </section>
 
-<section id="tilbud" class="lys-sek">
+<section id="tilbud">
   <div class="baand">
 {eksempel}
   </div>
 </section>
 
-<section>
+<section class="lys-sek">
   <div class="baand">
-    <h2>Typiske opkald hos en {ental}</h2>
-    <p class="brod">Det er de samtaler, hvor tilbuddet ellers bliver skrevet om aftenen.</p>
+    <h2>Det ringer dine kunder om</h2>
+    <p class="brod">Det, du alligevel spørger om i telefonen, ender i tilbuddet.</p>
     <div class="opgaver">
 {opkald}
     </div>
   </div>
 </section>
 
-<section id="spoergsmaal" class="lys-sek">
+<section id="spoergsmaal">
   <div class="baand">
-    <h2>Spørgsmål fra {flertal}</h2>
+    <h2>Det vil du sikkert spørge om</h2>
     <div class="faq">
       <details><summary>Skal jeg skifte telefonnummer?</summary><p>Nej. Du beholder dit eget nummer. Kunderne ringer, som de plejer, og du tager telefonen, som du plejer.</p></details>
       <details><summary>Hvad hvis kunden ikke vil optages?</summary><p>Så bliver der ikke optaget noget, og der gemmes ingen tekst. Opkaldet går stadig igennem, og du skriver tilbuddet selv, som du plejer.</p></details>
@@ -421,7 +434,7 @@ def byg_side(f):
     besk = (f"Tilbudsstyring til {f['flertal']}: Du snakker med kunden i telefonen, og tilbuddet "
             f"ligger klar med dine egne priser, når du lægger på. Du retter og sender.")
     s = SIDE.format(flertal=e(f["flertal"]), ental=e(f["ental"]), url=url, beskrivelse=e(besk),
-                    h1=e(f["h1"]), intro=e(f["intro"]), eksempel=eksempel(f), opkald=opkald,
+                    sit=e(f["sit"]), kender="\n".join(f"      <li>{e(k)}</li>" for k in f["kender"]), eksempel=eksempel(f), opkald=opkald,
                     fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS)
     mappe = ROD / f"tilbudsstyring-til-{f['slug']}"
     mappe.mkdir(exist_ok=True)
