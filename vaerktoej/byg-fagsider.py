@@ -261,6 +261,7 @@ footer .fod-gruppe{{display:flex;flex-direction:column;gap:4px}}
 footer .fod-gruppe b{{color:var(--birk);font-weight:600}}
 footer .fod-gruppe a{{text-decoration:none;color:var(--lys)}}
 footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;color:var(--daempet)}}
+{beregner_css}
 </style>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@graph":[
@@ -305,6 +306,8 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
     <p class="brod">Det er ikke håndværket, der tager tiden. Det er papirarbejdet bagefter.</p>
   </div>
 </section>
+
+{beregner}
 
 <section id="saadan" class="lys-sek">
   <div class="baand">
@@ -382,6 +385,7 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
   <div class="baand fod-adresse">TeleMakker ApS &middot; CVR 46720253 &middot; Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
 </footer>
 {fagmenu_js}
+{beregner_js}
 </body>
 </html>
 """
@@ -428,6 +432,58 @@ def eksempel(f):
     </div>"""
 
 
+# ------------------------------------------------------------------
+# BEREGNEREN. Markup og script hentes direkte fra forsiden, saa tal og
+# standardvaerdier altid er de samme begge steder. Ret dem paa forsiden
+# (index.html) og koer dette script igen.
+# ------------------------------------------------------------------
+BEREGNER_CSS = """/* BEREGNEREN (samme som paa forsiden) */
+.regne{background:var(--antracit);padding:clamp(24px,4vw,48px) 0 clamp(56px,8vw,96px)}
+.regnekort{background:var(--antracit-lys);border:1px solid rgba(227,201,159,.22);border-radius:3px;
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);color:#fff}
+.regnekort h2{font-size:clamp(24px,2.6vw,30px);color:#fff;margin-bottom:6px}
+.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:0}
+.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
+.felter{display:grid;gap:18px}
+.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
+.felt .raek{display:flex;align-items:center;gap:14px}
+.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+.felt input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:0;margin-top:-8px;box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
+.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
+.felt input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;color:#fff}
+.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
+.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
+.svar .under{color:rgba(255,255,255,.84);margin:11px 0 0;font-size:15.5px}
+.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-size:14.5px;color:rgba(255,255,255,.78)}
+.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
+.antagelse{margin:20px 0 0;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
+.antagelse input{width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;text-align:center;padding:5px 3px;margin:0 3px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:3px}
+.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:760px){.regne .indhold{grid-template-columns:1fr;gap:24px}
+  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}}"""
+
+
+def hent_beregner():
+    """Henter beregnerens markup og script fra forsiden."""
+    s = (ROD / "index.html").read_text(encoding="utf-8")
+    m = re.search(r'<section class="regne" id="regnestykket">.*?</section>', s, re.S)
+    j = re.search(r'<script>\s*/\* -+\s*REGNESTYKKET.*?</script>', s, re.S)
+    if not m or not j:
+        raise SystemExit("Fandt ikke beregneren paa forsiden")
+    return m.group(0), j.group(0)
+
+
+def beregner(f, markup):
+    return markup.replace("Hvor mange timer bruger du som håndværker på tilbud?",
+                          f"Hvor mange timer bruger du som {e(f['ental'])} på tilbud?")
+
+
 def byg_side(f):
     url = f"{DOMAENE}/tilbudsstyring-til-{f['slug']}/"
     opkald = "\n".join(f'      <div class="opgave"><h3>{e(t)}</h3><p>{e(p)}</p></div>' for t, p in f["opkald"])
@@ -435,7 +491,8 @@ def byg_side(f):
             f"ligger klar med dine egne priser, når du lægger på. Du retter og sender.")
     s = SIDE.format(flertal=e(f["flertal"]), ental=e(f["ental"]), url=url, beskrivelse=e(besk),
                     sit=e(f["sit"]), kender="\n".join(f"      <li>{e(k)}</li>" for k in f["kender"]), eksempel=eksempel(f), opkald=opkald,
-                    fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS)
+                    fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS,
+                    beregner=beregner(f, BEREGNER[0]), beregner_css=BEREGNER_CSS, beregner_js=BEREGNER[1])
     mappe = ROD / f"tilbudsstyring-til-{f['slug']}"
     mappe.mkdir(exist_ok=True)
     (mappe / "index.html").write_text(s, encoding="utf-8")
@@ -467,6 +524,7 @@ def opdater_forside():
 
 
 if __name__ == "__main__":
+    BEREGNER = hent_beregner()
     for f in FAG:
         byg_side(f)
     opdater_forside()

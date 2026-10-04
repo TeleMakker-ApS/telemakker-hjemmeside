@@ -1189,15 +1189,15 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
           <div class="felt">
             <label for="foer">Minutter pr. tilbud i dag</label>
             <div class="raek">
-              <input type="range" id="foer" min="10" max="120" step="5" value="35">
-              <span class="tal" id="foer-vis">35<small>min</small></span>
+              <input type="range" id="foer" min="10" max="120" step="5" value="45">
+              <span class="tal" id="foer-vis">45<small>min</small></span>
             </div>
           </div>
           <div class="felt">
             <label for="timepris">Din timepris</label>
             <div class="raek">
-              <input type="range" id="timepris" min="250" max="1200" step="25" value="465">
-              <span class="tal" id="timepris-vis">465<small>kr.</small></span>
+              <input type="range" id="timepris" min="250" max="1200" step="25" value="675">
+              <span class="tal" id="timepris-vis">675<small>kr.</small></span>
             </div>
           </div>
         </div>
@@ -1219,7 +1219,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
            ikke rimeligt; han har jo ikke proevet det endnu. -->
       <p class="antagelse">Vi regner med, at det tager
         <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
-        <input type="number" id="efter" min="2" max="60" step="1" value="10" inputmode="numeric">
+        <input type="number" id="efter" min="2" max="60" step="1" value="5" inputmode="numeric">
         minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
     </div>
   </div>
@@ -1479,7 +1479,7 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
     // Feltet kan stå tomt, mens han taster. Så holder vi fast i vores eget
     // bud frem for at vise "NaN kr. om året".
     var e = Number(efter.value);
-    if (!isFinite(e) || efter.value === "") e = 10;
+    if (!isFinite(e) || efter.value === "") e = 5;
     e = Math.min(Math.max(e, 1), f);
 
     document.getElementById("antal-vis").textContent = a;

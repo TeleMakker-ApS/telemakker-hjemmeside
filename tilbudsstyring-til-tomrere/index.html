@@ -112,6 +112,36 @@ footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
 footer .fod-gruppe b{color:var(--birk);font-weight:600}
 footer .fod-gruppe a{text-decoration:none;color:var(--lys)}
 footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;color:var(--daempet)}
+/* BEREGNEREN (samme som paa forsiden) */
+.regne{background:var(--antracit);padding:clamp(24px,4vw,48px) 0 clamp(56px,8vw,96px)}
+.regnekort{background:var(--antracit-lys);border:1px solid rgba(227,201,159,.22);border-radius:3px;
+  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);color:#fff}
+.regnekort h2{font-size:clamp(24px,2.6vw,30px);color:#fff;margin-bottom:6px}
+.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:0}
+.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
+.felter{display:grid;gap:18px}
+.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
+.felt .raek{display:flex;align-items:center;gap:14px}
+.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+.felt input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:0;margin-top:-8px;box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
+.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
+.felt input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
+.felt input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;color:#fff}
+.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
+.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
+.svar .under{color:rgba(255,255,255,.84);margin:11px 0 0;font-size:15.5px}
+.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-size:14.5px;color:rgba(255,255,255,.78)}
+.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
+.antagelse{margin:20px 0 0;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
+.antagelse input{width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;text-align:center;padding:5px 3px;margin:0 3px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:3px}
+.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:760px){.regne .indhold{grid-template-columns:1fr;gap:24px}
+  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -168,6 +198,60 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
       <li>Kunden har fået to andre tilbud, før du har sat dig ved computeren.</li>
     </ul>
     <p class="brod">Det er ikke håndværket, der tager tiden. Det er papirarbejdet bagefter.</p>
+  </div>
+</section>
+
+<section class="regne" id="regnestykket">
+  <div class="baand">
+    <div class="regnekort">
+      <h2>Hvor mange timer bruger du som tømrer på tilbud?</h2>
+      <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
+
+      <div class="indhold">
+        <div class="felter">
+          <div class="felt">
+            <label for="antal">Tilbud om ugen</label>
+            <div class="raek">
+              <input type="range" id="antal" min="1" max="20" step="1" value="4">
+              <span class="tal" id="antal-vis">4</span>
+            </div>
+          </div>
+          <div class="felt">
+            <label for="foer">Minutter pr. tilbud i dag</label>
+            <div class="raek">
+              <input type="range" id="foer" min="10" max="120" step="5" value="45">
+              <span class="tal" id="foer-vis">45<small>min</small></span>
+            </div>
+          </div>
+          <div class="felt">
+            <label for="timepris">Din timepris</label>
+            <div class="raek">
+              <input type="range" id="timepris" min="250" max="1200" step="25" value="675">
+              <span class="tal" id="timepris-vis">675<small>kr.</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svar">
+          <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
+          <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
+          <div class="noegle">
+            <span><b id="timer">0</b> timer</span>
+            <span><b id="dage">0</b> arbejdsdage</span>
+            <span><b id="uge">0</b> minutter om ugen</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket. Uden et bud
+           paa, hvor lang tid det tager at RETTE et udkast, kan en
+           besparelse ikke regnes. At spoerge den besoegende om det er
+           ikke rimeligt; han har jo ikke proevet det endnu. -->
+      <p class="antagelse">Vi regner med, at det tager
+        <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
+        <input type="number" id="efter" min="2" max="60" step="1" value="5" inputmode="numeric">
+        minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
+    </div>
   </div>
 </section>
 
@@ -274,6 +358,104 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
 (function(){var m=document.querySelector('.fagmenu');if(!m)return;
 document.addEventListener('click',function(e){if(m.open&&!m.contains(e.target))m.open=false});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')m.open=false});})();
+</script>
+<script>
+/* ------------------------------------------------------------------
+   REGNESTYKKET
+
+   Tallet TÆLLER OP, fordi det er hele pointen: man skal se forskellen
+   vokse, mens man skruer på sine egne tal. Animationen er ikke pynt,
+   den ER budskabet.
+
+   Der er ikke fundet noget på. Alle fire tal sættes af den, der læser
+   siden. Vi ganger dem sammen og siger det højt.
+
+   Regnestykket ligger nu ØVERST, saa der ventes ikke paa, at nogen
+   ruller ned til det: det taeller op med det samme.
+   ------------------------------------------------------------------ */
+(function () {
+  var rolig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var antal = document.getElementById("antal");
+  var foer = document.getElementById("foer");
+  var efter = document.getElementById("efter");
+  var timepris = document.getElementById("timepris");
+
+  var visKroner = document.getElementById("kroner");
+  var visTimer = document.getElementById("timer");
+  var visDage = document.getElementById("dage");
+  var visUge = document.getElementById("uge");
+
+  function dansk(t) { return t.toLocaleString("da-DK"); }
+
+  function taelOp(el, til, ms) {
+    var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
+    if (rolig || fra === til) { el.textContent = dansk(til); return; }
+    if (el._loeb) cancelAnimationFrame(el._loeb);
+    if (el._net) clearTimeout(el._net);
+
+    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen, holder
+    // browseren op med at kalde requestAnimationFrame, og tallet ville stå
+    // fast et sted midtvejs. Et forkert tal er værre end ingen animation.
+    el._net = setTimeout(function () {
+      if (el._loeb) cancelAnimationFrame(el._loeb);
+      el.textContent = dansk(til);
+    }, ms + 120);
+
+    var start = performance.now();
+    (function trin(nu) {
+      var p = Math.min(1, (nu - start) / ms);
+      var b = 1 - Math.pow(1 - p, 3);
+      el.textContent = dansk(Math.round(fra + (til - fra) * b));
+      if (p < 1) el._loeb = requestAnimationFrame(trin);
+      else { el._loeb = null; clearTimeout(el._net); }
+    })(start);
+  }
+
+  function regn(medAnimation) {
+    var a = Number(antal.value);
+    var f = Number(foer.value);
+    var pris = Number(timepris.value);
+
+    // Feltet kan stå tomt, mens han taster. Så holder vi fast i vores eget
+    // bud frem for at vise "NaN kr. om året".
+    var e = Number(efter.value);
+    if (!isFinite(e) || efter.value === "") e = 5;
+    e = Math.min(Math.max(e, 1), f);
+
+    document.getElementById("antal-vis").textContent = a;
+    document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
+    document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
+
+    // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
+    // og ikke negativ. Et minustal ville være noget vrøvl.
+    var sparetPrUge = Math.max(0, a * (f - e));
+    var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
+    var dage = Math.round(timer / 7.4);              // en arbejdsdag
+    var kroner = Math.round(timer * pris);
+
+    if (medAnimation) {
+      taelOp(visKroner, kroner, 900);
+      taelOp(visTimer, timer, 700);
+      taelOp(visDage, dage, 700);
+      taelOp(visUge, sparetPrUge, 700);
+    } else {
+      visKroner.textContent = dansk(kroner);
+      visTimer.textContent = dansk(timer);
+      visDage.textContent = dansk(dage);
+      visUge.textContent = dansk(sparetPrUge);
+    }
+  }
+
+  [antal, foer, efter, timepris].forEach(function (felt) {
+    felt.addEventListener("input", function () { regn(true); });
+  });
+
+  // Regnestykket staar oeverst, saa det taeller op med det samme.
+  regn(false);
+  visKroner.textContent = "0"; visTimer.textContent = "0";
+  visDage.textContent = "0"; visUge.textContent = "0";
+  setTimeout(function () { regn(true); }, 320);
+})();
 </script>
 </body>
 </html>

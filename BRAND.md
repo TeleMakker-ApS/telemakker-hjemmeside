@@ -92,7 +92,7 @@ må sige noget andet.
 Desuden:
 
 - Ingen opdigtede anmeldelser, citater eller kundecases.
-- Ingen tal, vi ikke kan stå inde for. "10 minutter pr. tilbud" er en
+- Ingen tal, vi ikke kan stå inde for. "5 minutter at rette et tilbud" er en
   antagelse i beregneren, ikke en målt garanti.
 - Ingen løfter om integrationer, der ikke virker endnu.
 
