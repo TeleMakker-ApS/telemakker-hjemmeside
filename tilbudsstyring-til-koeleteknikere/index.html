@@ -101,11 +101,14 @@ section{padding:clamp(56px,8vw,96px) 0}
 .faq summary::after{content:"+";position:absolute;right:4px;top:12px;color:var(--birk);font-size:24px;font-weight:400}
 .faq details[open] summary::after{content:"–"}
 .faq details p{color:var(--daempet);margin:0 0 18px}
-.cta .boks{background:var(--papir);color:var(--blaek);border-radius:3px;padding:clamp(26px,4vw,44px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.cta h2{color:var(--blaek);margin-bottom:8px}
-.cta p{color:#4a4844;margin:0;max-width:52ch}
-.andre{margin-top:18px;font-size:15.5px;color:var(--daempet)}
-.andre a{color:var(--lys)}
+.cta .boks{background:var(--antracit-lys);color:var(--lys);border:1px solid var(--kant);border-left:3px solid var(--birk);border-radius:3px;padding:clamp(26px,4vw,44px);display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap}
+.cta h2{color:#fff;margin-bottom:10px}
+.cta p{color:#cfc8bd;margin:0;max-width:56ch}
+.cta .knap{white-space:nowrap}
+.cta .andre{max-width:none;margin:34px 0 0;padding-top:22px;border-top:1px solid var(--kant);font-size:15px;color:var(--daempet);display:flex;flex-wrap:wrap;gap:10px 22px;line-height:1.5}
+.andre b{color:var(--birk);font-weight:600;white-space:nowrap}
+.andre a{color:var(--lys);text-decoration:none;border-bottom:1px solid rgba(227,201,159,.35);white-space:nowrap}
+.andre a:hover{color:#fff;border-bottom-color:var(--birk)}
 footer{background:var(--antracit-moerk);padding:44px 0 30px;font-size:15px}
 footer .baand{display:flex;gap:60px;flex-wrap:wrap}
 footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
@@ -328,9 +331,9 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
         <h2>Er du køletekniker? Vi ringer til dig</h2>
         <p>Vi er ved at sætte de første firmaer op. Skriv dit nummer, så ringer vi og viser det på en af dine egne samtaler.</p>
       </div>
-      <a class="knap moerk" href="/#kontakt">Bliv ringet op</a>
+      <a class="knap lys" href="/#kontakt">Bliv ringet op</a>
     </div>
-    <p class="andre">Se også: <a href="/">Tilbudsstyring til håndværkere</a></p>
+    <p class="andre"><b>Andre fag:</b><a href="/tilbudsstyring-til-tomrere/">Tømrere</a><a href="/tilbudsstyring-til-vvs/">VVS&#x27;ere</a><a href="/tilbudsstyring-til-elektrikere/">Elektrikere</a><a href="/tilbudsstyring-til-malere/">Malere</a><a href="/tilbudsstyring-til-murere/">Murere</a><a href="/tilbudsstyring-til-anlaegsgartnere/">Anlægsgartnere</a><a href="/tilbudsstyring-til-kloakmestre/">Kloakmestre</a><a href="/">Alle håndværkere</a></p>
   </div>
 </section>
 

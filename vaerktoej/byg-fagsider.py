@@ -250,11 +250,14 @@ section{{padding:clamp(56px,8vw,96px) 0}}
 .faq summary::after{{content:"+";position:absolute;right:4px;top:12px;color:var(--birk);font-size:24px;font-weight:400}}
 .faq details[open] summary::after{{content:"–"}}
 .faq details p{{color:var(--daempet);margin:0 0 18px}}
-.cta .boks{{background:var(--papir);color:var(--blaek);border-radius:3px;padding:clamp(26px,4vw,44px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}}
-.cta h2{{color:var(--blaek);margin-bottom:8px}}
-.cta p{{color:#4a4844;margin:0;max-width:52ch}}
-.andre{{margin-top:18px;font-size:15.5px;color:var(--daempet)}}
-.andre a{{color:var(--lys)}}
+.cta .boks{{background:var(--antracit-lys);color:var(--lys);border:1px solid var(--kant);border-left:3px solid var(--birk);border-radius:3px;padding:clamp(26px,4vw,44px);display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap}}
+.cta h2{{color:#fff;margin-bottom:10px}}
+.cta p{{color:#cfc8bd;margin:0;max-width:56ch}}
+.cta .knap{{white-space:nowrap}}
+.cta .andre{{max-width:none;margin:34px 0 0;padding-top:22px;border-top:1px solid var(--kant);font-size:15px;color:var(--daempet);display:flex;flex-wrap:wrap;gap:10px 22px;line-height:1.5}}
+.andre b{{color:var(--birk);font-weight:600;white-space:nowrap}}
+.andre a{{color:var(--lys);text-decoration:none;border-bottom:1px solid rgba(227,201,159,.35);white-space:nowrap}}
+.andre a:hover{{color:#fff;border-bottom-color:var(--birk)}}
 footer{{background:var(--antracit-moerk);padding:44px 0 30px;font-size:15px}}
 footer .baand{{display:flex;gap:60px;flex-wrap:wrap}}
 footer .fod-gruppe{{display:flex;flex-direction:column;gap:4px}}
@@ -360,9 +363,9 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
         <h2>Er du {ental}? Vi ringer til dig</h2>
         <p>Vi er ved at sætte de første firmaer op. Skriv dit nummer, så ringer vi og viser det på en af dine egne samtaler.</p>
       </div>
-      <a class="knap moerk" href="/#kontakt">Bliv ringet op</a>
+      <a class="knap lys" href="/#kontakt">Bliv ringet op</a>
     </div>
-    <p class="andre">Se også: <a href="/">Tilbudsstyring til håndværkere</a></p>
+    <p class="andre"><b>Andre fag:</b>{andre_fag}<a href="/">Alle håndværkere</a></p>
   </div>
 </section>
 
@@ -484,6 +487,10 @@ def beregner(f, markup):
                           f"Hvor mange timer bruger du som {e(f['ental'])} på tilbud?")
 
 
+def andre_fag(f):
+    return "".join(f'<a href="/tilbudsstyring-til-{a['slug']}/">{e(a['flertal'].capitalize() if a['flertal'][0].islower() else a['flertal'])}</a>'
+                   for a in FAG if a["slug"] != f["slug"])
+
 def byg_side(f):
     url = f"{DOMAENE}/tilbudsstyring-til-{f['slug']}/"
     opkald = "\n".join(f'      <div class="opgave"><h3>{e(t)}</h3><p>{e(p)}</p></div>' for t, p in f["opkald"])
@@ -492,7 +499,7 @@ def byg_side(f):
     s = SIDE.format(flertal=e(f["flertal"]), ental=e(f["ental"]), url=url, beskrivelse=e(besk),
                     sit=e(f["sit"]), kender="\n".join(f"      <li>{e(k)}</li>" for k in f["kender"]), eksempel=eksempel(f), opkald=opkald,
                     fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS,
-                    beregner=beregner(f, BEREGNER[0]), beregner_css=BEREGNER_CSS, beregner_js=BEREGNER[1])
+                    beregner=beregner(f, BEREGNER[0]), andre_fag=andre_fag(f), beregner_css=BEREGNER_CSS, beregner_js=BEREGNER[1])
     mappe = ROD / f"tilbudsstyring-til-{f['slug']}"
     mappe.mkdir(exist_ok=True)
     (mappe / "index.html").write_text(s, encoding="utf-8")
