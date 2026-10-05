@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Bygget automatisk af vaerktoej/byg-sitemap.py. Ret ikke i haanden. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.telemakker.dk/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.telemakker.dk/juridisk/</loc>
-    <lastmod>2026-09-30</lastmod>
-  </url>
-  <url>
-    <loc>https://www.telemakker.dk/juridisk/handelsbetingelser/</loc>
     <lastmod>2026-09-30</lastmod>
   </url>
   <url>
@@ -17,7 +14,43 @@
     <lastmod>2026-09-30</lastmod>
   </url>
   <url>
+    <loc>https://www.telemakker.dk/juridisk/handelsbetingelser/</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
     <loc>https://www.telemakker.dk/juridisk/privatlivspolitik/</loc>
     <lastmod>2026-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-anlaegsgartnere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-elektrikere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-kloakmestre/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-koeleteknikere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-malere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-murere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-tomrere/</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.telemakker.dk/tilbudsstyring-til-vvs/</loc>
+    <lastmod>2026-10-05</lastmod>
   </url>
 </urlset>

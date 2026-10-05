@@ -1,0 +1,42 @@
+# Holder sitemap.xml opdateret af sig selv.
+# Ved hvert push til main bygges sitemappet ud fra de sider, der ligger i
+# repoet. Har noget aendret sig, committes den nye sitemap.xml tilbage, og
+# GitHub Pages udgiver den som normalt.
+name: Sitemap
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - sitemap.xml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sitemap
+  cancel-in-progress: true
+
+jobs:
+  byg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # hele historikken, saa hver side faar sin rigtige dato
+
+      - name: Byg sitemap.xml
+        run: python3 vaerktoej/byg-sitemap.py
+
+      - name: Commit hvis den har aendret sig
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "Sitemap uaendret."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "Sitemap opdateret automatisk"
+          git push

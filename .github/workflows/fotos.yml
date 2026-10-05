@@ -1,0 +1,39 @@
+# Henter og optimerer materialefotoene til forsiden.
+# Koerer, naar vaerktoej/hent-fotos.py aendres, eller i haanden under
+# Actions -> Fotos -> Run workflow. Se scriptet for hvad den goer.
+name: Fotos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - vaerktoej/hent-fotos.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  hent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pillow
+        run: pip install pillow
+
+      - name: Hent og optimer fotos
+        run: python3 vaerktoej/hent-fotos.py
+
+      - name: Commit hvis de har aendret sig
+        run: |
+          git add billeder/foto-*.webp
+          if git diff --cached --quiet; then
+            echo "Fotos uaendrede."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Materialefotos hentet og optimeret"
+          git pull --rebase
+          git push

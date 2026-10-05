@@ -28,20 +28,12 @@
 
 :root{
   --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
-  --groen:#1f5f4b; --groen-moerk:#17493a; --groen-lys:#eaf1ee;
+  --groen:#24282c; --groen-moerk:#1b1e21; --groen-lys:#f2eee7;
   --kant:#e3e3df; --sand:#f1f2f0;
-  --runding:10px; --baand:820px;
+  --runding:3px; --baand:820px;
 }
 
-/* Samme to-delte mørke tilstand som forsiden. Den bare :root ovenfor
-   er den lyse; den her gælder, når maskinen står mørkt. */
-@media (prefers-color-scheme:dark){
-  :root{
-    --blaek:#ece8e0; --daempet:#a9a29a; --papir:#191815; --hvid:#221f1c;
-    --groen:#8fd0b6; --groen-moerk:#8fd0b6; --groen-lys:#20302b;
-    --kant:#38342e; --sand:#211f1b;
-  }
-}
+/* Moerk tilstand fjernet 2. oktober 2026, ligesom paa forsiden. */
 
 *{box-sizing:border-box}
 body{

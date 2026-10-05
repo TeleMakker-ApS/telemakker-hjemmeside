@@ -1,0 +1,39 @@
+# Farver de groenne billeder om til brand-farverne (antracit og birk).
+# Koerer, naar vaerktoej/omfarv-billeder.py aendres, eller i haanden under
+# Actions -> Omfarv billeder -> Run workflow. Se scriptet for hvad den goer.
+name: Omfarv billeder
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - vaerktoej/omfarv-billeder.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  omfarv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pillow
+        run: pip install pillow
+
+      - name: Omfarv
+        run: python3 vaerktoej/omfarv-billeder.py
+
+      - name: Commit hvis noget har aendret sig
+        run: |
+          git add billeder/*.png
+          if git diff --cached --quiet; then
+            echo "Ingen aendringer."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Billeder omfarvet til antracit og birk"
+          git pull --rebase
+          git push
