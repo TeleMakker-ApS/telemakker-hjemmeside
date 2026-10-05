@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeleMakker og e-conomic | Fakturakladden skriver sig selv</title>
+<meta name="description" content="Du snakker med kunden, og tilbuddet ligger klar, når du lægger på. Er arbejdet lavet, lægger du det over i din e-conomic som en fakturakladde. Du godkender altid selv.">
+<link rel="canonical" href="https://www.telemakker.dk/e-conomic/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="da_DK">
+<meta property="og:url" content="https://www.telemakker.dk/e-conomic/">
+<meta property="og:title" content="TeleMakker og e-conomic">
+<meta property="og:description" content="Tilbuddet bliver til en fakturakladde i din egen e-conomic. Du godkender altid selv.">
+<meta property="og:image" content="https://www.telemakker.dk/billeder/deling.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/skrift/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<!--
+  SIDEN HER ER SKREVET I HAANDEN, ikke bygget af vaerktoej/byg-fagsider.py.
+  Ret den derfor direkte her.
+
+  HVORFOR DEN FINDES: e-conomic kraever af sine app-partnere "a dedicated
+  e-conomic-themed landing page on your website that links back to
+  e-conomic". Uden den kan appen ikke udgives. Linket tilbage til dem
+  staar baade i toppen og i bunden, og det skal blive staaende.
+
+  Tonen foelger BRAND.md: du-form, ingen fagord, og ordet kunstig
+  intelligens staar ikke noget sted. Vi lover heller ikke noget, der ikke
+  virker: fakturakladden blev bevist i et rigtigt regnskab 25. august 2026.
+-->
+<style>
+@font-face{font-family:Archivo;src:url(/skrift/archivo.woff2) format('woff2');font-weight:100 900;font-display:swap}
+:root{--antracit:#1b1e21;--antracit-lys:#24282c;--antracit-moerk:#141618;--birk:#e3c99f;--lys:#f1ece4;--daempet:#b9b2a8;--papir:#fffdf9;--blaek:#1c1e1c;--kant:rgba(227,201,159,.18)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--antracit);color:var(--lys);font:400 17px/1.65 Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.12;margin:0}
+h2{font-size:clamp(26px,3.2vw,38px);margin-bottom:14px}
+h3{font-size:18.5px;margin-bottom:6px}
+p{margin:0 0 14px}
+.baand{max-width:1120px;margin:0 auto;padding:0 24px}
+.knap{display:inline-block;padding:13px 22px;border-radius:3px;font-weight:600;text-decoration:none;border:1.5px solid transparent;font-size:16px}
+.knap.lys{background:#fff;color:var(--blaek)}
+.knap.hul{border-color:rgba(255,255,255,.45);color:#fff}
+header{background:var(--antracit);border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:20}
+header .baand{display:flex;justify-content:space-between;align-items:center;height:70px;gap:16px}
+.logo{font-weight:700;font-size:21px;letter-spacing:-.02em;text-decoration:none;color:#fff}
+.logo b{color:var(--birk);font-weight:700}
+header nav{display:flex;gap:24px;align-items:center}
+header nav a{text-decoration:none;font-size:15.5px;color:rgba(255,255,255,.85)}
+header nav a.knap{color:var(--blaek);padding:10px 18px}
+@media(max-width:900px){header nav>a:not(.knap){display:none}}
+.hero{padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,86px);border-bottom:1px solid var(--kant)}
+.hero .emne{display:block;color:var(--birk);font-size:clamp(17px,1.6vw,21px);font-weight:700;margin-bottom:12px}
+.hero h1{font-size:clamp(32px,4.4vw,54px);max-width:21ch;margin-bottom:22px;color:#fff}
+.hero .under{font-size:clamp(17px,1.5vw,20px);color:rgba(255,255,255,.86);max-width:46ch;margin-bottom:30px}
+.hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
+section{padding:clamp(52px,7vw,90px) 0}
+.lys-sek{background:var(--antracit-lys)}
+.brod{color:var(--daempet);max-width:62ch;font-size:17.5px}
+.trin{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:t}
+.trin li{background:var(--antracit);border:1px solid var(--kant);border-radius:3px;padding:20px 18px;counter-increment:t}
+.trin li::before{content:counter(t);display:block;color:var(--birk);font-weight:700;font-size:28px;margin-bottom:8px}
+.trin p{color:var(--daempet);font-size:15.5px;margin:0}
+.lys-sek .trin li{background:var(--antracit-lys)}
+@media(max-width:900px){.trin{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.trin{grid-template-columns:1fr}}
+.eksempel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,56px);align-items:start;margin-top:34px}
+@media(max-width:860px){.eksempel{grid-template-columns:1fr}}
+.linjer{background:var(--papir);color:var(--blaek);border-radius:3px;padding:20px 22px}
+.linjer h3{color:var(--blaek);font-size:16px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.linjer table{width:100%;border-collapse:collapse;font-size:15.5px}
+.linjer td{padding:9px 0;border-bottom:1px solid #e6e1d8;vertical-align:top}
+.linjer td:last-child{text-align:right;white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+.linjer tr.ialt td{border-bottom:0;font-weight:700;font-size:17px;padding-top:14px}
+.linjer .note{font-size:13.5px;color:#5d5a54;margin:12px 0 0}
+.aldrig{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px;max-width:820px}
+.aldrig li{background:var(--antracit);border-left:3px solid var(--birk);border-radius:3px;padding:16px 20px;font-size:17px}
+.aldrig b{color:#fff}
+.faq{margin-top:26px;max-width:820px}
+.faq details{border-bottom:1px solid var(--kant);padding:4px 0}
+.faq summary{cursor:pointer;list-style:none;font-weight:600;font-size:18px;padding:16px 30px 16px 0;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:12px;color:var(--birk);font-size:24px;font-weight:400}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{color:var(--daempet);margin:0 0 18px}
+.cta .boks{background:var(--antracit-lys);border:1px solid var(--kant);border-left:3px solid var(--birk);border-radius:3px;padding:clamp(26px,4vw,44px);display:flex;justify-content:space-between;align-items:center;gap:24px 40px;flex-wrap:wrap}
+.cta h2{color:#fff;margin-bottom:10px}
+.cta p{color:#cfc8bd;margin:0;max-width:56ch}
+.cta .knap{white-space:nowrap}
+footer{background:var(--antracit-moerk);padding:44px 0 30px;font-size:15px}
+footer .baand{display:flex;gap:60px;flex-wrap:wrap}
+footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
+footer .fod-gruppe b{color:var(--birk);font-weight:600}
+footer .fod-gruppe a{text-decoration:none;color:var(--lys)}
+footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;color:var(--daempet)}
+</style>
+</head>
+<body>
+
+<header><div class="baand">
+  <a class="logo" href="/">Tele<b>Makker</b></a>
+  <nav>
+    <a href="/juridisk/">Juridisk</a>
+    <a href="https://www.e-conomic.dk/" rel="noopener">e-conomic</a>
+    <a class="knap lys" href="https://app.telemakker.dk/">Log ind</a>
+  </nav>
+</div></header>
+
+<div class="hero"><div class="baand">
+  <span class="emne">TeleMakker og e-conomic</span>
+  <h1>Fakturaen er allerede skrevet, da du lagde røret på</h1>
+  <p class="under">Du snakker med kunden som altid. Tilbuddet ligger klar med
+  dine egne priser, når du lægger på. Er arbejdet lavet, lægger du det over i
+  din egen <a href="https://www.e-conomic.dk/" rel="noopener">e-conomic</a>
+  som en fakturakladde. Ét tryk, og du har ikke tastet noget to gange.</p>
+  <div class="knapper">
+    <a class="knap lys" href="https://app.telemakker.dk/">Kom i gang</a>
+    <a class="knap hul" href="https://www.e-conomic.dk/" rel="noopener">Læs om e-conomic</a>
+  </div>
+</div></div>
+
+<section><div class="baand">
+  <h2>Sådan hænger det sammen</h2>
+  <p class="brod">Fra kunden ringer, til kladden ligger i dit regnskab. Du er
+  med hele vejen, og intet går videre, uden at du har sagt god for det.</p>
+  <ol class="trin">
+    <li><h3>Kunden ringer</h3><p>Du tager telefonen på dit eget nummer, som du plejer. Kunden bliver spurgt om lov, før der optages noget.</p></li>
+    <li><h3>Tilbuddet ligger klar</h3><p>Opgaven, adressen, forbeholdene og de aftaler, I lavede i telefonen. Med dine egne priser og dit eget logo.</p></li>
+    <li><h3>Du retter og sender</h3><p>Du skriver de sidste priser på og sender til kunden. Mangler der noget, står det i en liste, så du kan se det.</p></li>
+    <li><h3>Kladden i e-conomic</h3><p>Er arbejdet lavet, trykker du Send til e-conomic. Kladden ligger i dit regnskab med linjer, kunde og det hele.</p></li>
+  </ol>
+</div></section>
+
+<section class="lys-sek"><div class="baand">
+  <h2>Det, der lander i dit regnskab</h2>
+  <p class="brod">Kladden bygges af det tilbud, kunden allerede har sagt ja
+  til. Samme linjer, samme priser, samme tekst. Du skal ikke sidde og taste
+  det ind en gang til, og der kan ikke komme til at stå noget andet på
+  regningen, end der stod i tilbuddet.</p>
+  <div class="eksempel">
+    <div class="linjer">
+      <h3>Fakturakladde</h3>
+      <table>
+        <tr><td>Nedtagning af gammelt køkken<br><span style="color:#5d5a54">8 timer</span></td><td>4.620,00</td></tr>
+        <tr><td>Montering af nye skabe<br><span style="color:#5d5a54">14 timer</span></td><td>8.085,00</td></tr>
+        <tr><td>Bordplade, eg<br><span style="color:#5d5a54">3,5 m</span></td><td>9.240,00</td></tr>
+        <tr><td>Beslag og skruer</td><td>495,00</td></tr>
+        <tr class="ialt"><td>I alt ekskl. moms</td><td>22.440,00</td></tr>
+      </table>
+      <p class="note">Eksempel. Linjerne og priserne er dine egne, og kladden
+      bogføres ikke. Den ligger og venter på dig i e-conomic.</p>
+    </div>
+    <div>
+      <h3 style="color:#fff;font-size:21px;margin-bottom:10px">Kunden kommer med</h3>
+      <p class="brod" style="margin-bottom:22px">Findes kunden i forvejen i dit
+      regnskab, bruges han. Gør han ikke, bliver han oprettet med navn og
+      adresse, som den staves i det officielle register.</p>
+      <h3 style="color:#fff;font-size:21px;margin-bottom:10px">Dine varenumre</h3>
+      <p class="brod" style="margin-bottom:22px">Vi opfinder ikke konti og
+      varenumre. Du vælger blandt dine egne, og så husker systemet valget til
+      næste gang.</p>
+      <h3 style="color:#fff;font-size:21px;margin-bottom:10px">Dit sagsnummer</h3>
+      <p class="brod" style="margin:0">Rekvisitionsnummer og de felter, dit
+      regnskab beder om, står på sagen og følger med over.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="baand">
+  <h2>Det gør vi aldrig</h2>
+  <p class="brod">Det er dit regnskab. Vi skriver i det, når du beder om det,
+  og ikke ellers.</p>
+  <ul class="aldrig">
+    <li><b>Vi bogfører aldrig.</b> Vi lægger en kladde. Du åbner den selv i e-conomic, ser den efter og bogfører, hvis den er rigtig.</li>
+    <li><b>Vi sender aldrig en faktura.</b> Hverken til din kunde eller til nogen anden.</li>
+    <li><b>Vi rører ikke noget af os selv.</b> Der sker kun noget, når du trykker på knappen. Der kører ingen natlige kørsler i dit regnskab.</li>
+    <li><b>Vi læser ikke dit bogholderi.</b> Vi henter dine varenumre, enheder og betalingsbetingelser, så du kan vælge blandt dine egne. Ikke dine tal.</li>
+    <li><b>Du kan koble fra når som helst.</b> Ét tryk under Indstillinger, og adgangen er væk. Det, vi havde liggende fra dit regnskab, bliver slettet med det samme.</li>
+  </ul>
+</div></section>
+
+<section class="lys-sek"><div class="baand">
+  <h2>Sådan forbinder du</h2>
+  <p class="brod">Det tager under et minut, og du skal ikke kopiere nogen
+  koder rundt.</p>
+  <ol class="trin">
+    <li><h3>Gå i Indstillinger</h3><p>Log ind på TeleMakker og find Indstillinger i menuen.</p></li>
+    <li><h3>Vælg e-conomic</h3><p>Vælg e-conomic på listen over regnskabsprogrammer, og tryk Forbind.</p></li>
+    <li><h3>Sig ja hos e-conomic</h3><p>Du bliver sendt over til e-conomic og logger ind, som du plejer. Dér giver du TeleMakker lov.</p></li>
+    <li><h3>Færdig</h3><p>Du ryger tilbage, og der står, hvilket regnskab du er forbundet til. Så er knappen klar på dine sager.</p></li>
+  </ol>
+</div></section>
+
+<section><div class="baand">
+  <h2>Spørgsmål, vi får</h2>
+  <div class="faq">
+    <details><summary>Skal jeg have e-conomic for at bruge TeleMakker?</summary>
+      <p>Nej. TeleMakker laver tilbuddene, uanset hvad du bruger bagefter. Har
+      du e-conomic, slipper du bare for at taste fakturaen ind.</p></details>
+    <details><summary>Hvad koster det hos e-conomic?</summary>
+      <p>Ingenting ekstra. Du betaler dit sædvanlige abonnement hos
+      <a href="https://www.e-conomic.dk/" rel="noopener">e-conomic</a>, og
+      forbindelsen til TeleMakker koster ikke noget oveni.</p></details>
+    <details><summary>Kan I se mit regnskab?</summary>
+      <p>Vi henter dine varenumre, enheder, betalingsbetingelser og dine
+      kunders navne, så kladden kan bygges med dine egne ting. Vi henter
+      ikke dine posteringer, dit resultat eller din saldo.</p></details>
+    <details><summary>Hvad sker der, hvis jeg kobler fra?</summary>
+      <p>Adgangen bliver trukket tilbage, og det, vi havde liggende fra dit
+      regnskab, bliver slettet. Dine sager og tilbud i TeleMakker bliver, hvor
+      de er. Du kan koble til igen senere.</p></details>
+    <details><summary>Bliver samtalen med min kunde optaget uden videre?</summary>
+      <p>Nej. Kunden bliver spurgt, og siger hun nej, bliver der ikke optaget
+      noget, og vi får ingen oplysninger om hende overhovedet. Det er det
+      vigtigste krav i hele systemet.</p></details>
+    <details><summary>Hvor ligger mine oplysninger?</summary>
+      <p>Inden for EU. Rammerne står i vores
+      <a href="/juridisk/databehandleraftale/">databehandleraftale</a>, og
+      hvad vi gør med oplysninger om dig selv står i
+      <a href="/juridisk/privatlivspolitik/">privatlivspolitikken</a>.</p></details>
+  </div>
+</div></section>
+
+<section class="cta"><div class="baand">
+  <div class="boks">
+    <div>
+      <h2>Prøv det på en rigtig opgave</h2>
+      <p>Tag en samtale med en kunde, se tilbuddet, og læg det over i din
+      e-conomic. Så ved du, om det er noget for dig.</p>
+    </div>
+    <a class="knap lys" href="https://app.telemakker.dk/">Kom i gang</a>
+  </div>
+</div></section>
+
+<footer>
+<div class="baand">
+  <div class="fod-gruppe">
+    <b>TeleMakker</b>
+    <a href="/">Forsiden</a>
+    <a href="https://app.telemakker.dk/">Log ind</a>
+  </div>
+  <div class="fod-gruppe">
+    <b>Regnskab</b>
+    <a href="https://www.e-conomic.dk/" rel="noopener">e-conomic</a>
+  </div>
+  <div class="fod-gruppe">
+    <b>Juridisk</b>
+    <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
+    <a href="/juridisk/databehandleraftale/">Databehandleraftale</a>
+    <a href="/juridisk/privatlivspolitik/">Privatlivspolitik</a>
+  </div>
+  <div class="fod-gruppe">
+    <b>Kontakt</b>
+    <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
+  </div>
+</div>
+<div class="baand fod-adresse">TeleMakker ApS &middot; CVR 46720253 &middot; Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
+</footer>
+
+</body>
+</html>
