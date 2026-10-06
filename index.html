@@ -30,284 +30,306 @@
      Archivo er en VARIABEL skrift, så ÉN fil på 35 kB dækker alle vægte
      fra 100 til 900. Det er også hurtigere end Googles tre opslag. -->
 <style>
-@font-face{
-  font-family:Archivo;
-  src:url(skrift/archivo.woff2) format('woff2');
-  font-weight:100 900;
-  font-style:normal;
-  font-display:swap;
-}
-</style>
-
-<style>
-/* ------------------------------------------------------------------
-   TELEMAKKER.DK
-
-   Mærket er platformens: den dybe grønne og det varme papir.
-
-   HVORFOR TOPPEN SER UD SOM DEN GØR.
-   Første udgave havde et skærmbillede af tilbudsskærmen som det første,
-   man mødte. Det blev forkastet: en formular fuld af felter siger
-   ingenting til en, der ikke kender produktet, og en top, hvor der
-   intet er at gøre, er spildt plads på den vigtigste del af siden.
-
-   Nu er REGNESTYKKET det første. Man kan tage fat i en skyder inden for
-   to sekunder, og tallet, der løber op, er håndværkerens egne penge.
-   Det er en bedre åbning end et billede.
-
-   Skærmbilledet er flyttet ned, hvor der står, hvad man kigger på, og
-   det viser nu ORDREN med linjer, timer og en total. Den kan enhver
-   forstå, også en der aldrig har set platformen.
-   ------------------------------------------------------------------ */
+@font-face{font-family:Archivo;src:url(skrift/archivo.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
 
 :root{
-  /* BUNDEN ER NAESTEN HVID, ikke varm beige.
-     Den var #f5f2ec, altsaa et gulligt papir, og den sloges med den
-     dybe groenne: to varme-kolde farver, der trak i hver sin retning,
-     og paa en stor skaerm saa den gullig og traet ud. Neutrale toner
-     lader den groenne vaere den eneste farve paa siden. */
-  --blaek:#1c1e1c; --daempet:#5c605c; --papir:#fafaf9; --hvid:#fff;
-  --groen:#24282c; --groen-moerk:#1b1e21; --groen-lys:#f2eee7;
-  --mynte:#e3c99f;
-  --kant:#e3e3df; --sand:#f1f2f0;
-  --runding:3px; --baand:1120px;
+  --antracit:#1b1e21;
+  --antracit-lys:#24282c;
+  --antracit-moerk:#141618;
+  --birk:#e3c99f;
+  --lys:#f1ece4;
+  --papir:#fffdf9;
+  --sand:#f2eee7;
+  --daempet:#6a645a;
+  --streg:#e2dacb;
+  --streg-moerk:#33383d;
+  --maks:1240px;
 }
-
-/* Moerk tilstand fjernet 2. oktober 2026: siden skal se ens ud paa alle telefoner. */
-
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
-
+html{scroll-behavior:smooth;overflow-x:clip}
 body{
-  margin:0; background:var(--papir); color:var(--blaek);
-  font:400 17px/1.65 Archivo,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-  -webkit-font-smoothing:antialiased;
+  margin:0;background:var(--papir);color:var(--antracit);
+  font-family:Archivo,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden
 }
 img{max-width:100%;display:block}
-h1,h2,h3{letter-spacing:-.025em;line-height:1.08;margin:0}
-h1{font-size:clamp(32px,3.4vw,45px);font-weight:700}
-h2{font-size:clamp(27px,3.2vw,40px);font-weight:700}
-h3{font-size:19px;font-weight:600;line-height:1.3}
-p{margin:0}
 a{color:inherit}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.03em;text-wrap:balance;line-height:1.04}
+p{margin:0}
+.ramme{max-width:var(--maks);margin:0 auto;padding:0 20px}
+.baand{padding:clamp(64px,8vw,120px) 0;position:relative}
+.baand--moerk{background:var(--antracit);color:var(--lys)}
+.baand--sand{background:var(--sand)}
+section[id]{scroll-margin-top:78px}
 
-.baand{max-width:var(--baand);margin:0 auto;padding:0 24px}
-.brod{color:var(--daempet);max-width:62ch}
+.mini{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9a7f4d;margin:0 0 14px}
+.baand--moerk .mini{color:var(--birk)}
+h2{font-size:clamp(32px,5.2vw,58px)}
+.intro{margin-top:18px;max-width:58ch;color:var(--daempet);font-size:19px}
+.baand--moerk .intro{color:#c6bfb4}
 
-/* ÉN KORTSTIL PAA HELE SIDEN. Haarfin kant, samme runding, samme
-   bloede skygge. Skygger er farvet efter bunden og ikke sorte; en sort
-   skygge paa varmt papir ser beskidt ud. */
-.kort{
-  background:var(--hvid);border:1px solid var(--kant);border-radius:3px;
-  box-shadow:0 1px 2px rgba(34,32,28,.04), 0 18px 40px -26px rgba(34,32,28,.28);
-}
-
-/* ---------- Knapper. Én rundingsskala på hele siden. ---------- */
 .knap{
-  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
-  background:var(--groen);color:#fff;border:1px solid var(--groen);
-  padding:14px 24px;border-radius:var(--runding);
-  font:600 16.5px/1 Archivo,sans-serif;text-decoration:none;cursor:pointer;
-  transition:background .18s cubic-bezier(.16,1,.3,1),transform .12s;
+  display:inline-flex;align-items:center;gap:9px;padding:16px 28px;
+  border:2px solid transparent;border-radius:2px;font-family:inherit;font-size:17px;
+  font-weight:700;text-decoration:none;cursor:pointer;transition:transform .1s,background .15s
 }
-.knap:hover{background:var(--groen-moerk);border-color:var(--groen-moerk)}
 .knap:active{transform:translateY(1px)}
-.knap.hul{background:transparent;color:var(--groen);border-color:var(--kant)}
-.knap.hul:hover{background:var(--groen-lys);border-color:var(--groen)}
-/* Paa den groenne bund. Hvid flade, groen tekst: hoej kontrast begge veje. */
-.knap.lys{background:#fff;color:#24282c;border-color:#fff}
-.knap.lys:hover{background:#efeae2;border-color:#efeae2}
-.knap.klar{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
-.knap.klar:hover{background:rgba(255,255,255,.12);border-color:#fff}
-.knap:focus-visible,a:focus-visible,input:focus-visible{
-  outline:2px solid currentColor;outline-offset:3px}
+.knap--birk{background:var(--birk);color:var(--antracit)}
+.knap--birk:hover{background:#efdcbc}
+.knap--kant{border-color:currentColor;background:transparent;color:inherit}
+.knap--kant:hover{background:rgba(227,201,159,.16)}
 
-/* ---------- Toppen. Én linje, under 80 px. ---------- */
-/* BJAELKEN HAR SAMME GROENNE SOM BEREGNEREN, ikke en naesten-ens.
-   Begge er var(--groen), saa de to groenne flader paa siden er den
-   samme farve. Ingen gennemsigtighed: bag bjaelken ruller baade papir,
-   sand og det groenne baand forbi, og en halvgennemsigtig bjaelke ville
-   skifte farve undervejs. */
-header{
-  position:sticky;top:0;z-index:20;background:var(--groen);
-  border-bottom:1px solid rgba(255,255,255,.12);
+/* ====== TOPBJAELKEN. Den eneste del, Kasper sagde god for, saa den staar,
+   som den var. Kun navnet i nummeret er skiftet til firmaet. ====== */
+.top{position:sticky;top:0;z-index:50;background:var(--antracit);color:var(--lys);border-bottom:1px solid var(--streg-moerk)}
+.top__ind{display:flex;align-items:center;gap:22px;height:66px}
+.logo{font-size:21px;font-weight:700;letter-spacing:-.02em;text-decoration:none;flex:none}
+.logo span{color:var(--birk)}
+.top nav{display:flex;gap:22px;margin-left:12px;flex:1}
+.top nav a{font-size:15px;font-weight:500;text-decoration:none;color:#c6bfb4}
+.top nav a:hover{color:var(--lys)}
+.top__tlf{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.top__tlf b{font-size:17px;letter-spacing:-.01em;display:flex;gap:7px;align-items:baseline}
+.top__tlf b a{text-decoration:none}
+.top__tlf b i{font-style:normal;color:#6a655d}
+.top__tlf small{display:block;font-size:11px;color:var(--birk);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.top__log{font-size:15px;font-weight:600;text-decoration:none;padding:9px 16px;border:1px solid var(--streg-moerk);border-radius:2px;flex:none}
+.top__log:hover{background:var(--antracit-lys)}
+
+/* ====== HELTEN ======
+   FLADT VAR PROBLEMET. Foerste udgave havde et lille foto og ellers tekst
+   paa en moerk flade. Nu fylder fotoet hele skaermen, overskriften er
+   dobbelt saa stor, og opkaldet koerer af sig selv ved siden af. */
+.helt{position:relative;min-height:min(92vh,860px);display:flex;align-items:center;
+  color:var(--lys);background:var(--antracit);padding:70px 0 90px;overflow:hidden}
+.helt__foto{position:absolute;inset:0;background-image:url(billeder/foto-rundsav-2400.webp);
+  background-size:cover;background-position:50% 36%;transform:scale(1.04)}
+.helt__slor{position:absolute;inset:0;
+  background:linear-gradient(92deg,#15181a 0%,rgba(21,24,26,.93) 38%,rgba(21,24,26,.58) 66%,rgba(21,24,26,.72) 100%)}
+.helt .ramme{position:relative;z-index:2;width:100%}
+.helt__gitter{display:grid;grid-template-columns:minmax(0,1fr) 568px;gap:48px;align-items:center}
+/* Den originale scene er 520 px bred og 480 px hoej og skalerer selv
+   ned paa smalle skaerme. Spalten skal derfor vaere 568, ellers klipper
+   den. Under 1250 staar teksten over, praecis som paa den rigtige side. */
+@media(max-width:1249px){ .helt__gitter{grid-template-columns:minmax(0,1fr)} }
+.helt .opkaldsanim{display:block;background:none;padding:0;min-height:0;
+  overflow:visible;color:#fff;
+  --groen:#24282c;   /* antracit lys, trods navnet */
+  --mynte:#e3c99f;   /* birk, trods navnet */
+  --blaek:#1c1e1c;
+  --daempet:#5c605c}
+.helt h1{font-size:clamp(34px,4vw,54px);letter-spacing:-.045em}
+.helt h1 em{font-style:normal;color:var(--birk);display:block}
+.helt__lead{margin-top:26px;font-size:20px;color:#d2cbc0;max-width:40ch}
+.helt__knapper{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.helt__ring{margin-top:28px;display:flex;align-items:center;gap:14px;font-size:15px;color:#b2aba0}
+.helt__numre{display:flex;gap:18px;flex-wrap:wrap}
+.helt__ring a{font-size:26px;font-weight:700;letter-spacing:-.03em;text-decoration:none;color:var(--lys);white-space:nowrap}
+.helt__ring span{display:block;max-width:20ch;line-height:1.3}
+
+/* ANIMATIONEN ER DEN ORIGINALE FRA TELEMAKKER.DK.
+   Jeg byggede foerst min egen: foerst tre faneblade, saa en liste der
+   rullede. Kasper 6. oktober: "Jeg synes den her animation er daarligere
+   end den er paa den originale hjemmeside, kan du ikke bare ligge den
+   originale animation ind?" Den staar nu ordret nederst i filen, hentet
+   ud af den side, der ligger paa nettet, med alle 29 keyframes.
+   De to gamle farvenavne i den er IKKE groenne mere: --groen er i dag
+   antracit lys og --mynte er birk. Tjekket i hjemmesidens index.html. */
+.fakta{background:var(--antracit-moerk);color:var(--lys);border-top:1px solid var(--streg-moerk)}
+.fakta__ind{display:grid;grid-template-columns:repeat(4,1fr)}
+.fakta__ind div{padding:26px 26px 28px;border-right:1px solid #24282c}
+.fakta__ind div:last-child{border-right:0}
+.fakta__ind b{display:block;font-size:16px}
+.fakta__ind span{display:block;font-size:14px;color:#8d8679;margin-top:4px}
+
+/* ====== FIRE SKRIDT. Tallene er store nok til at ses paa afstand. ====== */
+.spor{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;position:relative}
+.spor::before{content:"";position:absolute;left:0;right:0;top:46px;height:2px;background:var(--streg)}
+.trin{position:relative;padding:0 24px 0 0}
+.trin__nr{position:relative;z-index:2;width:92px;height:92px;border-radius:2px;background:var(--antracit);
+  color:var(--birk);display:grid;place-items:center;font-size:46px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.trin h3{font-size:22px;margin:24px 0 8px}
+.trin p{font-size:16px;color:var(--daempet)}
+.trin__tid{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--antracit);color:var(--birk);padding:6px 12px;border-radius:2px}
+
+/* ====== ZIGZAG. Skaermbilledet fylder halvdelen og braekker ud over
+   kanten, saa der er dybde i stedet for fire ens firkanter. ====== */
+.zig{display:grid;grid-template-columns:1fr 1.12fr;gap:60px;align-items:center;margin-top:76px}
+.zig--vendt .zig__tekst{order:2}
+.zig__nr{font-size:15px;font-weight:700;color:#9a7f4d;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.zig h3{font-size:clamp(25px,3.2vw,36px);margin-bottom:16px}
+.zig p{font-size:17.5px;color:var(--daempet);max-width:46ch}
+.zig ol{margin:22px 0 0;padding:0;list-style:none;counter-reset:s}
+.zig li{counter-increment:s;position:relative;padding:11px 0 11px 40px;font-size:16.5px;border-top:1px solid var(--streg)}
+.zig li::before{content:counter(s);position:absolute;left:0;top:11px;width:25px;height:25px;border-radius:2px;
+  background:var(--birk);color:var(--antracit);font-size:13px;font-weight:700;display:grid;place-items:center}
+.zig__billede{position:relative}
+.zig__billede img{border:1px solid var(--streg);border-radius:2px;box-shadow:0 26px 60px rgba(27,30,33,.18)}
+/* Billedet haenger lidt ud over spalten, saa raekken ikke bare er to ens
+   firkanter. FOERST stod der calc(50% - 50vw) for at braekke helt ud til
+   skaermkanten, men de 50% regnes af SPALTEN og ikke af siden, saa billedet
+   stak 400 px ud og gav sidelaens rulning. Et fast overhaeng kan ikke goere
+   det, uanset hvor bred skaermen er. */
+.zig__billede--ud{margin-right:-56px}
+.zig--vendt .zig__billede--ud{margin-right:0;margin-left:-56px}
+/* To skaerme mere, tegnet i stedet for fotograferet.
+   FOERST stod der det samme tilbud som billede i to af raekkerne, og saa
+   passede billedet ikke til teksten: en raekke handlede om Dikter og viste
+   et faerdigt tilbud. Nu viser hver raekke DET, den handler om. */
+.skaerm{background:var(--antracit);border-radius:2px;overflow:hidden;
+  box-shadow:0 26px 60px rgba(27,30,33,.3);color:var(--lys)}
+.skaerm__top{display:flex;align-items:center;gap:10px;padding:14px 18px;
+  border-bottom:1px solid var(--streg-moerk);font-size:13px;color:#8d8679;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.skaerm__krop{padding:22px}
+.dikter{display:flex;align-items:center;gap:16px}
+.dikter__knap{background:var(--birk);color:var(--antracit);font-weight:700;font-size:16px;
+  padding:14px 22px;border-radius:2px;flex:none}
+/* Streger, der hopper. Det er det eneste sted paa siden, man kan SE, at der
+   bliver talt, uden at der staar et ord om det. */
+.boelge{display:flex;align-items:center;gap:3px;height:34px;flex:1}
+.boelge i{display:block;width:3px;background:var(--birk);opacity:.75;border-radius:1px;
+  animation:boelge 1.1s ease-in-out infinite}
+@keyframes boelge{0%,100%{height:6px}50%{height:30px}}
+.dikter__tekst{margin-top:20px;padding-top:18px;border-top:1px solid var(--streg-moerk);
+  font-size:15px;line-height:1.5;color:#c6bfb4}
+.dikter__tekst b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:#8d8679;margin-bottom:7px}
+.sms{background:var(--antracit-lys);border-left:2px solid var(--birk);border-radius:2px;
+  padding:12px 14px;font-size:14.5px;line-height:1.45}
+.sms__link{color:var(--birk);font-weight:700}
+.fliser{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.fliser span{display:block;height:84px;border-radius:2px;background-image:url(billeder/foto-rundsav-1200.webp);
+  background-size:300%;border:1px solid var(--streg-moerk)}
+.fliser span:nth-child(1){background-position:12% 30%}
+.fliser span:nth-child(2){background-position:52% 55%}
+.fliser span:nth-child(3){background-position:86% 38%}
+.skaerm__fod{border-top:1px solid var(--streg-moerk);padding:14px 18px;font-size:13.5px;color:#8d8679}
+.skaerm__fod b{color:var(--birk)}
+.maerkat{position:absolute;left:-14px;bottom:-18px;background:var(--birk);color:var(--antracit);
+  padding:10px 16px;border-radius:2px;font-size:14px;font-weight:700;box-shadow:0 10px 24px rgba(0,0,0,.25);max-width:70%}
+.zig--vendt .maerkat{left:auto;right:-14px}
+
+/* ====== TILBUDDET: to sider, forskudt, saa de har dybde ====== */
+.pdf{display:flex;justify-content:center;margin-top:56px}
+.pdf img{width:46%;border-radius:2px;box-shadow:0 34px 80px rgba(0,0,0,.55)}
+.pdf img:first-child{transform:translateY(22px) rotate(-1.4deg);z-index:2}
+.pdf img:last-child{transform:translateX(-26px) rotate(1.2deg)}
+.pdf__punkter{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:56px}
+.pdf__punkter b{display:block;font-size:17px;margin-bottom:6px;color:var(--birk)}
+.pdf__punkter p{font-size:15.5px;color:#bdb6ab}
+
+/* ====== BEREGNEREN ====== */
+.regn{display:grid;grid-template-columns:1fr 1.05fr;gap:50px;margin-top:52px;align-items:center}
+.skyder{margin-bottom:28px}
+.skyder__top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.skyder label{font-size:17px;font-weight:600}
+.skyder output{font-size:28px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.skyder input{-webkit-appearance:none;appearance:none;width:100%;height:8px;margin-top:14px;
+  background:#dcd2c0;border-radius:2px;outline:none}
+.skyder input::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:2px;
+  background:var(--antracit);cursor:pointer;border:4px solid var(--birk)}
+.skyder input::-moz-range-thumb{width:32px;height:32px;border-radius:2px;background:var(--antracit);cursor:pointer;border:4px solid var(--birk)}
+.svar{background:var(--antracit);color:var(--lys);border-radius:2px;padding:40px;box-shadow:0 30px 70px rgba(27,30,33,.25)}
+.svar__tal{font-size:clamp(46px,7.4vw,78px);font-weight:700;color:var(--birk);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.svar__linjer{margin-top:28px;border-top:1px solid var(--streg-moerk)}
+.svar__linjer div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--streg-moerk);font-size:16px}
+.svar__linjer b{font-variant-numeric:tabular-nums}
+.svar small{display:block;margin-top:20px;font-size:13px;color:#8d8679;line-height:1.55}
+
+/* ====== LOEFTERNE: store saetninger, ikke sma kasser ====== */
+.loefter{margin-top:56px;border-top:1px solid var(--streg-moerk)}
+.loefte{display:grid;grid-template-columns:auto 1fr 1.25fr;gap:28px;align-items:baseline;
+  padding:26px 0;border-bottom:1px solid var(--streg-moerk)}
+.loefte__nr{font-size:14px;font-weight:700;color:var(--birk);font-variant-numeric:tabular-nums;letter-spacing:.1em}
+.loefte b{font-size:clamp(20px,2.5vw,27px);letter-spacing:-.02em;line-height:1.15}
+.loefte p{font-size:16px;color:#a39c91}
+
+/* ====== FAGENE ====== */
+.fag{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px}
+.fag a{display:block;text-decoration:none;background:var(--papir);border-radius:2px;padding:24px;
+  border-bottom:4px solid var(--streg);transition:transform .12s,border-color .15s}
+.fag a:hover{border-bottom-color:var(--birk);transform:translateY(-3px)}
+.fag b{display:block;font-size:19px}
+.fag span{display:block;font-size:15px;color:var(--daempet);margin-top:8px;line-height:1.45}
+
+/* ====== AFSLUTNINGEN ====== */
+.slut{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;margin-top:46px;align-items:start}
+/* To numre, lige store. Begge ejere fylder lige meget paa siden. */
+.slut__numre{display:flex;flex-wrap:wrap;gap:10px 34px;margin:6px 0 18px}
+.slut__tlf{display:block;font-size:clamp(36px,4.8vw,54px);font-weight:700;letter-spacing:-.045em;
+  text-decoration:none;line-height:1;white-space:nowrap}
+.slut p{font-size:17.5px;color:#bdb6ab;max-width:44ch}
+.slut__mail{display:inline-block;margin-top:22px;font-size:19px;font-weight:700;color:var(--birk)}
+.felt{margin-bottom:16px}
+.felt label{display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:#bdb6ab}
+.felt input{width:100%;padding:16px;border:1px solid var(--streg-moerk);border-radius:2px;
+  background:var(--antracit);color:var(--lys);font-family:inherit;font-size:17px}
+.felt input:focus{outline:2px solid var(--birk);outline-offset:1px;border-color:transparent}
+.lokkefelt{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fejl{margin-top:12px;font-size:15px;color:#e9a08c}
+.kasse{background:var(--antracit-lys);border-radius:2px;padding:34px;border-top:4px solid var(--birk)}
+.aerlig{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.aerlig div{border-left:4px solid var(--birk);padding:2px 0 2px 24px}
+.aerlig b{display:block;font-size:19px;margin-bottom:8px}
+.aerlig p{font-size:16.5px;color:#a39c91}
+
+.fod{background:var(--antracit-moerk);color:#8d8679;padding:48px 0 36px;font-size:15px}
+.fod__ind{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
+.fod h4{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--birk)}
+.fod a{text-decoration:none;display:block;padding:3px 0}
+.fod a:hover{color:var(--lys)}
+.fod__bund{margin-top:34px;padding-top:20px;border-top:1px solid #23272b;font-size:13.5px}
+
+/* Afsnit glider op, naar de kommer i syne. Smaat, men det er forskellen
+   paa en side, der staar stille, og en der lever. */
+.ind{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.ind.set{opacity:1;transform:none}
+
+@media(max-width:1000px){
+  .top nav{display:none}
+  .helt{min-height:0;padding:54px 0 70px}
+  .helt__gitter,.regn,.zig,.slut,.aerlig{grid-template-columns:minmax(0,1fr);gap:38px}
+  .zig--vendt .zig__tekst{order:0}
+  .zig__billede--ud,.zig--vendt .zig__billede--ud{margin:0}
+  .zig--vendt .maerkat{right:auto;left:-14px}
+  .spor{grid-template-columns:repeat(2,1fr);gap:36px 0}
+  .spor::before{display:none}
+  .fag,.fakta__ind,.pdf__punkter{grid-template-columns:repeat(2,1fr)}
+  .fakta__ind div:nth-child(2n){border-right:0}
+  .fakta__ind div:nth-child(n+3){border-top:1px solid #24282c}
+  .loefte{grid-template-columns:auto 1fr;gap:14px 20px}
+  .loefte p{grid-column:2}
 }
-header .baand{display:flex;align-items:center;justify-content:space-between;
-  gap:20px;height:70px}
-.logo{font:700 22px/1 Archivo,sans-serif;text-decoration:none;letter-spacing:-.03em;
-  color:#fff}
-.logo b{color:var(--mynte);font-weight:700}
-header nav{display:flex;align-items:center;gap:24px}
-header nav a{color:rgba(255,255,255,.82);text-decoration:none;font-size:15.5px;
-  font-weight:500}
-header nav a:hover{color:#fff}
-@media(max-width:900px){ header nav a:not(.knap){display:none} }
-
-/* ==================================================================
-   1. HEROEN: regnestykket er det foerste, man moeder
-   ================================================================== */
-.hero{padding:clamp(52px,7vw,88px) 0 clamp(56px,7vw,92px)}
-/* TO ETAGER, ikke to spalter: overskriften oeverst, de fire trin under
-   i fuld bredde. I to spalter stod trinnene i en smal soejle, og paa en
-   bred skaerm var der luft tilovers ved siden af dem. */
-.hero h1{margin-bottom:22px}
-.hero .under-h1{color:var(--daempet);font-size:clamp(17.5px,1.4vw,20.5px);
-  max-width:52ch;margin-bottom:30px}
-.hero .knapper{display:flex;gap:12px;flex-wrap:wrap}
-.hero .lille-note{margin-top:22px;font-size:15px;color:var(--daempet)}
-
-/* DE FIRE TRIN, i et hvidt kort i fuld bredde. En vandret skinne med
-   nummererede prikker: raekkefoelgen er hele pointen, og vandret
-   laeses den i den retning, man laeser i forvejen.
-   Numrene er groenne, og det er den eneste farve i kortet. */
-.flow{list-style:none;margin:clamp(38px,4.6vw,56px) 0 0;
-  padding:clamp(28px,3.4vw,40px) clamp(26px,3.2vw,38px);
-  counter-reset:trin;display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(22px,3vw,40px)}
-.flow li{position:relative;padding-top:46px;counter-increment:trin}
-.flow li::before{
-  content:counter(trin);position:absolute;left:0;top:0;
-  width:32px;height:32px;border-radius:50%;
-  background:var(--groen);color:#fff;
-  font:700 15px/32px Archivo,sans-serif;text-align:center;
+@media(max-width:620px){
+  body{font-size:16px}
+  .top__ind{height:60px;gap:12px}
+  .top__tlf small{display:none}
+  .top__tlf b{font-size:16px}
+  .top__tlf b i,.top__tlf b a:last-child{display:none}
+  .spor,.fag,.fakta__ind,.pdf__punkter{grid-template-columns:minmax(0,1fr)}
+  .fakta__ind div{border-right:0;border-top:1px solid #24282c}
+  .pdf{flex-direction:column;align-items:center;gap:18px}
+  .pdf img{width:92%;transform:none!important}
+  .helt__knapper .knap{width:100%;justify-content:center}
+  .zig__billede--ud{margin:0}
+  .maerkat{left:0;max-width:92%}
 }
-/* Stregen mellem prikkerne. Den loeber fra prikkens hoejre kant og hen
-   til den naeste, altsaa ogsaa hen over mellemrummet mellem spalterne.
-   Den sidste har ingen efterfoelger. */
-.flow li::after{
-  content:"";position:absolute;left:44px;top:15.5px;
-  right:calc(-1 * clamp(22px,3vw,40px));height:1px;background:var(--kant);
-}
-.flow li:last-child::after{display:none}
-.flow h3{margin-bottom:6px;font-size:17.5px}
-.flow p{color:var(--daempet);font-size:15px;line-height:1.55}
-
-/* Under 860px bliver fire spalter til fire striber paa to ord. Saa gaar
-   skinnen lodret igen, som den var. */
-@media(max-width:860px){
-  .flow{grid-template-columns:1fr;gap:24px}
-  .flow li{padding:0 0 0 54px}
-  .flow li::before{top:-1px}
-  .flow li::after{left:15.5px;top:38px;bottom:-24px;right:auto;
-    width:1px;height:auto}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto}
+  .ind{opacity:1;transform:none}
+  .boble,.opkald__fod{opacity:1;transform:none}
 }
 
-/* Selve regnemaskinen */
-.regnekort{
-  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
-  border-radius:3px;padding:clamp(22px,3vw,32px);
-}
-.regnekort h2{font-size:21px;color:#fff;margin-bottom:5px}
-.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:22px}
-
-.felter{display:grid;gap:18px}
-.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
-.felt .raek{display:flex;align-items:center;gap:14px}
-.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;
-  appearance:none;background:transparent;cursor:pointer}
-/* Skyderne er sat selv. Browserens egen udgave tegnede en moerk bane paa
-   den groenne bund, som lignede en fejl. */
-.felt input[type=range]::-webkit-slider-runnable-track{
-  height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;
-  background:#fff;border:0;margin-top:-8px;
-  box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
-.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
-.felt input[type=range]::-moz-range-track{
-  height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-moz-range-thumb{
-  width:22px;height:22px;border-radius:50%;background:#fff;border:0;
-  box-shadow:0 1px 4px rgba(0,0,0,.28)}
-.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;
-  font-variant-numeric:tabular-nums;color:#fff}
-.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
-
-.svar{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
-.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;
-  font-variant-numeric:tabular-nums;letter-spacing:-.04em}
-.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
-.svar .under{color:rgba(255,255,255,.84);margin-top:11px;font-size:15.5px}
-.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;
-  font-size:14.5px;color:rgba(255,255,255,.78)}
-.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
-
-.antagelse{margin-top:20px;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
-.antagelse input{
-  width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;
-  text-align:center;padding:5px 3px;margin:0 3px;
-  background:rgba(255,255,255,.14);color:#fff;
-  border:1px solid rgba(255,255,255,.34);border-radius:3px;
-}
-.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-
-
-/* ------------------------------------------------------------------
-   HEROEN PAA SIDEN.
-
-     GROENT HELT UD TIL KANTEN. Baggrunden flytter fra .opkaldsanim op
-     paa selve afsnittet. Ellers staar den som en groen kasse med hvide
-     marginer paa hver side, og toppen skal fylde skaermen.
-
-     OVERSKRIFTEN. Prototypen brugte h3, siden bruger h1, og sidens egen
-     h1-regel er stoerre. Uden det her braekker den i tre linjer.
-
-     TEKSTFARVEN. .under-h1 og .lille-note er graa paa papir. Paa den
-     groenne bund forsvinder de.
-
-     KNAPPERNE. Den groenne knap forsvinder paa groen bund. Her er den
-     hvide den primaere.
-   ------------------------------------------------------------------ */
-.hero{background:
-    radial-gradient(900px 440px at 72% 16%, #3a4046 0%, transparent 62%),
-    linear-gradient(160deg,#24282c 0%,#131517 100%);
-  color:#fff;padding:clamp(40px,4vw,60px) 0;overflow:hidden;
-  /* TOPPEN FYLDER SKAERMEN, MEN IKKE MERE END 820 PX.
-     Foer sluttede den ved 608 px paa en 900 px skaerm, og regnestykket
-     begyndte ved 679. Begge stod i samme skaermbillede, og saa
-     konkurrerer de om oejet. Derfor 100vh.
-
-     MEN 100vh ALENE GIK GALT PAA EN HOEJ SKAERM. Indholdet fylder
-     omkring 620 px, saa paa en 1300 px hoej skaerm blev der 680 px
-     luft, og align-items:center delte den i to: 340 px tom groen flade
-     over maerkatet og 340 under noten nederst. Det saa ud som om siden
-     ikke var faerdig med at loade.
-
-     min() loeser begge: paa en almindelig baerbar paa 700 til 800 px
-     binder loftet ikke, og toppen fylder stadig skaermen. Paa en hoej
-     skaerm stopper den ved 820, og saa er luften 100 px i hver ende i
-     stedet for 340. */
-  min-height:min(100vh, 820px);display:flex;align-items:center}
-/* BAANDET ER BREDERE I TOPPEN, OG KUN I TOPPEN.
-   Sidens baand er 1120 px, som bliver 1072 ved 1440. Der er ikke plads
-   til baade en overskrift paa 72 px og en animation paa 568. Foerste
-   forsoeg skrumpede animationen til 72 %, og saa blev tilbudskortet
-   179 px bredt med en sum i 10 px skrift. Ulaeseligt.
-   Resten af siden skal stadig laeses i en smal maalestok. */
-.hero > .baand{width:100%}
-@media(min-width:1250px){
-  .hero > .baand{max-width:min(1300px, calc(100vw - 96px))}
-}
+/* Animationen fra telemakker.dk, hentet ordret 6. oktober 2026.
+   Kommentarerne er pillet ud under udtraekket; de staar i
+   telemakker-hjemmeside/index.html, hvis de skal laeses. */
 .hero .opkaldsanim{background:none;padding:0;border-radius:0;
   min-height:0;overflow:visible;
-  /* Bredere venstre spalte end i prototypen. "Tilbuddet skriver sig
-     selv." fylder omkring 440 px ved 34 px skrift, og i en spalte paa
-     400 braekker den i tre linjer. Scenen har stadig rigeligt: 568 px,
-     hvor den skal bruge cirka 510. */
-  /* Scenen har et GULV paa 520 px. Foer stod der "1fr", og saa tog
-     tekstspalten sine 470 px, mens scenen fik resten. Paa en skaerm
-     omkring 1000 px faldt scenen til 428 px, og "de to veje" blev
-     presset til 150 px, saa "Send til kunden" braekkede over to
-     linjer. Nu giver teksten sig foerst. */
+  
+  
   grid-template-columns:minmax(280px,470px) minmax(520px,1fr)}
-/* OVER 1250 PX FAAR ANIMATIONEN SINE 568, OG TEKSTEN RESTEN.
-   Under 1250 stables der. Sidens egen regel stablede foer ved 900, men
-   mellem 900 og 1250 blev tekstspalten 258 px bred ved siden af
-   animationen, og saa er der ingenting vundet. To tilstande, ikke tre:
-   enten er der plads til begge, eller teksten staar over. */
 @media(min-width:1250px){
   .hero .opkaldsanim{grid-template-columns:minmax(0,1fr) 568px;
     gap:clamp(30px,3vw,48px)}
@@ -316,72 +338,20 @@ header nav a:hover{color:#fff}
 @media(max-width:1249px){
   .hero .opkaldsanim{grid-template-columns:minmax(0,1fr);gap:clamp(26px,3vw,40px)}
   .hero .opkaldsanim .oa-scene{width:520px;max-width:100%;margin:0 auto;transform:none}
-  .hero{min-height:0}
 }
 .hero .opkaldsanim::before{inset:-40%}
-/* OVERSKRIFTEN FYLDER.
-   Den var 34 px ved siden af en animation paa 480, altsaa fjorten gange
-   mindre, og saa laeses den som en billedtekst til animationen i stedet
-   for det, siden handler om.
-
-   BRUDDENE ER BESTEMT, IKKE OVERLADT TIL BROWSEREN. Ved 72 px kan
-   "Du taler med kunden." ikke staa paa een linje i den spalte, der er.
-   Overlades det til browseren, braekker den, hvor der tilfaeldigvis er
-   plads, og saa ligner overskriften fire smaastykker. Fire valgte
-   linjer laeses som noget, nogen har bestemt.
-
-   Under 1250 slaas bruddene fra: der er ikke plads til at bestemme
-   noget, og saa skal teksten flyde. */
 .opkaldsanim h1{font-size:clamp(32px,5.1vw,72px);line-height:1.04;
   letter-spacing:-0.035em;margin:28px 0 30px;text-wrap:balance;color:#fff}
 @media(min-width:1250px){
   .opkaldsanim h1 .l{display:block}
-  /* Luft mellem de to saetninger, men en tredjedel af en linje. Et <br>
-     gav en HEL tom linje paa 75 px, og saa faldt overskriften i to
-     stykker, der ikke hang sammen. */
   .opkaldsanim h1 .e{margin-top:.34em}
 }
-/* LUFTEN LIGGER MELLEM DELENE, IKKE RUNDT OM DEM.
-   Maerkatet, overskriften, teksten og knapperne stod klemt sammen i en
-   lille blok midt i et stort tomt felt. 16,5 px undertekst under en
-   overskrift paa 72 ser ud som en fodnote. */
-.hero .under-h1{color:rgba(255,255,255,.85);font-size:clamp(17px,1.6vw,22px);
-  line-height:1.5;margin:0 0 38px;max-width:44ch}
 .opkaldsanim .oa-mrk{font-size:clamp(13px,1.15vw,16px);padding:9px 20px}
-.hero .knapper{gap:14px}
-.hero .knapper .knap{font-size:clamp(15px,1.3vw,18px);padding:17px 32px}
-.hero .lille-note{color:rgba(255,255,255,.62);font-size:clamp(14px,1.1vw,16px);
-  margin-top:30px}
-.hero .knap.lys{background:#fff;color:var(--groen);border-color:#fff}
-.hero .knap.lys:hover{background:var(--mynte);border-color:var(--mynte)}
-.hero .knap.hul.lys{background:transparent;color:#fff;
-  border-color:rgba(255,255,255,.45)}
-.hero .knap.hul.lys:hover{background:rgba(255,255,255,.12);border-color:#fff}
-
-/* ---------- Naar skaermen bliver smal ----------
-   Scenen er bygget med absolut placerede dele i et fast rum paa
-   568 x 480. Den kan ikke ombryde. Enten faar den sin plads, eller ogsaa
-   skaleres HELE rummet ned i et stykke, saa alle dele beholder deres
-   indbyrdes stoerrelse. Reglerne staar her og ikke i generatoren, fordi
-   .hero .opkaldsanim vejer tungere end .opkaldsanim alene.             */
 @media(max-width:900px){
-  /* minmax(0,1fr) og ikke 1fr: nedenfor faar scenen en fast bredde paa
-     520 px, og et almindeligt 1fr-spor VOKSER med sit indhold. Saa blev
-     hele spalten 520 px bred paa en telefon, og broedteksten blev
-     skaaret af i hoejre side. Med et gulv paa 0 flyder scenen ud over
-     sporet uden at traekke det med sig. */
   .hero .opkaldsanim{grid-template-columns:minmax(0,1fr);gap:26px}
   .hero .opkaldsanim .oa-scene{width:520px;max-width:100%;margin:0 auto}
 }
 @media(max-width:600px){
-  /* Scenen kan ikke ombryde, saa hele rummet skaleres i et stykke.
-     Spalten er skaermen minus 48 px, og trinnene nedenfor er valgt, saa
-     520 x faktor altid kan vaere der:
-       .80 giver 416 og holder ned til 464 px skaerm
-       .66 giver 343 og holder ned til 391 px
-       .54 giver 281 og holder ned til 329 px
-     Bunden hentes tilbage, fordi en skaleret kasse stadig fylder sin
-     fulde hoejde i layoutet: 480 x (1 - faktor). */
   .hero .opkaldsanim .oa-scene{width:520px;max-width:none;margin:0;
     transform-origin:top left;
     transform:scale(.80);margin-bottom:-96px}
@@ -393,35 +363,8 @@ header nav a:hover{color:#fff}
   .hero .opkaldsanim .oa-scene{transform:scale(.54);margin-bottom:-221px}
 }
 @media(max-width:340px){
-  /* .46 giver 239 og holder ned til 287 px skaerm. */
   .hero .opkaldsanim .oa-scene{transform:scale(.46);margin-bottom:-259px}
 }
-/* ==================================================================
-   OPKALDSANIMATIONEN I TOPPEN
-   Bygget og afproevet i Telemakker/dokumenter/prototyper. Laegges ind
-   her af vaerktoej/indsaet-hero.mjs. RET IKKE HER: ret i generatoren
-   og koer vaerktoejet igen, ellers driver de to fra hinanden.
-   Alt er scopet under .opkaldsanim, og alle keyframes hedder tm-noget,
-   fordi siden i forvejen har klasserne .vej, .veje og .eller.
-   ================================================================== */
-/* =========================================================
-   FORSLAG 1: OPKALDET, DER BLIVER TIL ET TILBUD
-
-   FEM KAPITLER PAA EN 34-SEKUNDERS RUNDE. Alt koerer paa den samme
-   varighed, og hver del har sine egne procenter i runden. Saa kan
-   delene ikke skride fra hinanden, og der er ingen JavaScript.
-
-     0 til 13 %   kunden ringer
-    13 til 38 %   samtalen skrives ud
-    38 til 57 %   udkastet bygges AF samtalen
-    57 til 76 %   billederne kommer ind via sms
-    76 til 100 %  tilbuddet er klar og kan sendes to veje
-
-   Kravet til animationen: den skal vise, at tilbuddet bliver dannet
-   paa baggrund af SAMTALEN, at haandvaerkeren kan bede om et billede og
-   kunden modtager en sms, og at tilbuddet til sidst kan sendes til
-   kunden eller ind i regnskabsprogrammet.
-   ========================================================= */
 .opkaldsanim{position:relative;background:
     radial-gradient(900px 440px at 78% 16%, #3a4046 0%, transparent 62%),
     linear-gradient(160deg,#24282c 0%,#131517 100%);
@@ -431,7 +374,6 @@ header nav a:hover{color:#fff}
 .opkaldsanim::before{content:"";position:absolute;inset:-30%;
   background:radial-gradient(420px 420px at 50% 50%, rgba(227,201,159,.20), transparent 60%);
   animation:tm-drift 26s ease-in-out infinite}
-@keyframes tm-drift{0.0%,100.0%{transform:translate(-12%,-6%)}47.1%{transform:translate(14%,8%)}}
 .opkaldsanim .oa-ord{position:relative;z-index:2}
 .opkaldsanim h3{font-size:31px;line-height:1.17;margin:16px 0 14px;font-weight:700;
   text-wrap:balance}
@@ -439,50 +381,22 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-mrk{display:inline-block;background:rgba(227,201,159,.16);
   border:1px solid rgba(227,201,159,.35);color:var(--mynte);
   border-radius:3px;padding:6px 14px;font-size:13px;font-weight:600}
-
 .opkaldsanim .oa-scene{position:relative;height:480px;z-index:2}
-
-/* ---------- Kapitel 1: telefonen ringer ---------- */
 .opkaldsanim .oa-tlf{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
   width:96px;height:96px;border-radius:50%;
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);
   display:grid;place-items:center;animation:tm-tlfInd 36s ease-in-out infinite}
-@keyframes tm-tlfInd{
-  0.0%{opacity:0;transform:scale(.82)}
-  1.9%{opacity:1;transform:scale(1) rotate(0)}
-  3.3%{transform:rotate(-8deg)}
-  4.7%{transform:rotate(8deg)}
-  6.1%{transform:rotate(-6deg)}
-  7.5%{transform:rotate(0)}
-  10.4%{opacity:1;transform:scale(1)}
-  12.2%,100.0%{opacity:0;transform:translateY(-60px) scale(.6)}}
 .opkaldsanim .oa-tlf svg{width:42px;height:42px}
 .opkaldsanim .oa-ringbolge{position:absolute;left:50%;top:40%;margin:-48px 0 0 -48px;
   width:96px;height:96px;border-radius:50%;border:2px solid var(--mynte);
   opacity:0;animation:tm-boelge 36s linear infinite}
 .opkaldsanim .oa-ringbolge.oa-b2{animation-delay:.7s}
 .opkaldsanim .oa-ringbolge.oa-b3{animation-delay:1.4s}
-@keyframes tm-boelge{
-  0.0%{opacity:0;transform:scale(1)}
-  1.4%{opacity:.75}
-  7.5%{opacity:0;transform:scale(3)}
-  100.0%{opacity:0;transform:scale(3)}}
-
-/* ---------- Kapitel 2 og 3: opkaldet og udskriften ----------
-   IKKE EN CHAT. Bobler til venstre og hoejre er beskedsprog. Det her er
-   et opkald, der bliver skrevet ud, mens det staar paa.
-   I kapitel 3 bliver udskriften STAAENDE, men daempet og trykket sammen
-   til venstre, mens tilbuddet vokser frem ved siden af. Det er hele
-   pointen: man skal SE, at det ene bliver til det andet. */
 .opkaldsanim .oa-opkaldsbar{position:absolute;left:0;right:0;top:0;display:flex;
   align-items:center;gap:11px;padding:10px 14px;border-radius:3px;
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);
   font-size:13px;font-weight:600;opacity:0;
   animation:tm-barInd 36s ease-in-out infinite}
-@keyframes tm-barInd{
-  0.0%,10.4%{opacity:0;transform:translateY(-8px)}
-  13.2%,33.9%{opacity:1;transform:none}
-  36.7%,100.0%{opacity:0;transform:translateY(-8px)}}
 .opkaldsanim .oa-opkaldsbar .oa-roer{width:16px;height:16px;flex:0 0 auto}
 .opkaldsanim .oa-opkaldsbar .oa-hvem2{opacity:.8;font-weight:500}
 .opkaldsanim .oa-lyd{display:flex;align-items:center;gap:3px;height:17px;margin-left:auto}
@@ -493,21 +407,11 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-lyd i:nth-child(3){animation-delay:.36s}
 .opkaldsanim .oa-lyd i:nth-child(4){animation-delay:.10s}
 .opkaldsanim .oa-lyd i:nth-child(5){animation-delay:.28s}
-@keyframes tm-hop{0.0%,100.0%{transform:scaleY(.28)}47.1%{transform:scaleY(1)}}
 .opkaldsanim .oa-taeller2{font-variant-numeric:tabular-nums;opacity:.85;font-weight:600}
 .opkaldsanim .oa-taeller2::after{content:"0:04";animation:tm-tid 36s steps(1) infinite}
-@keyframes tm-tid{
-  0.0%,13.2%{content:"0:04"}  17.0%{content:"0:11"}  20.7%{content:"0:18"}
-  24.5%{content:"0:25"}     28.3%{content:"0:32"}  32.0%{content:"0:39"}
-  33.9%,100.0%{content:"0:43"}}
-
 .opkaldsanim .oa-udskrift{position:absolute;left:0;top:58px;bottom:118px;
   display:flex;flex-direction:column;gap:11px;
   width:100%;animation:tm-udskriftInd 36s ease-in-out infinite}
-@keyframes tm-udskriftInd{
-  0.0%,34.8%{width:100%;opacity:1}
-  38.6%,51.8%{width:42%;opacity:.45}
-  54.9%,100.0%{width:42%;opacity:0}}
 .opkaldsanim .oa-replik{margin:0;padding:0 0 0 14px;border-left:2px solid rgba(227,201,159,.28);
   font-size:14px;line-height:1.48;opacity:0}
 .opkaldsanim .oa-replik .oa-navn{display:block;font-size:11px;font-weight:700;
@@ -518,48 +422,15 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-u3{animation:tm-u3 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 2.1s}
 .opkaldsanim .oa-u4{animation:tm-u4 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 3.6s}
 .opkaldsanim .oa-u5{animation:tm-u5 36s ease-in-out infinite, tm-rail 36s ease-in-out infinite 4.8s}
-@keyframes tm-rail{
-  0.0%,11.3%{border-left-color:rgba(227,201,159,.28)}
-  13.2%{border-left-color:#e3c99f}
-  17.9%,100.0%{border-left-color:rgba(227,201,159,.28)}}
-@keyframes tm-u1{0.0%,11.3%{opacity:0;transform:translateY(8px)}14.1%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
-@keyframes tm-u2{0.0%,15.1%{opacity:0;transform:translateY(8px)}17.9%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
-@keyframes tm-u3{0.0%,19.8%{opacity:0;transform:translateY(8px)}22.6%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
-@keyframes tm-u4{0.0%,25.4%{opacity:0;transform:translateY(8px)}28.3%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
-@keyframes tm-u5{0.0%,30.1%{opacity:0;transform:translateY(8px)}33.0%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
-
-/* PRIKKERNE, DER FLYVER FRA SAMTALEN OVER I TILBUDDET.
-   Det var det, der manglede: man kunne ikke SE, at tilbuddet blev
-   dannet paa baggrund af samtalen. Nu rejser tre prikker fra
-   udskriften over i kortet, lige foer hver linje dukker op. */
 .opkaldsanim .oa-spor{position:absolute;left:38%;width:9px;height:9px;border-radius:50%;
   background:var(--mynte);opacity:0;box-shadow:0 0 12px rgba(227,201,159,.9)}
 .opkaldsanim .oa-sp1{top:130px;animation:tm-spor 36s ease-in-out infinite}
 .opkaldsanim .oa-sp2{top:196px;animation:tm-spor 36s ease-in-out infinite .9s}
 .opkaldsanim .oa-sp3{top:262px;animation:tm-spor 36s ease-in-out infinite 1.8s}
-@keyframes tm-spor{
-  0.0%,37.7%{opacity:0;transform:translate(0,0) scale(.6)}
-  39.6%{opacity:1;transform:translate(0,0) scale(1)}
-  43.8%{opacity:1;transform:translate(115px,-30px) scale(1)}
-  45.2%,100.0%{opacity:0;transform:translate(125px,-36px) scale(.5)}}
-
-/* ---------- Tilbudskortet ----------
-   Det bliver staaende fra kapitel 3 til slut. Tingene bliver LAGT I det
-   undervejs i stedet for at kortet skiftes ud. Saa foelger man med i, at
-   det er det samme tilbud hele vejen. */
 .opkaldsanim .oa-papir{position:absolute;right:0;top:50%;width:268px;margin-top:-145px;
   background:#fff;color:var(--blaek);border-radius:3px;
   box-shadow:0 26px 60px rgba(0,0,0,.36);opacity:0;
   animation:tm-papirInd 36s cubic-bezier(.22,.9,.3,1) infinite}
-@keyframes tm-papirInd{
-  0.0%,35.8%{opacity:0;transform:translateY(26px) scale(.93)}
-  39.6%{opacity:1;transform:none}
-  53.7%{opacity:1;transform:none}
-  59.8%,76.8%{opacity:1;transform:translateX(-18px) scale(.97)}
-  82.1%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0;transform:translateY(-16px) scale(.97)}}
-/* Ekstra luft i hoejre side: fluebenet stemples ind over hjoernet og
-   daekkede det sidste af firmanavnet. */
 .opkaldsanim .oa-papir .oa-top{background:var(--groen);color:#fff;padding:10px 36px 10px 14px;
   border-radius:3px 3px 0 0;display:flex;justify-content:space-between;
   align-items:center;font-size:11.5px;gap:10px}
@@ -572,44 +443,21 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-pl:nth-of-type(1){animation-delay:.4s}
 .opkaldsanim .oa-pl:nth-of-type(2){animation-delay:1.3s}
 .opkaldsanim .oa-pl:nth-of-type(3){animation-delay:2.2s}
-@keyframes tm-plInd{
-  0.0%,40.5%{opacity:0;transform:translateX(-10px)}
-  43.3%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0}}
-/* Billederne docker paa kortet. De kommer fra kundens sms. */
 .opkaldsanim .oa-fotoraekke{display:flex;gap:6px;padding:9px 0 2px;opacity:0;
   animation:tm-fotoInd 36s ease-out infinite}
 .opkaldsanim .oa-fotoraekke span{flex:1;height:36px;border-radius:3px;
   background:linear-gradient(135deg,#d8d3cb,#bdb6ab);
   display:grid;place-items:center;font-size:9px;color:#5d5a54;font-weight:700}
-@keyframes tm-fotoInd{
-  0.0%,77.5%{opacity:0;transform:scale(.94)}
-  79.8%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0}}
 .opkaldsanim .oa-psum{display:flex;justify-content:space-between;align-items:center;
   padding-top:10px;font-weight:700;font-size:14px;opacity:0;
   animation:tm-sumInd 36s ease-out infinite}
 .opkaldsanim .oa-psum i{font-style:normal;font-variant-numeric:tabular-nums}
-@keyframes tm-sumInd{
-  0.0%,81.2%{opacity:0;transform:translateY(6px)}
-  84.0%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0}}
 .opkaldsanim .oa-flueben{position:absolute;right:-15px;top:-15px;width:42px;height:42px;
   border-radius:50%;background:var(--mynte);display:grid;place-items:center;
   opacity:0;box-shadow:0 8px 22px rgba(0,0,0,.3);
   animation:tm-stempel 36s cubic-bezier(.2,1.5,.4,1) infinite}
-@keyframes tm-stempel{
-  0.0%,87.8%{opacity:0;transform:scale(.4) rotate(-25deg)}
-  90.6%,96.2%{opacity:1;transform:scale(1) rotate(0)}
-  99.1%,100.0%{opacity:0}}
-
-/* ---------- Kapitel 4: billedet via sms ---------- */
 .opkaldsanim .oa-sms{position:absolute;left:0;top:70px;width:42%;opacity:0;
   animation:tm-smsInd 36s ease-in-out infinite}
-@keyframes tm-smsInd{
-  0.0%,54.9%{opacity:0;transform:translateY(12px)}
-  59.8%,76.8%{opacity:1;transform:none}
-  80.2%,100.0%{opacity:0;transform:translateY(-10px)}}
 .opkaldsanim .oa-sms .oa-telefonramme{background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.22);border-radius:3px;padding:12px}
 .opkaldsanim .oa-sms .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
@@ -627,21 +475,6 @@ header nav a:hover{color:#fff}
   letter-spacing:.6px;color:#5d5a54;
   animation:tm-fotoOp 36s ease-out infinite}
 .opkaldsanim .oa-sms .oa-fotos span:nth-child(2){animation-delay:.4s}
-/* De forsvinder, NAAR de sendes videre, ikke naar panelet gaar ud. Det
-   er det, der goer overfoerslen til en overfoersel og ikke to ting, der
-   tilfaeldigvis sker efter hinanden. */
-@keyframes tm-fotoOp{
-  0.0%,63.4%{opacity:0;transform:translateY(8px) scale(.9)}
-  67.1%,73.2%{opacity:1;transform:none}
-  76.2%,100.0%{opacity:0;transform:scale(.94)}}
-
-/* BILLEDERNE, DER REJSER OVER I TILBUDDET.
-   Billederne skal ses BLIVE sendt over i tilbuddet, saa det ligner en
-   overfoersel og ikke to ting, der tilfaeldigvis staar ved siden af
-   hinanden. To felter, der letter fra sms'en og lander i kortet. De flyver som en
-   samlet bunke, fordi to felter, der flyver hver for sig, ligner rod.
-   Der animeres paa left og ikke paa transform, saa den lander det
-   rigtige sted, uanset hvor bred skaermen er. */
 .opkaldsanim .oa-fotoflyv{position:absolute;display:flex;gap:6px;width:41%;top:214px;
   left:4%;opacity:0;z-index:6;
   animation:tm-flyv 36s cubic-bezier(.45,0,.25,1) infinite}
@@ -650,29 +483,8 @@ header nav a:hover{color:#fff}
   display:grid;place-items:center;font-size:9px;font-weight:700;
   letter-spacing:.6px;color:#5d5a54;
   box-shadow:0 10px 24px rgba(0,0,0,.34)}
-@keyframes tm-flyv{
-  0.0%,70.1%{opacity:0;left:4%;top:214px;width:41%}
-  72.0%{opacity:1;left:4%;top:214px;width:41%}
-  77.5%{opacity:1;left:54%;top:232px;width:38%}
-  79.3%,100.0%{opacity:0;left:54%;top:232px;width:38%}}
-
-/* ---------- Kapitel 5: de to veje ud ----------
-   De to kasser, send til kunden og send til regnskabsprogram, var for
-   smaa og flugtede ikke med resten.
-
-   To ting var galt. De sad NEDERST, mens alt andet i venstre side sidder
-   oeverst, saa oejet skulle flytte sig uden grund. Og de var to smaa
-   halvgennemsigtige kasser ved siden af et stort hvidt kort, saa de
-   lignede en fodnote til det, der faktisk er pointen.
-
-   Nu har de SAMME ramme og samme plads som sms-panelet i kapitel 4, og
-   de to valg fylder, som de skal. */
 .opkaldsanim .oa-veje{position:absolute;left:0;top:70px;width:42%;opacity:0;
   animation:tm-vejeInd 36s ease-in-out infinite}
-@keyframes tm-vejeInd{
-  0.0%,80.2%{opacity:0;transform:translateY(12px)}
-  84.0%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0;transform:translateY(-10px)}}
 .opkaldsanim .oa-veje .oa-ramme2{background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.22);border-radius:3px;padding:14px}
 .opkaldsanim .oa-veje .oa-hoved{display:flex;align-items:center;gap:7px;font-size:11px;
@@ -687,20 +499,12 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-vej svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
 .opkaldsanim .oa-vej small{display:block;font-size:11.5px;font-weight:500;opacity:.78;
   margin-top:3px;line-height:1.45;hyphens:none}
-/* "eller" imellem. Uden det ligner de to trin, man skal igennem, og det
-   er de ikke: man vaelger det ene ELLER det andet. */
 .opkaldsanim .oa-eller{display:flex;align-items:center;gap:9px;margin:9px 0;
   font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
   color:var(--mynte);opacity:0;
   animation:tm-vejInd 36s ease-out infinite;animation-delay:.25s}
 .opkaldsanim .oa-eller::before,.opkaldsanim .oa-eller::after{content:"";flex:1;height:1px;
   background:rgba(227,201,159,.3)}
-@keyframes tm-vejInd{
-  0.0%,82.1%{opacity:0;transform:translateY(10px)}
-  85.9%,96.2%{opacity:1;transform:none}
-  99.1%,100.0%{opacity:0}}
-
-/* ---------- Kapitelnavnene ---------- */
 .opkaldsanim .oa-kap{position:absolute;left:0;bottom:0;font-size:13px;font-weight:600;
   color:var(--mynte);opacity:0}
 .opkaldsanim .oa-k1{animation:tm-kap1 36s ease-in-out infinite}
@@ -708,376 +512,158 @@ header nav a:hover{color:#fff}
 .opkaldsanim .oa-k3{animation:tm-kap3 36s ease-in-out infinite}
 .opkaldsanim .oa-k4{animation:tm-kap4 36s ease-in-out infinite}
 .opkaldsanim .oa-k5{animation:tm-kap5 36s ease-in-out infinite}
-@keyframes tm-kap1{0.0%{opacity:0}1.9%,10.4%{opacity:1}12.2%,100.0%{opacity:0}}
-@keyframes tm-kap2{0.0%,12.2%{opacity:0}15.1%,33.0%{opacity:1}34.8%,100.0%{opacity:0}}
-@keyframes tm-kap3{0.0%,35.8%{opacity:0}38.6%,50.9%{opacity:1}52.7%,100.0%{opacity:0}}
-@keyframes tm-kap4{0.0%,54.9%{opacity:0}58.6%,76.8%{opacity:1}79.3%,100.0%{opacity:0}}
-@keyframes tm-kap5{0.0%,80.2%{opacity:0}83.0%,96.2%{opacity:1}98.1%,100.0%{opacity:0}}
-
-/* ---------- Naar skaermen bliver smal ----------
-   Der var slet ingen regler for smalle skaermer. Scenen er bygget med
-   absolut placerede dele i et fast rum paa 568 x 480, saa den kan ikke
-   ombryde. Den skal i stedet HAVE sin plads, og naar den ikke kan faa
-   den, skaleres hele rummet ned i et stykke. Saa beholder alle dele
-   deres indbyrdes stoerrelse, og intet bliver klemt.               */
 @media(max-width:900px){
-  /* Under to spalter: teksten oeverst, scenen under, midt i. */
-  .h1{grid-template-columns:1fr;gap:26px;padding:44px 24px;min-height:0}
   .oa-scene{width:520px;max-width:100%;margin:0 auto}
 }
 @media(max-width:600px){
-  /* 520 px kan ikke vaere der laengere. Hele rummet skaleres ned, og
-     den plads, skaleringen frigiver, tages tilbage med margin.
-     480 x (1 - 0.62) = 182. */
-  .h1{padding:36px 16px}
   .oa-scene{width:520px;max-width:none;margin:0;
     transform:scale(.62);transform-origin:top left;margin-bottom:-182px}
 }
 @media(max-width:420px){
   .oa-scene{transform:scale(.52);margin-bottom:-230px}
 }
-
-
-
-/* ==================================================================
-   2. Regnestykket. Det staar nu UNDER flowet, fordi man skal vide hvad
-   det er, foer et tal om besparelse betyder noget. Kortet er groent paa
-   det varme papir, saa det stadig er det, oejet lander paa.
-   ================================================================== */
-/* HELE BAANDET ER GROENT, ikke kun kortet.
-   Kortet laa foer som en groen oe paa sandet, og paa en bred skaerm var
-   der meget tomt omkring det. Nu er afsnittet selv groent, og kortet
-   loefter sig i det som en lysere flade. Det er stadig det ENESTE
-   groenne paa siden; resten er papir, sand og hvide kort. */
-.regne{background:var(--groen);color:#fff;padding:clamp(60px,8vw,96px) 0}
-.regne .regnekort{
-  color:#fff;
-  background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);
-  border-radius:3px;
-  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);
-  max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);
-}
-.regne .regnekort h2{font-size:clamp(24px,2.6vw,30px);margin-bottom:6px}
-/* Skyderne til venstre, svaret til hoejre, saa kortet ikke bliver en
-   lang stribe paa en bred skaerm. */
-.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
-.regne .svar{margin-top:0;padding-top:0;border-top:0}
-@media(max-width:760px){
-  .regne .indhold{grid-template-columns:1fr;gap:24px}
-  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}
-}
-
-/* ==================================================================
-   3. Saadan ser et udkast ud: tekst til venstre, ordren til hoejre
-   ================================================================== */
-.udkast{padding:clamp(56px,8vw,92px) 0}
-/* Indledningen staar alene i en smal maalestok. Den skal laeses, ikke
-   skimmes ved siden af noget andet. */
-.udkast-top{max-width:56ch}
-
-
-/* DE TO VEJE, tilbuddet kan gaa. De staar nederst, fordi de kommer
-   sidst: foerst er tilbuddet faerdigt, saa skal det et sted hen. Ingen
-   af de to er den rigtige; det afhaenger af, hvad han har koblet paa,
-   saa de er lige store. */
-.veje{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(18px,2.2vw,26px);margin-top:clamp(28px,3.6vw,40px)}
-.vej{padding:26px 28px}
-.vej h3{margin-bottom:9px}
-.vej p{color:var(--daempet);font-size:15.5px}
-.vej p + p{margin-top:9px}
-/* DE FIRE PUNKTER STAAR UNDER ARKENE, som en billedtekst i fire
-   spalter. De beskriver, hvad man ser paa papiret, og ovenover var de
-   en paastand, man ikke kunne tjekke endnu. Haarfin streg over, ingen
-   kasse: de hoerer til billedet og skal ikke konkurrere med det. */
-.udkast ul{margin:clamp(30px,3.6vw,44px) 0 0;padding:clamp(26px,3vw,34px) 0 0;
-  list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:clamp(20px,2.6vw,34px);border-top:1px solid var(--kant)}
-.udkast li{color:var(--daempet);font-size:15px;line-height:1.55}
-.udkast li b{display:block;color:var(--blaek);font-weight:600;font-size:16px;
-  margin-bottom:5px}
-/* ARKENE, ikke et skærmbillede.
-   De to tidligere forsøg var udklip af redigeringsskærmen, altså en
-   formular fuld af felter. Den blev forkastet som hæslig og taget ud af
-   kontekst, og det er rigtigt: en formular siger ingenting til en, der
-   ikke kender platformen. Det her er PDF'en, KUNDEN modtager.
-
-   Og den er to sider. Tidligere blev linjer og forbehold skaaret vaek,
-   til det kunne vaere paa et ark, saa billedet passede i en spalte. Det
-   var at pynte paa produktet for layoutets skyld.
-
-   Nu ligger de to ark ved siden af hinanden i fuld bredde. Hvert ark
-   bliver 570px bredt mod 480px i spalten, saa linjerne paa tilbuddet
-   faktisk kan laeses, og hvert ark har sin egen skygge, saa man kan se,
-   at det ER to sider. */
-.tilbudsside{margin:clamp(34px,4.4vw,52px) 0 0;display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.4vw,30px)}
-.tilbudsside img{
-  display:block;width:100%;height:auto;border-radius:3px;background:#fff;
-  box-shadow:0 2px 4px rgba(34,32,28,.10), 0 30px 70px -26px rgba(34,32,28,.42);
-}
-@media(max-width:900px){
-  .tilbudsside{grid-template-columns:1fr;max-width:520px}
-  .veje{grid-template-columns:1fr}
-}
-@media(max-width:860px){
-  .udkast ul{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:560px){
-  .udkast ul{grid-template-columns:1fr;gap:18px}
-}
-
-/* ==================================================================
-   4. Det vi ikke goer: to spalter, haarfine linjer
-   ================================================================== */
-.ikke{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
-.ikke-liste{margin-top:36px;display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(32px,5vw,60px)}
-.ikke-liste div{padding:22px 0;border-bottom:1px solid var(--kant)}
-.ikke-liste strong{display:block;font-size:17.5px;font-weight:600;margin-bottom:5px}
-.ikke-liste span{color:var(--daempet);font-size:15.5px}
-@media(max-width:760px){ .ikke-liste{grid-template-columns:1fr} }
-
-/* ==================================================================
-   5. Stadig dit tilbud: bento
-   ================================================================== */
-.beholder{padding:clamp(56px,8vw,92px) 0}
-.bento{margin-top:clamp(30px,3.6vw,44px);display:grid;gap:18px}
-.celle{padding:26px}
-.celle h3{margin-bottom:9px}
-.celle p{color:var(--daempet);font-size:15.5px}
-.celle.bred{padding:0;overflow:hidden}
-/* Sagslisten er et billede uden en overskrift over sig. Teksten staar i
-   afsnittets egen indledning; en overskrift mere ville sige det samme
-   to gange. Luft hele vejen rundt, saa den ligger som et udklip. */
-.celle.bred figure{margin:0;padding:clamp(26px,3.4vw,38px);overflow:hidden}
-/* Ingen ramme paa billedet. Kortet er allerede en ramme, og to
-   rammer uden om det samme ligner en fejl. */
-.celle.bred img{display:block;width:100%;height:auto}
-
-/* ==================================================================
-   6. Kontakt
-   ================================================================== */
-.kontakt{background:var(--sand);padding:clamp(56px,8vw,92px) 0}
-.kontakt .baand{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
-  gap:clamp(32px,5vw,60px);align-items:start}
-@media(max-width:820px){ .kontakt .baand{grid-template-columns:1fr} }
-/* Formularen staar i et kort som alt andet indhold paa siden. Uden det
-   svaevede felterne paa sandet, og afsnittet lignede noget, der ikke var
-   gjort faerdigt. */
-form{display:grid;gap:16px;margin:0;padding:clamp(26px,3.4vw,34px)}
-form label{display:block;font-size:14.5px;font-weight:600;margin-bottom:6px}
-form input{
-  width:100%;font:400 16.5px/1.4 Archivo,sans-serif;padding:13px 14px;
-  border:1px solid var(--kant);border-radius:var(--runding);
-  background:var(--hvid);color:var(--blaek);
-}
-form .hjaelp{font-size:14px;color:var(--daempet);margin-top:7px}
-/* hidden SKAL VINDE OVER form{display:grid}.
-   Attributten hidden er bare display:none i browserens eget stilark, og
-   enhver regel her i filen slaar den. Uden den her blev formularen
-   staaende efter indsendelsen, saa man kunne sende den samme henvendelse
-   igen og igen uden at opdage det. */
-[hidden]{display:none !important}
-form input:focus-visible{outline:2px solid var(--groen);outline-offset:2px;
-  border-color:var(--groen)}
-
-/* LOKKEFELTET. Det skal vaere usynligt for oejet OG for skaermlaeseren,
-   men stadig staa i formularen, saa en robot udfylder det. Derfor
-   position:absolute og ikke display:none: nogle robotter springer det,
-   der er sat til none, over. */
-.lokkefelt{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-
-/* Svaret efter indsendelsen. Det staar hvor formularen stod, saa man
-   ikke skal lede efter det. */
-.kvittering{padding:clamp(26px,3.4vw,34px)}
-.kvittering h3{margin:0 0 10px;font-size:20px}
-.kvittering p{color:var(--daempet);font-size:15.5px}
-form .fejl{color:#8c2f22;font-size:15px;margin:0}
-.eller{margin-top:24px;font-size:15.5px;color:var(--daempet)}
-.eller a{color:var(--groen);font-weight:600}
-
-footer{border-top:1px solid var(--kant);padding:30px 0;font-size:15px;color:var(--daempet)}
-footer .baand{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{color:var(--daempet);text-decoration:none}
-footer a:hover{color:var(--blaek)}
-/* Grupperne i foden. En overskrift og linkene under den, saa Juridisk
-   kan skelnes fra Kontakt uden en streg imellem. Paa en telefon
-   stables de, fordi baandet i forvejen ombryder. */
-footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
-footer .fod-gruppe b{color:#e3c99f;font-weight:600}
-footer .fod-gruppe a{text-decoration:none}
-/* ADRESSELINJEN. Staar under linkene med en streg imellem, som hos de
-   store. Den skal ligge PAA display:block og ikke arve flex'en fra
-   footer .baand; de to regler har samme vaegt, saa den her skal staa
-   efter den anden i filen. */
-footer .fod-adresse{display:block;border-top:1px solid var(--kant);
-  margin-top:22px;padding-top:18px;font-size:14px;line-height:1.5}
-
-/* ==================================================================
-   HEADERENS FARVER HELE VEJEN NED (2. oktober 2026)
-   Kasper: siden skal ligne noget, en haandvaerker kender fra sin
-   grossist og sit vaerksted, ikke en AI-virksomhed. Derfor:
-   - eet foto, kun i toppen: en toemrer ved rundsaven
-   - resten i headerens antracit (#1b1e21 / #24282c) med birk (#e3c99f)
-     som accent, ingen andre fotos
-   - kantede hjoerner, ingen gloed, ingen moerk tilstand
-   FOTOET er WebP med det moerke sloer bagt ind (vaerktoej/hent-fotos.py),
-   1200 px til mobil og 2400 px til computer, saa det er skarpt paa
-   skaerme med hoej oploesning. Det forhaandsindlaeses i <head>.
-   ================================================================== */
-header{background:#1b1e21;box-shadow:none}
-.hero{background:#1b1e21 center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(billeder/foto-rundsav-1200.webp)}
-@media (min-width:801px){
-  .hero{background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(billeder/foto-rundsav-2400.webp)}
-}
 .opkaldsanim::before,.opkaldsanim .oa-ringbolge{display:none}
-.knap{border-radius:3px}
-/* Sektionerne skifter mellem to antracit-toner, saa de kan skelnes */
-.regne,.ikke,.kontakt{background:#1b1e21}
-.udkast,.beholder{background:#24282c}
-footer{background:#141618}
-.regnekort{background:#24282c;border-color:rgba(227,201,159,.22)}
-/* Soegeordet foerst i H1, sloganet under */
-h1 .h1-emne{display:block;font-size:.5em;letter-spacing:-.01em;color:#e3c99f;margin-bottom:.35em}
-/* Lys tekst paa de moerke flader */
-.udkast-top h2,.udkast-top .brod,.udkast>.baand>ul li,.udkast>.baand>ul li *,
-section.ikke h2,section.ikke .brod,
-#hvorfor>.baand>h2,#hvorfor>.baand>.brod,
-#kontakt>.baand>div:first-child h2,#kontakt>.baand>div:first-child p,#kontakt>.baand>div:first-child a,
-footer .baand,footer .baand *{color:#f1ece4}
-.ikke-liste>div{background:#24282c;color:#f1ece4;border:1px solid rgba(227,201,159,.18);padding:16px 18px}
-.ikke-liste{gap:10px}
-.ikke-liste>div *{color:#f1ece4}
-/* Hvide kort med moerk tekst */
-.vej.kort,.celle.kort,#kontaktform,#kontaktkvittering{background:#fffdf9;color:#1c1e1c}
-section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kort h3,section .celle.kort p,
-#kontaktform label,#kontaktform p,#kontaktkvittering h3,#kontaktkvittering p{color:#1c1e1c}
-#kontaktform button,#kontaktform .knap,#kontaktform [type=submit]{background:#24282c;color:#fff;border-color:#24282c}
-/* FAGMENU-CSS START */
-/* FAG-MENU i toppen: en dropdown med en underside pr. fag. Bygges af
-   vaerktoej/byg-fagsider.py. Synlig ogsaa paa mobil. */
-.fagmenu{position:relative}
-.fagmenu summary{list-style:none;cursor:pointer;color:rgba(255,255,255,.85);font-size:15.5px;padding:6px 0;user-select:none}
-.fagmenu summary::-webkit-details-marker{display:none}
-.fagmenu summary::after{content:"";display:inline-block;margin-left:7px;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-3px) rotate(45deg)}
-.fagmenu[open] summary::after{transform:translateY(1px) rotate(225deg)}
-.fagmenu summary:hover{color:#fff}
-.fagmenu-liste{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);width:330px;max-height:min(70vh,560px);overflow:auto;background:#fffdf9;border-radius:3px;box-shadow:0 18px 40px rgba(0,0,0,.35);padding:8px;z-index:30}
-.fagmenu-liste a{display:block;padding:11px 14px;border-radius:3px;text-decoration:none;color:#1c1e1c}
-.fagmenu-liste a b{display:block;font-weight:600;font-size:16px}
-.fagmenu-liste a span{display:block;color:#6b665e;font-size:14px;margin-top:2px}
-.fagmenu-liste a:hover,.fagmenu-liste a[aria-current]{background:#f2eee7}
-@media(max-width:900px){header nav .fagmenu-liste a{display:block}.fagmenu-liste{left:auto;right:-90px;transform:none;width:min(330px,calc(100vw - 32px))}}
-/* FAGMENU-CSS SLUT */
+@keyframes tm-drift{0.0%,100.0%{transform:translate(-12%,-6%)}47.1%{transform:translate(14%,8%)}}
+@keyframes tm-tlfInd{
+  0.0%{opacity:0;transform:scale(.82)}
+  1.9%{opacity:1;transform:scale(1) rotate(0)}
+  3.3%{transform:rotate(-8deg)}
+  4.7%{transform:rotate(8deg)}
+  6.1%{transform:rotate(-6deg)}
+  7.5%{transform:rotate(0)}
+  10.4%{opacity:1;transform:scale(1)}
+  12.2%,100.0%{opacity:0;transform:translateY(-60px) scale(.6)}}
+@keyframes tm-boelge{
+  0.0%{opacity:0;transform:scale(1)}
+  1.4%{opacity:.75}
+  7.5%{opacity:0;transform:scale(3)}
+  100.0%{opacity:0;transform:scale(3)}}
+@keyframes tm-barInd{
+  0.0%,10.4%{opacity:0;transform:translateY(-8px)}
+  13.2%,33.9%{opacity:1;transform:none}
+  36.7%,100.0%{opacity:0;transform:translateY(-8px)}}
+@keyframes tm-hop{0.0%,100.0%{transform:scaleY(.28)}47.1%{transform:scaleY(1)}}
+@keyframes tm-tid{
+  0.0%,13.2%{content:"0:04"}  17.0%{content:"0:11"}  20.7%{content:"0:18"}
+  24.5%{content:"0:25"}     28.3%{content:"0:32"}  32.0%{content:"0:39"}
+  33.9%,100.0%{content:"0:43"}}
+@keyframes tm-udskriftInd{
+  0.0%,34.8%{width:100%;opacity:1}
+  38.6%,51.8%{width:42%;opacity:.45}
+  54.9%,100.0%{width:42%;opacity:0}}
+@keyframes tm-rail{
+  0.0%,11.3%{border-left-color:rgba(227,201,159,.28)}
+  13.2%{border-left-color:#e3c99f}
+  17.9%,100.0%{border-left-color:rgba(227,201,159,.28)}}
+@keyframes tm-u1{0.0%,11.3%{opacity:0;transform:translateY(8px)}14.1%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u2{0.0%,15.1%{opacity:0;transform:translateY(8px)}17.9%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u3{0.0%,19.8%{opacity:0;transform:translateY(8px)}22.6%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u4{0.0%,25.4%{opacity:0;transform:translateY(8px)}28.3%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-u5{0.0%,30.1%{opacity:0;transform:translateY(8px)}33.0%,52.7%{opacity:1;transform:none}54.9%,100.0%{opacity:0}}
+@keyframes tm-spor{
+  0.0%,37.7%{opacity:0;transform:translate(0,0) scale(.6)}
+  39.6%{opacity:1;transform:translate(0,0) scale(1)}
+  43.8%{opacity:1;transform:translate(115px,-30px) scale(1)}
+  45.2%,100.0%{opacity:0;transform:translate(125px,-36px) scale(.5)}}
+@keyframes tm-papirInd{
+  0.0%,35.8%{opacity:0;transform:translateY(26px) scale(.93)}
+  39.6%{opacity:1;transform:none}
+  53.7%{opacity:1;transform:none}
+  59.8%,76.8%{opacity:1;transform:translateX(-18px) scale(.97)}
+  82.1%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0;transform:translateY(-16px) scale(.97)}}
+@keyframes tm-plInd{
+  0.0%,40.5%{opacity:0;transform:translateX(-10px)}
+  43.3%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+@keyframes tm-fotoInd{
+  0.0%,77.5%{opacity:0;transform:scale(.94)}
+  79.8%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+@keyframes tm-sumInd{
+  0.0%,81.2%{opacity:0;transform:translateY(6px)}
+  84.0%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+@keyframes tm-stempel{
+  0.0%,87.8%{opacity:0;transform:scale(.4) rotate(-25deg)}
+  90.6%,96.2%{opacity:1;transform:scale(1) rotate(0)}
+  99.1%,100.0%{opacity:0}}
+@keyframes tm-smsInd{
+  0.0%,54.9%{opacity:0;transform:translateY(12px)}
+  59.8%,76.8%{opacity:1;transform:none}
+  80.2%,100.0%{opacity:0;transform:translateY(-10px)}}
+@keyframes tm-fotoOp{
+  0.0%,63.4%{opacity:0;transform:translateY(8px) scale(.9)}
+  67.1%,73.2%{opacity:1;transform:none}
+  76.2%,100.0%{opacity:0;transform:scale(.94)}}
+@keyframes tm-flyv{
+  0.0%,70.1%{opacity:0;left:4%;top:214px;width:41%}
+  72.0%{opacity:1;left:4%;top:214px;width:41%}
+  77.5%{opacity:1;left:54%;top:232px;width:38%}
+  79.3%,100.0%{opacity:0;left:54%;top:232px;width:38%}}
+@keyframes tm-vejeInd{
+  0.0%,80.2%{opacity:0;transform:translateY(12px)}
+  84.0%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0;transform:translateY(-10px)}}
+@keyframes tm-vejInd{
+  0.0%,82.1%{opacity:0;transform:translateY(10px)}
+  85.9%,96.2%{opacity:1;transform:none}
+  99.1%,100.0%{opacity:0}}
+@keyframes tm-kap1{0.0%{opacity:0}1.9%,10.4%{opacity:1}12.2%,100.0%{opacity:0}}
+@keyframes tm-kap2{0.0%,12.2%{opacity:0}15.1%,33.0%{opacity:1}34.8%,100.0%{opacity:0}}
+@keyframes tm-kap3{0.0%,35.8%{opacity:0}38.6%,50.9%{opacity:1}52.7%,100.0%{opacity:0}}
+@keyframes tm-kap4{0.0%,54.9%{opacity:0}58.6%,76.8%{opacity:1}79.3%,100.0%{opacity:0}}
+@keyframes tm-kap5{0.0%,80.2%{opacity:0}83.0%,96.2%{opacity:1}98.1%,100.0%{opacity:0}}
+
 </style>
-<!-- STRUKTURERET DATA til Google. Kun oplysninger, der er sande og staar
-     paa siden: firmanavn, CVR (som vatID), adressen fra foden og kontakt@.
-     SoftwareApplication er udeladt MED VILJE: Google kraever en offentlig
-     pris og rigtige anmeldelser, og ingen af delene findes endnu. Tilfoej
-     den, naar begge er paa plads. Opfind aldrig anmeldelser. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.telemakker.dk/#organisation",
-      "name": "TeleMakker",
-      "legalName": "TeleMakker ApS",
-      "url": "https://www.telemakker.dk/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.telemakker.dk/billeder/logo.png",
-        "width": 512,
-        "height": 512
-      },
-      "email": "kontakt@telemakker.dk",
-      "vatID": "DK46720253",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Platanvej 5, 1. 67.",
-        "postalCode": "1810",
-        "addressLocality": "Frederiksberg C",
-        "addressCountry": "DK"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "email": "kontakt@telemakker.dk",
-        "availableLanguage": "da"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.telemakker.dk/#website",
-      "url": "https://www.telemakker.dk/",
-      "name": "TeleMakker",
-      "inLanguage": "da-DK",
-      "publisher": {
-        "@id": "https://www.telemakker.dk/#organisation"
-      }
-    }
-  ]
-}
-</script>
-<link rel="preload" as="image" href="billeder/foto-rundsav-1200.webp" media="(max-width:800px)" fetchpriority="high">
-<link rel="preload" as="image" href="billeder/foto-rundsav-2400.webp" media="(min-width:801px)" fetchpriority="high">
 </head>
 <body>
 
-<header>
-  <div class="baand">
-    <a class="logo" href="#top">Tele<b>Makker</b></a>
+<header class="top">
+  <div class="ramme top__ind">
+    <a class="logo" href="/">Tele<span>Makker</span></a>
     <nav>
-      <!-- FAGMENU START -->
-      <details class="fagmenu">
-      <summary>Vælg dit fag</summary>
-      <div class="fagmenu-liste">
-        <a href="/tilbudsstyring-til-tomrere/"><b>Tømrer</b><span>Jeg står på stilladset, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-vvs/"><b>VVS&#x27;er</b><span>Jeg ligger under en håndvask, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-elektrikere/"><b>Elektriker</b><span>Jeg står i en eltavle, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-malere/"><b>Maler</b><span>Jeg har penslen i hånden, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-murere/"><b>Murer</b><span>Jeg har mørtel på hænderne, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-anlaegsgartnere/"><b>Anlægsgartner</b><span>Jeg sidder i minigraveren, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-kloakmestre/"><b>Kloakmester</b><span>Jeg står i en udgravning, når kunden ringer</span></a>
-        <a href="/tilbudsstyring-til-koeleteknikere/"><b>Køletekniker</b><span>Jeg er ude på service, når kunden ringer</span></a>
-      </div>
-    </details>
-      <!-- FAGMENU SLUT -->
-      <a href="#regnestykket">Se din besparelse</a>
-      <a href="#udkast">Se et tilbud</a>
-      <a href="#hvorfor">Stadig dit tilbud</a>
-      <a href="https://app.telemakker.dk">Log ind</a>
-      <a href="#kontakt" class="knap lys">Bliv ringet op</a>
+      <a href="#igang">Sådan virker det</a>
+      <a href="#regn">Hvad sparer du</a>
+      <a href="#faar">Det får du</a>
+      <a href="#fag">Dit fag</a>
+      <a href="#os">Hvem vi er</a>
     </nav>
+    <span class="top__tlf">
+      <span><small>Ring til TeleMakker</small>
+        <b><a href="tel:+4520110302">20 11 03 02</a> <i>·</i> <a href="tel:+4560464520">60 46 45 20</a></b></span>
+    </span>
+    <a class="top__log" href="https://app.telemakker.dk">Log ind</a>
   </div>
 </header>
 
-<main id="indhold">
-
-<!-- 1. HEROEN MED REGNESTYKKET -->
-<!-- 1. HEROEN: OPKALDET, DER BLIVER TIL ET TILBUD
-     Animationen erstatter den nummererede liste med fire trin. Den
-     fortaeller det samme og mere, og den goer det uden at man skal
-     laese. Listen stod her foer; se index.html.foer-hero, hvis den
-     skal tilbage. -->
-<section class="hero" id="top">
-  <div class="baand">
-    <div class="opkaldsanim">
-      <div class="oa-ord">
-        <span class="oa-mrk">Du beholder dit eget nummer</span>
-        <h1><span class="h1-emne">Tilbudsstyring til håndværkere</span><span class="l">Du taler</span> <span class="l">med kunden.</span><span class="l e">Tilbuddet skriver</span> <span class="l">sig selv.</span></h1>
-        <p class="under-h1">Når du lægger på, ligger tilbuddet klar med dine
-          egne priser. Det går ud samme dag, før kunden når at ringe til en anden.</p>
-        <div class="knapper">
-          <a href="#kontakt" class="knap lys">Bliv ringet op</a>
-          <a href="#regnestykket" class="knap hul lys">Hvad sparer jeg?</a>
+<!-- ============ HELTEN ============ -->
+<section class="helt hero">
+  <div class="helt__foto"></div>
+  <div class="helt__slor"></div>
+  <div class="ramme">
+    <div class="helt__gitter">
+      <div>
+        <p class="mini">Tilbudsstyring til håndværkere</p>
+        <h1>Du taler med kunden.<em>Tilbuddet skriver sig selv.</em></h1>
+        <p class="helt__lead">Når du lægger på, ligger tilbuddet klar med dine
+          egne priser, dit logo og dit CVR. Det går ud samme dag, før kunden
+          når at ringe til en anden.</p>
+        <div class="helt__knapper">
+          <a class="knap knap--birk" href="#slut">Bliv ringet op</a>
+          <a class="knap knap--kant" href="#regn">Hvad sparer jeg?</a>
         </div>
-        <p class="lille-note">Ingen robot taler med dine kunder.</p>
+        <div class="helt__ring">
+          <span class="helt__numre">
+            <a href="tel:+4520110302">20 11 03 02</a>
+            <a href="tel:+4560464520">60 46 45 20</a>
+          </span>
+          <span>Ring til TeleMakker. Du får fat i en af os, der ejer firmaet.</span>
+        </div>
       </div>
-      <div class="oa-scene">
+
+      <div class="opkaldsanim">
+<div class="oa-scene">
       <div class="oa-ringbolge"></div><div class="oa-ringbolge oa-b2"></div><div class="oa-ringbolge oa-b3"></div>
       <div class="oa-tlf"><svg viewBox="0 0 24 24" fill="none" stroke="#e3c99f" stroke-width="1.7">
         <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></div>
@@ -1166,356 +752,479 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
       <div class="oa-kap oa-k4">Du beder om et billede. Kunden lægger det selv på sagen</div>
       <div class="oa-kap oa-k5">Tilbuddet er klar, og kan sendes to veje</div>
     </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 2. SÅDAN VIRKER DET -->
-<section class="regne" id="regnestykket">
-  <div class="baand">
-    <div class="regnekort">
-      <h2>Hvor mange timer bruger du som håndværker på tilbud?</h2>
-      <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
+<div class="fakta">
+  <div class="ramme">
+    <div class="fakta__ind">
+      <div><b>Du beholder dit eget nummer</b><span>Det, der står på bilen, bliver</span></div>
+      <div><b>Ingen robot taler med din kunde</b><span>Det er dig, der tager telefonen</span></div>
+      <div><b>Intet sendes uden dit tryk</b><span>Du læser igennem og godkender</span></div>
+      <div><b>Dansk selskab, CVR 46720253</b><span>Du skal ikke skifte noget ud</span></div>
+    </div>
+  </div>
+</div>
 
-      <div class="indhold">
-        <div class="felter">
-          <div class="felt">
-            <label for="antal">Tilbud om ugen</label>
-            <div class="raek">
-              <input type="range" id="antal" min="1" max="20" step="1" value="4">
-              <span class="tal" id="antal-vis">4</span>
-            </div>
-          </div>
-          <div class="felt">
-            <label for="foer">Minutter pr. tilbud i dag</label>
-            <div class="raek">
-              <input type="range" id="foer" min="10" max="120" step="5" value="45">
-              <span class="tal" id="foer-vis">45<small>min</small></span>
-            </div>
-          </div>
-          <div class="felt">
-            <label for="timepris">Din timepris</label>
-            <div class="raek">
-              <input type="range" id="timepris" min="250" max="1200" step="25" value="675">
-              <span class="tal" id="timepris-vis">675<small>kr.</small></span>
-            </div>
-          </div>
+<!-- ============ FIRE SKRIDT ============ -->
+<section class="baand baand--sand" id="igang">
+  <div class="ramme ind">
+    <p class="mini">Sådan virker det</p>
+    <h2>Så nemt er det.</h2>
+    <p class="intro">Fra kunden ringer, til tilbuddet er ude. Du skal ikke
+      lære et program, og du skal ikke taste noget.</p>
+
+    <div class="spor">
+      <div class="trin">
+        <div class="trin__nr">1</div>
+        <h3>Kunden ringer til dit eget nummer</h3>
+        <p>Du tager telefonen, som du altid har gjort. Du spørger kunden, om
+          samtalen må skrives ned.</p>
+        <span class="trin__tid">Dit eget nummer</span>
+      </div>
+      <div class="trin">
+        <div class="trin__nr">2</div>
+        <h3>Samtalen skrives ud, mens I taler</h3>
+        <p>Du skal ikke tage noter eller huske noget. Også det, du plejer at
+          glemme, inden du når hjem.</p>
+        <span class="trin__tid">Mens I taler</span>
+      </div>
+      <div class="trin">
+        <div class="trin__nr">3</div>
+        <h3>Udkastet bygges af det, der blev sagt</h3>
+        <p>Med dine egne priser fra grossisten, dit logo og dit CVR. Også
+          forbeholdene, I aftalte.</p>
+        <span class="trin__tid">Når du lægger på</span>
+      </div>
+      <div class="trin">
+        <div class="trin__nr">4</div>
+        <h3>Tilbuddet er klar og kan gå to veje</h3>
+        <p>Til kunden fra din egen mail, eller som kladde i dit regnskab. Du
+          læser igennem og trykker.</p>
+        <span class="trin__tid">Samme dag</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEREGNEREN ============ -->
+<section class="baand baand--papir" id="regn">
+  <div class="ramme ind">
+    <p class="mini">Hvad er din tid værd?</p>
+    <h2>Hvor mange timer bruger du<br>på tilbud?</h2>
+    <p class="intro">Vi finder ikke på et tal. Træk i dine egne, så regner den.</p>
+
+    <div class="regn">
+      <div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-tilbud">Tilbud om ugen</label><output id="u-tilbud">4</output></div>
+          <input id="s-tilbud" type="range" min="1" max="20" value="4">
         </div>
-
-        <div class="svar">
-          <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
-          <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
-          <div class="noegle">
-            <span><b id="timer">0</b> timer</span>
-            <span><b id="dage">0</b> arbejdsdage</span>
-            <span><b id="uge">0</b> minutter om ugen</span>
-          </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-min">Minutter pr. tilbud i dag</label><output id="u-min">30 min.</output></div>
+          <input id="s-min" type="range" min="10" max="120" step="5" value="30">
+        </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-pris">Din timepris</label><output id="u-pris">600 kr.</output></div>
+          <input id="s-pris" type="range" min="300" max="1200" step="25" value="600">
+        </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-ret">Minutter til at rette et udkast</label><output id="u-ret">5 min.</output></div>
+          <input id="s-ret" type="range" min="0" max="30" value="5">
         </div>
       </div>
 
-      <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket. Uden et bud
-           paa, hvor lang tid det tager at RETTE et udkast, kan en
-           besparelse ikke regnes. At spoerge den besoegende om det er
-           ikke rimeligt; han har jo ikke proevet det endnu. -->
-      <p class="antagelse">Vi regner med, at det tager
-        <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
-        <input type="number" id="efter" min="2" max="60" step="1" value="5" inputmode="numeric">
-        minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 3. SÅDAN SER ET UDKAST UD -->
-<section class="udkast" id="udkast">
-  <div class="baand">
-    <div class="udkast-top">
-      <h2>Tilbuddet med dine priser, dit logo og dit CVR</h2>
-      <p class="brod" style="margin-top:14px">Tilbuddet sendes som en PDF med dit
-        firmanavn, dit CVR og dine egne priser. Her er begge sider af et rigtigt et,
-        bygget ud fra en samtale om et terrassedæk.</p>
-    </div>
-
-    <figure class="tilbudsside">
-      <img src="billeder/tilbud-1.png" width="1190" height="1683" loading="lazy"
-           alt="Side 1 af tilbuddet, som kunden modtager. Håndværker ApS og CVR i toppen, derefter kundens navn og adresse, arbejdsstedet, opgaven beskrevet, og så arbejdet og materialerne som linjer med timer, antal og enhedspriser. Alle oplysninger er opdigtede.">
-      <img src="billeder/tilbud-2.png" width="1190" height="1683" loading="lazy"
-           alt="Side 2 af tilbuddet. Arbejdsløn, materialer, moms og en samlet pris inklusive moms på 40.158,88 kr., og derefter tidsplan, særlige ønsker og fire forbehold. Alle oplysninger er opdigtede.">
-    </figure>
-
-    <ul>
-      <li><b>Dit logo og dit firmanavn</b> De står i båndet øverst sammen med dit CVR.
-        Kunden ser dit firma på dokumentet, ikke vores.</li>
-      <li><b>Dine egne priser</b> Materialerne kommer fra din egen liste fra grossisten,
-        og din timepris ganges på timerne. Ikke et gennemsnit.</li>
-      <li><b>Dit sprog</b> Et dansk håndværkertilbud med tidsplan og de forbehold, der
-        hører til. Ikke et mødereferat.</li>
-      <li><b>Færdigt, ikke halvt</b> Linjer, moms og samlet pris er regnet ud. Du skal
-        læse igennem, ikke bygge det op.</li>
-    </ul>
-
-    <div class="veje">
-      <div class="vej kort">
-        <h3>Send det til kunden</h3>
-        <p>Har du koblet din egen Outlook eller Gmail på, sendes tilbuddet gennem den.
-          Så kommer det fra din egen adresse, det ligger i din mappe med sendt post,
-          og kundens svar lander direkte hos dig.</p>
-        <p>Vil du hellere selv, henter du PDF'en og sender den, som du plejer.
-          Intet går ud, uden at du har trykket på knappen.</p>
-      </div>
-      <div class="vej kort">
-        <h3>Eller læg det i regnskabet</h3>
-        <p>Når arbejdet er lavet, kan tilbuddet lægges over i e-conomic eller Dinero
-          som en fakturakladde. Linjerne følger med, og kunden oprettes i regnskabet,
-          hvis hun ikke findes der i forvejen.</p>
-        <p>Kladden bogføres aldrig af os og sendes aldrig til kunden af os. Den ligger
-          klar, og du godkender den selv i dit eget system.</p>
+      <div class="svar">
+        <p class="mini">Du sparer om året</p>
+        <div class="svar__tal" id="u-aar">46.000 kr.</div>
+        <div class="svar__linjer">
+          <div><span>Du bruger i dag</span><b id="u-uge">2 timer om ugen</b></div>
+          <div><span>Det svarer til</span><b id="u-ugepris">1.200 kr. om ugen</b></div>
+          <div><span>Det er</span><b id="u-dage">10 arbejdsdage om året</b></div>
+        </div>
+        <small>Regnet med 46 arbejdsuger om året og en arbejdsdag på 7,5 timer.
+          Minutterne til at rette et udkast er en antagelse, ikke en garanti.
+          Ret den, hvis du er uenig. Tallet er din tid, ikke en regning, du
+          slipper for.</small>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 4. DET VI IKKE GØR -->
-<section class="ikke">
-  <div class="baand">
-    <h2>Det gør vores tilbudsstyring ikke</h2>
-    <p class="brod" style="margin-top:14px">Det er nemmere at love noget end at holde
-      sig fra det. Her er, hvad systemet ikke har lov til.</p>
+<!-- ============ DET FÅR DU: zigzag med rigtige skærmbilleder ============ -->
+<section class="baand baand--sand" id="faar">
+  <div class="ramme">
+    <div class="ind">
+      <p class="mini">Det får du</p>
+      <h2>Tre ting, du kan bruge<br>fra dag ét</h2>
+    </div>
 
-    <div class="ikke-liste">
-      <div>
-        <strong>Vi taler ikke med din kunde</strong>
-        <span>Kun beskeden om samtykke er automatisk. Resten er dig.</span>
+    <div class="zig ind">
+      <div class="zig__tekst">
+        <p class="zig__nr">01 · Fra samtalen</p>
+        <h3>Du snakker. Den skriver.</h3>
+        <p>Kunden har ringet til tre håndværkere. Den, der er først ude med et
+          tilbud, der ser ordentligt ud, vinder opgaven oftest. Her er du den
+          første, uden at skulle sætte dig ned om aftenen.</p>
+        <ol>
+          <li>Du snakker med kunden på dit eget nummer, som du altid har gjort.</li>
+          <li>Tilbuddet er skrevet, når du lægger på. Du er ude med det samme dag.</li>
+          <li>Specificeret og stillet professionelt op. Det er dét, kunden
+            sammenligner på, når der ligger tre.</li>
+        </ol>
       </div>
-      <div>
-        <strong>Vi gætter ikke en pris</strong>
-        <span>Blev en pris ikke nævnt i samtalen, står feltet tomt. Det bliver aldrig
-          udfyldt med et kvalificeret gæt.</span>
+      <div class="zig__billede zig__billede--ud">
+        <img src="billeder/sagsliste.png" alt="Sagslisten med farver for, hvad der mangler" loading="lazy">
+        <span class="maerkat">Rød, gul, grøn. Du kan se det på et sekund.</span>
       </div>
-      <div>
-        <strong>Vi optager ikke uden et ja</strong>
-        <span>Siger kunden nej, gemmes der ingen tekst. Opkaldet går stadig igennem.</span>
+    </div>
+
+    <div class="zig zig--vendt ind">
+      <div class="zig__tekst">
+        <p class="zig__nr">02 · Ude på pladsen</p>
+        <h3>Står du derude? Tal det ind.</h3>
+        <p>Kom der ikke noget opkald, eller stod I bare og snakkede om det
+          ude på stedet? Så tager du det selv, mens du står der.</p>
+        <ol>
+          <li>Tryk på Diktér i telefonen.</li>
+          <li>Beskriv arbejdsopgaven, som du ville have sagt den.</li>
+          <li>Tilbuddet bygges ud fra din beskrivelse.</li>
+        </ol>
       </div>
-      <div>
-        <strong>Vi sender ikke noget selv</strong>
-        <span>Der går aldrig noget til en kunde, uden at du har trykket på knappen.</span>
+      <div class="zig__billede zig__billede--ud">
+        <div class="skaerm">
+          <div class="skaerm__top">Ny sag · Diktér</div>
+          <div class="skaerm__krop">
+            <div class="dikter">
+              <span class="dikter__knap">Diktér</span>
+              <span class="boelge" id="boelge"></span>
+            </div>
+            <div class="dikter__tekst">
+              <b>Det, du sagde</b>
+              Jeg står ude på Solsikkevej 1. Det er et badeværelse på cirka
+              otte kvadratmeter, og de gamle fliser skal hugges af både gulv
+              og vægge. Der skal nyt fald mod afløbet, og røret i hjørnet
+              skal flyttes. Kunden vil have bruseniche i stedet for karret.
+              Sæt to mand på i fire dage, og regn med en container til
+              brokkerne.
+            </div>
+          </div>
+          <div class="skaerm__fod">Tilbuddet bygges ud fra din beskrivelse. <b>Du retter det bagefter.</b></div>
+        </div>
+        <span class="maerkat">Du står derude. Du taster ingenting.</span>
       </div>
-      <div>
-        <strong>Vi giver dig ikke et nyt nummer</strong>
-        <span>Det, der står på bilen og visitkortet, bliver. Du skifter ingenting.</span>
+    </div>
+
+    <div class="zig ind">
+      <div class="zig__tekst">
+        <p class="zig__nr">03 · Billederne og beskrivelsen</p>
+        <h3>Hele opgaven ligger ét sted.</h3>
+        <p>Du sender en sms, og kunden lægger selv billederne på sagen. Du
+          skal ikke køre forbi for at se, hvor stort det er. Og sammen med
+          det, I talte om, har du hele opgaven beskrevet, så du husker, hvad
+          kunden sagde, også om fjorten dage.</p>
+        <ol>
+          <li>Du sender en sms med et link. Kunden skal ikke hente noget.</li>
+          <li>Billederne lægger sig selv på sagen, og du får forslag til linjerne.</li>
+          <li>Billeder og samtale står samme sted. Du husker alt, uden at
+            skrive noget ned.</li>
+        </ol>
       </div>
-      <div>
-        <strong>Vi lover ikke, det passer til hver opgave</strong>
-        <span>Nogle opgaver er for særlige til et udkast. Så skriver du det selv, som du
-          plejer. Det er stadig dit tilbud.</span>
+      <div class="zig__billede zig__billede--ud">
+        <div class="skaerm">
+          <div class="skaerm__top">Sms til Morten</div>
+          <div class="skaerm__krop">
+            <div class="sms">Hej Morten. Kan du sende et par billeder af
+              badeværelset, så jeg kan se forholdene?<br>
+              <span class="sms__link">telemakker.dk/sag/4812</span></div>
+            <div class="fliser"><span></span><span></span><span></span></div>
+          </div>
+          <div class="skaerm__fod">Billederne lagde kunden selv på sagen. <b>Du kørte ikke forbi.</b></div>
+        </div>
+        <span class="maerkat">Du husker alt. Uden at skrive noget ned.</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 5. STADIG DIT TILBUD -->
-<section class="beholder" id="hvorfor">
-  <div class="baand">
-    <h2>Tilbudsstyring, der spiller sammen med din ordrestyring</h2>
-    <p class="brod" style="margin-top:14px">Du sælger og udfører selv, og du bestemmer,
-      hvor hver sag står. Sendt, accepteret, i gang, afsluttet. Du sætter selv status,
-      når kunden svarer, og noten om hvad hun sagde bliver stående i sagen, så du har
-      den, hvis I bliver uenige senere.</p>
+<!-- ============ TILBUDDET, STORT ============ -->
+<section class="baand baand--moerk">
+  <div class="ramme ind">
+    <p class="mini">Sådan ser det ud hos kunden</p>
+    <h2>Dit firma på papiret.<br>Ikke vores.</h2>
+    <p class="intro">Begge sider af et rigtigt tilbud, bygget ud fra en samtale
+      om et terrassedæk.</p>
+    <div class="pdf">
+      <img src="billeder/tilbud-1.png" alt="Tilbuddets side 1" loading="lazy">
+      <img src="billeder/tilbud-2.png" alt="Tilbuddets side 2" loading="lazy">
+    </div>
+    <div class="pdf__punkter">
+      <div><b>Dit logo og dit CVR</b><p>De står i båndet øverst. Kunden ser dit firma på dokumentet.</p></div>
+      <div><b>Dine egne priser</b><p>Materialerne fra din egen liste hos grossisten. Din timepris på timerne.</p></div>
+      <div><b>Dit sprog</b><p>Et dansk håndværkertilbud med tidsplan og forbehold. Ikke et mødereferat.</p></div>
+      <div><b>Færdigt, ikke halvt</b><p>Linjer, moms og samlet pris er regnet ud. Du læser igennem.</p></div>
+    </div>
+  </div>
+</section>
 
-    <div class="bento">
-      <div class="celle bred kort">
-        <figure>
-          <img src="billeder/sagsliste.png" width="1110" height="360" loading="lazy"
-               alt="Sagslisten med fem opdigtede sager: status og næste skridt i én kolonne, fra klar til at sende til arbejde afsluttet.">
-        </figure>
+<!-- ============ DIT FAG ============ -->
+<section class="baand baand--sand" id="fag">
+  <div class="ramme ind">
+    <p class="mini">Dit fag</p>
+    <h2>Hvad laver du,<br>når kunden ringer?</h2>
+    <p class="intro">Det er dét, der er problemet. Vælg dit fag, så viser vi,
+      hvordan det ser ud hos en som dig.</p>
+    <div class="fag">
+      <a href="/tilbudsstyring-til-tomrere/"><b>Tømrer</b><span>Jeg står på stilladset, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-vvs/"><b>VVS'er</b><span>Jeg ligger under en håndvask, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-elektrikere/"><b>Elektriker</b><span>Jeg står i en eltavle, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-malere/"><b>Maler</b><span>Jeg har penslen i hånden, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-murere/"><b>Murer</b><span>Jeg har mørtel på hænderne, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-anlaegsgartnere/"><b>Anlægsgartner</b><span>Jeg sidder i minigraveren, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-kloakmestre/"><b>Kloakmester</b><span>Jeg står i en udgravning, når kunden ringer</span></a>
+      <a href="/tilbudsstyring-til-koeleteknikere/"><b>Køletekniker</b><span>Jeg er ude på service, når kunden ringer</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LØFTERNE ============ -->
+<section class="baand baand--moerk">
+  <div class="ramme ind">
+    <p class="mini">Det lover vi aldrig at lave om på</p>
+    <h2>Det gør vores<br>tilbudsstyring ikke</h2>
+    <p class="intro">Det er nemmere at love noget end at holde sig fra det.
+      Her er, hvad systemet ikke har lov til.</p>
+
+    <div class="loefter">
+      <div class="loefte"><span class="loefte__nr">01</span><b>Vi taler ikke med din kunde</b><p>Kun beskeden om samtykke er automatisk. Resten er dig.</p></div>
+      <div class="loefte"><span class="loefte__nr">02</span><b>Vi gætter ikke en pris</b><p>Blev en pris ikke nævnt i samtalen, står feltet tomt. Det bliver aldrig udfyldt med et kvalificeret gæt.</p></div>
+      <div class="loefte"><span class="loefte__nr">03</span><b>Vi optager ikke uden et ja</b><p>Siger kunden nej, gemmes der ingen tekst. Opkaldet går stadig igennem.</p></div>
+      <div class="loefte"><span class="loefte__nr">04</span><b>Vi sender ikke noget selv</b><p>Der går aldrig noget til en kunde, uden at du har trykket på knappen.</p></div>
+      <div class="loefte"><span class="loefte__nr">05</span><b>Vi giver dig ikke et nyt nummer</b><p>Det, der står på bilen og visitkortet, bliver. Du skifter ingenting.</p></div>
+      <div class="loefte"><span class="loefte__nr">06</span><b>Vi lover ikke, det passer til hver opgave</b><p>Nogle opgaver er for særlige til et udkast. Så skriver du det selv, som du plejer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFSLUTNINGEN ============ -->
+<section class="baand baand--moerk" id="slut" style="background:var(--antracit-lys)">
+  <div class="ramme ind">
+    <div class="slut" id="os">
+      <div>
+        <p class="mini">Er du håndværker? Så ring</p>
+        <div class="slut__numre">
+          <a class="slut__tlf" href="tel:+4520110302">20 11 03 02</a>
+          <a class="slut__tlf" href="tel:+4560464520">60 46 45 20</a>
+        </div>
+        <p>Du får fat i TeleMakker. Vi kommer forbi og viser det på en af dine
+          egne samtaler. Det tager et kvarter, og du skal ikke skrive under på
+          noget.</p>
+        <a class="slut__mail" href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
+      </div>
+
+      <div class="kasse">
+        <p class="mini">Eller skriv dit nummer</p>
+        <form id="kontaktform" action="https://app.telemakker.dk/api/kontakt" method="post">
+          <div class="felt"><label for="navn">Dit navn</label>
+            <input type="text" id="navn" name="navn" required autocomplete="name" maxlength="120"></div>
+          <div class="felt"><label for="telefon">Telefonnummer</label>
+            <input type="tel" id="telefon" name="telefon" required autocomplete="tel" inputmode="tel" maxlength="40"></div>
+          <div class="felt"><label for="firma">Firma</label>
+            <input type="text" id="firma" name="firma" autocomplete="organization" maxlength="160"></div>
+          <div class="lokkefelt" aria-hidden="true">
+            <label for="hjemmeside">Lad dette felt staa tomt</label>
+            <input type="text" id="hjemmeside" name="hjemmeside" tabindex="-1" autocomplete="off"></div>
+          <button class="knap knap--birk" type="submit" id="kontaktknap"
+                  style="width:100%;justify-content:center">Ring til mig</button>
+          <p class="fejl" id="kontaktfejl" hidden></p>
+          <p style="margin-top:14px;font-size:14px;color:#8d8679">Vi ringer i almindelig arbejdstid. Ingen nyhedsbreve.</p>
+        </form>
+        <div id="kontaktkvittering" hidden>
+          <p class="mini">Tak</p>
+          <p style="font-size:17px">Vi har fået dit nummer og ringer i almindelig
+            arbejdstid. Passer det dårligt, så skriv til
+            <a href="mailto:kontakt@telemakker.dk" style="color:var(--birk)">kontakt@telemakker.dk</a>,
+            så aftaler vi et tidspunkt.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="aerlig">
+      <div>
+        <b>Vi er to, og vi ejer firmaet halvt hver</b>
+        <p>Der er ingen supportafdeling og intet sagsnummer. Ringer du til
+          TeleMakker, får du fat i en af os to, der ejer det. Vi sætter det op
+          sammen med dig, og vi er dem, du ringer til bagefter.</p>
+      </div>
+      <div>
+        <b>Der står ingen kundeudtalelser her, og det er med vilje</b>
+        <p>Vi er ved at sætte de første håndværkervirksomheder op. Så længe vi
+          ikke har rigtige kunder at citere, finder vi ikke på nogen. Det
+          samme gælder stjerner og procenter. Når der kommer rigtige, kommer
+          de her med navn og med lov.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 6. KONTAKT -->
-<section class="kontakt" id="kontakt">
-  <div class="baand">
-    <div>
-      <h2>Er du håndværker? Vi ringer til dig</h2>
-      <p class="brod" style="margin-top:14px">Vi er ved at sætte de første
-        håndværkervirksomheder op. Er du tømrer, tagdækker, elektriker, VVS'er eller murer
-        med et par mand i firmaet, så skriv dit nummer. Så ringer vi og viser det på en af
-        dine egne samtaler.</p>
-      <p class="eller">Vil du hellere skrive?
-        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a></p>
+<footer class="fod">
+  <div class="ramme">
+    <div class="fod__ind">
+      <div>
+        <a class="logo" href="/" style="color:#f1ece4">Tele<span>Makker</span></a>
+        <p style="margin-top:10px;max-width:34ch">Tilbudsstyring til danske
+          håndværkere. Du taler med kunden, tilbuddet skriver sig selv.</p>
+      </div>
+      <div>
+        <h4>Juridisk</h4>
+        <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
+        <a href="/juridisk/databehandleraftale/">Databehandleraftale</a>
+        <a href="/juridisk/privatlivspolitik/">Privatlivspolitik</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+4520110302">20 11 03 02</a>
+        <a href="tel:+4560464520">60 46 45 20</a>
+        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
+        <a href="https://app.telemakker.dk">Log ind</a>
+      </div>
     </div>
-
-    <!-- action og method staar der stadig, saa den ikke er helt doed,
-         hvis JavaScript fejler. Den rigtige vej er fetch nedenfor. -->
-    <form class="kort" id="kontaktform" action="https://app.telemakker.dk/api/kontakt"
-          method="post">
-      <div>
-        <label for="navn">Dit navn</label>
-        <input type="text" id="navn" name="navn" required autocomplete="name" maxlength="120">
-      </div>
-      <div>
-        <label for="telefon">Telefonnummer</label>
-        <input type="tel" id="telefon" name="telefon" required autocomplete="tel"
-               inputmode="tel" maxlength="40">
-      </div>
-      <div>
-        <label for="firma">Firma</label>
-        <input type="text" id="firma" name="firma" autocomplete="organization" maxlength="160">
-        <p class="hjaelp">Vi ringer i almindelig arbejdstid. Ingen nyhedsbreve.</p>
-      </div>
-
-      <!-- Lokkefeltet. Skjult for oejet, tomt hos ethvert menneske. -->
-      <div class="lokkefelt" aria-hidden="true">
-        <label for="hjemmeside">Lad dette felt staa tomt</label>
-        <input type="text" id="hjemmeside" name="hjemmeside" tabindex="-1" autocomplete="off">
-      </div>
-
-      <div>
-        <button type="submit" class="knap" id="kontaktknap">Ring til mig</button>
-      </div>
-      <p class="fejl" id="kontaktfejl" hidden></p>
-    </form>
-
-    <div class="kort kvittering" id="kontaktkvittering" hidden>
-      <h3>Tak. Vi har fået dit nummer.</h3>
-      <p>Vi ringer i almindelig arbejdstid. Passer det dårligt, så skriv til
-        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>,
-        så aftaler vi et tidspunkt.</p>
-    </div>
+    <div class="fod__bund">TeleMakker ApS · CVR 46720253 · Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
   </div>
-</section>
-
-</main>
-
-<!-- FODEN. Juridisk staar som sin egen gruppe, fordi de tre dokumenter
-     skal kunne findes af en kunde, en revisor eller en advokat, der
-     leder efter ét bestemt papir. De bygges af vaerktoej/byg-juridisk.py
-     ud fra advokatens Word-filer i juridisk/kilder/; ret dem ALDRIG i
-     haanden, saa skrider siden og aftalen fra hinanden. -->
-<!-- FODEN. Juridisk staar som sin egen gruppe, fordi de tre dokumenter
-     skal kunne findes af en kunde, en revisor eller en advokat, der
-     leder efter ét bestemt papir. De bygges af vaerktoej/byg-juridisk.py
-     ud fra advokatens Word-filer; ret dem ALDRIG i haanden, saa skrider
-     siden og aftalen fra hinanden.
-
-     ADRESSEN NEDERST er selskabets registrerede adresse, slaaet op i
-     CVR paa 46720253. Den staar der, fordi et firma uden adresse paa
-     hjemmesiden ser ud som om det ikke findes, og fordi en haandvaerker,
-     der skal betale for noget, gerne vil se hvem han handler med. -->
-<footer>
-  <div class="baand">
-    <div class="fod-gruppe">
-      <b>Juridisk</b>
-      <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
-      <a href="/juridisk/databehandleraftale/">Databehandleraftale</a>
-      <a href="/juridisk/privatlivspolitik/">Privatlivspolitik</a>
-    </div>
-    <div class="fod-gruppe">
-      <b>Kontakt</b>
-      <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
-      <a href="https://app.telemakker.dk">Log ind</a>
-    </div>
-  </div>
-  <div class="baand fod-adresse">TeleMakker ApS &middot; CVR 46720253 &middot; Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
 </footer>
 
 <script>
-/* ------------------------------------------------------------------
-   REGNESTYKKET
+var roligt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-   Tallet TÆLLER OP, fordi det er hele pointen: man skal se forskellen
-   vokse, mens man skruer på sine egne tal. Animationen er ikke pynt,
-   den ER budskabet.
+// ---------- Stregerne, der hopper, mens der dikteres ----------
+(function(){
+  var b = document.getElementById("boelge");
+  if (!b) return;
+  for (var i = 0; i < 28; i++) {
+    var s = document.createElement("i");
+    s.style.animationDelay = (i * 0.07).toFixed(2) + "s";
+    s.style.height = (6 + (i * 7) % 24) + "px";
+    if (roligt) s.style.animation = "none";
+    b.appendChild(s);
+  }
+})();
 
-   Der er ikke fundet noget på. Alle fire tal sættes af den, der læser
-   siden. Vi ganger dem sammen og siger det højt.
+// ---------- Afsnit glider op, naar de kommer i syne ----------
+(function(){
+  var ting = document.querySelectorAll(".ind");
+  if (roligt || !("IntersectionObserver" in window)) {
+    ting.forEach(function(t){ t.classList.add("set"); });
+    return;
+  }
+  var kig = new IntersectionObserver(function(raekke){
+    raekke.forEach(function(r){
+      if (r.isIntersecting) { r.target.classList.add("set"); kig.unobserve(r.target); }
+    });
+  }, { threshold: .1 });
+  ting.forEach(function(t){ kig.observe(t); });
+})();
 
-   Regnestykket ligger nu ØVERST, saa der ventes ikke paa, at nogen
-   ruller ned til det: det taeller op med det samme.
-   ------------------------------------------------------------------ */
-(function () {
-  var rolig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var antal = document.getElementById("antal");
-  var foer = document.getElementById("foer");
-  var efter = document.getElementById("efter");
-  var timepris = document.getElementById("timepris");
+// ---------- Beregneren ----------
+// Samme regnestykke som i brochuren, saa de to aldrig kan vise forskellige
+// tal for den samme haandvaerker.
+(function(){
+  var UGER = 46, TIMER_PR_DAG = 7.5;
+  var felt = {
+    tilbud: document.getElementById("s-tilbud"),
+    min:    document.getElementById("s-min"),
+    pris:   document.getElementById("s-pris"),
+    ret:    document.getElementById("s-ret")
+  };
+  var kr = function(n){ return Math.round(n).toLocaleString("da-DK") + " kr."; };
+  var aarFelt = document.getElementById("u-aar"), vist = 46000, koerer = null;
 
-  var visKroner = document.getElementById("kroner");
-  var visTimer = document.getElementById("timer");
-  var visDage = document.getElementById("dage");
-  var visUge = document.getElementById("uge");
-
-  function dansk(t) { return t.toLocaleString("da-DK"); }
-
-  function taelOp(el, til, ms) {
-    var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
-    if (rolig || fra === til) { el.textContent = dansk(til); return; }
-    if (el._loeb) cancelAnimationFrame(el._loeb);
-    if (el._net) clearTimeout(el._net);
-
-    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen, holder
-    // browseren op med at kalde requestAnimationFrame, og tallet ville stå
-    // fast et sted midtvejs. Et forkert tal er værre end ingen animation.
-    el._net = setTimeout(function () {
-      if (el._loeb) cancelAnimationFrame(el._loeb);
-      el.textContent = dansk(til);
-    }, ms + 120);
-
-    var start = performance.now();
-    (function trin(nu) {
-      var p = Math.min(1, (nu - start) / ms);
-      var b = 1 - Math.pow(1 - p, 3);
-      el.textContent = dansk(Math.round(fra + (til - fra) * b));
-      if (p < 1) el._loeb = requestAnimationFrame(trin);
-      else { el._loeb = null; clearTimeout(el._net); }
+  // Tallet taeller op til det nye. Det er den eneste maade, man OPDAGER,
+  // at man lige har flyttet paa noget.
+  function taelTil(maal){
+    if (roligt) { aarFelt.textContent = kr(maal); vist = maal; return; }
+    cancelAnimationFrame(koerer);
+    var fra = vist, start = performance.now();
+    (function skridt(naa){
+      var p = Math.min((naa - start) / 420, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      vist = fra + (maal - fra) * e;
+      aarFelt.textContent = kr(vist);
+      if (p < 1) koerer = requestAnimationFrame(skridt);
     })(start);
   }
 
-  function regn(medAnimation) {
-    var a = Number(antal.value);
-    var f = Number(foer.value);
-    var pris = Number(timepris.value);
+  function regn(){
+    var tilbud = +felt.tilbud.value, min = +felt.min.value;
+    var pris = +felt.pris.value, ret = Math.min(+felt.ret.value, min);
+    var idagMin = tilbud * min, sparetMin = tilbud * (min - ret);
 
-    // Feltet kan stå tomt, mens han taster. Så holder vi fast i vores eget
-    // bud frem for at vise "NaN kr. om året".
-    var e = Number(efter.value);
-    if (!isFinite(e) || efter.value === "") e = 5;
-    e = Math.min(Math.max(e, 1), f);
+    document.getElementById("u-tilbud").textContent = tilbud;
+    document.getElementById("u-min").textContent = min + " min.";
+    document.getElementById("u-pris").textContent = pris + " kr.";
+    document.getElementById("u-ret").textContent = ret + " min.";
 
-    document.getElementById("antal-vis").textContent = a;
-    document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
-    document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
+    var ugeTimer = idagMin / 60;
+    document.getElementById("u-uge").textContent =
+      (ugeTimer < 1 ? Math.round(idagMin) + " min."
+        : ugeTimer.toFixed(ugeTimer % 1 ? 1 : 0).replace(".", ",") +
+          (ugeTimer === 1 ? " time" : " timer")) + " om ugen";
+    document.getElementById("u-ugepris").textContent = kr(ugeTimer * pris) + " om ugen";
+    taelTil((sparetMin / 60) * pris * UGER);
 
-    // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
-    // og ikke negativ. Et minustal ville være noget vrøvl.
-    var sparetPrUge = Math.max(0, a * (f - e));
-    var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
-    var dage = Math.round(timer / 7.4);              // en arbejdsdag
-    var kroner = Math.round(timer * pris);
-
-    if (medAnimation) {
-      taelOp(visKroner, kroner, 900);
-      taelOp(visTimer, timer, 700);
-      taelOp(visDage, dage, 700);
-      taelOp(visUge, sparetPrUge, 700);
-    } else {
-      visKroner.textContent = dansk(kroner);
-      visTimer.textContent = dansk(timer);
-      visDage.textContent = dansk(dage);
-      visUge.textContent = dansk(sparetPrUge);
-    }
+    var dage = (sparetMin / 60) * UGER / TIMER_PR_DAG;
+    document.getElementById("u-dage").textContent =
+      dage.toFixed(dage < 10 ? 1 : 0).replace(".", ",") + " arbejdsdage om året";
   }
-
-  [antal, foer, efter, timepris].forEach(function (felt) {
-    felt.addEventListener("input", function () { regn(true); });
-  });
-
-  // Regnestykket staar oeverst, saa det taeller op med det samme.
-  regn(false);
-  visKroner.textContent = "0"; visTimer.textContent = "0";
-  visDage.textContent = "0"; visUge.textContent = "0";
-  setTimeout(function () { regn(true); }, 320);
+  Object.keys(felt).forEach(function(n){ felt[n].addEventListener("input", regn); });
+  regn();
 })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.telemakker.dk/#organisation",
+      "name": "TeleMakker",
+      "legalName": "TeleMakker ApS",
+      "url": "https://www.telemakker.dk/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.telemakker.dk/billeder/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "email": "kontakt@telemakker.dk",
+      "vatID": "DK46720253",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Platanvej 5, 1. 67.",
+        "postalCode": "1810",
+        "addressLocality": "Frederiksberg C",
+        "addressCountry": "DK"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "kontakt@telemakker.dk",
+        "availableLanguage": "da"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.telemakker.dk/#website",
+      "url": "https://www.telemakker.dk/",
+      "name": "TeleMakker",
+      "inLanguage": "da-DK",
+      "publisher": {
+        "@id": "https://www.telemakker.dk/#organisation"
+      }
+    }
+  ]
+}
 </script>
 <script>
 /* Formularen "Ring til mig".
@@ -1571,14 +1280,5 @@ section .vej.kort h3,section .vej.kort h4,section .vej.kort p,section .celle.kor
   });
 })();
 </script>
-
-<!-- FAGMENU-JS START -->
-<script>
-/* Fag-menuen lukker, naar man klikker ved siden af eller trykker Esc. */
-(function(){var m=document.querySelector('.fagmenu');if(!m)return;
-document.addEventListener('click',function(e){if(m.open&&!m.contains(e.target))m.open=false});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')m.open=false});})();
-</script>
-<!-- FAGMENU-JS SLUT -->
 </body>
 </html>
