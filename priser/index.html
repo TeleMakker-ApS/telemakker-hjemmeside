@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priser | TeleMakker</title>
+<meta name="description" content="Fire abonnementer til håndværkere. De to laveste uden telefoni, de to dyreste med. Prøv gratis med 10 tilbud, ingen kort.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2324282c'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='Archivo,sans-serif' font-weight='700' fill='white'>T</text></svg>">
+<meta property="og:title" content="Priser | TeleMakker">
+<meta property="og:description" content="Fire abonnementer til håndværkere. De to laveste uden telefoni, de to dyreste med.">
+<meta property="og:locale" content="da_DK">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.telemakker.dk/priser/">
+<meta property="og:image" content="https://www.telemakker.dk/billeder/deling.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.telemakker.dk/priser/">
+<!-- Skriften ligger hos os selv, ikke hos Google. Se forsiden. -->
+<style>
+@font-face{font-family:Archivo;src:url(/skrift/archivo.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+
+:root{
+  --antracit:#1b1e21;
+  --antracit-lys:#24282c;
+  --antracit-moerk:#141618;
+  --birk:#e3c99f;
+  --lys:#f1ece4;
+  --papir:#fffdf9;
+  --sand:#f2eee7;
+  --daempet:#6a645a;
+  --streg:#e2dacb;
+  --streg-moerk:#33383d;
+  --maks:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--papir);color:var(--antracit);
+  font-family:Archivo,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit}
+.ramme{max-width:var(--maks);margin:0 auto;padding:0 24px}
+
+/* ---------- Hoved, som paa forsiden ---------- */
+.top{background:var(--antracit);color:var(--lys);position:sticky;top:0;z-index:40}
+.top__ind{display:flex;align-items:center;gap:26px;min-height:74px}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo span{color:var(--birk)}
+.top nav{display:flex;gap:22px;margin-left:auto;font-size:15px}
+.top nav a{text-decoration:none;color:#cfc9bf}
+.top nav a:hover,.top nav a[aria-current]{color:var(--lys)}
+.top__log{background:var(--birk);color:var(--antracit-moerk);text-decoration:none;
+  font-weight:700;padding:11px 20px;border-radius:3px;white-space:nowrap}
+@media(max-width:900px){
+  .top nav{display:none}
+  .top__ind{gap:14px}
+}
+
+/* ---------- Overskriften ---------- */
+.hoved{background:var(--antracit-lys);color:var(--lys);padding:56px 0 48px}
+.hoved h1{font-size:clamp(30px,4.4vw,46px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.02em;text-wrap:balance}
+.hoved p{margin:0;max-width:62ch;color:#cfc9bf;font-size:19px}
+.hoved .mini{font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--birk);margin:0 0 12px;font-weight:700}
+
+/* ---------- De to baand: uden og med telefoni ---------- */
+.baelte{padding:46px 0 10px}
+.baelte--tele{background:var(--sand);padding-bottom:46px}
+.baelte__hoved{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  margin:0 0 6px}
+.baelte__hoved h2{font-size:25px;margin:0;letter-spacing:-.01em}
+.maerke{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 11px;border-radius:3px;white-space:nowrap}
+.maerke--uden{background:var(--lys);color:var(--daempet);border:1px solid var(--streg)}
+.maerke--med{background:var(--antracit);color:var(--birk)}
+.baelte__under{margin:0 0 26px;color:var(--daempet);max-width:68ch}
+
+/* ---------- Soejlerne ---------- */
+.soejler{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media(max-width:760px){.soejler{grid-template-columns:minmax(0,1fr)}}
+.pakke{background:var(--papir);border:1px solid var(--streg);border-radius:6px;
+  padding:26px 24px 24px;display:flex;flex-direction:column}
+.pakke--frem{border-color:var(--antracit);border-width:2px;position:relative}
+.pakke__flag{position:absolute;top:-12px;left:24px;background:var(--antracit);
+  color:var(--birk);font-size:12px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;padding:5px 11px;border-radius:3px}
+.pakke h3{font-size:24px;margin:0 0 4px;letter-spacing:-.01em}
+.pakke__hvem{margin:0 0 20px;color:var(--daempet);font-size:15.5px;min-height:3em}
+.pakke__pris{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  padding:0 0 4px}
+.pakke__tal{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.pakke__enhed{color:var(--daempet);font-size:15px}
+.pakke__plus{margin:6px 0 0;font-size:15px;color:var(--antracit);font-weight:600}
+.pakke__opstart{margin:10px 0 0;font-size:14px;color:var(--daempet)}
+.pakke ul{list-style:none;margin:22px 0 0;padding:0;font-size:15.5px}
+.pakke li{padding:8px 0 8px 26px;position:relative;border-top:1px solid var(--streg)}
+.pakke li:first-child{border-top:0}
+.pakke li::before{content:"";position:absolute;left:4px;top:15px;width:9px;height:5px;
+  border-left:2px solid var(--antracit);border-bottom:2px solid var(--antracit);
+  transform:rotate(-45deg)}
+.pakke li.nej{color:var(--daempet)}
+.pakke li.nej::before{content:"";left:5px;top:17px;width:9px;height:0;
+  border-left:0;border-bottom:2px solid var(--streg);transform:none}
+.pakke li b{font-weight:700}
+.pakke__knap{margin-top:auto;padding-top:22px}
+.knap{display:inline-block;text-decoration:none;font-weight:700;padding:13px 22px;
+  border-radius:3px;background:var(--antracit);color:var(--lys);min-height:46px;
+  line-height:1.45}
+.knap--lys{background:var(--birk);color:var(--antracit-moerk)}
+.knap--tom{background:none;color:var(--antracit);border:1px solid var(--streg)}
+
+/* ---------- Noten nederst ---------- */
+.note{padding:44px 0 60px}
+.note__gitter{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:26px}
+.note h4{margin:0 0 6px;font-size:16px}
+.note p{margin:0;color:var(--daempet);font-size:15.5px}
+.smaat{color:var(--daempet);font-size:14px;margin:38px 0 0;max-width:80ch;
+  border-top:1px solid var(--streg);padding-top:22px}
+
+/* ---------- Fod, som paa forsiden ---------- */
+.fod{background:var(--antracit);color:#cfc9bf;padding:46px 0 30px;font-size:15px}
+.fod__ind{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+@media(max-width:760px){.fod__ind{grid-template-columns:minmax(0,1fr)}}
+.fod h4{color:var(--lys);margin:0 0 10px;font-size:15px}
+.fod a{display:block;text-decoration:none;color:#cfc9bf;padding:3px 0}
+.fod a:hover{color:var(--lys)}
+.fod__bund{border-top:1px solid var(--streg-moerk);margin-top:30px;padding-top:18px;
+  font-size:13.5px;color:#8d877d}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="ramme top__ind">
+    <a class="logo" href="/">Tele<span>Makker</span></a>
+    <nav>
+      <a href="/#igang">Sådan virker det</a>
+      <a href="/#regn">Hvad sparer du</a>
+      <a href="/#faar">Det får du</a>
+      <a href="/priser/" aria-current="page">Priser</a>
+      <a href="/#fag">Dit fag</a>
+      <a href="/#os">Hvem vi er</a>
+    </nav>
+    <a class="top__log" href="https://app.telemakker.dk">Log ind</a>
+  </div>
+</header>
+
+<section class="hoved">
+  <div class="ramme">
+    <p class="mini">Priser</p>
+    <h1>Fire abonnementer. To uden telefon, to med.</h1>
+    <p>Forskellen er, hvem der skriver opgaven ind. På de to første gør du det
+      selv. På de to sidste ringer kunden til dit eget nummer, og tilbuddet
+      skriver sig selv, mens I taler.</p>
+  </div>
+</section>
+
+<!-- ============ UDEN TELEFONI ============ -->
+<section class="baelte">
+  <div class="ramme">
+    <div class="baelte__hoved">
+      <h2>Du skriver selv</h2>
+      <span class="maerke maerke--uden">Uden telefoni</span>
+    </div>
+    <p class="baelte__under">Du taler eller skriver opgaven ind, når du har tid.
+      Tilbuddet bygges af dine egne ord og dine egne priser. Kunden ringer til
+      dit nummer som altid, og vi hører ikke opkaldet.</p>
+
+    <div class="soejler">
+      <div class="pakke">
+        <h3>Lærling</h3>
+        <p class="pakke__hvem">Se om det duer, før du betaler noget.</p>
+        <div class="pakke__pris">
+          <span class="pakke__tal">0 kr.</span>
+          <span class="pakke__enhed">ingen kort, ingen tidsfrist</span>
+        </div>
+        <ul>
+          <li><b>10 tilbud i alt</b>, ikke pr. måned</li>
+          <li>Du dikterer eller skriver opgaven</li>
+          <li>Dine egne priser og dit eget logo</li>
+          <li>Send tilbuddet, og se når kunden åbner det</li>
+          <li>Én bruger</li>
+          <li class="nej">Ingen telefoni</li>
+        </ul>
+        <div class="pakke__knap">
+          <a class="knap knap--tom" href="/#kontakt">Kom i gang gratis</a>
+        </div>
+      </div>
+
+      <div class="pakke">
+        <h3>Svend</h3>
+        <p class="pakke__hvem">Du laver tilbud hver uge og vil have dem ud
+          samme dag.</p>
+        <div class="pakke__pris">
+          <span class="pakke__tal">695 kr.</span>
+          <span class="pakke__enhed">pr. måned, ekskl. moms</span>
+        </div>
+        <p class="pakke__opstart">Ingen opstart.</p>
+        <ul>
+          <li><b>25 tilbud om måneden</b>, derefter 29 kr. pr. tilbud</li>
+          <li>Alt i Lærling</li>
+          <li>Sms til kunden, så hun selv lægger billeder ind</li>
+          <li>Kundekartotek og historik på hver sag</li>
+          <li>Videre i e-conomic, Minuba eller Apacta</li>
+          <li>Én bruger</li>
+          <li class="nej">Ingen telefoni</li>
+        </ul>
+        <div class="pakke__knap">
+          <a class="knap" href="/#kontakt">Bliv ringet op</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MED TELEFONI ============ -->
+<section class="baelte baelte--tele">
+  <div class="ramme">
+    <div class="baelte__hoved">
+      <h2>Telefonen gør arbejdet</h2>
+      <span class="maerke maerke--med">Med telefoni</span>
+    </div>
+    <p class="baelte__under">Kunden ringer til dit eget nummer. Samtalen
+      optages, kunden giver selv samtykke med et tastetryk, og når du lægger
+      på, står sagen der med opgaven, materialerne og forbeholdene.
+      <b>Du taster ingenting.</b></p>
+
+    <div class="soejler">
+      <div class="pakke pakke--frem">
+        <span class="pakke__flag">Den de fleste vælger</span>
+        <h3>Mester</h3>
+        <p class="pakke__hvem">Kunderne ringer, og du vil have tilbuddet klar,
+          før du er tilbage i bilen.</p>
+        <div class="pakke__pris">
+          <span class="pakke__tal">1.850 kr.</span>
+          <span class="pakke__enhed">pr. måned for den første mand</span>
+        </div>
+        <p class="pakke__plus">+ 390 kr. pr. mand derudover</p>
+        <p class="pakke__opstart">2.500 kr. i opstart. Det er dit nummer, der
+          sættes op, og det er rigtigt arbejde hos os.</p>
+        <ul>
+          <li><b>Telefonien med:</b> opkald bliver til sager af sig selv</li>
+          <li><b>35 tilbud pr. mand om måneden</b>, derefter 29 kr. pr. tilbud</li>
+          <li>Alt i Svend</li>
+          <li>Kunden siger ja med ét klik, og du ser hvornår</li>
+          <li>Påmindelse om autorisationskrævende arbejde</li>
+          <li>Send en fagopgave til din elektriker eller vvs'er</li>
+          <li>Login til hver mand i firmaet</li>
+        </ul>
+        <div class="pakke__knap">
+          <a class="knap knap--lys" href="/#kontakt">Bliv ringet op</a>
+        </div>
+      </div>
+
+      <div class="pakke">
+        <h3>Sjakket</h3>
+        <p class="pakke__hvem">I er flere mand, der laver mange tilbud, og
+          tilbuddet skal kun have dit navn på.</p>
+        <div class="pakke__pris">
+          <span class="pakke__tal">2.450 kr.</span>
+          <span class="pakke__enhed">pr. måned for den første mand</span>
+        </div>
+        <p class="pakke__plus">+ 490 kr. pr. mand derudover</p>
+        <p class="pakke__opstart">2.500 kr. i opstart.</p>
+        <ul>
+          <li><b>Fri mængde tilbud.</b> Ingen optælling og ingen stykpris</li>
+          <li>Alt i Mester</li>
+          <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
+          <li>Fælles prisliste for hele firmaet</li>
+          <li>Ubegrænset antal mænd</li>
+        </ul>
+        <div class="pakke__knap">
+          <a class="knap" href="/#kontakt">Bliv ringet op</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="note">
+  <div class="ramme">
+    <div class="note__gitter">
+      <div>
+        <h4>Hvad er et tilbud?</h4>
+        <p>Et tilbud er tælt, når udkastet er færdigt og står klar på din sag.
+          Går det galt undervejs, tæller det ikke, og du betaler ikke for det.</p>
+      </div>
+      <div>
+        <h4>Hvorfor koster telefonien mere?</h4>
+        <p>Fordi der er en rigtig telefonlinje bag. Den koster os penge hver
+          måned, og den er grunden til, at du ikke skal skrive noget ind.</p>
+      </div>
+      <div>
+        <h4>Dine priser, ikke vores</h4>
+        <p>Vi gætter aldrig en pris. Tilbuddet bygges på din egen prisliste fra
+          din grossist, og vi hjælper med at hente den ind.</p>
+      </div>
+      <div>
+        <h4>Du kan skifte</h4>
+        <p>Op eller ned, fra måned til måned. Ring, så flytter vi dig.</p>
+      </div>
+    </div>
+    <p class="smaat">Alle priser er ekskl. moms. Antallet af tilbud tælles pr.
+      kalendermåned og starter forfra den første. På Lærling tælles de ti for
+      hele perioden, ikke pr. måned, og den stopper, når de er brugt. De
+      fuldstændige vilkår står i
+      <a href="/juridisk/handelsbetingelser/">handelsbetingelserne</a>.</p>
+  </div>
+</section>
+
+<footer class="fod">
+  <div class="ramme">
+    <div class="fod__ind">
+      <div>
+        <a class="logo" href="/" style="color:#f1ece4">Tele<span>Makker</span></a>
+        <p style="margin-top:10px;max-width:34ch">Tilbudsstyring til danske
+          håndværkere. Du taler med kunden, tilbuddet skriver sig selv.</p>
+      </div>
+      <div>
+        <h4>Juridisk</h4>
+        <a href="/juridisk/handelsbetingelser/">Handelsbetingelser</a>
+        <a href="/juridisk/databehandleraftale/">Databehandleraftale</a>
+        <a href="/juridisk/privatlivspolitik/">Privatlivspolitik</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="tel:+4520110302">20 11 03 02</a>
+        <a href="tel:+4560464520">60 46 45 20</a>
+        <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
+        <a href="https://app.telemakker.dk">Log ind</a>
+      </div>
+    </div>
+    <div class="fod__bund">TeleMakker ApS · CVR 46720253 · Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
+  </div>
+</footer>
+
+</body>
+</html>

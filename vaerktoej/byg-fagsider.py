@@ -280,6 +280,7 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
     <nav>
       {fagmenu}
       <a href="#saadan">Sådan virker det</a>
+      <a href="/priser/">Priser</a>
       <a href="#spoergsmaal">Spørgsmål</a>
       <a href="https://app.telemakker.dk">Log ind</a>
       <a href="/#kontakt" class="knap lys">Bliv ringet op</a>
@@ -473,7 +474,27 @@ BEREGNER_CSS = """/* BEREGNEREN (samme som paa forsiden) */
 
 
 def hent_beregner():
-    """Henter beregnerens markup og script fra forsiden."""
+    """Henter beregnerens markup og script fra forsiden.
+
+    ADVARSEL, 8. OKTOBER 2026: DETTE VAERKTOEJ KAN IKKE KOERE.
+
+    Forsiden blev skrevet om 6. oktober, og beregneren hedder nu
+    <section class="baand baand--papir" id="regn"> med <div
+    class="regn"> indeni. De to regexp'er herunder leder efter den
+    gamle, <section class="regne" id="regnestykket">, og den findes
+    ikke mere. Vaerktoejet stopper derfor med "Fandt ikke beregneren
+    paa forsiden", og fagsiderne har ikke kunnet bygges siden.
+
+    DET ER IKKE EN ETLINJERS RETTELSE: baade markup, script OG den
+    indbyggede CSS til .regne skal foelge den nye beregner, ellers
+    staar der en beregner paa fagsiderne, der ikke virker.
+
+    Linket til /priser/ i menuen nedenfor er lagt ind 8. oktober og
+    kommer paa siderne, den dag vaerktoejet koerer igen. Fagsiderne
+    er IKKE rettet i haanden: de er en afledning af det her
+    vaerktoej, og en haandrettelse ville blive slettet uden varsel,
+    praecis som det skete for de juridiske sider.
+    """
     s = (ROD / "index.html").read_text(encoding="utf-8")
     m = re.search(r'<section class="regne" id="regnestykket">.*?</section>', s, re.S)
     j = re.search(r'<script>\s*/\* -+\s*REGNESTYKKET.*?</script>', s, re.S)
