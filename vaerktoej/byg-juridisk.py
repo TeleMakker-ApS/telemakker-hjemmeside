@@ -78,9 +78,11 @@ _sp.loader.exec_module(EGNE)
 #
 # NÅR DER RETTES I EN SIDE, SKAL DATOEN HER MED I SAMME ÆNDRING.
 DATOER = {
-    "privatlivspolitik": "7. oktober 2026",
-    "handelsbetingelser": "7. oktober 2026",
-    "databehandleraftale": "5. oktober 2026",
+    # Alle tre fik ny tekst 8. oktober 2026, da siderne og
+    # vaerktoejet blev bragt i overensstemmelse igen.
+    "privatlivspolitik": "8. oktober 2026",
+    "handelsbetingelser": "8. oktober 2026",
+    "databehandleraftale": "8. oktober 2026",
 }
 
 # OVERSIGTSSIDEN FAAR DEN NYESTE AF DE TRE, og den regnes ud.
@@ -316,9 +318,23 @@ def skriv(mappe, titel, beskrivelse, krop):
     if not dato:
         sys.exit("STOP: der er ingen dato for \"%s\" i DATOER." % mappe)
 
+    for pladsholder, i_stedet in EGNE.PLADSHOLDERE.items():
+        krop = krop.replace(pladsholder, i_stedet)
+
     html = SIDE % {"titel": titel, "beskrivelse": beskrivelse,
                    "mappe": (mappe + "/") if mappe else "",
                    "dato": dato, "krop": krop}
+
+    # OG INGEN SLIPPER IGENNEM. Et tomt felt paa en offentlig juridisk
+    # side er vaerre end en forkert formulering: det ser ud, som om
+    # ingen har laest siden.
+    tomme = re.findall(r"\[[A-ZÆØÅ _-]{3,}\]", krop)
+    if tomme:
+        sys.exit("STOP: \"%s\" ville staa med tomme felter fra advokatens "
+                 "blanket:\n  %s\n\nLaeg dem i PLADSHOLDERE i "
+                 "vaerktoej/egne-afsnit.py med den vaerdi, der GAELDER, "
+                 "eller hold afsnittet ude af siden."
+                 % (mappe, "\n  ".join(sorted(set(tomme)))))
 
     # Det, der stod før. Findes siden ikke endnu, er der intet at miste.
     if os.path.isfile(sti):

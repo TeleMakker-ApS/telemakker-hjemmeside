@@ -107,3 +107,23 @@ RETTEDE_OVERSKRIFTER = {
     u"Samarbejdspartnere og/ eller leverand\u00f8 rer til TeleMakker":
         u"Samarbejdspartnere og leverand\u00f8rer til TeleMakker",
 }
+
+# ----------------------------------------------------------------------
+# PLADSHOLDERE, DER IKKE MÅ UD PÅ EN OFFENTLIG SIDE
+# ----------------------------------------------------------------------
+#
+# Advokatens handelsbetingelser er to ting i én: en bestillingsblanket
+# til den enkelte kunde, og selve betingelserne. Blanketten har tomme
+# felter, og ét af dem står midt i en sætning, der også hører til
+# betingelserne: "[OPSIGELSESVARSEL]".
+#
+# EN OFFENTLIG SIDE MÅ IKKE HAVE ET TOMT FELT PÅ SIG. Det blev fanget
+# 8. oktober 2026 af værnet i skriv(): siden sagde "6 måneders varsel",
+# og en kørsel ville have sat pladsholderen i stedet.
+#
+# VARSLET HER ER DET, DER ALLEREDE STÅR LIVE, og det er ikke en ny
+# beslutning. **De kommercielle vilkår er Mikkels**, og skal varslet
+# være et andet, skal det rettes både her og i advokatens fil.
+PLADSHOLDERE = {
+    u"[OPSIGELSESVARSEL]": u"6 måneders varsel",
+}
