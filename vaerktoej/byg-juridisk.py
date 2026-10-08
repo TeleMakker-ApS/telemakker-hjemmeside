@@ -59,7 +59,49 @@ if not os.path.isdir(KILDER):
     sys.exit("STOP: kilderne skal ligge i det PRIVATE repo, her: " + KILDER
              + ". De to mapper skal ligge ved siden af hinanden, og kilderne"
                " maa IKKE laegges i hjemmesidens repo: det er offentligt.")
-DATO = "30. september 2026"
+# VORES EGNE AFSNIT. Se vaerktoej/egne-afsnit.py for, hvorfor de ligger
+# i deres egen fil og ikke i advokatens.
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location(
+    "egne_afsnit", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "egne-afsnit.py"))
+EGNE = _iu.module_from_spec(_sp)
+_sp.loader.exec_module(EGNE)
+
+# EN DATO PR. SIDE, OG IKKE ÉN FOR ALLE TRE.
+#
+# Før stod her én DATO, og den gjaldt alle tre sider. Det betyder, at en
+# kørsel ville slå privatlivspolitikkens dato TILBAGE fra 7. oktober til
+# 30. september, selv om teksten var nyere. En juridisk side, der lyver
+# om sin egen dato, bliver ikke læst som andet end en side, der ikke
+# passer.
+#
+# NÅR DER RETTES I EN SIDE, SKAL DATOEN HER MED I SAMME ÆNDRING.
+DATOER = {
+    "privatlivspolitik": "7. oktober 2026",
+    "handelsbetingelser": "7. oktober 2026",
+    "databehandleraftale": "5. oktober 2026",
+}
+
+# OVERSIGTSSIDEN FAAR DEN NYESTE AF DE TRE, og den regnes ud.
+#
+# Skrev vi en dato i haanden ogsaa her, ville den drive fra de tre, og
+# oversigten ville staa med en aeldre dato end de sider, den peger paa.
+MAANEDER = ["januar", "februar", "marts", "april", "maj", "juni", "juli",
+            "august", "september", "oktober", "november", "december"]
+
+
+def som_tal(dato):
+    m = re.match(r"^(\d{1,2})\.\s+(\w+)\s+(\d{4})$", dato)
+    if not m or m.group(2).lower() not in MAANEDER:
+        sys.exit("STOP: datoen \"%s\" kan ikke laeses. Den skal se ud som "
+                 "\"7. oktober 2026\"." % dato)
+    return (int(m.group(3)), MAANEDER.index(m.group(2).lower()) + 1,
+            int(m.group(1)))
+
+
+DATOER[""] = max(DATOER.values(), key=som_tal)
+DATO = "30. september 2026"   # bruges ikke laengere, staar for en sikkerheds skyld
 
 
 # ----------------------------------------------------------------------
@@ -212,16 +254,94 @@ SIDE = """<!doctype html>
 """
 
 
+def stykker(html):
+    """Sidens tekst, stykke for stykke, uden markup.
+
+    Overskrifter OG brødtekst. Første udgave af værnet så kun på
+    overskrifterne, og det var for lidt: den 8. oktober 2026 viste det
+    sig, at værktøjet ville skrive fem afsnit af handelsbetingelserne
+    om, uden at én overskrift skiftede.
+    """
+    krop = html[html.index("<main"):html.index("</main>")] if "<main" in html else html
+    ud = []
+    # Attributterne skal SPRINGES OVER, ikke taelles med som tekst.
+    # Foerst gav <p class="dato"> stykket class="dato">Senest opdateret
+    # ..., og saa ramte reglen om at holde datolinjen ude ikke, fordi
+    # stykket ikke begyndte med "Senest".
+    for m in re.finditer(r"<(h2|h3|p)(?:\s[^>]*)?>(.*?)</\1>",
+                         krop, re.S):
+        t = re.sub(r"<[^>]+>", "", m.group(2))
+        t = re.sub(r"\s+", " ", t).strip()
+        if t:
+            ud.append(t)
+    return ud
+
+
+def mistet(foer, efter):
+    """Det, der stod før og ikke står bagefter.
+
+    Datolinjen holdes ude: den SKAL skifte, når der er rettet noget.
+    """
+    dato = re.compile(r"^Senest opdateret ")
+    gamle = [t for t in stykker(foer) if not dato.match(t)]
+    nye = set(stykker(efter))
+    return [t for t in gamle if t not in nye]
+
+
 def skriv(mappe, titel, beskrivelse, krop):
+    """Skriver siden, men ALDRIG hvis den ville miste et afsnit.
+
+    HVORFOR VÆRNET FINDES.
+
+    Den 8. oktober 2026 blev det opdaget, at tre afsnit i
+    privatlivspolitikken stod LIVE uden at findes i kilden: postkassen,
+    kundens accept og fagopgaverne. En kørsel af dette værktøj ville
+    have slettet dem fra en juridisk side, i stilhed, og siden ville se
+    helt rigtig ud bagefter.
+
+    De ligger nu i vaerktoej/egne-afsnit.py og bygges med. Men værnet
+    her bliver stående, for det er NÆSTE gang, det går galt, der
+    tæller: en ny fil fra advokaten, et afsnit der skifter navn, en
+    regel der holder op med at ramme. Den slags skal larme.
+
+    Den sammenligner OVERSKRIFTERNE, ikke hele teksten: en rettelse i
+    et afsnit er det normale, mens et afsnit, der forsvinder, aldrig er
+    det. Vil man alligevel fjerne et, sættes JURIDISK_FJERN.
+    """
     ud = os.path.join(ROD, "juridisk", mappe)
     os.makedirs(ud, exist_ok=True)
+    sti = os.path.join(ud, "index.html")
+
+    dato = DATOER.get(mappe)
+    if not dato:
+        sys.exit("STOP: der er ingen dato for \"%s\" i DATOER." % mappe)
+
     html = SIDE % {"titel": titel, "beskrivelse": beskrivelse,
                    "mappe": (mappe + "/") if mappe else "",
-                   "dato": DATO, "krop": krop}
-    io.open(os.path.join(ud, "index.html"), "w", encoding="utf-8",
-            newline="\n").write(html)
-    print("  skrev juridisk/%sindex.html  (%d tegn)"
-          % ((mappe + "/") if mappe else "", len(html)))
+                   "dato": dato, "krop": krop}
+
+    # Det, der stod før. Findes siden ikke endnu, er der intet at miste.
+    if os.path.isfile(sti):
+        tabt = mistet(io.open(sti, encoding="utf-8").read(), html)
+        if tabt and not os.environ.get("JURIDISK_FJERN"):
+            sys.exit(
+                "STOP: \"%s\" ville miste %d stykker tekst, og det er en "
+                "juridisk side:\n  %s%s\n\nDe står LIVE nu og findes ikke i "
+                "det, der blev bygget.\n\nTre ting kan være sket:\n"
+                "  1. De er rettet direkte ind i HTML-siden. Det er forkert, "
+                "og de skal i vaerktoej/egne-afsnit.py i stedet.\n"
+                "  2. Advokaten har sendt en ny fil, hvor de ikke er med.\n"
+                "  3. Teksten her i værktøjet er nyere end siden, og siden "
+                "er bare ikke bygget siden. Så er det en ÆNDRING AF JURIDISK "
+                "TEKST, og den skal nogen sige ja til først.\n\n"
+                "Skal de væk med vilje, så kør igen med JURIDISK_FJERN=1."
+                % (mappe, len(tabt), "\n  ".join(t[:150] for t in tabt[:8]),
+                   "\n  ... og %d mere" % (len(tabt) - 8) if len(tabt) > 8 else ""))
+
+    io.open(sti, "w", encoding="utf-8", newline="\n").write(html)
+    print("  skrev juridisk/%sindex.html  (%d tegn, dateret %s)"
+          % ((mappe + "/") if mappe else "", len(html), dato))
+    return html
 
 
 def punkt(nr, html):
@@ -257,6 +377,7 @@ vide, hvad vi gør med oplysninger om dig selv, står det i vores
 
 def byg_handelsbetingelser():
     a = laes("handelsbetingelser.docx")
+    set_hb = [False]
 
     # ORDRESEDLEN SKAL IKKE PÅ EN HJEMMESIDE. Word-filen er to ting i
     # ét: en bestillingsblanket med tomme felter til pris,
@@ -288,11 +409,23 @@ def byg_handelsbetingelser():
             krop.append("<h2>%s. %s</h2>" % (afsnit, m.group(2)))
             continue
         nr += 1
-        krop.append(punkt("%d.%d" % (afsnit, nr), af.html))
+        html = af.html
+        # VORES TO SAETNINGER BAG ADVOKATENS 2.2. Se
+        # vaerktoej/egne-afsnit.py. De stod foer rettet direkte ind i
+        # HTML-siden, og en koersel her ville have slettet dem.
+        if html.startswith(EGNE.HB_EFTER):
+            html += EGNE.HB_TILFOEJ
+            set_hb[0] = True
+        krop.append(punkt("%d.%d" % (afsnit, nr), html))
 
     if afsnit != 17:
         sys.exit("STOP: handelsbetingelserne slutter på afsnit %d og ikke 17. "
                  "Er kilden skiftet?" % afsnit)
+    if not set_hb[0]:
+        sys.exit("STOP: vores to saetninger om online accept og om "
+                 "partnervirksomheder kom ikke med. Afsnittet, de haenger "
+                 "paa, begynder ikke laengere med: \"%s\". Se "
+                 "vaerktoej/egne-afsnit.py." % EGNE.HB_EFTER)
 
     skriv("handelsbetingelser", "Handelsbetingelser",
           "TeleMakkers handelsbetingelser for abonnement på platformen. "
@@ -334,12 +467,17 @@ def paent(t):
             ud.append(lav.capitalize())
         else:
             ud.append(lav)
-    return " ".join(ud).replace("eu/eøs", "EU/EØS")
+    t = " ".join(ud).replace("eu/eøs", "EU/EØS")
+    # Slaafejl i advokatens overskrifter, se vaerktoej/egne-afsnit.py.
+    return EGNE.RETTEDE_OVERSKRIFTER.get(t, t)
 
 
 def byg_privatlivspolitik():
     a = laes("privatlivspolitik.docx")
     krop = [NOTE_PRIV]
+    # Hvor mange afsnit vi selv lagde ind, saa resten kan omnummereres.
+    # En liste og ikke et tal, fordi den saettes inde i loekken.
+    set_egne = [0]
 
     for af in a:
         t = af.tekst
@@ -357,12 +495,28 @@ def byg_privatlivspolitik():
         # typografien ikke er sat konsekvent.
         m = re.match(r"^(\d{1,2})\.\s+([A-ZÆØÅ].*)$", t)
         if m and len(t) < 90 and t.upper() == t:
-            krop.append("<h2>%s. %s</h2>" % (m.group(1), paent(m.group(2))))
+            nummer = int(m.group(1))
+            # VORES EGNE AFSNIT LIGGER FOERST, naar vi naar advokatens
+            # sidste. Hendes "Opdatering af vores privatlivspolitik" er
+            # nr. 10 i filen og skal staa til sidst paa siden, altsaa
+            # efter vores tre, som nr. 13.
+            if nummer == EGNE.FOERSTE_EGNE:
+                krop.append(EGNE.PRIVATLIV)
+                egne = EGNE.PRIVATLIV.count("<h2>")
+                nummer += egne
+                set_egne[0] = egne
+            krop.append("<h2>%s. %s</h2>" % (nummer, paent(m.group(2))))
             continue
 
         m = re.match(r"^(\d{1,2}\.\d{1,2})\s+(.*)$", t)
         if m:
             nr, rest = m.group(1), m.group(2)
+            # Numrene UNDER et omnummereret afsnit skal med. Uden det
+            # ville der staa "13. Opdatering" med et punkt "10.1" under.
+            hoved, under = nr.split(".")
+            if set_egne[0] and int(hoved) >= EGNE.FOERSTE_EGNE:
+                nr = "%d.%s" % (int(hoved) + set_egne[0], under)
+                t = nr + " " + rest
             # Word har klistret overskrift og afsnit sammen i "3.2 Når du
             # er kundeHos TeleMakker ApS behandler vi...". Det er et
             # manglende linjeskift i filen og ikke to sætninger.
@@ -381,6 +535,12 @@ def byg_privatlivspolitik():
             continue
 
         krop.append("<p>%s</p>" % af.html)
+
+    if not set_egne[0]:
+        sys.exit("STOP: vores egne afsnit kom ikke med. Advokatens afsnit %d "
+                 "blev ikke fundet, saa der er ikke noget at haenge dem paa. "
+                 "Er kilden skiftet? Se vaerktoej/egne-afsnit.py."
+                 % EGNE.FOERSTE_EGNE)
 
     skriv("privatlivspolitik", "Privatlivspolitik",
           "Hvordan TeleMakker ApS behandler personoplysninger, når vi er "
