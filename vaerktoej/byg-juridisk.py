@@ -380,10 +380,23 @@ def saml_lister(dele):
 # HANDELSBETINGELSER
 # ----------------------------------------------------------------------
 
+# OPSIGELSESVARSLET STÅR PÅ SIDEN, og det er Kaspers eget valg 8.
+# oktober 2026: *"Under Opsigelsesvarsel skal der stå 6 måneder på
+# hjemmesiden."*
+#
+# Noten sagde før, at varslet aftales individuelt og derfor ikke står
+# her. Det passede ikke: punkt 5.1 står lige nedenunder og siger 6
+# måneder. **To steder på den samme side, der sagde hver sit**, og det
+# er værre end at sige det én gang for meget.
+#
+# Tallet skal matche PLADSHOLDERE i vaerktoej/egne-afsnit.py, som
+# udfylder [OPSIGELSESVARSEL] i punkt 5.1. Rettes det ene, skal det
+# andet med.
 NOTE_HB = """<div class="note">
 <p><strong>Det her er de gældende betingelser.</strong> Abonnementets
-navn, prisen og opsigelsesvarslet aftales individuelt og står i den
-bestilling, du skriver under på. Derfor står de ikke her.</p>
+navn og prisen aftales individuelt og står i den bestilling, du
+skriver under på. <strong>Opsigelsesvarslet er 6 måneder</strong>, se
+punkt 5.1.</p>
 <p>Behandler vi personoplysninger for dig, gælder også vores
 <a href="/juridisk/databehandleraftale/">databehandleraftale</a>. Vil du
 vide, hvad vi gør med oplysninger om dig selv, står det i vores
@@ -437,6 +450,23 @@ def byg_handelsbetingelser():
     if afsnit != 17:
         sys.exit("STOP: handelsbetingelserne slutter på afsnit %d og ikke 17. "
                  "Er kilden skiftet?" % afsnit)
+    # VARSLET STÅR TO STEDER PÅ SIDEN: i noten øverst og i punkt 5.1,
+    # hvor det kommer fra PLADSHOLDERE. Det er med vilje, fordi Kasper
+    # vil have det øverst, men to steder med det samme tal er en
+    # faelde, og den skal en maskine holde øje med, ikke et menneske.
+    import re as _re
+    tal = _re.compile(r"(\d+)\s*måned")
+    i_noten = tal.search(NOTE_HB)
+    i_punktet = tal.search(EGNE.PLADSHOLDERE.get("[OPSIGELSESVARSEL]", ""))
+    if not i_noten or not i_punktet:
+        sys.exit("STOP: opsigelsesvarslet kan ikke læses. Noten øverst og "
+                 "PLADSHOLDERE skal begge indeholde et antal måneder.")
+    if i_noten.group(1) != i_punktet.group(1):
+        sys.exit("STOP: opsigelsesvarslet står med TO forskellige tal på "
+                 "den samme side: noten øverst siger %s måneder, punkt 5.1 "
+                 "siger %s. Ret begge, eller lad punktet stå alene."
+                 % (i_noten.group(1), i_punktet.group(1)))
+
     if not set_hb[0]:
         sys.exit("STOP: vores to saetninger om online accept og om "
                  "partnervirksomheder kom ikke med. Afsnittet, de haenger "
