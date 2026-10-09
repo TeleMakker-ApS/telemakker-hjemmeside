@@ -90,6 +90,9 @@ a{color:inherit}
 .pakke__pris{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
   padding:0 0 4px}
 .pakke__tal{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1}
+/* Staar der ord i stedet for et beloeb, skal de ikke staa som et
+   beloeb. 38 px paa "Ring til os" braekker linjen paa en telefon. */
+.pakke__tal--ord{font-size:29px}
 .pakke__enhed{color:var(--daempet);font-size:15px}
 .pakke__plus{margin:6px 0 0;font-size:15px;color:var(--antracit);font-weight:600}
 .pakke__opstart{margin:10px 0 0;font-size:14px;color:var(--daempet)}
@@ -170,7 +173,7 @@ a{color:inherit}
 
     <div class="soejler">
       <div class="pakke">
-        <h3>Lærling</h3>
+        <h3>Prøve</h3>
         <p class="pakke__hvem">Se om det duer, før du betaler noget.</p>
         <div class="pakke__pris">
           <span class="pakke__tal">0 kr.</span>
@@ -190,7 +193,7 @@ a{color:inherit}
       </div>
 
       <div class="pakke">
-        <h3>Svend</h3>
+        <h3>Enkelt</h3>
         <p class="pakke__hvem">Du laver tilbud hver uge og vil have dem ud
           samme dag.</p>
         <div class="pakke__pris">
@@ -200,7 +203,7 @@ a{color:inherit}
         <p class="pakke__opstart">Ingen opstart.</p>
         <ul>
           <li><b>25 tilbud om måneden</b>, derefter 29 kr. pr. tilbud</li>
-          <li>Alt i Lærling</li>
+          <li>Alt i Prøve</li>
           <li>Sms til kunden, så hun selv lægger billeder ind</li>
           <li>Kundekartotek og historik på hver sag</li>
           <li>Videre i e-conomic, Minuba eller Apacta</li>
@@ -230,7 +233,7 @@ a{color:inherit}
     <div class="soejler">
       <div class="pakke pakke--frem">
         <span class="pakke__flag">Den de fleste vælger</span>
-        <h3>Mester</h3>
+        <h3>Komplet</h3>
         <p class="pakke__hvem">Kunderne ringer, og du vil have tilbuddet klar,
           før du er tilbage i bilen.</p>
         <div class="pakke__pris">
@@ -243,7 +246,7 @@ a{color:inherit}
         <ul>
           <li><b>Telefonien med:</b> opkald bliver til sager af sig selv</li>
           <li><b>35 tilbud pr. mand om måneden</b>, derefter 29 kr. pr. tilbud</li>
-          <li>Alt i Svend</li>
+          <li>Alt i Enkelt</li>
           <li>Kunden siger ja med ét klik, og du ser hvornår</li>
           <li>Påmindelse om autorisationskrævende arbejde</li>
           <li>Send en fagopgave til din elektriker eller vvs'er</li>
@@ -255,24 +258,24 @@ a{color:inherit}
       </div>
 
       <div class="pakke">
-        <h3>Sjakket</h3>
+        <h3>Efter aftale</h3>
         <p class="pakke__hvem">I er flere mand, der laver mange tilbud, og
           tilbuddet skal kun have dit navn på.</p>
         <div class="pakke__pris">
-          <span class="pakke__tal">2.450 kr.</span>
-          <span class="pakke__enhed">pr. måned for den første mand</span>
+          <span class="pakke__tal pakke__tal--ord">Ring til os</span>
         </div>
-        <p class="pakke__plus">+ 490 kr. pr. mand derudover</p>
-        <p class="pakke__opstart">2.500 kr. i opstart.</p>
+        <p class="pakke__plus">Prisen sættes efter, hvor mange mænd I er.</p>
+        <p class="pakke__opstart">Vi regner den på én samtale, og du får den
+          skriftligt, før du siger ja til noget.</p>
         <ul>
           <li><b>Fri mængde tilbud.</b> Ingen optælling og ingen stykpris</li>
-          <li>Alt i Mester</li>
+          <li>Alt i Komplet</li>
           <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
           <li>Fælles prisliste for hele firmaet</li>
           <li>Ubegrænset antal mænd</li>
         </ul>
         <div class="pakke__knap">
-          <a class="knap" href="/#kontakt">Bliv ringet op</a>
+          <a class="knap" href="/#kontakt">Få en pris</a>
         </div>
       </div>
     </div>
@@ -303,7 +306,7 @@ a{color:inherit}
       </div>
     </div>
     <p class="smaat">Alle priser er ekskl. moms. Antallet af tilbud tælles pr.
-      kalendermåned og starter forfra den første. På Lærling tælles de ti for
+      kalendermåned og starter forfra den første. På Prøve tælles de ti for
       hele perioden, ikke pr. måned, og den stopper, når de er brugt. De
       fuldstændige vilkår står i
       <a href="/juridisk/handelsbetingelser/">handelsbetingelserne</a>.</p>
