@@ -64,54 +64,124 @@ a{color:inherit}
 .hoved .mini{font-size:13px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--birk);margin:0 0 12px;font-weight:700}
 
-/* ---------- De to baand: uden og med telefoni ---------- */
-.baelte{padding:46px 0 10px}
-.baelte--tele{background:var(--sand);padding-bottom:46px}
-.baelte__hoved{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
-  margin:0 0 6px}
-.baelte__hoved h2{font-size:25px;margin:0;letter-spacing:-.01em}
-.maerke{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  padding:5px 11px;border-radius:3px;white-space:nowrap}
+/* ---------- Bordet med de fire pakker ---------- */
+/*
+   FIRE SOEJLER VED SIDEN AF HINANDEN, ikke to baand over hinanden.
+   Kasper 9. oktober: boksene skal staa ved siden af hinanden.
+
+   SKELLET MELLEM TELEFONI OG IKKE-TELEFONI MAA IKKE FORSVINDE, og det
+   var det, de to baand loeste. Nu baeres det af tre ting paa én gang:
+   to overskrifter, der hver spaender over to soejler, en hylde i en
+   anden farve bag de to med telefoni, og en moerk overkant paa dem.
+   Ét af dem alene ville vaere for svagt ved et hurtigt blik.
+*/
+.bord{padding:46px 0 10px;position:relative}
+
+/* ÉT GITTER TIL BÅDE OVERSKRIFTER OG KORT.
+   Først stod overskrifterne i deres eget gitter ovenover. Det så
+   rigtigt ud på en bred skærm og var forkert på en tablet: begge
+   overskrifter lå øverst, så "Telefonen gør arbejdet" stod over Prøve
+   og Enkelt. Fundet på et skærmbillede ved 900 px.
+
+   Nu står de i SAMME gitter som kortene, i parrenes rækkefølge:
+   overskrift, to kort, overskrift, to kort. Så følger overskriften sit
+   par af sig selv, uanset hvor mange søjler der er plads til. På en
+   bred skærm løftes de to overskrifter op på række ét med explicit
+   placering herunder. */
+.bordgitter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;
+  align-items:stretch}
+.gruppe{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  padding:0 0 12px;border-bottom:2px solid var(--streg);align-self:end}
+.gruppe--med{border-bottom-color:var(--antracit)}
+.gruppe h2{font-size:22px;margin:0;letter-spacing:-.01em}
+.gruppe p{margin:0;color:var(--daempet);font-size:14.5px;flex:1 1 100%}
+.maerke{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 10px;border-radius:3px;white-space:nowrap}
 .maerke--uden{background:var(--lys);color:var(--daempet);border:1px solid var(--streg)}
 .maerke--med{background:var(--antracit);color:var(--birk)}
-.baelte__under{margin:0 0 26px;color:var(--daempet);max-width:68ch}
 
-/* ---------- Soejlerne ---------- */
-.soejler{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-@media(max-width:760px){.soejler{grid-template-columns:minmax(0,1fr)}}
+/* Fire soejler: overskrifterne paa raekke ét, kortene paa raekke to. */
+@media(min-width:1081px){
+  .gruppe:nth-child(1){grid-column:1/3;grid-row:1}
+  .gruppe:nth-child(4){grid-column:3/5;grid-row:1}
+  .pakke:nth-child(2){grid-column:1;grid-row:2}
+  .pakke:nth-child(3){grid-column:2;grid-row:2}
+  .pakke:nth-child(5){grid-column:3;grid-row:2}
+  .pakke:nth-child(6){grid-column:4;grid-row:2}
+}
+
+/* HYLDEN BAG DE TO MED TELEFONI. Den ligger i baggrunden og spaender
+   praecis over soejle tre og fire, saa parret hoerer sammen, uden at de
+   to kort skal vaere stoerre end de andre. */
+.hylde{position:absolute;top:0;bottom:0;background:var(--sand);
+  border-radius:8px;z-index:0}
+.bord .ramme{position:relative;z-index:1}
+
 .pakke{background:var(--papir);border:1px solid var(--streg);border-radius:6px;
-  padding:26px 24px 24px;display:flex;flex-direction:column}
-.pakke--frem{border-color:var(--antracit);border-width:2px;position:relative}
-.pakke__flag{position:absolute;top:-12px;left:24px;background:var(--antracit);
-  color:var(--birk);font-size:12px;font-weight:700;letter-spacing:.09em;
-  text-transform:uppercase;padding:5px 11px;border-radius:3px}
-.pakke h3{font-size:24px;margin:0 0 4px;letter-spacing:-.01em}
-.pakke__hvem{margin:0 0 20px;color:var(--daempet);font-size:15.5px;min-height:3em}
-.pakke__pris{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
-  padding:0 0 4px}
-.pakke__tal{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1}
-/* Staar der ord i stedet for et beloeb, skal de ikke staa som et
-   beloeb. 38 px paa "Ring til os" braekker linjen paa en telefon. */
-.pakke__tal--ord{font-size:29px}
-.pakke__enhed{color:var(--daempet);font-size:15px}
-.pakke__plus{margin:6px 0 0;font-size:15px;color:var(--antracit);font-weight:600}
-.pakke__opstart{margin:10px 0 0;font-size:14px;color:var(--daempet)}
-.pakke ul{list-style:none;margin:22px 0 0;padding:0;font-size:15.5px}
-.pakke li{padding:8px 0 8px 26px;position:relative;border-top:1px solid var(--streg)}
+  padding:0 0 22px;display:flex;flex-direction:column;position:relative;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pakke:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(27,30,33,.10);
+  border-color:var(--daempet)}
+@media(prefers-reduced-motion:reduce){
+  .pakke{transition:none}
+  .pakke:hover{transform:none}
+}
+/* OVERKANTEN SIGER, HVILKEN HALVDEL MAN ER I. Lys streg uden telefoni,
+   moerk med. Den ses foer man har laest et ord. */
+.pakke__kant{height:5px;border-radius:5px 5px 0 0;background:var(--streg)}
+.pakke--tele .pakke__kant{background:var(--antracit)}
+.pakke--frem .pakke__kant{background:var(--birk)}
+.pakke__ind{padding:22px 22px 0;display:flex;flex-direction:column;flex:1}
+
+.pakke--tele{background:var(--papir)}
+.pakke--frem{border-color:var(--antracit);box-shadow:0 10px 26px rgba(27,30,33,.09)}
+.pakke__flag{position:absolute;top:-11px;right:16px;background:var(--antracit);
+  color:var(--birk);font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:4px 10px;border-radius:3px}
+
+.pakke h3{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}
+.pakke__hvem{margin:0 0 18px;color:var(--daempet);font-size:14.5px;min-height:4.3em}
+.pakke__pris{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;padding:0 0 4px}
+.pakke__tal{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.pakke__tal--ord{font-size:25px}
+.pakke__enhed{color:var(--daempet);font-size:13.5px}
+.pakke__plus{margin:6px 0 0;font-size:14px;font-weight:600}
+.pakke__opstart{margin:9px 0 0;font-size:13.5px;color:var(--daempet);min-height:3.4em}
+.pakke ul{list-style:none;margin:16px 0 0;padding:0;font-size:14.5px;line-height:1.5}
+.pakke li{padding:8px 0 8px 23px;position:relative;border-top:1px solid var(--streg)}
 .pakke li:first-child{border-top:0}
-.pakke li::before{content:"";position:absolute;left:4px;top:15px;width:9px;height:5px;
+.pakke li::before{content:"";position:absolute;left:3px;top:14px;width:8px;height:4px;
   border-left:2px solid var(--antracit);border-bottom:2px solid var(--antracit);
   transform:rotate(-45deg)}
 .pakke li.nej{color:var(--daempet)}
-.pakke li.nej::before{content:"";left:5px;top:17px;width:9px;height:0;
+.pakke li.nej::before{content:"";left:4px;top:16px;width:8px;height:0;
   border-left:0;border-bottom:2px solid var(--streg);transform:none}
-.pakke li b{font-weight:700}
-.pakke__knap{margin-top:auto;padding-top:22px}
-.knap{display:inline-block;text-decoration:none;font-weight:700;padding:13px 22px;
+.pakke__knap{margin-top:auto;padding-top:20px}
+.knap{display:inline-block;text-decoration:none;font-weight:700;padding:12px 18px;
   border-radius:3px;background:var(--antracit);color:var(--lys);min-height:46px;
-  line-height:1.45}
+  line-height:1.5;font-size:15px;transition:transform .15s ease}
+.knap:hover{transform:translateY(-1px)}
 .knap--lys{background:var(--birk);color:var(--antracit-moerk)}
 .knap--tom{background:none;color:var(--antracit);border:1px solid var(--streg)}
+
+/* To og to, naar der ikke er plads til fire. Hylden og de spaendende
+   overskrifter slaas fra, og i stedet faar hver gruppe sin egen
+   overskrift igen. */
+@media(max-width:1080px){
+  /* To og to. Overskriften spaender over sit eget par og staar lige
+     over det, fordi raekkefoelgen i selve markuppen er parrenes. */
+  .bordgitter{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gruppe{grid-column:span 2}
+  .hylde{display:none}
+  /* Hylden er vaek, saa farven flytter ind paa kortet. Skellet maa
+     ikke hvile paa overskriften alene. */
+  .pakke--tele{background:var(--sand)}
+}
+@media(max-width:620px){
+  .bordgitter{grid-template-columns:minmax(0,1fr)}
+  .gruppe{grid-column:span 1}
+  .pakke__hvem,.pakke__opstart{min-height:0}
+}
 
 /* ---------- Noten nederst ---------- */
 .note{padding:44px 0 60px}
@@ -160,125 +230,135 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- ============ UDEN TELEFONI ============ -->
-<section class="baelte">
+<!-- ============ DE FIRE PAKKER ============ -->
+<section class="bord">
+  <div class="hylde" id="hylde" aria-hidden="true"></div>
   <div class="ramme">
-    <div class="baelte__hoved">
-      <h2>Du skriver selv</h2>
-      <span class="maerke maerke--uden">Uden telefoni</span>
-    </div>
-    <p class="baelte__under">Du taler eller skriver opgaven ind, når du har tid.
-      Tilbuddet bygges af dine egne ord og dine egne priser. Kunden ringer til
-      dit nummer som altid, og vi hører ikke opkaldet.</p>
 
-    <div class="soejler">
+    <div class="bordgitter">
+
+      <div class="gruppe">
+        <h2>Du skriver selv</h2>
+        <span class="maerke maerke--uden">Uden telefoni</span>
+        <p>Du taler eller skriver opgaven ind, når du har tid. Kunden ringer
+          til dit nummer som altid, og vi hører ikke opkaldet.</p>
+      </div>
+
+      <!-- 1 -->
       <div class="pakke">
-        <h3>Prøve</h3>
-        <p class="pakke__hvem">Se om det duer, før du betaler noget.</p>
-        <div class="pakke__pris">
-          <span class="pakke__tal">0 kr.</span>
-          <span class="pakke__enhed">ingen kort, ingen tidsfrist</span>
-        </div>
-        <p class="pakke__opstart">Ingen oprettelse.</p>
-        <ul>
-          <li><b>10 tilbud i alt</b>, ikke pr. måned</li>
-          <li>Du dikterer eller skriver opgaven</li>
-          <li>Dine egne priser og dit eget logo</li>
-          <li>Send tilbuddet, og se når kunden åbner det</li>
-          <li>Én bruger</li>
-          <li class="nej">Ingen telefoni</li>
-        </ul>
-        <div class="pakke__knap">
-          <a class="knap knap--tom" href="/#kontakt">Kom i gang gratis</a>
+        <div class="pakke__kant"></div>
+        <div class="pakke__ind">
+          <h3>Prøve</h3>
+          <p class="pakke__hvem">Se om det duer, før du betaler noget.</p>
+          <div class="pakke__pris">
+            <span class="pakke__tal">0 kr.</span>
+          </div>
+          <p class="pakke__opstart">Ingen oprettelse. Intet kort, ingen
+            tidsfrist.</p>
+          <ul>
+            <li><b>10 tilbud i alt</b>, ikke pr. måned</li>
+            <li>Du dikterer eller skriver opgaven</li>
+            <li>Dine egne priser og dit eget logo</li>
+            <li>Send tilbuddet, og se når kunden åbner det</li>
+            <li>Én bruger</li>
+            <li class="nej">Ingen telefoni</li>
+          </ul>
+          <div class="pakke__knap">
+            <a class="knap knap--tom" href="/#kontakt">Kom i gang gratis</a>
+          </div>
         </div>
       </div>
 
+      <!-- 2 -->
       <div class="pakke">
-        <h3>Enkelt</h3>
-        <p class="pakke__hvem">Du laver tilbud hver uge og vil have dem ud
-          samme dag.</p>
-        <div class="pakke__pris">
-          <span class="pakke__tal">695 kr.</span>
-          <span class="pakke__enhed">pr. måned, ekskl. moms</span>
-        </div>
-        <p class="pakke__opstart">1.495 kr. i oprettelse, én gang.</p>
-        <ul>
-          <li><b>25 tilbud om måneden</b>, derefter 29 kr. pr. tilbud</li>
-          <li>Alt i Prøve</li>
-          <li>Sms til kunden, så hun selv lægger billeder ind</li>
-          <li>Kundekartotek og historik på hver sag</li>
-          <li>Videre i e-conomic, Minuba eller Apacta</li>
-          <li>Én bruger</li>
-          <li class="nej">Ingen telefoni</li>
-        </ul>
-        <div class="pakke__knap">
-          <a class="knap" href="/#kontakt">Bliv ringet op</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ MED TELEFONI ============ -->
-<section class="baelte baelte--tele">
-  <div class="ramme">
-    <div class="baelte__hoved">
-      <h2>Telefonen gør arbejdet</h2>
-      <span class="maerke maerke--med">Med telefoni</span>
-    </div>
-    <p class="baelte__under">Kunden ringer til dit eget nummer. Samtalen
-      optages, kunden giver selv samtykke med et tastetryk, og når du lægger
-      på, står sagen der med opgaven, materialerne og forbeholdene.
-      <b>Du taster ingenting.</b></p>
-
-    <div class="soejler">
-      <div class="pakke pakke--frem">
-        <span class="pakke__flag">Den de fleste vælger</span>
-        <h3>Komplet</h3>
-        <p class="pakke__hvem">Kunderne ringer, og du vil have tilbuddet klar,
-          før du er tilbage i bilen.</p>
-        <div class="pakke__pris">
-          <span class="pakke__tal">1.850 kr.</span>
-          <span class="pakke__enhed">pr. måned for den første mand</span>
-        </div>
-        <p class="pakke__plus">+ 390 kr. pr. mand derudover</p>
-        <p class="pakke__opstart">2.495 kr. i oprettelse, én gang. Det er dit
-          nummer, der sættes op, og det er rigtigt arbejde hos os.</p>
-        <ul>
-          <li><b>Telefonien med:</b> opkald bliver til sager af sig selv</li>
-          <li><b>35 tilbud pr. mand om måneden</b>, derefter 29 kr. pr. tilbud</li>
-          <li>Alt i Enkelt</li>
-          <li>Kunden siger ja med ét klik, og du ser hvornår</li>
-          <li>Påmindelse om autorisationskrævende arbejde</li>
-          <li>Send en fagopgave til din elektriker eller vvs'er</li>
-          <li>Login til hver mand i firmaet</li>
-        </ul>
-        <div class="pakke__knap">
-          <a class="knap knap--lys" href="/#kontakt">Bliv ringet op</a>
+        <div class="pakke__kant"></div>
+        <div class="pakke__ind">
+          <h3>Enkelt</h3>
+          <p class="pakke__hvem">Du laver tilbud hver uge og vil have dem ud
+            samme dag.</p>
+          <div class="pakke__pris">
+            <span class="pakke__tal">695 kr.</span>
+            <span class="pakke__enhed">pr. måned</span>
+          </div>
+          <p class="pakke__opstart">1.495 kr. i oprettelse, én gang.</p>
+          <ul>
+            <li><b>25 tilbud om måneden</b>, derefter 29 kr. pr. tilbud</li>
+            <li>Alt i Prøve</li>
+            <li>Sms til kunden, så hun selv lægger billeder ind</li>
+            <li>Kundekartotek og historik på hver sag</li>
+            <li>Videre i e-conomic, Minuba eller Apacta</li>
+            <li>Én bruger</li>
+            <li class="nej">Ingen telefoni</li>
+          </ul>
+          <div class="pakke__knap">
+            <a class="knap" href="/#kontakt">Bliv ringet op</a>
+          </div>
         </div>
       </div>
 
-      <div class="pakke">
-        <h3>Efter aftale</h3>
-        <p class="pakke__hvem">I er flere mand, der laver mange tilbud, og
-          tilbuddet skal kun have dit navn på.</p>
-        <div class="pakke__pris">
-          <span class="pakke__tal pakke__tal--ord">Ring til os</span>
-        </div>
-        <p class="pakke__plus">Prisen sættes efter, hvor mange mænd I er.</p>
-        <p class="pakke__opstart">Vi regner den på én samtale, og du får den
-          skriftligt, før du siger ja til noget.</p>
-        <ul>
-          <li><b>Fri mængde tilbud.</b> Ingen optælling og ingen stykpris</li>
-          <li>Alt i Komplet</li>
-          <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
-          <li>Fælles prisliste for hele firmaet</li>
-          <li>Ubegrænset antal mænd</li>
-        </ul>
-        <div class="pakke__knap">
-          <a class="knap" href="/#kontakt">Få en pris</a>
+      <div class="gruppe gruppe--med">
+        <h2>Telefonen gør arbejdet</h2>
+        <span class="maerke maerke--med">Med telefoni</span>
+        <p>Kunden ringer til dit eget nummer. Når du lægger på, står sagen der
+          med opgaven, materialerne og forbeholdene. <b>Du taster ingenting.</b></p>
+      </div>
+
+      <!-- 3 -->
+      <div class="pakke pakke--tele pakke--frem">
+        <span class="pakke__flag">De fleste vælger den</span>
+        <div class="pakke__kant"></div>
+        <div class="pakke__ind">
+          <h3>Komplet</h3>
+          <p class="pakke__hvem">Kunderne ringer, og du vil have tilbuddet
+            klar, før du er tilbage i bilen.</p>
+          <div class="pakke__pris">
+            <span class="pakke__tal">1.850 kr.</span>
+            <span class="pakke__enhed">pr. måned</span>
+          </div>
+          <p class="pakke__plus">+ 390 kr. pr. mand derudover</p>
+          <p class="pakke__opstart">2.495 kr. i oprettelse, én gang. Det er dit
+            nummer, der sættes op.</p>
+          <ul>
+            <li><b>Telefonien med:</b> opkald bliver til sager af sig selv</li>
+            <li><b>35 tilbud pr. mand om måneden</b>, derefter 29 kr.</li>
+            <li>Alt i Enkelt</li>
+            <li>Kunden siger ja med ét klik, og du ser hvornår</li>
+            <li>Påmindelse om autorisationskrævende arbejde</li>
+            <li>Send en fagopgave til din elektriker eller vvs'er</li>
+            <li>Login til hver mand i firmaet</li>
+          </ul>
+          <div class="pakke__knap">
+            <a class="knap knap--lys" href="/#kontakt">Bliv ringet op</a>
+          </div>
         </div>
       </div>
+
+      <!-- 4 -->
+      <div class="pakke pakke--tele">
+        <div class="pakke__kant"></div>
+        <div class="pakke__ind">
+          <h3>Efter aftale</h3>
+          <p class="pakke__hvem">I er flere mand, der laver mange tilbud, og
+            tilbuddet skal kun have dit navn på.</p>
+          <div class="pakke__pris">
+            <span class="pakke__tal pakke__tal--ord">Ring til os</span>
+          </div>
+          <p class="pakke__plus">Prisen sættes efter, hvor mange I er.</p>
+          <p class="pakke__opstart">Vi regner den på én samtale, og du får den
+            skriftligt, før du siger ja.</p>
+          <ul>
+            <li><b>Fri mængde tilbud.</b> Ingen optælling, ingen stykpris</li>
+            <li>Alt i Komplet</li>
+            <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
+            <li>Fælles prisliste for hele firmaet</li>
+            <li>Ubegrænset antal mænd</li>
+          </ul>
+          <div class="pakke__knap">
+            <a class="knap" href="/#kontakt">Få en pris</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -304,11 +384,6 @@ a{color:inherit}
       <div>
         <h4>Du kan skifte</h4>
         <p>Op eller ned, fra måned til måned. Ring, så flytter vi dig.</p>
-      </div>
-      <div>
-        <h4>Intet gebyr for at komme ud</h4>
-        <p>Vil du stoppe, koster det ikke noget at sige op. Opsigelse sker
-          efter <a href="/juridisk/handelsbetingelser/">handelsbetingelserne</a>.</p>
       </div>
       <div>
         <h4>Oprettelsen betales én gang</h4>
@@ -351,5 +426,26 @@ a{color:inherit}
   </div>
 </footer>
 
+<script>
+// Hylden bag de to pakker med telefoni. Se kommentaren i CSS'en om,
+// hvorfor skellet baeres af tre ting og ikke kun af den her.
+(function () {
+  var hylde = document.getElementById("hylde");
+  var soejler = document.querySelectorAll(".bordgitter > .pakke");
+  if (!hylde || soejler.length < 4) return;
+  function maal() {
+    // Kun naar de fire staar paa én raekke. Ellers haandterer CSS'en
+    // det med en baggrund paa selve kortet.
+    if (window.innerWidth <= 1080) { hylde.style.display = "none"; return; }
+    var a = soejler[2].getBoundingClientRect();
+    var b = soejler[3].getBoundingClientRect();
+    hylde.style.display = "block";
+    hylde.style.left = (a.left - 18) + "px";
+    hylde.style.width = (b.right - a.left + 36) + "px";
+  }
+  maal();
+  window.addEventListener("resize", maal);
+})();
+</script>
 </body>
 </html>
