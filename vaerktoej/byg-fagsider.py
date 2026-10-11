@@ -397,7 +397,7 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
 """
 
 TOMRER_EKSEMPEL = """    <h2>Et rigtigt tømrertilbud: nyt terrassedæk</h2>
-    <p class="brod">Bygget ud fra én samtale om et terrassedæk i lærk på ca. 24 m². Kunden ser dit firmanavn, dit CVR og dine priser, ikke vores.</p>
+    <p class="brod">Bygget ud fra én samtale om et terrassedæk i lærk på ca. 24 m². Kunden ser dit firmanavn, dit CVR og dine priser. Nederst står én linje om, at tilbuddet er lavet med TeleMakker.</p>
     <div class="eksempel">
       <figure><img src="/billeder/tilbud-1.png" width="1190" height="1683" loading="lazy" decoding="async" alt="Første side af et tømrertilbud på nyt terrassedæk i lærk, med arbejde og materialer på hver sin linje."></figure>
       <div>
@@ -422,7 +422,7 @@ def eksempel(f):
         return TOMRER_EKSEMPEL
     rows = "\n".join(f"            <li>{e(l)}</li>" for l in f["linjer"])
     return f"""    <h2>Sådan ser tilbuddet ud</h2>
-    <p class="brod">Linjerne bliver skrevet ud fra det, du og kunden siger i telefonen. Kunden ser dit firmanavn, dit CVR og dine priser, ikke vores.</p>
+    <p class="brod">Linjerne bliver skrevet ud fra det, du og kunden siger i telefonen. Kunden ser dit firmanavn, dit CVR og dine priser. Nederst står én linje om, at tilbuddet er lavet med TeleMakker.</p>
     <div class="eksempel">
       <figure><img src="/billeder/tilbud-1.png" width="1190" height="1683" loading="lazy" decoding="async" alt="Eksempel på et færdigt tilbud med firmanavn, CVR, arbejde og materialer på hver sin linje."></figure>
       <div>
