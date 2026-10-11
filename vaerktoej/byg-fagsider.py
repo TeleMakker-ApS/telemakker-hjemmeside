@@ -443,66 +443,68 @@ def eksempel(f):
 # standardvaerdier altid er de samme begge steder. Ret dem paa forsiden
 # (index.html) og koer dette script igen.
 # ------------------------------------------------------------------
-BEREGNER_CSS = """/* BEREGNEREN (samme som paa forsiden) */
-.regne{background:var(--antracit);padding:clamp(24px,4vw,48px) 0 clamp(56px,8vw,96px)}
-.regnekort{background:var(--antracit-lys);border:1px solid rgba(227,201,159,.22);border-radius:3px;
-  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);color:#fff}
-.regnekort h2{font-size:clamp(24px,2.6vw,30px);color:#fff;margin-bottom:6px}
-.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:0}
-.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
-.felter{display:grid;gap:18px}
-.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
-.felt .raek{display:flex;align-items:center;gap:14px}
-.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
-.felt input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:0;margin-top:-8px;box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
-.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
-.felt input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 4px rgba(0,0,0,.28)}
-.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;color:#fff}
-.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
-.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
-.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
-.svar .under{color:rgba(255,255,255,.84);margin:11px 0 0;font-size:15.5px}
-.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-size:14.5px;color:rgba(255,255,255,.78)}
-.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
-.antagelse{margin:20px 0 0;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
-.antagelse input{width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;text-align:center;padding:5px 3px;margin:0 3px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:3px}
-.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-@media(max-width:760px){.regne .indhold{grid-template-columns:1fr;gap:24px}
-  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}}"""
+# BEREGNERENS CSS TRAEKKES UD AF FORSIDEN, ikke skrevet af. Den gamle
+# udgave var en haandkopi af .regne-reglerne, og da forsiden fik en ny
+# beregner 6. oktober 2026, stod kopien og pegede paa klasser, der ikke
+# fandtes mere. Nu foelger reglerne med, naar forsiden aendrer sig.
+#
+# .baand HEDDER NOGET ANDET HER. Paa forsiden er .baand en vandret
+# stribe og .ramme beholderen; paa fagsiderne er .baand selve beholderen.
+# Sektionen faar derfor sin egen klasse, regne-afsnit, og de faa
+# forside-klasser, den bruger indeni (.ramme, .mini, .intro), faar en
+# afgraenset kopi, saa de ikke blander sig med fagsidens egne.
+def beregner_css(forside_css):
+    regler = []
+    for m in re.finditer(r"(^|\n)((?:\.regn|\.skyder|\.svar)[^{\n]*\{[^}]*\})", forside_css):
+        regler.append(m.group(2))
+    if not regler:
+        raise SystemExit("Fandt ingen .regn/.skyder/.svar-regler i forsidens CSS")
+    shim = """/* BEREGNEREN: reglerne herunder er trukket ud af forsidens <style> */
+:root{--streg-moerk:#33383d}
+.regne-afsnit{background:var(--papir);color:var(--blaek);padding:clamp(64px,8vw,120px) 0}
+.regne-afsnit h2{color:var(--blaek)}
+.regne-afsnit .skyder label,.regne-afsnit .skyder output{color:var(--blaek)}
+.regne-afsnit .ramme{max-width:1240px;margin:0 auto;padding:0 20px}
+.regne-afsnit .mini{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9a7f4d;margin:0 0 14px}
+.regne-afsnit h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.03em}
+.regne-afsnit .intro{margin-top:18px;max-width:58ch;color:var(--daempet);font-size:19px}
+@media(max-width:900px){.regne-afsnit .regn{grid-template-columns:minmax(0,1fr);gap:38px}}
+"""
+    return shim + "\n".join(regler)
+
 
 
 def hent_beregner():
-    """Henter beregnerens markup og script fra forsiden.
+    """Henter beregnerens markup, script og CSS fra forsiden.
 
-    ADVARSEL, 8. OKTOBER 2026: DETTE VAERKTOEJ KAN IKKE KOERE.
+    REPARERET 11. OKTOBER 2026. Fra 6. til 11. oktober kunne vaerktoejet
+    ikke koere: forsiden havde faaet en ny beregner (<section
+    class="baand baand--papir" id="regn">), og udtraekket ledte efter
+    den gamle. Fagsiderne stod stille i fem dage og baerer en aeldre
+    beregner med et andet timetal, se STATUS.md.
 
-    Forsiden blev skrevet om 6. oktober, og beregneren hedder nu
-    <section class="baand baand--papir" id="regn"> med <div
-    class="regn"> indeni. De to regexp'er herunder leder efter den
-    gamle, <section class="regne" id="regnestykket">, og den findes
-    ikke mere. Vaerktoejet stopper derfor med "Fandt ikke beregneren
-    paa forsiden", og fagsiderne har ikke kunnet bygges siden.
-
-    DET ER IKKE EN ETLINJERS RETTELSE: baade markup, script OG den
-    indbyggede CSS til .regne skal foelge den nye beregner, ellers
-    staar der en beregner paa fagsiderne, der ikke virker.
-
-    Linket til /priser/ i menuen nedenfor er lagt ind 8. oktober og
-    kommer paa siderne, den dag vaerktoejet koerer igen. Fagsiderne
-    er IKKE rettet i haanden: de er en afledning af det her
-    vaerktoej, og en haandrettelse ville blive slettet uden varsel,
-    praecis som det skete for de juridiske sider.
+    Tre ting hentes nu, saa de ikke kan drive hver for sig:
+      markup   sektionen id="regn", med den ydre klasse skrevet om til
+               regne-afsnit (se beregner_css for hvorfor)
+      script   linjen med `roligt` og selve Beregneren-blokken
+      css      .regn/.skyder/.svar-reglerne fra forsidens <style>
     """
     s = (ROD / "index.html").read_text(encoding="utf-8")
-    m = re.search(r'<section class="regne" id="regnestykket">.*?</section>', s, re.S)
-    j = re.search(r'<script>\s*/\* -+\s*REGNESTYKKET.*?</script>', s, re.S)
-    if not m or not j:
-        raise SystemExit("Fandt ikke beregneren paa forsiden")
-    return m.group(0), j.group(0)
+    m = re.search(r'<section class="baand baand--papir" id="regn">.*?</section>', s, re.S)
+    if not m:
+        raise SystemExit("Fandt ikke beregneren paa forsiden (section id=\"regn\")")
+    markup = m.group(0).replace('<section class="baand baand--papir" id="regn">',
+                                '<section class="regne-afsnit" id="regn">', 1)
+
+    rolig = re.search(r"var roligt = [^;]+;", s)
+    blok = re.search(r"// -+ Beregneren -+\n.*?\n\}\)\(\);", s, re.S)
+    if not rolig or not blok:
+        raise SystemExit("Fandt ikke beregnerens script paa forsiden")
+    script = "<script>\n" + rolig.group(0) + "\n" + blok.group(0) + "\n</script>"
+
+    stil = s[s.index("<style>") + 7 : s.index("</style>")]
+    return markup, script, beregner_css(stil)
+
 
 
 def beregner(f, markup):
@@ -522,7 +524,7 @@ def byg_side(f):
     s = SIDE.format(flertal=e(f["flertal"]), ental=e(f["ental"]), url=url, beskrivelse=e(besk),
                     sit=e(f["sit"]), kender="\n".join(f"      <li>{e(k)}</li>" for k in f["kender"]), eksempel=eksempel(f), opkald=opkald,
                     fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS,
-                    beregner=beregner(f, BEREGNER[0]), andre_fag=andre_fag(f), beregner_css=BEREGNER_CSS, beregner_js=BEREGNER[1])
+                    beregner=beregner(f, BEREGNER[0]), andre_fag=andre_fag(f), beregner_css=BEREGNER[2], beregner_js=BEREGNER[1])
     mappe = ROD / f"tilbudsstyring-til-{f['slug']}"
     mappe.mkdir(exist_ok=True)
     (mappe / "index.html").write_text(s, encoding="utf-8")
@@ -541,14 +543,12 @@ def opdater_forside():
         s = re.sub(r"/\* FAGMENU-CSS START \*/.*?/\* FAGMENU-CSS SLUT \*/", lambda m: blok_css, s, flags=re.S)
         s = re.sub(r"<!-- FAGMENU-JS START -->.*?<!-- FAGMENU-JS SLUT -->", lambda m: blok_js, s, flags=re.S)
     else:
-        anker = '<nav>\n      <a href="#regnestykket">'
-        assert s.count(anker) == 1, "fandt ikke forsidens menu"
-        s = s.replace(anker, '<nav>\n      ' + blok_nav + '\n      <a href="#regnestykket">', 1)
-        h = s.index("</head>")
-        st = s.rfind("</style>", 0, h)
-        s = s[:st] + blok_css + "\n" + s[st:]
-        b = s.rindex("</body>")
-        s = s[:b] + blok_js + "\n" + s[b:]
+        # FORSIDEN HAR SIN EGEN "DIT FAG"-SEKTION siden 6. oktober 2026 og
+        # ingen markoerer. Saa roerer vi den ikke. Foer stod her en
+        # assert paa en menu, der ikke findes mere, og den vaeltede hele
+        # koerslen efter at fagsiderne var skrevet.
+        print("index.html: ingen FAGMENU-markoerer, forsiden er ikke roert")
+        return
     p.write_text(s, encoding="utf-8")
     print("index.html: Fag-menu opdateret")
 

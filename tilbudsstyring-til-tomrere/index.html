@@ -115,36 +115,32 @@ footer .fod-gruppe{display:flex;flex-direction:column;gap:4px}
 footer .fod-gruppe b{color:var(--birk);font-weight:600}
 footer .fod-gruppe a{text-decoration:none;color:var(--lys)}
 footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;color:var(--daempet)}
-/* BEREGNEREN (samme som paa forsiden) */
-.regne{background:var(--antracit);padding:clamp(24px,4vw,48px) 0 clamp(56px,8vw,96px)}
-.regnekort{background:var(--antracit-lys);border:1px solid rgba(227,201,159,.22);border-radius:3px;
-  box-shadow:0 30px 60px -34px rgba(0,0,0,.45);max-width:900px;margin:0 auto;padding:clamp(28px,4vw,44px);color:#fff}
-.regnekort h2{font-size:clamp(24px,2.6vw,30px);color:#fff;margin-bottom:6px}
-.regnekort .lead{color:rgba(255,255,255,.74);font-size:15px;margin-bottom:0}
-.regne .indhold{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center;margin-top:26px}
-.felter{display:grid;gap:18px}
-.felt label{display:block;font-size:14.5px;color:rgba(255,255,255,.82);margin-bottom:7px}
-.felt .raek{display:flex;align-items:center;gap:14px}
-.felt input[type=range]{flex:1;height:26px;min-width:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
-.felt input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:0;margin-top:-8px;box-shadow:0 1px 4px rgba(0,0,0,.28);transition:transform .12s}
-.felt input[type=range]:active::-webkit-slider-thumb{transform:scale(1.12)}
-.felt input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.30)}
-.felt input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 1px 4px rgba(0,0,0,.28)}
-.felt input[type=range]:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.felt .tal{min-width:86px;text-align:right;font:700 19px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;color:#fff}
-.felt .tal small{font-weight:500;font-size:13px;opacity:.78;margin-left:3px}
-.svar .stort{display:block;font:700 clamp(44px,5.6vw,68px)/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
-.svar .enhed{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:9px}
-.svar .under{color:rgba(255,255,255,.84);margin:11px 0 0;font-size:15.5px}
-.svar .noegle{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;font-size:14.5px;color:rgba(255,255,255,.78)}
-.svar .noegle b{color:#fff;font-variant-numeric:tabular-nums}
-.antagelse{margin:20px 0 0;font-size:14.5px;color:rgba(255,255,255,.78);line-height:2}
-.antagelse input{width:58px;font:700 14.5px/1 Archivo,sans-serif;font-variant-numeric:tabular-nums;text-align:center;padding:5px 3px;margin:0 3px;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.34);border-radius:3px}
-.antagelse input:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.skjult-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-@media(max-width:760px){.regne .indhold{grid-template-columns:1fr;gap:24px}
-  .regne .svar{margin-top:6px;padding-top:22px;border-top:1px solid rgba(255,255,255,.22)}}
+/* BEREGNEREN: reglerne herunder er trukket ud af forsidens <style> */
+:root{--streg-moerk:#33383d}
+.regne-afsnit{background:var(--papir);color:var(--blaek);padding:clamp(64px,8vw,120px) 0}
+.regne-afsnit h2{color:var(--blaek)}
+.regne-afsnit .skyder label,.regne-afsnit .skyder output{color:var(--blaek)}
+.regne-afsnit .ramme{max-width:1240px;margin:0 auto;padding:0 20px}
+.regne-afsnit .mini{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9a7f4d;margin:0 0 14px}
+.regne-afsnit h2{font-size:clamp(30px,4vw,46px);line-height:1.08;letter-spacing:-.03em}
+.regne-afsnit .intro{margin-top:18px;max-width:58ch;color:var(--daempet);font-size:19px}
+@media(max-width:900px){.regne-afsnit .regn{grid-template-columns:minmax(0,1fr);gap:38px}}
+.regn{display:grid;grid-template-columns:1fr 1.05fr;gap:50px;margin-top:52px;align-items:center}
+.skyder{margin-bottom:28px}
+.skyder__top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.skyder label{font-size:17px;font-weight:600}
+.skyder output{font-size:28px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.skyder input{-webkit-appearance:none;appearance:none;width:100%;height:8px;margin-top:14px;
+  background:#dcd2c0;border-radius:2px;outline:none}
+.skyder input::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:2px;
+  background:var(--antracit);cursor:pointer;border:4px solid var(--birk)}
+.skyder input::-moz-range-thumb{width:32px;height:32px;border-radius:2px;background:var(--antracit);cursor:pointer;border:4px solid var(--birk)}
+.svar{background:var(--antracit);color:var(--lys);border-radius:2px;padding:40px;box-shadow:0 30px 70px rgba(27,30,33,.25)}
+.svar__tal{font-size:clamp(46px,7.4vw,78px);font-weight:700;color:var(--birk);letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.svar__linjer{margin-top:28px;border-top:1px solid var(--streg-moerk)}
+.svar__linjer div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--streg-moerk);font-size:16px}
+.svar__linjer b{font-variant-numeric:tabular-nums}
+.svar small{display:block;margin-top:20px;font-size:13px;color:#8d8679;line-height:1.55}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -172,6 +168,7 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
       </div>
     </details>
       <a href="#saadan">Sådan virker det</a>
+      <a href="/priser/">Priser</a>
       <a href="#spoergsmaal">Spørgsmål</a>
       <a href="https://app.telemakker.dk">Log ind</a>
       <a href="/#kontakt" class="knap lys">Bliv ringet op</a>
@@ -204,56 +201,45 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
   </div>
 </section>
 
-<section class="regne" id="regnestykket">
-  <div class="baand">
-    <div class="regnekort">
-      <h2>Hvor mange timer bruger du som tømrer på tilbud?</h2>
-      <p class="lead">Vi finder ikke på et tal. Sæt dine egne, så regner den.</p>
+<section class="regne-afsnit" id="regn">
+  <div class="ramme ind">
+    <p class="mini">Hvad er din tid værd?</p>
+    <h2>Hvor mange timer bruger du<br>på tilbud?</h2>
+    <p class="intro">Vi finder ikke på et tal. Træk i dine egne, så regner den.</p>
 
-      <div class="indhold">
-        <div class="felter">
-          <div class="felt">
-            <label for="antal">Tilbud om ugen</label>
-            <div class="raek">
-              <input type="range" id="antal" min="1" max="20" step="1" value="4">
-              <span class="tal" id="antal-vis">4</span>
-            </div>
-          </div>
-          <div class="felt">
-            <label for="foer">Minutter pr. tilbud i dag</label>
-            <div class="raek">
-              <input type="range" id="foer" min="10" max="120" step="5" value="45">
-              <span class="tal" id="foer-vis">45<small>min</small></span>
-            </div>
-          </div>
-          <div class="felt">
-            <label for="timepris">Din timepris</label>
-            <div class="raek">
-              <input type="range" id="timepris" min="250" max="1200" step="25" value="675">
-              <span class="tal" id="timepris-vis">675<small>kr.</small></span>
-            </div>
-          </div>
+    <div class="regn">
+      <div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-tilbud">Tilbud om ugen</label><output id="u-tilbud">4</output></div>
+          <input id="s-tilbud" type="range" min="1" max="20" value="4">
         </div>
-
-        <div class="svar">
-          <span class="stort"><span id="kroner">0</span><span class="enhed">kr. om året</span></span>
-          <p class="under">Så meget er den sparede tid værd, med din egen timepris.</p>
-          <div class="noegle">
-            <span><b id="timer">0</b> timer</span>
-            <span><b id="dage">0</b> arbejdsdage</span>
-            <span><b id="uge">0</b> minutter om ugen</span>
-          </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-min">Minutter pr. tilbud i dag</label><output id="u-min">30 min.</output></div>
+          <input id="s-min" type="range" min="10" max="120" step="5" value="30">
+        </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-pris">Din timepris</label><output id="u-pris">600 kr.</output></div>
+          <input id="s-pris" type="range" min="300" max="1200" step="25" value="600">
+        </div>
+        <div class="skyder">
+          <div class="skyder__top"><label for="s-ret">Minutter til at rette et udkast</label><output id="u-ret">5 min.</output></div>
+          <input id="s-ret" type="range" min="0" max="30" value="5">
         </div>
       </div>
 
-      <!-- ANTAGELSEN STAAR AABENT, ikke gemt i regnestykket. Uden et bud
-           paa, hvor lang tid det tager at RETTE et udkast, kan en
-           besparelse ikke regnes. At spoerge den besoegende om det er
-           ikke rimeligt; han har jo ikke proevet det endnu. -->
-      <p class="antagelse">Vi regner med, at det tager
-        <label for="efter" class="skjult-label">minutter til at rette et udkast</label>
-        <input type="number" id="efter" min="2" max="60" step="1" value="5" inputmode="numeric">
-        minutter at rette et udkast frem for at skrive det fra bunden. Ret det, hvis du er uenig.</p>
+      <div class="svar">
+        <p class="mini">Du sparer om året</p>
+        <div class="svar__tal" id="u-aar">46.000 kr.</div>
+        <div class="svar__linjer">
+          <div><span>Du bruger i dag</span><b id="u-uge">2 timer om ugen</b></div>
+          <div><span>Det svarer til</span><b id="u-ugepris">1.200 kr. om ugen</b></div>
+          <div><span>Det er</span><b id="u-dage">10 arbejdsdage om året</b></div>
+        </div>
+        <small>Regnet med 46 arbejdsuger om året og en arbejdsdag på 7,5 timer.
+          Minutterne til at rette et udkast er en antagelse, ikke en garanti.
+          Ret den, hvis du er uenig. Tallet er din tid, ikke en regning, du
+          slipper for.</small>
+      </div>
     </div>
   </div>
 </section>
@@ -365,101 +351,60 @@ document.addEventListener('click',function(e){if(m.open&&!m.contains(e.target))m
 document.addEventListener('keydown',function(e){if(e.key==='Escape')m.open=false});})();
 </script>
 <script>
-/* ------------------------------------------------------------------
-   REGNESTYKKET
+var roligt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// ---------- Beregneren ----------
+// Samme regnestykke som i brochuren, saa de to aldrig kan vise forskellige
+// tal for den samme haandvaerker.
+(function(){
+  var UGER = 46, TIMER_PR_DAG = 7.5;
+  var felt = {
+    tilbud: document.getElementById("s-tilbud"),
+    min:    document.getElementById("s-min"),
+    pris:   document.getElementById("s-pris"),
+    ret:    document.getElementById("s-ret")
+  };
+  var kr = function(n){ return Math.round(n).toLocaleString("da-DK") + " kr."; };
+  var aarFelt = document.getElementById("u-aar"), vist = 46000, koerer = null;
 
-   Tallet TÆLLER OP, fordi det er hele pointen: man skal se forskellen
-   vokse, mens man skruer på sine egne tal. Animationen er ikke pynt,
-   den ER budskabet.
-
-   Der er ikke fundet noget på. Alle fire tal sættes af den, der læser
-   siden. Vi ganger dem sammen og siger det højt.
-
-   Regnestykket ligger nu ØVERST, saa der ventes ikke paa, at nogen
-   ruller ned til det: det taeller op med det samme.
-   ------------------------------------------------------------------ */
-(function () {
-  var rolig = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var antal = document.getElementById("antal");
-  var foer = document.getElementById("foer");
-  var efter = document.getElementById("efter");
-  var timepris = document.getElementById("timepris");
-
-  var visKroner = document.getElementById("kroner");
-  var visTimer = document.getElementById("timer");
-  var visDage = document.getElementById("dage");
-  var visUge = document.getElementById("uge");
-
-  function dansk(t) { return t.toLocaleString("da-DK"); }
-
-  function taelOp(el, til, ms) {
-    var fra = Number(String(el.textContent).replace(/\./g, "")) || 0;
-    if (rolig || fra === til) { el.textContent = dansk(til); return; }
-    if (el._loeb) cancelAnimationFrame(el._loeb);
-    if (el._net) clearTimeout(el._net);
-
-    // SIKKERHEDSNET. Lægges fanen i baggrunden midt i optællingen, holder
-    // browseren op med at kalde requestAnimationFrame, og tallet ville stå
-    // fast et sted midtvejs. Et forkert tal er værre end ingen animation.
-    el._net = setTimeout(function () {
-      if (el._loeb) cancelAnimationFrame(el._loeb);
-      el.textContent = dansk(til);
-    }, ms + 120);
-
-    var start = performance.now();
-    (function trin(nu) {
-      var p = Math.min(1, (nu - start) / ms);
-      var b = 1 - Math.pow(1 - p, 3);
-      el.textContent = dansk(Math.round(fra + (til - fra) * b));
-      if (p < 1) el._loeb = requestAnimationFrame(trin);
-      else { el._loeb = null; clearTimeout(el._net); }
+  // Tallet taeller op til det nye. Det er den eneste maade, man OPDAGER,
+  // at man lige har flyttet paa noget.
+  function taelTil(maal){
+    if (roligt) { aarFelt.textContent = kr(maal); vist = maal; return; }
+    cancelAnimationFrame(koerer);
+    var fra = vist, start = performance.now();
+    (function skridt(naa){
+      var p = Math.min((naa - start) / 420, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      vist = fra + (maal - fra) * e;
+      aarFelt.textContent = kr(vist);
+      if (p < 1) koerer = requestAnimationFrame(skridt);
     })(start);
   }
 
-  function regn(medAnimation) {
-    var a = Number(antal.value);
-    var f = Number(foer.value);
-    var pris = Number(timepris.value);
+  function regn(){
+    var tilbud = +felt.tilbud.value, min = +felt.min.value;
+    var pris = +felt.pris.value, ret = Math.min(+felt.ret.value, min);
+    var idagMin = tilbud * min, sparetMin = tilbud * (min - ret);
 
-    // Feltet kan stå tomt, mens han taster. Så holder vi fast i vores eget
-    // bud frem for at vise "NaN kr. om året".
-    var e = Number(efter.value);
-    if (!isFinite(e) || efter.value === "") e = 5;
-    e = Math.min(Math.max(e, 1), f);
+    document.getElementById("u-tilbud").textContent = tilbud;
+    document.getElementById("u-min").textContent = min + " min.";
+    document.getElementById("u-pris").textContent = pris + " kr.";
+    document.getElementById("u-ret").textContent = ret + " min.";
 
-    document.getElementById("antal-vis").textContent = a;
-    document.getElementById("foer-vis").innerHTML = f + "<small>min</small>";
-    document.getElementById("timepris-vis").innerHTML = dansk(pris) + "<small>kr.</small>";
+    var ugeTimer = idagMin / 60;
+    document.getElementById("u-uge").textContent =
+      (ugeTimer < 1 ? Math.round(idagMin) + " min."
+        : ugeTimer.toFixed(ugeTimer % 1 ? 1 : 0).replace(".", ",") +
+          (ugeTimer === 1 ? " time" : " timer")) + " om ugen";
+    document.getElementById("u-ugepris").textContent = kr(ugeTimer * pris) + " om ugen";
+    taelTil((sparetMin / 60) * pris * UGER);
 
-    // Skruer han rettetiden højere op end tiden i dag, er forskellen nul
-    // og ikke negativ. Et minustal ville være noget vrøvl.
-    var sparetPrUge = Math.max(0, a * (f - e));
-    var timer = Math.round(sparetPrUge * 46 / 60);   // 46 arbejdsuger
-    var dage = Math.round(timer / 7.5);              // en arbejdsdag, som paa forsiden
-    var kroner = Math.round(timer * pris);
-
-    if (medAnimation) {
-      taelOp(visKroner, kroner, 900);
-      taelOp(visTimer, timer, 700);
-      taelOp(visDage, dage, 700);
-      taelOp(visUge, sparetPrUge, 700);
-    } else {
-      visKroner.textContent = dansk(kroner);
-      visTimer.textContent = dansk(timer);
-      visDage.textContent = dansk(dage);
-      visUge.textContent = dansk(sparetPrUge);
-    }
+    var dage = (sparetMin / 60) * UGER / TIMER_PR_DAG;
+    document.getElementById("u-dage").textContent =
+      dage.toFixed(dage < 10 ? 1 : 0).replace(".", ",") + " arbejdsdage om året";
   }
-
-  [antal, foer, efter, timepris].forEach(function (felt) {
-    felt.addEventListener("input", function () { regn(true); });
-  });
-
-  // Regnestykket staar oeverst, saa det taeller op med det samme.
-  regn(false);
-  visKroner.textContent = "0"; visTimer.textContent = "0";
-  visDage.textContent = "0"; visUge.textContent = "0";
-  setTimeout(function () { regn(true); }, 320);
+  Object.keys(felt).forEach(function(n){ felt[n].addEventListener("input", regn); });
+  regn();
 })();
 </script>
 </body>
