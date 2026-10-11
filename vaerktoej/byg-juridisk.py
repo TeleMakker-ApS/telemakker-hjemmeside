@@ -81,7 +81,7 @@ DATOER = {
     # Alle tre fik ny tekst 8. oktober 2026, da siderne og
     # vaerktoejet blev bragt i overensstemmelse igen.
     "privatlivspolitik": "8. oktober 2026",
-    "handelsbetingelser": "8. oktober 2026",
+    "handelsbetingelser": "11. oktober 2026",
     "databehandleraftale": "8. oktober 2026",
 }
 
@@ -393,10 +393,12 @@ def saml_lister(dele):
 # udfylder [OPSIGELSESVARSEL] i punkt 5.1. Rettes det ene, skal det
 # andet med.
 NOTE_HB = """<div class="note">
-<p><strong>Det her er de gældende betingelser.</strong> Abonnementets
-navn og prisen aftales individuelt og står i den bestilling, du
-skriver under på. <strong>Opsigelsesvarslet er 6 måneder</strong>, se
-punkt 5.1.</p>
+<p><strong>Det her er de gældende betingelser.</strong> Priserne for
+Prøve, Enkelt og Komplet står på <a href="/priser/">prissiden</a> og i
+punkt 4. Prisen på Efter aftale aftales individuelt og står i den
+bestilling, du skriver under på. Prøve er gratis og kan stoppes når som
+helst. <strong>For de betalte abonnementer er opsigelsesvarslet
+6 måneder</strong>, se punkt 5.1.</p>
 <p>Behandler vi personoplysninger for dig, gælder også vores
 <a href="/juridisk/databehandleraftale/">databehandleraftale</a>. Vil du
 vide, hvad vi gør med oplysninger om dig selv, står det i vores
