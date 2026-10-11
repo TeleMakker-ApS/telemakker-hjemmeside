@@ -362,7 +362,7 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
     <div class="boks">
       <div>
         <h2>Er du {ental}? Vi ringer til dig</h2>
-        <p>Vi er ved at sætte de første firmaer op. Skriv dit nummer, så ringer vi og viser det på en af dine egne samtaler.</p>
+        <p>Skriv dit nummer, så ringer vi og viser det på en af dine egne samtaler. Det tager et kvarter, og du skal ikke skrive under på noget.</p>
       </div>
       <a class="knap lys" href="/#kontakt">Bliv ringet op</a>
     </div>
@@ -382,6 +382,8 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
     </div>
     <div class="fod-gruppe">
       <b>Kontakt</b>
+      <a href="tel:+4520110302">20 11 03 02</a>
+      <a href="tel:+4560464520">60 46 45 20</a>
       <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
       <a href="https://app.telemakker.dk">Log ind</a>
     </div>
