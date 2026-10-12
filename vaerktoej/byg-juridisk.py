@@ -279,15 +279,27 @@ def stykker(html):
     return ud
 
 
-def mistet(foer, efter):
-    """Det, der stod før og ikke står bagefter.
+def forskel(foer, efter):
+    """Hvad der ville ændre sig, i BEGGE retninger.
+
+    Først så den her kun efter tekst, der FORSVANDT. Det var for lidt,
+    og det kostede næsten en fejl den 12. oktober 2026: en kørsel lagde
+    31 linjer TILBAGE i databehandleraftalen, som var fjernet med vilje
+    dagen før, og værnet sagde ingenting, fordi der ikke forsvandt
+    noget.
+
+    **En juridisk side, der får tekst TILBAGE, er lige så galt som en,
+    der mister den.** En underskriftsblok, vi havde fjernet med vilje,
+    ville stå der igen, og det opdages ellers først af en kunde.
 
     Datolinjen holdes ude: den SKAL skifte, når der er rettet noget.
     """
     dato = re.compile(r"^Senest opdateret ")
     gamle = [t for t in stykker(foer) if not dato.match(t)]
-    nye = set(stykker(efter))
-    return [t for t in gamle if t not in nye]
+    nye = [t for t in stykker(efter) if not dato.match(t)]
+    gset, nset = set(gamle), set(nye)
+    return ([t for t in gamle if t not in nset],
+            [t for t in nye if t not in gset])
 
 
 def skriv(mappe, titel, beskrivelse, krop):
@@ -338,21 +350,30 @@ def skriv(mappe, titel, beskrivelse, krop):
 
     # Det, der stod før. Findes siden ikke endnu, er der intet at miste.
     if os.path.isfile(sti):
-        tabt = mistet(io.open(sti, encoding="utf-8").read(), html)
-        if tabt and not os.environ.get("JURIDISK_FJERN"):
+        tabt, kommet = forskel(io.open(sti, encoding="utf-8").read(), html)
+        if (tabt or kommet) and not os.environ.get("JURIDISK_FJERN"):
+            def liste(navn, stykker_):
+                if not stykker_:
+                    return ""
+                return ("\n\n%s (%d):\n  %s%s" % (
+                    navn, len(stykker_),
+                    "\n  ".join(t[:150] for t in stykker_[:8]),
+                    "\n  ... og %d mere" % (len(stykker_) - 8)
+                    if len(stykker_) > 8 else ""))
             sys.exit(
-                "STOP: \"%s\" ville miste %d stykker tekst, og det er en "
-                "juridisk side:\n  %s%s\n\nDe står LIVE nu og findes ikke i "
-                "det, der blev bygget.\n\nTre ting kan være sket:\n"
-                "  1. De er rettet direkte ind i HTML-siden. Det er forkert, "
-                "og de skal i vaerktoej/egne-afsnit.py i stedet.\n"
-                "  2. Advokaten har sendt en ny fil, hvor de ikke er med.\n"
+                "STOP: \"%s\" ville ændre juridisk tekst.%s%s\n\n"
+                "Fire ting kan være sket:\n"
+                "  1. Noget er rettet direkte ind i HTML-siden. Det er "
+                "forkert, og det skal i vaerktoej/egne-afsnit.py i stedet.\n"
+                "  2. Advokaten har sendt en ny fil.\n"
                 "  3. Teksten her i værktøjet er nyere end siden, og siden "
-                "er bare ikke bygget siden. Så er det en ÆNDRING AF JURIDISK "
-                "TEKST, og den skal nogen sige ja til først.\n\n"
-                "Skal de væk med vilje, så kør igen med JURIDISK_FJERN=1."
-                % (mappe, len(tabt), "\n  ".join(t[:150] for t in tabt[:8]),
-                   "\n  ... og %d mere" % (len(tabt) - 8) if len(tabt) > 8 else ""))
+                "er bare ikke bygget siden.\n"
+                "  4. Noget blev FJERNET i haanden og kommer nu tilbage. "
+                "Det skete 11. oktober med underskriftsblokken i "
+                "databehandleraftalen. En fjernelse hører i værktøjet, "
+                "se TOMME_FELTER_PAA_SIDEN.\n\n"
+                "Er ændringen med vilje, så kør igen med JURIDISK_FJERN=1."
+                % (mappe, liste("FORSVINDER", tabt), liste("KOMMER TIL", kommet)))
 
     io.open(sti, "w", encoding="utf-8", newline="\n").write(html)
     print("  skrev juridisk/%sindex.html  (%d tegn, dateret %s)"
@@ -651,6 +672,30 @@ FORTSAETTELSER = (
 # resten af koden staar klar.
 BILAG_PAA_SIDEN = False
 
+# SKAL DE TOMME FELTER STAA PAA HJEMMESIDEN?
+#
+# Nej. Kasper bad 11. oktober 2026 om at faa tre blokke vaek:
+# underskriftsblokken, afsnit 15 om kontaktpersoner med sine to tomme
+# felter, og boksen om bilagene. **Tomme felter som "Navn, Stilling,
+# Telefonnummer" hoerer til i den kontrakt, der skrives under paa, ikke
+# paa en offentlig webside.**
+#
+# DET BLEV DENGANG LAVET VED AT SLETTE 31 LINJER DIREKTE I HTML-SIDEN,
+# og det var forkert. Siden er en AFLEDNING af advokatens fil, saa
+# fjernelsen la kun ét sted: paa den side, der tilfaeldigvis stod der.
+# Den 12. oktober byggede jeg siderne forfra for at rette en pris, og
+# alle 31 linjer kom tilbage. Jeg naaede at opdage det, fordi jeg
+# saa paa diff'en bagefter. **Vaernet fangede det ikke**, for det saa
+# dengang kun efter tekst, der FORSVANDT, og her kom der tekst TIL.
+#
+# Nu staar fjernelsen her, hvor den hoerer, og saa kan den ikke rulles
+# tilbage af en koersel.
+#
+# AFSNITTENE BYGGES STADIG, de vises bare ikke. Ellers ville en aendring
+# i advokatens afsnit 15 ligge uopdaget, til nogen slog dem til igen.
+# Det er samme greb som ved bilagene ovenfor.
+TOMME_FELTER_PAA_SIDEN = False
+
 DBA_ANTAL = {2: 10, 3: 3, 4: 2, 5: 2, 6: 5, 7: 8, 8: 5,
              9: 3, 10: 4, 11: 1, 12: 3, 13: 1, 14: 4, 15: 2}
 
@@ -779,16 +824,23 @@ def byg_databehandleraftale():
         else:
             slut = find(a, "Bilag AOplysninger om behandlingen", i + 1)
 
-        krop.append("<h2>%d. %s</h2>" % (nummer, overskrift))
         bidder, antal = numrerede_punkter(a[i + 1:slut], nummer, numre)
         if antal != DBA_ANTAL[nummer]:
             sys.exit("STOP: afsnit %d fik %d punkter, men skal have %d. "
                      "Kilden er ændret, og numrene ville blive forkerte."
                      % (nummer, antal, DBA_ANTAL[nummer]))
+
+        # Afsnit 15 er kontaktpersonerne, og det er to tomme felter.
+        # Det bygges ovenfor, saa en aendring i kilden stadig fanges,
+        # men det kommer ikke paa siden. Se TOMME_FELTER_PAA_SIDEN.
+        if nummer == 15 and not TOMME_FELTER_PAA_SIDEN:
+            continue
+
+        krop.append("<h2>%d. %s</h2>" % (nummer, overskrift))
         krop.extend(bidder)
-        if nummer == 14:
+        if nummer == 14 and TOMME_FELTER_PAA_SIDEN:
             krop.append(UNDERSKRIFT)
-        if nummer == 15:
+        if nummer == 15 and TOMME_FELTER_PAA_SIDEN:
             krop.append(KONTAKTPERSONER)
 
     if BILAG_PAA_SIDEN:
@@ -799,7 +851,8 @@ def byg_databehandleraftale():
         krop.append(byg_bilag_b())
         krop.append(byg_bilag_c(a))
     else:
-        krop.append(BILAG_NOTE)
+        if TOMME_FELTER_PAA_SIDEN:
+            krop.append(BILAG_NOTE)
         # Bilagene bygges alligevel, saa vaerktoejet stadig faar fejl, hvis
         # kilden aendrer sig. Ellers ville en aendring i bilag B ligge
         # uopdaget, til nogen slog dem til igen.
