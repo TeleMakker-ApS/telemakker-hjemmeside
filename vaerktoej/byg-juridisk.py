@@ -80,8 +80,8 @@ _sp.loader.exec_module(EGNE)
 DATOER = {
     # Alle tre fik ny tekst 8. oktober 2026, da siderne og
     # vaerktoejet blev bragt i overensstemmelse igen.
-    "privatlivspolitik": "12. oktober 2026",
-    "handelsbetingelser": "12. oktober 2026",
+    "privatlivspolitik": "14. oktober 2026",
+    "handelsbetingelser": "14. oktober 2026",
     "databehandleraftale": "8. oktober 2026",
 }
 
@@ -597,6 +597,9 @@ def byg_privatlivspolitik():
                 krop.append("<h3>%s %s</h3>" % (nr, rest))
             else:
                 krop.append(punkt(nr, af.html[len(nr):].strip()))
+            # Vores egne punkter i advokatens afsnit 8. Se egne-afsnit.py.
+            if nr == EGNE.PRIV_EFTER_PUNKT:
+                krop.append(EGNE.PRIV_TILFOEJ_8)
             continue
 
         if af.er_overskrift() or t == "TeleMakkers privatlivspolitik SoMe":
