@@ -81,7 +81,7 @@ DATOER = {
     # Alle tre fik ny tekst 8. oktober 2026, da siderne og
     # vaerktoejet blev bragt i overensstemmelse igen.
     "privatlivspolitik": "14. oktober 2026",
-    "handelsbetingelser": "14. oktober 2026",
+    "handelsbetingelser": "15. oktober 2026",
     "databehandleraftale": "8. oktober 2026",
 }
 
