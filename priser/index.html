@@ -64,7 +64,7 @@ a{color:inherit}
 .hoved .mini{font-size:13px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--birk);margin:0 0 12px;font-weight:700}
 
-/* ---------- Bordet med de fire pakker ---------- */
+/* ---------- Bordet med de tre pakker ---------- */
 /*
    FIRE SOEJLER VED SIDEN AF HINANDEN, ikke to baand over hinanden.
    Kasper 9. oktober: boksene skal staa ved siden af hinanden.
@@ -88,7 +88,7 @@ a{color:inherit}
    par af sig selv, uanset hvor mange søjler der er plads til. På en
    bred skærm løftes de to overskrifter op på række ét med explicit
    placering herunder. */
-.bordgitter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;
+.bordgitter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;
   align-items:stretch}
 .gruppe{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
   padding:0 0 12px;border-bottom:2px solid var(--streg);align-self:end}
@@ -100,19 +100,18 @@ a{color:inherit}
 .maerke--uden{background:var(--lys);color:var(--daempet);border:1px solid var(--streg)}
 .maerke--med{background:var(--antracit);color:var(--birk)}
 
-/* Fire soejler: overskrifterne paa raekke ét, kortene paa raekke to. */
+/* Tre soejler: overskrifterne paa raekke ét, kortene paa raekke to.
+   Efter aftale er ikke et abonnement og staar i sin egen kasse under. */
 @media(min-width:1081px){
   .gruppe:nth-child(1){grid-column:1/3;grid-row:1}
-  .gruppe:nth-child(4){grid-column:3/5;grid-row:1}
+  .gruppe:nth-child(4){grid-column:3;grid-row:1}
   .pakke:nth-child(2){grid-column:1;grid-row:2}
   .pakke:nth-child(3){grid-column:2;grid-row:2}
   .pakke:nth-child(5){grid-column:3;grid-row:2}
-  .pakke:nth-child(6){grid-column:4;grid-row:2}
 }
 
 /* HYLDEN BAG DE TO MED TELEFONI. Den ligger i baggrunden og spaender
-   praecis over soejle tre og fire, saa parret hoerer sammen, uden at de
-   to kort skal vaere stoerre end de andre. */
+   praecis over soejle tre, saa den hoerer sammen med sin overskrift. */
 .hylde{position:absolute;top:0;bottom:0;background:var(--sand);
   border-radius:8px;z-index:0}
 .bord .ramme{position:relative;z-index:1}
@@ -182,11 +181,41 @@ a{color:inherit}
   /* Hylden er vaek, saa farven flytter ind paa kortet. Skellet maa
      ikke hvile paa overskriften alene. */
   .pakke--tele{background:var(--sand)}
+  .pakke--frem{grid-column:1/-1}
 }
 @media(max-width:620px){
   .bordgitter{grid-template-columns:minmax(0,1fr)}
   .gruppe{grid-column:span 1}
   .pakke__hvem,.pakke__opstart{min-height:0}
+}
+
+/* ---------- Efter aftale: egen kasse, ikke et abonnement ---------- */
+.aftale-sek{padding:34px 0 10px}
+.aftale{background:var(--antracit);color:var(--lys);border-radius:8px;
+  border-top:5px solid var(--birk);padding:34px 38px 36px;
+  display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:20px 44px;align-items:start}
+.aftale h2{font-size:30px;margin:14px 0 8px;letter-spacing:-.02em;line-height:1.1}
+.aftale__hvem{margin:0;color:#cfc9bf;font-size:16px;max-width:36ch}
+.maerke--aftale{background:var(--birk);color:var(--antracit-moerk);display:inline-block}
+.aftale ul{list-style:none;margin:0;padding:0;font-size:15px;line-height:1.5}
+.aftale li{padding:9px 0 9px 25px;position:relative;border-top:1px solid var(--streg-moerk)}
+.aftale li:first-child{border-top:0;padding-top:0}
+.aftale li::before{content:"";position:absolute;left:3px;top:15px;width:8px;height:4px;
+  border-left:2px solid var(--birk);border-bottom:2px solid var(--birk);
+  transform:rotate(-45deg)}
+.aftale li:first-child::before{top:6px}
+.aftale__tal{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.aftale__pris p{margin:8px 0 0;font-size:14.5px;color:#cfc9bf}
+.aftale__pris p.aftale__plus{color:var(--lys);font-weight:600;margin-top:10px}
+.aftale__pris .pakke__tilkoeb{margin-top:16px;color:#cfc9bf;border-color:#5b6066}
+.aftale__pris .knap{margin-top:20px;background:var(--birk);color:var(--antracit-moerk)}
+@media(max-width:1080px){
+  .aftale{grid-template-columns:1fr 1fr}
+  .aftale__hoved{grid-column:1/-1}
+  .aftale__hvem{max-width:60ch}
+}
+@media(max-width:620px){
+  .aftale{grid-template-columns:minmax(0,1fr);padding:28px 22px 30px}
 }
 
 /* ---------- Noten nederst ---------- */
@@ -231,7 +260,7 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- ============ DE FIRE PAKKER ============ -->
+<!-- ============ DE TRE PAKKER ============ -->
 <section class="bord">
   <div class="hylde" id="hylde" aria-hidden="true"></div>
   <div class="ramme">
@@ -340,33 +369,33 @@ a{color:inherit}
         </div>
       </div>
 
-      <!-- 4 -->
-      <div class="pakke pakke--tele">
-        <div class="pakke__kant"></div>
-        <div class="pakke__ind">
-          <h3>Efter aftale</h3>
-          <p class="pakke__hvem">I er flere mand, der laver mange tilbud, og
-            tilbuddet skal kun have dit navn på.</p>
-          <div class="pakke__pris">
-            <span class="pakke__tal pakke__tal--ord">Ring til os</span>
-          </div>
-          <p class="pakke__plus">Prisen sættes efter, hvor mange I er.</p>
-          <p class="pakke__opstart">Vi regner den på én samtale, og du får den
-            skriftligt, før du siger ja.</p>
-          <ul>
-            <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
-            <li>Alt i Komplet</li>
-            <li>Fælles prisliste for hele firmaet</li>
-            <li>Ubegrænset antal mænd</li>
-          </ul>
-          <div class="pakke__tilkoeb"><b>Udbudsmateriale: 49 kr. pr. gennemlæsning</b>
-            Samme som i Komplet. Ingen månedspris og intet minimum.</div>
-          <div class="pakke__knap">
-            <a class="knap" href="/#kontakt">Få en pris</a>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+</section>
 
+<section class="aftale-sek">
+  <div class="ramme">
+    <div class="aftale">
+      <div class="aftale__hoved">
+        <span class="maerke maerke--aftale">Til firmaer</span>
+        <h2>Efter aftale</h2>
+        <p class="aftale__hvem">I er flere mand, der laver mange tilbud, og
+          tilbuddet skal kun have dit navn på.</p>
+      </div>
+      <ul>
+        <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
+        <li>Alt i Komplet</li>
+        <li>Fælles prisliste for hele firmaet</li>
+        <li>Ubegrænset antal mænd</li>
+      </ul>
+      <div class="aftale__pris">
+        <span class="aftale__tal">Ring til os</span>
+        <p class="aftale__plus">Prisen sættes efter, hvor mange I er.</p>
+        <p>Vi regner den på én samtale, og du får den skriftligt, før du siger ja.</p>
+        <div class="pakke__tilkoeb"><b>Udbudsmateriale: 49 kr. pr. gennemlæsning</b>
+          Samme som i Komplet. Ingen månedspris og intet minimum.</div>
+        <a class="knap" href="/#kontakt">Få en pris</a>
+      </div>
     </div>
   </div>
 </section>
@@ -418,13 +447,13 @@ a{color:inherit}
 (function () {
   var hylde = document.getElementById("hylde");
   var soejler = document.querySelectorAll(".bordgitter > .pakke");
-  if (!hylde || soejler.length < 4) return;
+  if (!hylde || soejler.length < 3) return;
   function maal() {
-    // Kun naar de fire staar paa én raekke. Ellers haandterer CSS'en
+    // Kun naar de tre staar paa én raekke. Ellers haandterer CSS'en
     // det med en baggrund paa selve kortet.
     if (window.innerWidth <= 1080) { hylde.style.display = "none"; return; }
     var a = soejler[2].getBoundingClientRect();
-    var b = soejler[3].getBoundingClientRect();
+    var b = a;
     hylde.style.display = "block";
     hylde.style.left = (a.left - 18) + "px";
     hylde.style.width = (b.right - a.left + 36) + "px";
