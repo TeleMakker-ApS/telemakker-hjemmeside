@@ -75,7 +75,7 @@ a{color:inherit}
    anden farve bag de to med telefoni, og en moerk overkant paa dem.
    Ét af dem alene ville vaere for svagt ved et hurtigt blik.
 */
-.bord{padding:46px 0 10px;position:relative}
+.bord{padding:46px 0 20px;position:relative}
 
 /* ÉT GITTER TIL BÅDE OVERSKRIFTER OG KORT.
    Først stod overskrifterne i deres eget gitter ovenover. Det så
@@ -90,11 +90,12 @@ a{color:inherit}
    placering herunder. */
 .bordgitter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;
   align-items:stretch}
-.gruppe{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-  padding:0 0 12px;border-bottom:2px solid var(--streg);align-self:end}
+.gruppe{display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  padding:0 0 16px;border-bottom:2px solid var(--streg);align-self:stretch}
+.gruppe .maerke{order:-1;margin-bottom:2px}
 .gruppe--med{border-bottom-color:var(--antracit)}
 .gruppe h2{font-size:22px;margin:0;letter-spacing:-.01em}
-.gruppe p{margin:0;color:var(--daempet);font-size:14.5px;flex:1 1 100%}
+.gruppe p{margin:0;color:var(--daempet);font-size:14.5px;max-width:56ch}
 .maerke{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 10px;border-radius:3px;white-space:nowrap}
 .maerke--uden{background:var(--lys);color:var(--daempet);border:1px solid var(--streg)}
@@ -112,7 +113,7 @@ a{color:inherit}
 
 /* HYLDEN BAG DE TO MED TELEFONI. Den ligger i baggrunden og spaender
    praecis over soejle tre, saa den hoerer sammen med sin overskrift. */
-.hylde{position:absolute;top:0;bottom:0;background:var(--sand);
+.hylde{position:absolute;top:20px;bottom:0;background:var(--sand);
   border-radius:8px;z-index:0}
 .bord .ramme{position:relative;z-index:1}
 
@@ -297,7 +298,7 @@ a{color:inherit}
         <h2>Du starter sagen</h2>
         <span class="maerke maerke--uden">Uden telefoni</span>
         <p>Du taler eller skriver opgaven ind, når du har tid. Kunden ringer
-          til dit nummer som altid, og vi hører ikke opkaldet.</p>
+          til dit nummer som altid, og du taler med kunden som normalt.</p>
       </div>
 
       <!-- 1 -->
