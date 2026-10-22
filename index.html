@@ -52,7 +52,7 @@ body{
   font-family:Archivo,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden
 }
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.03em;text-wrap:balance;line-height:1.04}
 p{margin:0}
@@ -88,6 +88,12 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .top nav{display:flex;gap:22px;margin-left:12px;flex:1}
 .top nav a{font-size:15px;font-weight:500;text-decoration:none;color:#c6bfb4}
 .top nav a:hover{color:var(--lys)}
+.top nav a{white-space:nowrap}
+@media(max-width:1180px){
+  .top__ind{gap:12px}
+  .top nav{gap:12px;margin-left:0}
+  .top nav a{font-size:14px}
+}
 .top__tlf{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
 .top__tlf b{font-size:17px;letter-spacing:-.01em;display:flex;gap:7px;align-items:baseline}
 .top__tlf b a{text-decoration:none}
@@ -271,10 +277,10 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .fejl{margin-top:12px;font-size:15px;color:#e9a08c}
 .kasse{background:var(--antracit-lys);border-radius:2px;padding:34px;border-top:4px solid var(--birk)}
 .aerlig{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.aerlig div{border-left:4px solid var(--birk);padding:2px 0 2px 24px}
+.aerlig div{border-left:4px solid #9a7f4d;padding:2px 0 2px 24px}
 .aerlig b{display:block;font-size:19px;margin-bottom:8px}
-.aerlig p{font-size:16.5px;color:#a39c91}
-.aerlig p strong{color:#f1ece4;font-weight:700}
+.aerlig p{font-size:16.5px;color:var(--daempet)}
+.aerlig p strong{color:var(--antracit);font-weight:700}
 .aerlig p + p{margin-top:12px}
 .aerlig .person{display:flex;gap:18px;align-items:flex-start;margin-top:18px}
 .aerlig .person img{width:88px;height:88px;object-fit:cover;border-radius:2px;flex:none}
@@ -635,6 +641,7 @@ h2{font-size:clamp(32px,5.2vw,58px)}
       <a href="/priser/">Priser</a>
       <a href="#fag">Dit fag</a>
       <a href="#os">Hvem vi er</a>
+      <a href="#kontakt">Kontakt</a>
     </nav>
     <span class="top__tlf">
       <span><small>Ring til TeleMakker</small>
@@ -883,7 +890,7 @@ h2{font-size:clamp(32px,5.2vw,58px)}
         </ol>
       </div>
       <div class="zig__billede zig__billede--ud">
-        <img src="billeder/sagsliste.png" alt="Sagslisten med farver for, hvad der mangler" loading="lazy">
+        <img src="billeder/sagsliste.png" alt="Sagslisten med farver for, hvad der mangler" width="2420" height="832" loading="lazy">
         <span class="maerkat">Rød, gul, grøn. Du kan se det på et sekund.</span>
       </div>
     </div>
@@ -965,8 +972,8 @@ h2{font-size:clamp(32px,5.2vw,58px)}
       om et terrassedæk. Dit navn, dit CVR og dine priser. Nederst står én
       linje om, at det er lavet med TeleMakker; på Efter aftale er den væk.</p>
     <div class="pdf">
-      <img src="billeder/tilbud-1.png" alt="Tilbuddets side 1" loading="lazy">
-      <img src="billeder/tilbud-2.png" alt="Tilbuddets side 2" loading="lazy">
+      <img src="billeder/tilbud-1.png" alt="Tilbuddets side 1" width="1190" height="1683" loading="lazy">
+      <img src="billeder/tilbud-2.png" alt="Tilbuddets side 2" width="1190" height="1683" loading="lazy">
     </div>
     <div class="pdf__punkter">
       <div><b>Dit logo og dit CVR</b><p>De står i båndet øverst. Kunden ser dit firma på dokumentet.</p></div>
@@ -1016,12 +1023,57 @@ h2{font-size:clamp(32px,5.2vw,58px)}
   </div>
 </section>
 
-<!-- ============ AFSLUTNINGEN ============ -->
+<!-- ============ HVEM VI ER ============ -->
+<section class="baand baand--papir" id="os">
+  <div class="ramme ind">
+    <p class="mini">Hvem vi er</p>
+    <h2>Mikkel og Kasper.</h2>
+
+    <div class="aerlig">
+      <div>
+        <b>Fra 45 til 5 minutter</b>
+        <p>Vi er Mikkel Durup og Kasper Faurschou, og vi har set det samme hos
+          de håndværkere, vi kender. Dagen går med det arbejde, kunderne
+          betaler for. <strong>Aftenen går med det, ingen betaler for</strong>: tilbud, mails og
+          papirer. Ét tilbud tager let <strong>tre kvarter</strong> at regne og skrive, og den
+          tid er hverken fritid eller timer, der kan faktureres. Derfor byggede
+          vi TeleMakker. <strong>Samtalen med kunden bliver selv til et tilbud</strong> med <strong>dine
+          egne priser</strong>, og du bruger <strong>fem minutter</strong> på at rette det i stedet for
+          tre kvarter på at skrive det. <strong>Resten af tiden er din</strong>: til flere
+          opgaver eller til at holde fri.</p>
+      </div>
+      <div>
+        <b>Det er os, du taler med</b>
+        <p>Vi ejer TeleMakker sammen. Ringer du, får du fat i en af os, og det
+          er os, der sætter det op hos dig og svarer, når du har et spørgsmål
+          bagefter.</p>
+        <article class="person">
+          <img src="billeder/kasper-faurschou.webp" alt="Kasper Faurschou" width="88" height="88" loading="lazy">
+          <p><strong>Kasper Faurschou</strong> udvikler og <strong>bygger</strong> TeleMakker samt
+            <strong>sætter det op hos dig</strong>. Han har arbejdet med salg i ti år og brænder
+            for at lave noget, som folk faktisk får gavn af.</p>
+        </article>
+        <article class="person">
+          <img src="billeder/mikkel-durup.webp" alt="Mikkel Durup" width="88" height="88" loading="lazy">
+          <p><strong>Mikkel Durup</strong> passer driften: <strong>at det kører, og at dine
+            priser stemmer</strong>. Han kommer fra ti år i indkøb og har arbejdet tæt
+            sammen med håndværkere i årevis.</p>
+        </article>
+        <p>TeleMakker ApS, CVR 46720253. Handelsbetingelser,
+          privatlivspolitik og databehandleraftale er udarbejdet med advokat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
 <section class="baand baand--moerk" id="kontakt" style="background:var(--antracit-lys)">
   <div class="ramme ind">
-    <div class="slut" id="os">
+    <p class="mini">Kontakt</p>
+    <h2>Er du håndværker?<br>Så ring.</h2>
+
+    <div class="slut">
       <div>
-        <p class="mini">Er du håndværker? Så ring</p>
         <div class="slut__numre">
           <a class="slut__tlf" href="tel:+4520110302">20 11 03 02</a>
           <a class="slut__tlf" href="tel:+4560464520">60 46 45 20</a>
@@ -1056,41 +1108,6 @@ h2{font-size:clamp(32px,5.2vw,58px)}
             <a href="mailto:kontakt@telemakker.dk" style="color:var(--birk)">kontakt@telemakker.dk</a>,
             så aftaler vi et tidspunkt.</p>
         </div>
-      </div>
-    </div>
-
-    <div class="aerlig">
-      <div>
-        <b>Fra tre kvarter til fem minutter</b>
-        <p>Vi er Mikkel Durup og Kasper Faurschou, og vi har set det samme hos
-          de håndværkere, vi kender. Dagen går med det arbejde, kunderne
-          betaler for. <strong>Aftenen går med det, ingen betaler for</strong>: tilbud, mails og
-          papirer. Ét tilbud tager let <strong>tre kvarter</strong> at regne og skrive, og den
-          tid er hverken fritid eller timer, der kan faktureres. Derfor byggede
-          vi TeleMakker. <strong>Samtalen med kunden bliver selv til et tilbud</strong> med <strong>dine
-          egne priser</strong>, og du bruger <strong>fem minutter</strong> på at rette det i stedet for
-          tre kvarter på at skrive det. <strong>Resten af tiden er din</strong>: til flere
-          opgaver eller til at holde fri.</p>
-      </div>
-      <div>
-        <b>Det er os, du taler med</b>
-        <p>Vi ejer TeleMakker sammen. Ringer du, får du fat i en af os, og det
-          er os, der sætter det op hos dig og svarer, når du har et spørgsmål
-          bagefter.</p>
-        <article class="person">
-          <img src="billeder/kasper-faurschou.webp" alt="Kasper Faurschou" width="88" height="88" loading="lazy">
-          <p><strong>Kasper Faurschou</strong> udvikler og <strong>bygger</strong> TeleMakker samt
-            <strong>sætter det op hos dig</strong>. Han har arbejdet med salg i ti år og brænder
-            for at lave noget, som folk faktisk får gavn af.</p>
-        </article>
-        <article class="person">
-          <img src="billeder/mikkel-durup.webp" alt="Mikkel Durup" width="88" height="88" loading="lazy">
-          <p><strong>Mikkel Durup</strong> passer driften: <strong>at det kører, og at dine
-            priser stemmer</strong>. Han kommer fra ti år i indkøb og har arbejdet tæt
-            sammen med håndværkere i årevis.</p>
-        </article>
-        <p>TeleMakker ApS, CVR 46720253. Handelsbetingelser,
-          privatlivspolitik og databehandleraftale er udarbejdet med advokat.</p>
       </div>
     </div>
   </div>
