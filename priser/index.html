@@ -197,7 +197,7 @@ a{color:inherit}
 .tilkoeb-sek{padding:22px 0 0}
 .tilkoeb{display:grid;grid-template-columns:auto 1fr;gap:6px 28px;align-items:center;
   padding:20px 26px;border:1px dashed var(--daempet);border-radius:6px;background:var(--papir)}
-.tilkoeb__maerke{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+.tilkoeb__maerke{grid-row:1 / span 2;align-self:center;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   padding:5px 10px;border-radius:3px;background:var(--lys);color:var(--daempet);
   border:1px solid var(--streg);white-space:nowrap;justify-self:start}
 .tilkoeb b{font-size:17px}
@@ -206,13 +206,14 @@ a{color:inherit}
 @media(max-width:700px){
   .tilkoeb{grid-template-columns:minmax(0,1fr);padding:18px 20px}
   .tilkoeb p{grid-column:1}
+  .tilkoeb__maerke{grid-row:auto;align-self:start}
 }
 
 /* ---------- Enterprise: egen kasse, ikke et abonnement ---------- */
 .aftale-sek{padding:34px 0 10px}
 .aftale{background:var(--antracit);color:var(--lys);border-radius:8px;
   border-top:5px solid var(--birk);padding:34px 38px 36px;
-  display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:20px 44px;align-items:start}
+  display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:20px 44px;align-items:center}
 .aftale h2{font-size:30px;margin:14px 0 8px;letter-spacing:-.02em;line-height:1.1}
 .aftale__hvem{margin:0;color:#cfc9bf;font-size:16px;max-width:36ch}
 .maerke--aftale{background:var(--birk);color:var(--antracit-moerk);display:inline-block}
@@ -224,6 +225,7 @@ a{color:inherit}
   transform:rotate(-45deg)}
 .aftale li:first-child::before{top:6px}
 .aftale__tal{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+@media(min-width:1081px){.aftale__pris{text-align:center}}
 .aftale__pris p{margin:8px 0 0;font-size:14.5px;color:#cfc9bf}
 .aftale__pris p.aftale__plus{color:var(--lys);font-weight:600;margin-top:10px}
 .aftale__pris .knap{margin-top:20px;background:var(--birk);color:var(--antracit-moerk)}
@@ -381,7 +383,7 @@ a{color:inherit}
             <li>Telefonien med: opkald bliver til tilbud af sig selv</li>
             <li>Du beholder dit nummer</li>
             <li>Nye brugere: 1.295 kr. pr. måned</li>
-            <li>Prioriteret service samme dag</li>
+            <li>Prioriteret personlig service</li>
           </ul>
           <div class="pakke__knap">
             <a class="knap knap--lys" href="/#kontakt">Kontakt os</a>
@@ -415,20 +417,18 @@ a{color:inherit}
   <div class="ramme">
     <div class="aftale">
       <div class="aftale__hoved">
-        <span class="maerke maerke--aftale">Til firmaer</span>
         <h2>Enterprise</h2>
-        <p class="aftale__hvem">I er flere ansatte, der laver mange tilbud.</p>
+        <p class="aftale__hvem">I er mange ansatte, der laver mange tilbud.</p>
       </div>
       <ul>
         <li>Alt i Komplet-pakken</li>
-        <li>Fælles prisliste for hele firmaet</li>
-        <li>Mængderabat ved flere brugere</li>
-        <li>Hjælp til onboarding</li>
         <li>Ubegrænset antal ansatte</li>
+        <li>Mængderabat ved flere brugere</li>
+        <li>Fælles prisliste for hele firmaet</li>
+        <li>Hjælp til onboarding</li>
       </ul>
       <div class="aftale__pris">
-        <p class="aftale__plus">Prisen sættes efter, hvor mange I er.</p>
-        <p>Vi regner den på én samtale, og du får den skriftligt, før du siger ja.</p>
+        <p>Prisen skræddersyes til dit behov.</p>
         <a class="knap" href="/#kontakt">Kontakt os</a>
       </div>
     </div>
@@ -473,7 +473,7 @@ a{color:inherit}
       </details>
       <details>
         <summary>Hvad er Enterprise?</summary>
-        <p>Enterprise er til firmaer med flere ansatte, der laver mange tilbud. Prisen sættes efter, hvor mange I er. Vi regner den på én samtale, og du får den skriftligt, før du siger ja.</p>
+        <p>Enterprise er til firmaer med flere ansatte, der laver mange tilbud. Prisen sættes efter, hvor mange I er.</p>
       </details>
     </div>
   </div>
