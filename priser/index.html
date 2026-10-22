@@ -539,5 +539,28 @@ a{color:inherit}
   window.addEventListener("resize", maal);
 })();
 </script>
+<script>
+// Strukturerede data til Google (FAQPage). Bygges ud fra selve spørgsmålene
+// og svarene på siden, så de aldrig kan afvige fra det, besøgende ser.
+(function () {
+  var rækker = document.querySelectorAll(".sp details");
+  if (!rækker.length) return;
+  var spørgsmål = [];
+  rækker.forEach(function (r) {
+    var q = r.querySelector("summary"), a = r.querySelector("p");
+    if (!q || !a) return;
+    spørgsmål.push({
+      "@type": "Question",
+      name: q.textContent.replace(/\s+/g, " ").trim(),
+      acceptedAnswer: { "@type": "Answer", text: a.textContent.replace(/\s+/g, " ").trim() }
+    });
+  });
+  if (!spørgsmål.length) return;
+  var tag = document.createElement("script");
+  tag.type = "application/ld+json";
+  tag.text = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: spørgsmål });
+  document.head.appendChild(tag);
+})();
+</script>
 </body>
 </html>
