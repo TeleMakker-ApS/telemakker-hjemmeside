@@ -229,6 +229,21 @@ a{color:inherit}
   .aftale{grid-template-columns:minmax(0,1fr);padding:28px 22px 30px}
 }
 
+/* ---------- Spoergsmaal og svar ---------- */
+.sp{padding:56px 0 8px}
+.sp h2{font-size:clamp(26px,3.2vw,34px);margin:0 0 22px;letter-spacing:-.02em;line-height:1.1}
+.sp__liste{max-width:860px;border-bottom:1px solid var(--streg)}
+.sp details{border-top:1px solid var(--streg)}
+.sp summary{list-style:none;cursor:pointer;padding:18px 40px 18px 0;font-weight:700;
+  font-size:18px;letter-spacing:-.01em;position:relative;line-height:1.35}
+.sp summary::-webkit-details-marker{display:none}
+.sp summary::after{content:"+";position:absolute;right:6px;top:50%;margin-top:-14px;
+  font-size:26px;font-weight:400;line-height:28px;color:var(--daempet)}
+.sp details[open] summary::after{content:"−"}
+.sp summary:hover{color:var(--daempet)}
+.sp summary:focus-visible{outline:2px solid var(--antracit);outline-offset:2px}
+.sp details p{margin:0 0 20px;max-width:68ch;color:var(--daempet);font-size:16.5px}
+
 /* ---------- Noten nederst ---------- */
 .note{padding:44px 0 60px}
 .smaat{color:var(--daempet);font-size:14px;margin:0;max-width:80ch}
@@ -407,6 +422,50 @@ a{color:inherit}
         <p>Vi regner den på én samtale, og du får den skriftligt, før du siger ja.</p>
         <a class="knap" href="/#kontakt">Få en pris</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sp">
+  <div class="ramme">
+    <h2>Spørgsmål og svar</h2>
+    <div class="sp__liste">
+      <details>
+        <summary>Hvad sker der, når de 10 gratis tilbud er brugt?</summary>
+        <p>Prøve stopper, når de ti tilbud er brugt. Du har ikke betalt noget, og vi har ikke dit kort. Vil du fortsætte, vælger du Enkelt eller Komplet.</p>
+      </details>
+      <details>
+        <summary>Hvad hvis jeg laver mere end 12 tilbud på Enkelt?</summary>
+        <p>Så koster hvert ekstra tilbud i måneden 35 kr. Tilbuddene tælles pr. kalendermåned og starter forfra den første.</p>
+      </details>
+      <details>
+        <summary>Hvad er forskellen på med og uden telefoni?</summary>
+        <p>Uden telefoni taler eller skriver du selv opgaven ind, når du har tid. Med telefoni ringer kunden til dit eget nummer, og tilbuddet skrives, mens I taler. Du taster ingenting.</p>
+      </details>
+      <details>
+        <summary>Skal jeg have et nyt telefonnummer?</summary>
+        <p>Nej. Kunderne ringer til dit eget nummer som altid, og det er det nummer, vi sætter op hos dig.</p>
+      </details>
+      <details>
+        <summary>Hvad dækker oprettelsen?</summary>
+        <p>Oprettelsen er et engangsbeløb til opsætningen af din konto. Din grossists prisliste hjælper vi dig med at få ind. Beløbet betales én gang og refunderes ikke.</p>
+      </details>
+      <details>
+        <summary>Hvor kommer priserne på tilbuddet fra?</summary>
+        <p>Fra din egen prisliste fra din grossist. Den skal hentes ind, før vi kan sætte priser på, og det hjælper vi med. Tilbuddet får dine priser og dit logo.</p>
+      </details>
+      <details>
+        <summary>Hvad koster udbudsmateriale, og hvornår betaler jeg?</summary>
+        <p>49 kr. pr. gennemlæsning og ingen månedspris. Det gælder Enkelt, Komplet og Enterprise. Et udbud, der læses igennem for ét fag eller én instruks, er én gennemlæsning, og beløbet kommer på den følgende måneds regning.</p>
+      </details>
+      <details>
+        <summary>Er priserne med moms?</summary>
+        <p>Nej, alle priser er ekskl. moms.</p>
+      </details>
+      <details>
+        <summary>Hvad er Enterprise?</summary>
+        <p>Enterprise er til firmaer med flere ansatte, der laver mange tilbud. Prisen sættes efter, hvor mange I er. Vi regner den på én samtale, og du får den skriftligt, før du siger ja. Tilbuddet har kun dit navn på.</p>
+      </details>
     </div>
   </div>
 </section>
