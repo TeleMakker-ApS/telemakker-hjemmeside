@@ -153,6 +153,10 @@ a{color:inherit}
   border-left:2px solid var(--antracit);border-bottom:2px solid var(--antracit);
   transform:rotate(-45deg)}
 .pakke li.nej{color:var(--daempet)}
+/* Hvornaar Komplet bliver billigere end Enkelt: 695 + 35 x (n - 12) er
+   over 1.895 kr. fra 47 tilbud om maaneden. Skal rettes, hvis priserne aendres. */
+.pakke__tip{margin:12px 0 0;padding:2px 0 2px 12px;border-left:3px solid var(--birk);
+  font-size:13.5px;line-height:1.45;color:var(--daempet)}
 /* UDBUDSMATERIALE. Kasper 15. oktober 2026: 49 kr. pr. gennemlæsning, og
    ikke et abonnement man tilkøber. Boksen står under listen, så det er
    tydeligt, at det ikke er med i månedsprisen. */
@@ -319,6 +323,8 @@ a{color:inherit}
             <li>Videre i <a href="/e-conomic/">e-conomic</a>, Dinero, Minuba eller Apacta</li>
             <li class="nej">Ingen telefoni</li>
           </ul>
+          <p class="pakke__tip">Laver du mere end 46 tilbud om måneden, er
+            Komplet billigere, og telefonen er med.</p>
           <div class="pakke__tilkoeb"><b>Udbudsmateriale: 49 kr. pr. gennemlæsning</b>
             Læg udbudsmateriale på hundredvis af sider ind, vælg dit fag, og få
             dine opgaver med sidetal. Ingen månedspris og intet minimum. Du
