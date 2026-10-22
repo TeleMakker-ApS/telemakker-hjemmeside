@@ -274,6 +274,12 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .aerlig div{border-left:4px solid var(--birk);padding:2px 0 2px 24px}
 .aerlig b{display:block;font-size:19px;margin-bottom:8px}
 .aerlig p{font-size:16.5px;color:#a39c91}
+.aerlig p strong{color:#f1ece4;font-weight:700}
+.aerlig p + p{margin-top:12px}
+.aerlig .person{display:flex;gap:18px;align-items:flex-start;margin-top:18px}
+.aerlig .person img{width:88px;height:88px;object-fit:cover;border-radius:2px;flex:none}
+.aerlig .person p{margin:0}
+.aerlig .person + p{margin-top:18px}
 
 .fod{background:var(--antracit-moerk);color:#8d8679;padding:48px 0 36px;font-size:15px}
 .fod__ind{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
@@ -1058,19 +1064,32 @@ h2{font-size:clamp(32px,5.2vw,58px)}
         <b>Fra tre kvarter til fem minutter</b>
         <p>Vi er Mikkel Durup og Kasper Faurschou, og vi har set det samme hos
           de håndværkere, vi kender. Dagen går med det arbejde, kunderne
-          betaler for. Aftenen går med det, ingen betaler for: tilbud, mails og
-          papirer. Ét tilbud tager let tre kvarter at regne og skrive, og den
+          betaler for. <strong>Aftenen går med det, ingen betaler for</strong>: tilbud, mails og
+          papirer. Ét tilbud tager let <strong>tre kvarter</strong> at regne og skrive, og den
           tid er hverken fritid eller timer, der kan faktureres. Derfor byggede
-          vi TeleMakker. Samtalen med kunden bliver selv til et tilbud med dine
-          egne priser, og du bruger fem minutter på at rette det i stedet for
-          tre kvarter på at skrive det. Resten af tiden er din: til flere
+          vi TeleMakker. <strong>Samtalen med kunden bliver selv til et tilbud</strong> med <strong>dine
+          egne priser</strong>, og du bruger <strong>fem minutter</strong> på at rette det i stedet for
+          tre kvarter på at skrive det. <strong>Resten af tiden er din</strong>: til flere
           opgaver eller til at holde fri.</p>
       </div>
       <div>
         <b>Det er os, du taler med</b>
         <p>Vi ejer TeleMakker sammen. Ringer du, får du fat i en af os, og det
           er os, der sætter det op hos dig og svarer, når du har et spørgsmål
-          bagefter. TeleMakker ApS, CVR 46720253. Handelsbetingelser,
+          bagefter.</p>
+        <article class="person">
+          <img src="billeder/kasper-faurschou.webp" alt="Kasper Faurschou" width="88" height="88" loading="lazy">
+          <p><strong>Kasper Faurschou</strong> udvikler og <strong>bygger</strong> TeleMakker samt
+            <strong>sætter det op hos dig</strong>. Han har arbejdet med salg i ti år og brænder
+            for at lave noget, som folk faktisk får gavn af.</p>
+        </article>
+        <article class="person">
+          <img src="billeder/mikkel-durup.webp" alt="Mikkel Durup" width="88" height="88" loading="lazy">
+          <p><strong>Mikkel Durup</strong> passer driften: <strong>at det kører, og at dine
+            priser stemmer</strong>. Han kommer fra ti år i indkøb og har arbejdet tæt
+            sammen med håndværkere i årevis.</p>
+        </article>
+        <p>TeleMakker ApS, CVR 46720253. Handelsbetingelser,
           privatlivspolitik og databehandleraftale er udarbejdet med advokat.</p>
       </div>
     </div>
