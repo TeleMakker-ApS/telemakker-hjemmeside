@@ -146,6 +146,10 @@ a{color:inherit}
 .pakke__tal--ord{font-size:25px}
 .pakke__enhed{color:var(--daempet);font-size:13.5px}
 .pakke__plus{margin:6px 0 0;font-size:14px;font-weight:600}
+.pakke__alt{margin:16px 0 0;font-size:13.5px;font-weight:700;color:var(--daempet)}
+.pakke__alt + ul{margin-top:6px}
+.pakke__alt--tom{visibility:hidden}
+@media(max-width:620px){.pakke__alt--tom{display:none}}
 .pakke__opstart{margin:9px 0 0;font-size:13.5px;color:var(--daempet);min-height:3.4em}
 .pakke ul{list-style:none;margin:16px 0 0;padding:0;font-size:14.5px;line-height:1.5}
 .pakke li{padding:8px 0 8px 23px;position:relative;border-top:1px solid var(--streg)}
@@ -310,18 +314,18 @@ a{color:inherit}
           <div class="pakke__pris">
             <span class="pakke__tal">0 kr.</span>
           </div>
-          <p class="pakke__opstart">Ingen oprettelse. Intet kort, ingen
-            tidsfrist.</p>
+          <p class="pakke__opstart">Ingen oprettelse. Intet kort. Ingen
+            frist.</p>
+          <p class="pakke__alt pakke__alt--tom" aria-hidden="true">&nbsp;</p>
           <ul>
-            <li><b>10 tilbud i alt</b>, ikke pr. måned</li>
-            <li>Du dikterer eller skriver opgaven</li>
+            <li>10 tilbud i alt, ikke pr. måned</li>
+            <li>Du taler eller skriver opgaven ind</li>
             <li>Dine egne priser og dit eget logo</li>
             <li>Send tilbuddet, og se når kunden åbner det</li>
             <li>Én bruger</li>
-            <li class="nej">Ingen telefoni</li>
           </ul>
           <div class="pakke__knap">
-            <a class="knap knap--tom" href="/#kontakt">Kom i gang gratis</a>
+            <a class="knap knap--tom" href="/#kontakt">Kom i gang</a>
           </div>
         </div>
       </div>
@@ -337,16 +341,15 @@ a{color:inherit}
             <span class="pakke__enhed">pr. måned</span>
           </div>
           <p class="pakke__opstart">1.495 kr. i oprettelse, én gang.</p>
+          <p class="pakke__alt">Alt i Prøve-pakken, plus:</p>
           <ul>
-            <li><b>12 tilbud om måneden</b>, derefter 35 kr. pr. tilbud</li>
-            <li>Alt i Prøve</li>
-            <li>Sms til kunden, så hun selv lægger billeder ind</li>
+            <li>12 tilbud om måneden, derefter 35 kr. pr. tilbud</li>
             <li>Kundekartotek og historik på hver sag</li>
-            <li>Videre i <a href="/e-conomic/">e-conomic</a>, Dinero, Minuba eller Apacta</li>
-            <li class="nej">Ingen telefoni</li>
+            <li>Integration med e-conomic, Dinero, Minuba eller Apacta</li>
+            <li>Personlig service, når du har brug for hjælp</li>
           </ul>
           <div class="pakke__knap">
-            <a class="knap" href="/#kontakt">Bliv ringet op</a>
+            <a class="knap knap--tom" href="/#kontakt">Kom i gang</a>
           </div>
         </div>
       </div>
@@ -370,19 +373,18 @@ a{color:inherit}
             <span class="pakke__tal">1.895 kr.</span>
             <span class="pakke__enhed">pr. måned</span>
           </div>
-          <p class="pakke__plus">+ 1.295 kr. pr. bruger derudover</p>
-          <p class="pakke__opstart">2.495 kr. i oprettelse, én gang. Det er dit
-            nummer, der sættes op.</p>
+          <p class="pakke__opstart">2.495 kr. i oprettelse, én gang.</p>
+          <p class="pakke__alt">Alt i Enkelt-pakken, plus:</p>
           <ul>
-            <li><b>Telefonien med:</b> opkald bliver til sager af sig selv</li>
-            <li><b>Så mange tilbud du vil.</b> Ingen optælling, ingen stykpris</li>
-            <li>Alt i Enkelt</li>
-            <li>Kunden siger ja med ét klik, og du ser hvornår</li>
+            <li>Telefonien med: opkald bliver til tilbud af sig selv</li>
+            <li>Du beholder dit nummer</li>
+            <li>Ubegrænset antal tilbud</li>
             <li>Påmindelse om autorisationskrævende arbejde</li>
-            <li>Send en fagopgave til din elektriker eller vvs'er</li>
+            <li>Nye brugere: 1.295 kr. pr. måned</li>
+            <li>Personlig service samme dag</li>
           </ul>
           <div class="pakke__knap">
-            <a class="knap knap--lys" href="/#kontakt">Bliv ringet op</a>
+            <a class="knap knap--lys" href="/#kontakt">Kontakt os</a>
           </div>
         </div>
       </div>
@@ -412,8 +414,8 @@ a{color:inherit}
           tilbuddet skal kun have dit navn på.</p>
       </div>
       <ul>
-        <li><b>Kun dit navn på tilbuddet.</b> TeleMakker står ikke på det</li>
-        <li>Alt i Komplet</li>
+        <li>Kun dit navn på tilbuddet. TeleMakker står ikke på det</li>
+        <li>Alt i Komplet-pakken</li>
         <li>Fælles prisliste for hele firmaet</li>
         <li>Ubegrænset antal ansatte</li>
       </ul>
@@ -421,7 +423,7 @@ a{color:inherit}
         <span class="aftale__tal">Ring til os</span>
         <p class="aftale__plus">Prisen sættes efter, hvor mange I er.</p>
         <p>Vi regner den på én samtale, og du får den skriftligt, før du siger ja.</p>
-        <a class="knap" href="/#kontakt">Få en pris</a>
+        <a class="knap" href="/#kontakt">Kontakt os</a>
       </div>
     </div>
   </div>
