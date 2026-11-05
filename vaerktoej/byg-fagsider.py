@@ -155,6 +155,31 @@ FAGMENU_CSS = """
 @media(max-width:900px){header nav .fagmenu-liste a{display:block}.fagmenu-liste{left:auto;right:-90px;transform:none;width:min(330px,calc(100vw - 32px))}}
 """
 
+MOBILMENU_CSS = """/* Menuknappen. Skjult paa computer, der staar menuen fremme. Paa mobil aabner
+   den samme <nav> som computeren viser. Styres af /mobilmenu.js. */
+.menuknap{display:none;order:9;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:3px;color:#f1ece4;cursor:pointer}
+.logind-mobil{display:none;flex:none;align-items:center;min-height:44px;padding:0 14px;font-size:15px;font-weight:600;text-decoration:none;color:#f1ece4;border:1px solid rgba(255,255,255,.18);border-radius:3px}
+.menuknap:focus-visible{outline:2px solid #e3c99f;outline-offset:2px}
+.menuknap svg{display:block;fill:none;stroke:currentColor;stroke-width:2}
+.menuknap__luk,.menuknap[aria-expanded="true"] .menuknap__aaben{display:none}
+.menuknap[aria-expanded="true"] .menuknap__luk{display:inline}
+@media(max-width:900px){
+  .menuknap{display:flex}
+  .logind-mobil{display:flex;margin-left:auto}
+  header nav a.nav-logind{display:none}
+  header nav{display:none}
+  header.menu-aaben nav{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:4px 24px 18px;background:var(--antracit);border-bottom:1px solid rgba(255,255,255,.12);max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow-y:auto}
+  header.menu-aaben nav>a:not(.knap){padding:13px 0;font-size:17px;color:#f1ece4;border-top:1px solid rgba(255,255,255,.12)}
+  header.menu-aaben nav>a:not(.knap):first-child{border-top:0}
+  header.menu-aaben nav a.knap{margin-top:14px;padding:13px 18px;text-align:center}
+}
+@media(max-width:900px){
+  section[id]{scroll-margin-top:70px}
+  .fagmenu summary{padding:13px 0;font-size:17px;color:#f1ece4}
+  .fagmenu-liste{position:static;width:auto;max-height:none;margin:0 0 14px;box-shadow:none;transform:none}
+}
+"""
+
 FAGMENU_JS = """<script>
 /* Fag-menuen lukker, naar man klikker ved siden af eller trykker Esc. */
 (function(){var m=document.querySelector('.fagmenu');if(!m)return;
@@ -205,8 +230,8 @@ header .baand{{display:flex;justify-content:space-between;align-items:center;hei
 header nav{{display:flex;gap:24px;align-items:center}}
 header nav a{{text-decoration:none;font-size:15.5px;color:rgba(255,255,255,.85)}}
 header nav a.knap{{color:var(--blaek);padding:10px 18px}}
-@media(max-width:900px){{header nav>a:not(.knap){{display:none}}}}
 {fagmenu_css}
+{mobilmenu_css}
 .hero{{background:var(--antracit) center/cover no-repeat;background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-1200.webp);padding:clamp(56px,9vw,120px) 0 clamp(56px,8vw,100px)}}
 @media(min-width:801px){{.hero{{background-image:linear-gradient(to bottom,rgba(27,30,33,0) calc(100% - 120px),#1b1e21 100%),url(/billeder/foto-rundsav-2400.webp)}}}}
 .hero .emne{{display:block;color:var(--birk);font-size:clamp(17px,1.6vw,21px);font-weight:700;margin-bottom:12px;letter-spacing:-.01em}}
@@ -277,16 +302,21 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
 <header>
   <div class="baand">
     <a class="logo" href="/">Tele<b>Makker</b></a>
-    <nav>
+    <a class="logind-mobil" href="https://app.telemakker.dk">Log ind</a>
+    <button class="menuknap" type="button" aria-label="Åbn menu" aria-expanded="false" aria-controls="hovedmenu">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="menuknap__aaben" d="M3 6h18M3 12h18M3 18h18"/><path class="menuknap__luk" d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <nav id="hovedmenu">
       {fagmenu}
       <a href="#saadan">Sådan virker det</a>
       <a href="/priser/">Priser</a>
       <a href="#spoergsmaal">Spørgsmål</a>
-      <a href="https://app.telemakker.dk">Log ind</a>
+      <a class="nav-logind" href="https://app.telemakker.dk">Log ind</a>
       <a href="/#kontakt" class="knap lys">Bliv ringet op</a>
     </nav>
   </div>
 </header>
+<script src="/mobilmenu.js" defer></script>
 
 <main id="indhold">
 
@@ -386,6 +416,11 @@ footer .fod-adresse{{display:block;border-top:1px solid rgba(255,255,255,.1);mar
       <a href="tel:+4560464520">60 46 45 20</a>
       <a href="mailto:kontakt@telemakker.dk">kontakt@telemakker.dk</a>
       <a href="https://app.telemakker.dk">Log ind</a>
+    </div>
+    <div class="fod-gruppe">
+      <b>Følg os</b>
+      <a href="https://www.facebook.com/people/TeleMakker/61595907249174/" rel="noopener" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/telemakker/" rel="noopener" target="_blank">Instagram</a>
     </div>
   </div>
   <div class="baand fod-adresse">TeleMakker ApS &middot; CVR 46720253 &middot; Platanvej 5, 1. 67., 1810 Frederiksberg C</div>
@@ -523,7 +558,7 @@ def byg_side(f):
             f"ligger klar med dine egne priser, når du lægger på. Du retter og sender.")
     s = SIDE.format(flertal=e(f["flertal"]), ental=e(f["ental"]), url=url, beskrivelse=e(besk),
                     sit=e(f["sit"]), kender="\n".join(f"      <li>{e(k)}</li>" for k in f["kender"]), eksempel=eksempel(f), opkald=opkald,
-                    fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, fagmenu_js=FAGMENU_JS,
+                    fagmenu=fagmenu(f["slug"]), fagmenu_css=FAGMENU_CSS, mobilmenu_css=MOBILMENU_CSS, fagmenu_js=FAGMENU_JS,
                     beregner=beregner(f, BEREGNER[0]), andre_fag=andre_fag(f), beregner_css=BEREGNER[2], beregner_js=BEREGNER[1])
     mappe = ROD / f"tilbudsstyring-til-{f['slug']}"
     mappe.mkdir(exist_ok=True)

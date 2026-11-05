@@ -51,9 +51,26 @@ a{color:inherit}
 .top nav a:hover,.top nav a[aria-current]{color:var(--lys)}
 .top__log{background:var(--birk);color:var(--antracit-moerk);text-decoration:none;
   font-weight:700;padding:11px 20px;border-radius:3px;white-space:nowrap}
+/* Menuknappen. Skjult paa computer, der staar menuen fremme. Paa mobil aabner
+   den samme <nav> som computeren viser. Styres af /mobilmenu.js. */
+.menuknap{display:none;order:9;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:0;background:var(--antracit-lys);border:1px solid var(--streg-moerk);border-radius:3px;color:#f1ece4;cursor:pointer}
+.menuknap:focus-visible{outline:2px solid #e3c99f;outline-offset:2px}
+.menuknap svg{display:block;fill:none;stroke:currentColor;stroke-width:2}
+.menuknap__luk,.menuknap[aria-expanded="true"] .menuknap__aaben{display:none}
+.menuknap[aria-expanded="true"] .menuknap__luk{display:inline}
 @media(max-width:900px){
   .top nav{display:none}
   .top__ind{gap:14px}
+  .top__log{margin-left:auto}
+  .menuknap{display:flex}
+  .top.menu-aaben nav{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;margin:0;padding:4px 24px 10px;background:var(--antracit);border-bottom:1px solid var(--streg-moerk);max-height:calc(100vh - 60px);max-height:calc(100dvh - 60px);overflow-y:auto}
+  .top.menu-aaben nav a{padding:13px 0;font-size:17px;color:var(--lys)}
+  .top.menu-aaben nav a+a{border-top:1px solid var(--streg-moerk)}
+  .top.menu-aaben nav a[aria-current]{color:var(--birk)}
+}
+@media(max-width:350px){
+  .top__ind{gap:10px}
+  .top__log{padding:11px 12px}
 }
 
 /* ---------- Overskriften ---------- */
@@ -273,7 +290,10 @@ a{color:inherit}
 <header class="top">
   <div class="ramme top__ind">
     <a class="logo" href="/">Tele<span>Makker</span></a>
-    <nav>
+    <button class="menuknap" type="button" aria-label="Åbn menu" aria-expanded="false" aria-controls="hovedmenu">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="menuknap__aaben" d="M3 6h18M3 12h18M3 18h18"/><path class="menuknap__luk" d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <nav id="hovedmenu">
       <a href="/#igang">Sådan virker det</a>
       <a href="/#regn">Hvad sparer du</a>
       <a href="/#faar">Det får du</a>
@@ -285,6 +305,7 @@ a{color:inherit}
     <a class="top__log" href="https://app.telemakker.dk">Log ind</a>
   </div>
 </header>
+<script src="/mobilmenu.js" defer></script>
 
 <section class="hoved">
   <div class="ramme">

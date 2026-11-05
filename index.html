@@ -101,6 +101,13 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 .top__tlf small{display:block;font-size:11px;color:var(--birk);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
 .top__log{font-size:15px;font-weight:600;text-decoration:none;padding:9px 16px;border:1px solid var(--streg-moerk);border-radius:2px;flex:none}
 .top__log:hover{background:var(--antracit-lys)}
+/* Menuknappen. Skjult paa computer, der staar menuen fremme. Paa mobil aabner
+   den samme <nav> som computeren viser. Styres af /mobilmenu.js. */
+.menuknap{display:none;order:9;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:0;background:var(--antracit-lys);border:1px solid var(--streg-moerk);border-radius:3px;color:#f1ece4;cursor:pointer}
+.menuknap:focus-visible{outline:2px solid #e3c99f;outline-offset:2px}
+.menuknap svg{display:block;fill:none;stroke:currentColor;stroke-width:2}
+.menuknap__luk,.menuknap[aria-expanded="true"] .menuknap__aaben{display:none}
+.menuknap[aria-expanded="true"] .menuknap__luk{display:inline}
 
 /* ====== HELTEN ======
    FLADT VAR PROBLEMET. Foerste udgave havde et lille foto og ellers tekst
@@ -301,6 +308,12 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 
 @media(max-width:1000px){
   .top nav{display:none}
+  body{overflow-x:clip} /* ellers klaeber topbjaelken ikke, og knappen forsvinder, naar man ruller */
+  .top__tlf{margin-left:auto}
+  .menuknap{display:flex}
+  .top.menu-aaben nav{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;margin:0;padding:4px 20px 10px;background:var(--antracit);border-bottom:1px solid var(--streg-moerk);max-height:calc(100vh - 60px);max-height:calc(100dvh - 60px);overflow-y:auto}
+  .top.menu-aaben nav a{padding:13px 0;font-size:17px;color:var(--lys)}
+  .top.menu-aaben nav a+a{border-top:1px solid var(--streg-moerk)}
   .helt{min-height:0;padding:54px 0 70px}
   .helt__gitter,.regn,.zig,.slut,.aerlig{grid-template-columns:minmax(0,1fr);gap:38px}
   .zig--vendt .zig__tekst{order:0}
@@ -317,6 +330,8 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 @media(max-width:620px){
   body{font-size:16px}
   .top__ind{height:60px;gap:12px}
+  .top__tlf{display:none}
+  .top__log{margin-left:auto}
   .top__tlf small{display:none}
   .top__tlf b{font-size:16px}
   .top__tlf b i,.top__tlf b a:last-child{display:none}
@@ -634,7 +649,10 @@ h2{font-size:clamp(32px,5.2vw,58px)}
 <header class="top">
   <div class="ramme top__ind">
     <a class="logo" href="/">Tele<span>Makker</span></a>
-    <nav>
+    <button class="menuknap" type="button" aria-label="Åbn menu" aria-expanded="false" aria-controls="hovedmenu">
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="menuknap__aaben" d="M3 6h18M3 12h18M3 18h18"/><path class="menuknap__luk" d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <nav id="hovedmenu">
       <a href="#igang">Sådan virker det</a>
       <a href="#regn">Hvad sparer du</a>
       <a href="#faar">Det får du</a>
@@ -650,6 +668,7 @@ h2{font-size:clamp(32px,5.2vw,58px)}
     <a class="top__log" href="https://app.telemakker.dk">Log ind</a>
   </div>
 </header>
+<script src="/mobilmenu.js" defer></script>
 
 <!-- ============ HELTEN ============ -->
 <section class="helt hero">

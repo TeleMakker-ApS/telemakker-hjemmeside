@@ -50,7 +50,24 @@ header .baand{display:flex;justify-content:space-between;align-items:center;heig
 header nav{display:flex;gap:24px;align-items:center}
 header nav a{text-decoration:none;font-size:15.5px;color:rgba(255,255,255,.85)}
 header nav a.knap{color:var(--blaek);padding:10px 18px}
-@media(max-width:900px){header nav>a:not(.knap){display:none}}
+/* Menuknappen. Skjult paa computer, der staar menuen fremme. Paa mobil aabner
+   den samme <nav> som computeren viser. Styres af /mobilmenu.js. */
+.menuknap{display:none;order:9;flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:3px;color:#f1ece4;cursor:pointer}
+.logind-mobil{display:none;flex:none;align-items:center;min-height:44px;padding:0 14px;font-size:15px;font-weight:600;text-decoration:none;color:#f1ece4;border:1px solid rgba(255,255,255,.18);border-radius:3px}
+.menuknap:focus-visible{outline:2px solid #e3c99f;outline-offset:2px}
+.menuknap svg{display:block;fill:none;stroke:currentColor;stroke-width:2}
+.menuknap__luk,.menuknap[aria-expanded="true"] .menuknap__aaben{display:none}
+.menuknap[aria-expanded="true"] .menuknap__luk{display:inline}
+@media(max-width:900px){
+  .menuknap{display:flex}
+  .logind-mobil{display:flex;margin-left:auto}
+  header nav a.nav-logind{display:none}
+  header nav{display:none}
+  header.menu-aaben nav{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:4px 24px 18px;background:var(--antracit);border-bottom:1px solid rgba(255,255,255,.12);max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow-y:auto}
+  header.menu-aaben nav>a:not(.knap){padding:13px 0;font-size:17px;color:#f1ece4;border-top:1px solid rgba(255,255,255,.12)}
+  header.menu-aaben nav>a:not(.knap):first-child{border-top:0}
+  header.menu-aaben nav a.knap{margin-top:14px;padding:13px 18px;text-align:center}
+}
 .hero{padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,86px);border-bottom:1px solid var(--kant)}
 .hero .emne{display:block;color:var(--birk);font-size:clamp(17px,1.6vw,21px);font-weight:700;margin-bottom:12px}
 .hero h1{font-size:clamp(32px,4.4vw,54px);max-width:21ch;margin-bottom:22px;color:#fff}
@@ -101,12 +118,17 @@ footer .fod-adresse{display:block;border-top:1px solid rgba(255,255,255,.1);marg
 
 <header><div class="baand">
   <a class="logo" href="/">Tele<b>Makker</b></a>
-  <nav>
+  <a class="logind-mobil" href="https://app.telemakker.dk">Log ind</a>
+  <button class="menuknap" type="button" aria-label="Åbn menu" aria-expanded="false" aria-controls="hovedmenu">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path class="menuknap__aaben" d="M3 6h18M3 12h18M3 18h18"/><path class="menuknap__luk" d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <nav id="hovedmenu">
     <a href="/juridisk/">Juridisk</a>
     <a href="https://www.e-conomic.dk/" rel="noopener">e-conomic</a>
-    <a class="knap lys" href="https://app.telemakker.dk/">Log ind</a>
+    <a class="knap lys nav-logind" href="https://app.telemakker.dk/">Log ind</a>
   </nav>
 </div></header>
+<script src="/mobilmenu.js" defer></script>
 
 <div class="hero"><div class="baand">
   <span class="emne">TeleMakker og e-conomic</span>
