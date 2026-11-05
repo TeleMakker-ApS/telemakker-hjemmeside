@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prøv TeleMakker gratis | 10 tilbud til håndværkere</title>
+<meta name="description" content="Tal opgaven ind, eller sæt din tekst ind. Du får et færdigt tilbud. Prøv det gratis med 10 tilbud. Intet kort, ingen frist.">
+<link rel="icon" href="/favicon.svg">
+<meta name="theme-color" content="#1b1e21">
+<meta property="og:title" content="Prøv TeleMakker gratis">
+<meta property="og:description" content="Sig, hvad der skal laves. Så er tilbuddet skrevet. 10 tilbud, intet kort, ingen frist.">
+<meta property="og:locale" content="da_DK">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.telemakker.dk/proev/">
+<meta property="og:image" content="https://www.telemakker.dk/billeder/deling.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.telemakker.dk/proev/">
+<!--
+  FORLOEBET FRA INSTAGRAM TIL PROEVE.
+  Kasper 5. november 2026. Siden er skrevet i haanden og kalder
+  POST /api/proeve paa platformen, se lib/tilmelding.js. Den er tegnet til
+  en telefon foerst: ét spoergsmaal ad gangen, og knappen under tommelfingeren.
+  Siden maa kun love det, en Proeve-konto faktisk kan. Proeve er uden
+  telefoni, saa der staar ikke "Du taler med kunden" her.
+-->
+<style>
+@font-face{font-family:Archivo;src:url(/skrift/archivo.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+:root{
+  --antracit:#1b1e21;--antracit-lys:#24282c;--antracit-moerk:#141618;
+  --birk:#e3c99f;--lys:#f1ece4;--papir:#fffdf9;--sand:#f2eee7;
+  --daempet:#a8a297;--streg:#3a3f44;--fejl:#f0b4a6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--antracit);color:var(--lys);font-family:Archivo,Arial,sans-serif;
+  font-size:17px;line-height:1.5;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+a{color:var(--birk)}
+button,input{font:inherit}
+.top{position:sticky;top:0;z-index:2;background:var(--antracit);border-bottom:1px solid var(--streg)}
+.top__ind{max-width:560px;margin:0 auto;padding:13px 16px 11px;display:flex;align-items:center;gap:14px}
+.logo{font-weight:700;font-size:20px;color:var(--lys);text-decoration:none;letter-spacing:-.01em}
+.logo span{color:var(--birk)}
+.bjaelke{flex:1;height:4px;background:var(--streg);border-radius:2px;overflow:hidden}
+.bjaelke i{display:block;height:100%;width:0;background:var(--birk);transition:width .25s ease}
+main{flex:1;width:100%;max-width:560px;margin:0 auto;padding:26px 16px 30px;display:flex;flex-direction:column}
+.trin{display:none;flex:1;flex-direction:column}
+.trin.aktiv{display:flex}
+.mini{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--birk);margin:0 0 10px}
+h1{font-size:34px;line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;font-weight:700}
+h2{font-size:29px;line-height:1.12;letter-spacing:-.02em;margin:0 0 12px;font-weight:700}
+.lead{color:var(--lys);margin:0 0 22px}
+.daempet{color:var(--daempet);font-size:15.5px}
+.punkter{list-style:none;margin:0 0 22px;padding:0;border-top:1px solid var(--streg);counter-reset:p}
+.punkter li{counter-increment:p;padding:14px 0 14px 34px;border-bottom:1px solid var(--streg);position:relative}
+.punkter li::before{content:counter(p);position:absolute;left:0;top:13px;color:var(--birk);font-weight:700;font-size:19px}
+.punkter b{display:block;font-weight:700}
+.punkter span{color:var(--daempet);font-size:15.5px}
+.lofter{background:var(--antracit-lys);border-left:3px solid var(--birk);border-radius:3px;padding:12px 14px;font-weight:600;margin:0 0 22px}
+.papir{display:block;width:100%;height:auto;border-radius:3px;background:var(--papir);margin:0 0 12px}
+.gitter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 18px}
+.valg{min-height:52px;background:var(--antracit-lys);color:var(--lys);border:1px solid var(--streg);border-radius:3px;
+  padding:9px 12px;text-align:left;cursor:pointer;font-weight:600;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.valg:hover:not(:disabled){border-color:var(--birk)}
+.valg[aria-pressed=true]{border-color:var(--birk);background:var(--birk);color:var(--antracit-moerk)}
+.valg:disabled{color:var(--daempet);cursor:not-allowed;opacity:.75}
+.valg small{font-weight:400;font-size:12.5px}
+.valg--bred{grid-column:1/-1}
+label{display:block;font-weight:600;margin:0 0 6px}
+.felt{margin:0 0 15px}
+input[type=text],input[type=email],input[inputmode]{width:100%;min-height:50px;background:var(--papir);color:#1b1e21;
+  border:1px solid var(--streg);border-radius:3px;padding:11px 13px;font-size:17px}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--birk);outline-offset:2px}
+.med-enhed{display:flex;align-items:center;gap:10px}
+.med-enhed input{flex:1;font-size:22px;font-weight:700}
+.med-enhed span{color:var(--daempet);white-space:nowrap}
+.flueben{display:flex;gap:11px;align-items:flex-start;font-weight:400;font-size:15.5px;margin:4px 0 16px;cursor:pointer}
+.flueben input{flex:none;width:24px;height:24px;margin:0;accent-color:var(--birk)}
+.lokkefelt{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fejl{background:#3a2522;color:var(--fejl);border-radius:3px;padding:11px 13px;margin:0 0 14px;font-size:15.5px}
+.bund{margin-top:auto;padding-top:14px;display:flex;flex-direction:column;gap:9px}
+.knap{display:block;width:100%;min-height:54px;background:var(--birk);color:var(--antracit-moerk);border:0;border-radius:3px;
+  font-weight:700;font-size:18px;padding:13px 16px;cursor:pointer;text-align:center;text-decoration:none}
+.knap:disabled{opacity:.6;cursor:wait}
+.tilbage{align-self:flex-start;background:none;border:0;color:var(--daempet);padding:10px 2px;cursor:pointer;font-size:15.5px;text-decoration:underline}
+.raekke{display:flex;justify-content:space-between;align-items:center}
+.lille{font-size:15px;color:var(--daempet);text-align:center;margin:4px 0 0}
+.lille a{color:var(--lys)}
+.tlf{display:block;font-weight:700;font-size:21px;color:var(--birk);text-decoration:none;margin:2px 0}
+@media(min-width:700px){main{padding-top:44px}h1{font-size:44px}h2{font-size:34px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top__ind">
+    <a class="logo" href="/">Tele<span>Makker</span></a>
+    <div class="bjaelke" role="progressbar" aria-label="Hvor langt du er" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1"><i id="bjaelke"></i></div>
+  </div>
+</header>
+
+<main>
+
+  <section class="trin" data-trin="1">
+    <p class="mini">Prøve · 0 kr.</p>
+    <h1>Sig, hvad der skal laves. Så er tilbuddet skrevet.</h1>
+    <p class="lead">Tal opgaven ind, eller sæt din tekst ind. Du får et færdigt tilbud med timer, materialer og priser.</p>
+    <ol class="punkter">
+      <li><b>Fortæl, hvad der skal laves</b><span>Tal det ind, skriv det, eller sæt en tekst ind, du allerede har.</span></li>
+      <li><b>Tilbuddet bliver skrevet</b><span>Med beskrivelse, timer, materialer og priser.</span></li>
+      <li><b>Du retter og sender</b><span>Det går ikke til kunden, før du selv trykker send.</span></li>
+    </ol>
+    <p class="lofter">10 tilbud i alt. Intet kort. Ingen frist.</p>
+    <div class="bund">
+      <button class="knap" type="button" data-videre>Kom i gang</button>
+      <p class="lille">Har du allerede en konto? <a href="https://app.telemakker.dk">Log ind</a></p>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="2">
+    <p class="mini">Eksempel</p>
+    <h2>Et færdigt tilbud på en ny terrasse.</h2>
+    <img class="papir" id="eksempel" src="/billeder/tilbud-1.png" width="1190" height="1684"
+         alt="Tilbud på et nyt terrassedæk, med beskrivelse, arbejde og materialer linje for linje.">
+    <p class="daempet">Navne er eksempler. Dine materialer regnes af eksempelpriser, til du har lagt dine egne ind.</p>
+    <div class="bund">
+      <button class="knap" type="button" data-videre>Videre</button>
+      <button class="tilbage" type="button" data-tilbage>Tilbage</button>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="3">
+    <p class="mini">Dit fag</p>
+    <h2>Hvad er dit fag?</h2>
+    <p class="lead">Så får du en opgave fra dit eget fag at prøve med.</p>
+    <div class="gitter" id="fag"></div>
+    <div class="bund">
+      <button class="tilbage" type="button" data-tilbage>Tilbage</button>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="4">
+    <p class="mini">Din timepris</p>
+    <h2>Hvad er din timepris?</h2>
+    <p class="lead">Den bruges på arbejdet i dine tilbud. Du kan altid rette den.</p>
+    <div class="felt">
+      <label for="timepris">Timepris uden moms</label>
+      <div class="med-enhed">
+        <input type="text" id="timepris" inputmode="decimal" autocomplete="off" maxlength="9">
+        <span>kr. i timen</span>
+      </div>
+    </div>
+    <p class="fejl" id="timepris-fejl" hidden></p>
+    <div class="bund">
+      <button class="knap" type="button" id="timepris-videre">Videre</button>
+      <div class="raekke">
+        <button class="tilbage" type="button" data-tilbage>Tilbage</button>
+        <button class="tilbage" type="button" id="timepris-over">Spring over</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="5">
+    <p class="mini">Dit program</p>
+    <h2>Hvor skal tilbuddet hen bagefter?</h2>
+    <p class="lead">Vælg det, du bruger. Inde i din konto får du en kort guide til at koble det på, så du kan prøve hele vejen.</p>
+    <div class="gitter" id="program"></div>
+    <div class="bund">
+      <button class="tilbage" type="button" data-tilbage>Tilbage</button>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="6">
+    <p class="mini">Din konto</p>
+    <h2>Så mangler vi kun dit firma.</h2>
+    <form id="form" novalidate>
+      <div class="felt"><label for="firma">Firmanavn</label>
+        <input type="text" id="firma" name="firma" autocomplete="organization" maxlength="160" required></div>
+      <div class="felt"><label for="navn">Dit navn</label>
+        <input type="text" id="navn" name="navn" autocomplete="name" maxlength="120" required></div>
+      <div class="felt"><label for="email">Din mail</label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email" maxlength="200" required></div>
+      <div class="lokkefelt" aria-hidden="true"><label for="hjemmeside">Lad dette felt stå tomt</label>
+        <input type="text" id="hjemmeside" name="hjemmeside" tabindex="-1" autocomplete="off"></div>
+      <label class="flueben">
+        <input type="checkbox" id="accept">
+        <span>Jeg opretter kontoen for min virksomhed og accepterer
+          <a href="/juridisk/handelsbetingelser/" target="_blank" rel="noopener">handelsbetingelserne</a> og
+          <a href="/juridisk/databehandleraftale/" target="_blank" rel="noopener">databehandleraftalen</a>.</span>
+      </label>
+      <p class="fejl" id="form-fejl" hidden></p>
+      <button class="knap" type="submit" id="opret">Opret min konto</button>
+      <p class="lille">Intet kort. Det koster ikke noget.
+        Se, <a href="/juridisk/privatlivspolitik/" target="_blank" rel="noopener">hvad vi gør med dine oplysninger</a>.</p>
+    </form>
+    <div class="bund">
+      <button class="tilbage" type="button" data-tilbage>Tilbage</button>
+    </div>
+  </section>
+
+  <section class="trin" data-trin="7">
+    <p class="mini">Sidste skridt</p>
+    <h2>Tjek din mail.</h2>
+    <p class="lead">Tryk på linket, vi har sendt til <b id="sendt-til"></b>. Vælg en kode, så er du i gang med dit første tilbud.</p>
+    <p class="daempet">Linket virker i 24 timer. Ingen mail? Kig i uønsket post, eller ring:</p>
+    <a class="tlf" href="tel:+4520110302">20 11 03 02</a>
+    <a class="tlf" href="tel:+4560464520">60 46 45 20</a>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  // Platformen ligger paa en anden adresse. Adressen staar her og kommer
+  // aldrig fra sidens link, saa ingen kan sende formularen et andet sted hen.
+  var API = location.hostname === "localhost" ? "http://localhost:3196" : "https://app.telemakker.dk";
+  var SIDSTE = 7;
+
+  // Samme liste og noegler som lib/fag.js paa platformen.
+  var FAG = [["toemrer","Tømrer"],["snedker","Snedker"],["murer","Murer"],["maler","Maler"],
+    ["elektriker","Elektriker"],["vvs","VVS"],["kloakmester","Kloakmester"],["tagdaekker","Tagdækker"],
+    ["gulvlaegger","Gulvlægger"],["glarmester","Glarmester"],["smed","Smed"],["anlaegsgartner","Anlægsgartner"],
+    ["brolaegger","Brolægger"],["koeletekniker","Køletekniker"],["ventilation","Ventilation"],
+    ["isolering","Isolering"],["facaderens","Facaderens"],["entreprenoer","Entreprenør"],["andet","Andet fag"]];
+
+  // Hvad der kan kobles paa, spoerges platformen om, saa siden aldrig lover
+  // en forbindelse, der ikke er aaben. Svarer den ikke, gaelder det her.
+  var PROGRAM = [["economic","e-conomic",true],["dinero","Dinero",true],["eregnskab","e-Regnskab",true],
+    ["apacta","Apacta",true],["minuba","Minuba",false],["ordrestyring","Ordrestyring.dk",false]];
+
+  var svar = {};
+  try { svar = JSON.parse(sessionStorage.getItem("tm-proev") || "{}"); } catch (e) {}
+  function gem() { try { sessionStorage.setItem("tm-proev", JSON.stringify(svar)); } catch (e) {} }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var aktiv = 1;
+
+  function vis(n, push) {
+    n = Math.min(SIDSTE, Math.max(1, n));
+    aktiv = n;
+    document.querySelectorAll(".trin").forEach(function (s) {
+      s.classList.toggle("aktiv", Number(s.dataset.trin) === n);
+    });
+    $("bjaelke").style.width = (n / SIDSTE * 100) + "%";
+    document.querySelector(".bjaelke").setAttribute("aria-valuenow", n);
+    if (push) history.pushState({ trin: n }, "", "#" + n);
+    window.scrollTo(0, 0);
+  }
+
+  function videre() { vis(aktiv + 1, true); }
+
+  document.querySelectorAll("[data-videre]").forEach(function (k) { k.onclick = videre; });
+  document.querySelectorAll("[data-tilbage]").forEach(function (k) { k.onclick = function () { history.back(); }; });
+
+  window.addEventListener("popstate", function () {
+    var n = Number((location.hash || "#1").slice(1)) || 1;
+    // Kontoen er oprettet: tilbage-knappen maa ikke aabne formularen igen.
+    if (svar.sendt) n = SIDSTE;
+    vis(n, false);
+  });
+
+  function tegnValg(vaert, liste, felt, ved) {
+    vaert.innerHTML = "";
+    liste.forEach(function (v) {
+      var k = document.createElement("button");
+      k.type = "button";
+      k.className = "valg" + (v[3] ? " valg--bred" : "");
+      var b = document.createElement("span");
+      b.textContent = v[1];
+      k.appendChild(b);
+      if (v[2] === false) {
+        k.disabled = true;
+        var s = document.createElement("small");
+        s.textContent = "ikke klar endnu";
+        k.appendChild(s);
+      }
+      k.setAttribute("aria-pressed", svar[felt] === v[0] ? "true" : "false");
+      k.onclick = function () {
+        svar[felt] = v[0];
+        gem();
+        vaert.querySelectorAll(".valg").forEach(function (a) { a.setAttribute("aria-pressed", a === k ? "true" : "false"); });
+        ved();
+      };
+      vaert.appendChild(k);
+    });
+  }
+
+  tegnValg($("fag"), FAG, "fag", videre);
+
+  function tegnProgram() {
+    tegnValg($("program"), PROGRAM.concat([["grossist","Min grossist",true],["ingen","Ikke noget endnu",true,true]]), "program", videre);
+  }
+  tegnProgram();
+  fetch(API + "/api/proeve").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d || !d.programmer) return;
+    PROGRAM = PROGRAM.map(function (p) { return [p[0], p[1], Boolean(d.programmer[p[0]])]; });
+    tegnProgram();
+  }).catch(function () {});
+
+  // Timeprisen er hans egen. Tom er et svar: siden spoerger igen paa tilbuddet.
+  $("timepris").value = svar.timepris || "";
+  $("timepris-videre").onclick = function () {
+    var t = $("timepris").value.trim();
+    var tal = Number(t.replace(/\s/g, "").replace(",", "."));
+    if (t && (!isFinite(tal) || tal <= 0 || tal > 10000)) {
+      $("timepris-fejl").textContent = "Skriv timeprisen som et beløb i kroner, fx 550.";
+      $("timepris-fejl").hidden = false;
+      return;
+    }
+    $("timepris-fejl").hidden = true;
+    svar.timepris = t;
+    gem();
+    videre();
+  };
+  $("timepris-over").onclick = function () { svar.timepris = ""; gem(); $("timepris").value = ""; videre(); };
+
+  ["firma", "navn", "email"].forEach(function (id) {
+    $(id).value = svar[id] || "";
+    $(id).addEventListener("input", function () { svar[id] = $(id).value; gem(); $("form-fejl").hidden = true; });
+  });
+  $("accept").addEventListener("change", function () { $("form-fejl").hidden = true; });
+
+  function fejl(t) { $("form-fejl").textContent = t; $("form-fejl").hidden = false; }
+
+  $("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("form-fejl").hidden = true;
+    var firma = $("firma").value.trim(), navn = $("navn").value.trim(), email = $("email").value.trim();
+    if (!firma) return fejl("Skriv navnet på dit firma.");
+    if (!navn) return fejl("Skriv dit navn.");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fejl("Skriv en rigtig mailadresse.");
+    if (!$("accept").checked) return fejl("Du skal sætte flueben, før vi kan oprette kontoen.");
+
+    var knap = $("opret");
+    knap.disabled = true;
+    knap.textContent = "Opretter …";
+    fetch(API + "/api/proeve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firma: firma, navn: navn, email: email, fag: svar.fag || "",
+        timepris: svar.timepris || "", program: svar.program || "",
+        accept: true, hjemmeside: $("hjemmeside").value,
+      }),
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok) throw new Error(d.fejl || "");
+        svar.sendt = email;
+        gem();
+        $("sendt-til").textContent = email;
+        // Kun i den lokale proeve, hvor der ikke sendes rigtig mail.
+        if (d.udviklingsLink) window.__link = d.udviklingsLink;
+        history.replaceState({ trin: SIDSTE }, "", "#" + SIDSTE);
+        vis(SIDSTE, false);
+      });
+    }).catch(function (f) {
+      fejl(f.message || "Det gik ikke igennem. Tjek din forbindelse og prøv igen, eller ring til os på 20 11 03 02.");
+    }).finally(function () {
+      knap.disabled = false;
+      knap.textContent = "Opret min konto";
+    });
+  });
+
+  // Start. Et genindlaest trin bevares, men ingen kan hoppe forbi formularen
+  // og faa at vide, at der er sendt en mail, som aldrig blev sendt.
+  var start = Number((location.hash || "#1").slice(1)) || 1;
+  if (svar.sendt) { $("sendt-til").textContent = svar.sendt; start = SIDSTE; }
+  else if (start >= SIDSTE) start = 1;
+  history.replaceState({ trin: start }, "", start > 1 ? "#" + start : location.pathname);
+  vis(start, false);
+})();
+</script>
+</body>
+</html>
