@@ -95,7 +95,7 @@ PRIVATLIV = u"""<h2>10. Tilslutning af din egen postkasse</h2>
 # Vaernet i byg-juridisk.py fangede det 14. oktober: en koersel ville
 # have fjernet dem. Nu staar de her og laegges ind efter advokatens 8.3.
 PRIV_EFTER_PUNKT = "8.3"
-PRIV_TILFOEJ_8 = u"""<div class="punkt"><div class="nr">8.4</div><div><p>Platformen og dens data ligger på vores egen server i Tyskland, inden for EU. Al trafik mellem din browser og platformen er krypteret med HTTPS (TLS). En brandmur lukker for alt andet end HTTPS og administrationsadgangen, og serveren kan kun administreres med en nøglefil; login med kodeord er slået fra. Databasen kan kun læses af platformen selv, og sikkerhedskopierne krypteres, før de forlader serveren. Hver håndværkers data er adskilt fra de andres, så én virksomhed ikke kan se eller bruge en andens.</p></div></div>
+PRIV_TILFOEJ_8 = u"""<div class="punkt"><div class="nr">8.4</div><div><p>Platformen og dens data ligger på vores egen server i Tyskland, inden for EU. Al trafik mellem din browser og platformen er krypteret med HTTPS (TLS). En brandmur lukker for alt andet end HTTPS og administrationsadgangen, og serveren kan kun administreres med en nøglefil; login med kodeord er slået fra. Databasen kan kun læses af platformen selv. Databasen, lydoptagelser og billeder ligger i et krypteret område på serveren, og nøglen til området gemmes ikke på serverens disk. Sikkerhedskopierne krypteres, før de forlader serveren. Hver håndværkers data er adskilt fra de andres, så én virksomhed ikke kan se eller bruge en andens.</p></div></div>
 <div class="punkt"><div class="nr">8.5</div><div><p>De særlige foranstaltninger for adgangen til din egen postkasse står i afsnit 10.7.</p></div></div>"""
 
 
