@@ -203,14 +203,12 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
   <section class="trin" data-trin="7">
     <p class="mini">Sidste skridt</p>
     <h2>Tjek din mail.</h2>
-    <p class="lead">Tryk på linket, vi har sendt til <b id="sendt-til"></b>. Vælg en kode, så er du i gang med dit første tilbud.</p>
-    <p class="daempet">Linket virker i 24 timer. Ingen mail? Kig i uønsket post, eller ring:</p>
+    <p class="lead">Vi har sendt et link til <b id="sendt-til"></b>. Tryk på det inden for 24 timer, og vælg en kode.</p>
+    <button class="knap" type="button" id="gensend">Gensend link</button>
+    <p class="lille" id="gensend-svar" role="status" hidden></p>
+    <p class="daempet" style="margin:22px 0 6px">Ingen mail? Kig i uønsket post, eller ring:</p>
     <a class="tlf" href="tel:+4520110302">20 11 03 02</a>
     <a class="tlf" href="tel:+4560464520">60 46 45 20</a>
-    <div class="bund">
-      <button class="knap" type="button" id="gensend">Gensend link</button>
-      <p class="lille" id="gensend-svar" role="status" hidden></p>
-    </div>
   </section>
 
 </main>
