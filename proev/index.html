@@ -178,6 +178,8 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
         <input type="text" id="firma" name="firma" autocomplete="organization" maxlength="160" required></div>
       <div class="felt"><label for="navn">Dit navn</label>
         <input type="text" id="navn" name="navn" autocomplete="name" maxlength="120" required></div>
+      <div class="felt"><label for="telefon">Dit telefonnummer</label>
+        <input type="tel" id="telefon" name="telefon" autocomplete="tel" inputmode="tel" maxlength="40" required></div>
       <div class="felt"><label for="email">Din mail</label>
         <input type="email" id="email" name="email" autocomplete="email" inputmode="email" maxlength="200" required></div>
       <div class="lokkefelt" aria-hidden="true"><label for="hjemmeside">Lad dette felt stå tomt</label>
@@ -205,6 +207,10 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
     <p class="daempet">Linket virker i 24 timer. Ingen mail? Kig i uønsket post, eller ring:</p>
     <a class="tlf" href="tel:+4520110302">20 11 03 02</a>
     <a class="tlf" href="tel:+4560464520">60 46 45 20</a>
+    <div class="bund">
+      <button class="knap" type="button" id="gensend">Gensend link</button>
+      <p class="lille" id="gensend-svar" role="status" hidden></p>
+    </div>
   </section>
 
 </main>
@@ -314,7 +320,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
   };
   $("timepris-over").onclick = function () { svar.timepris = ""; gem(); $("timepris").value = ""; videre(); };
 
-  ["firma", "navn", "email"].forEach(function (id) {
+  ["firma", "navn", "telefon", "email"].forEach(function (id) {
     $(id).value = svar[id] || "";
     $(id).addEventListener("input", function () { svar[id] = $(id).value; gem(); $("form-fejl").hidden = true; });
   });
@@ -325,9 +331,10 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
   $("form").addEventListener("submit", function (e) {
     e.preventDefault();
     $("form-fejl").hidden = true;
-    var firma = $("firma").value.trim(), navn = $("navn").value.trim(), email = $("email").value.trim();
+    var firma = $("firma").value.trim(), navn = $("navn").value.trim(), telefon = $("telefon").value.trim(), email = $("email").value.trim();
     if (!firma) return fejl("Skriv navnet på dit firma.");
     if (!navn) return fejl("Skriv dit navn.");
+    if (telefon.replace(/\D/g, "").length < 8) return fejl("Skriv dit telefonnummer, mindst 8 cifre.");
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fejl("Skriv en rigtig mailadresse.");
     if (!$("accept").checked) return fejl("Du skal sætte flueben, før vi kan oprette kontoen.");
 
@@ -338,7 +345,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        firma: firma, navn: navn, email: email, fag: svar.fag || "",
+        firma: firma, navn: navn, telefon: telefon, email: email, fag: svar.fag || "",
         timepris: svar.timepris || "", program: svar.program || "",
         accept: true, hjemmeside: $("hjemmeside").value,
       }),
@@ -360,6 +367,32 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
       knap.textContent = "Opret min konto";
     });
   });
+
+  // Det nye link slaar det gamle ihjel, saa knappen hviler et halvt minut:
+  // ellers trykker han igen, mens mailen er paa vej, og aabner et doedt link.
+  $("gensend").onclick = function () {
+    var knap = $("gensend"), ud = $("gensend-svar");
+    knap.disabled = true;
+    knap.textContent = "Sender …";
+    ud.hidden = true;
+    fetch(API + "/api/proeve/gensend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: svar.sendt }),
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok) throw new Error(d.fejl || "");
+        if (d.udviklingsLink) window.__link = d.udviklingsLink;
+        ud.textContent = "Nyt link er sendt. Brug det nyeste, det gamle virker ikke længere.";
+      });
+    }).catch(function (f) {
+      ud.textContent = f.message || "Det gik ikke igennem. Prøv igen, eller ring til os på 20 11 03 02.";
+    }).finally(function () {
+      ud.hidden = false;
+      knap.textContent = "Gensend link";
+      setTimeout(function () { knap.disabled = false; }, 30000);
+    });
+  };
 
   // Start. Et genindlaest trin bevares, men ingen kan hoppe forbi formularen
   // og faa at vide, at der er sendt en mail, som aldrig blev sendt.
