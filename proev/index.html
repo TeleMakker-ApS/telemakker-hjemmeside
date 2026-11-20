@@ -207,8 +207,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
     <button class="knap" type="button" id="gensend">Gensend link</button>
     <p class="lille" id="gensend-svar" role="status" hidden></p>
     <p class="daempet" style="margin:22px 0 6px">Ingen mail? Kig i uønsket post, eller ring:</p>
-    <a class="tlf" href="tel:+4520110302">20 11 03 02</a>
-    <a class="tlf" href="tel:+4560464520">60 46 45 20</a>
+    <a class="tlf" href="tel:+4570180303">70 18 03 03</a>
   </section>
 
 </main>
@@ -359,7 +358,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
         vis(SIDSTE, false);
       });
     }).catch(function (f) {
-      fejl(f.message || "Det gik ikke igennem. Tjek din forbindelse og prøv igen, eller ring til os på 20 11 03 02.");
+      fejl(f.message || "Det gik ikke igennem. Tjek din forbindelse og prøv igen, eller ring til os på 70 18 03 03.");
     }).finally(function () {
       knap.disabled = false;
       knap.textContent = "Opret min konto";
@@ -384,7 +383,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(-
         ud.textContent = "Nyt link er sendt. Brug det nyeste, det gamle virker ikke længere.";
       });
     }).catch(function (f) {
-      ud.textContent = f.message || "Det gik ikke igennem. Prøv igen, eller ring til os på 20 11 03 02.";
+      ud.textContent = f.message || "Det gik ikke igennem. Prøv igen, eller ring til os på 70 18 03 03.";
     }).finally(function () {
       ud.hidden = false;
       knap.textContent = "Gensend link";
